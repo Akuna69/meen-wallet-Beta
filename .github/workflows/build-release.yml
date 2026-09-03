@@ -19,14 +19,12 @@ jobs:
 
       - name: Dar permisos a gradlew
         run: chmod +x gradlew
-        working-directory: android
 
       - name: Compilar APK Debug
         run: ./gradlew assembleDebug
-        working-directory: android
 
       - name: Subir APK como artefacto
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: android/apolloui/build/outputs/apk/debug/*.apk
+          path: '**/build/outputs/apk/debug/*.apk'
