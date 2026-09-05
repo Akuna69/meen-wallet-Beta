@@ -1,0 +1,26 @@
+name: Descompilar APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  decompile:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Instalar JADX
+        run: |
+          sudo apt update
+          sudo apt install -y jadx
+
+      - name: Descompilar APK
+        run: |
+          jadx -d codigo_descompilado android/apolloui/build/outputs/apk/dogfood/debug/*.apk
+
+      - name: Subir código fuente resultante
+        uses: actions/upload-artifact@v4
+        with:
+          name: codigo-fuente-java
+          path: codigo_descompilado/
