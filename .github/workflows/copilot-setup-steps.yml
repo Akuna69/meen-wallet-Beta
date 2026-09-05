@@ -1,3 +1,26 @@
+name: Build APK
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
     - name: Set up Go
       uses: actions/setup-go@v5
       with:
@@ -8,3 +31,12 @@
         mkdir -p android/apolloui/src/dogfood
         echo "${{ secrets.GOOGLE_SERVICES_JSON }}" | base64 --decode > android/apolloui/src/dogfood/google-services.json
         cp android/apolloui/src/dogfood/google-services.json android/apolloui/google-services.json
+
+    - name: Build with Gradle
+      run: ./gradlew assembleDebug
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: android/apolloui/build/outputs/apk/dogfood/debug/*.apk
