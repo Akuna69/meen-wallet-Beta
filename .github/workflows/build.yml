@@ -1,35 +1,30 @@
-name: Compilar APK
+name: Compilar APK de Meen
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout del código
-        uses: actions/checkout@v4
+    - uses: actions/checkout@v3
 
-      - name: Configurar Java JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
+    - name: Configurar Java JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
 
-      - name: Configurar Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.21'
+    - name: Dar permisos de ejecución a Gradle
+      run: chmod +x gradlew
 
-      - name: Dar permisos a gradlew
-        run: chmod +x gradlew
+    - name: Compilar APK Debug
+      run: ./gradlew assembleDebug
 
-      - name: Compilar APK
-        run: ./gradlew assembleDebug
-
-      - name: Subir APK como artefacto
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug
-          path: android/apolloui/build/outputs/apk/debug/*.apk
+    - name: Subir APK Generado
+      uses: actions/upload-artifact@v3
+      with:
+        name: app-debug
+        path: android/apollo/build/outputs/apk/debug/app-debug.apk
