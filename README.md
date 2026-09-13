@@ -1,5 +1,3 @@
-![muun](https://muun.com/images/github-banner-v2.png)
-
 ## About
 
 This is the source code repository for muun's android wallet. Muun is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
