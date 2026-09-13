@@ -1,39 +1,33 @@
-ext {
-  //Libraries
-  daggerVersion = '2.0'
-  butterKnifeVersion = '7.0.1'
-  recyclerViewVersion = '21.0.3'
-  rxJavaVersion = '1.0.12'
+def ciServer = 'TRAVIS'
+def executingOnCI = "true".equals(System.getenv(ciServer))
 
-  //Testing
-  robolectricVersion = '3.0'
-  jUnitVersion = '4.12'
-  assertJVersion = '1.7.1'
-  mockitoVersion = '1.9.5'
-  dexmakerVersion = '1.0'
-  espressoVersion = '2.0'
-  testingSupportLibVersion = '0.1'
-  
-  ...
-  
-  domainDependencies = [
-      daggerCompiler:     "com.google.dagger:dagger-compiler:${daggerVersion}",
-      dagger:             "com.google.dagger:dagger:${daggerVersion}",
-      javaxAnnotation:    "org.glassfish:javax.annotation:${javaxAnnotationVersion}",
-      rxJava:             "io.reactivex:rxjava:${rxJavaVersion}",
-  ]
-
-  domainTestDependencies = [
-      junit:              "junit:junit:${jUnitVersion}",
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-  ]
-
-  ...
-
-  dataTestDependencies = [
-      junit:              "junit:junit:${jUnitVersion}",
-      assertj:            "org.assertj:assertj-core:${assertJVersion}",
-      mockito:            "org.mockito:mockito-core:${mockitoVersion}",
-      robolectric:        "org.robolectric:robolectric:${robolectricVersion}",
-  ]
+// Since for CI we always do full clean builds, we don't want to pre-dex
+// See http://tools.android.com/tech-docs/new-build-system/tips
+subprojects {
+  project.plugins.whenPluginAdded { plugin ->
+    if ('com.android.build.gradle.AppPlugin'.equals(plugin.class.name) ||
+        'com.android.build.gradle.LibraryPlugin'.equals(plugin.class.name)) {
+      project.android.dexOptions.preDexLibraries = !executingOnCI
+    }
+  }
 }
+
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
+
+buildscript {
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.android.tools.build:gradle:1.2.3'
+    classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4'
+  }
+}
+
+allprojects {
+  ext {
+	...
+  }
+}
+...
