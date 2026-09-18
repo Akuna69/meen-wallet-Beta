@@ -57,3 +57,4 @@ jobs:
         with:
           name: meen-wallet-app-debug
           path: android/apolloui/build/outputs/apk/debug/*.apk
+          
