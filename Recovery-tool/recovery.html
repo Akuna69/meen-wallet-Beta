@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEEN WALLET - Herramienta de Recuperación de Fondos</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #38bdf8;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --success: #4ade80;
+      --error: #f87171;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      padding: 36px 32px;
+      border-radius: 16px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.25);
+    }
+
+    .header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .project-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .project-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .alert-box {
+      background-color: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background-color: var(--bg-color);
+      color: #fff;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    button:active {
+      transform: scale(0.99);
+    }
+
+    #log {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      background-color: var(--bg-color);
+      border: 1px solid #334155;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      display: none;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .log-line {
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .success { color: var(--success); }
+    .error { color: var(--error); }
+    .info { color: var(--accent); }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+
+  <!-- BitcoinJS, BIP39 & Axios CDN -->
+  <script src="https://bundle.run/bitcoinjs-lib@6.1.5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/src/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1 class="project-title">MEEN WALLET</h1>
+    <p class="project-subtitle">Herramienta Oficial de Recuperación de Fondos (2-de-2 Multisig P2WSH)</p>
+  </div>
+
+  <div class="alert-box">
+    🔒 <strong>Seguridad garantizada:</strong> Esta herramienta se ejecuta 100% en tu navegador. Tus llaves privadas nunca son enviadas a ningún servidor ni guardadas externamente.
+  </div>
+
+  <form id="recoveryForm">
+    <div class="form-group">
+      <label for="network">Red de Bitcoin</label>
+      <select id="network">
+        <option value="mainnet">Bitcoin Mainnet (Red Principal)</option>
+        <option value="testnet">Bitcoin Testnet (Red de Pruebas)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="clientKey">Clave del Cliente (xprv / tprv o Frase / Código de Emergencia)</label>
+      <input type="text" id="clientKey" placeholder="Ej: xprv... o LA75 8UXQ YBQY UBHK LPUK X539 5TRF BQSH" required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="recoveryKey">Clave del Kit de Emergencia (xprv / tprv o Código)</label>
+      <input type="text" id="recoveryKey" placeholder="Ej: tprv... o LA75 8UXQ..." required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="destAddress">Dirección de Destino (Para recibir tus fondos)</label>
+      <input type="text" id="destAddress" placeholder="bc1q... o tb1q..." required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="feeRate">Tarifa de Red / Fee Rate (sat/vByte)</label>
+      <input type="number" id="feeRate" value="1" min="1" step="1" required />
+    </div>
+
+    <button type="submit" id="btnSubmit">Escanear y Rescatar Fondos</button>
+  </form>
+
+  <div id="log"></div>
+
+  <div class="footer">
+    MEEN WALLET Beta • Open Source Bitcoin Recovery Tool
+  </div>
+</div>
+
+<script>
+  const logDiv = document.getElementById('log');
+
+  function log(message, type = 'info') {
+    logDiv.style.display = 'block';
+    const div = document.createElement('div');
+    div.className = `log-line ${type}`;
+    div.textContent = message;
+    logDiv.appendChild(div);
+    logDiv.scrollTop = logDiv.scrollHeight;
+  }
+
+  function clearLog() {
+    logDiv.textContent = '';
+    logDiv.style.display = 'none';
+  }
+
+  // Lógica para interpretar claves xprv/tprv, frases de palabras o códigos alfanuméricos de 32 caracteres
+  function parsePrivateKeyOrMnemonic(inputStr, network) {
+    const cleanInput = inputStr.trim().replace(/[-_]/g, ' ');
+
+    // 1. Si es una clave extendida xprv / tprv / xpub / tprv directa
+    if (cleanInput.startsWith('xprv') || cleanInput.startsWith('tprv') || cleanInput.startsWith('xpub') || cleanInput.startsWith('tpub')) {
+      return bitcoin.bip32.fromBase58(cleanInput.replace(/\s+/g, ''), network);
+    }
+
+    // 2. Si es una frase de palabras mnemónicas (BIP39)
+    if (window.bip39 && window.bip39.validateMnemonic(cleanInput.toLowerCase())) {
+      const seed = window.bip39.mnemonicToSeedSync(cleanInput.toLowerCase());
+      return bitcoin.bip32.fromSeed(seed, network);
+    }
+
+    // 3. Si es un código alfanumérico tipo Kit de Emergencia (ej. LA75 8UXQ YBQY UBHK LPUK X539 5TRF BQSH)
+    const formattedCode = cleanInput.replace(/\s+/g, '').toUpperCase();
+    if (formattedCode.length >= 32) {
+      // Crear semilla determinística desde los bytes del código
+      const encoder = new TextEncoder();
+      const codeBytes = encoder.encode(formattedCode);
+      const hashBuffer = bitcoin.crypto.sha256(codeBytes);
+      return bitcoin.bip32.fromSeed(hashBuffer, network);
+    }
+
+    // Intentar Parse Base58 por defecto
+    return bitcoin.bip32.fromBase58(cleanInput.replace(/\s+/g, ''), network);
+  }
+
+  document.getElementById('recoveryForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearLog();
+
+    const networkType = document.getElementById('network').value;
+    const clientKeyStr = document.getElementById('clientKey').value;
+    const recoveryKeyStr = document.getElementById('recoveryKey').value;
+    const destAddress = document.getElementById('destAddress').value.trim();
+    const userFeeRate = parseInt(document.getElementById('feeRate').value, 10) || 1;
+
+    const network = networkType === 'mainnet' 
+      ? bitcoin.networks.bitcoin 
+      : bitcoin.networks.testnet;
+
+    const apiBaseUrl = networkType === 'mainnet'
+      ? 'https://mempool.space/api'
+      : 'https://mempool.space/testnet/api';
+
+    try {
+      log('1. Procesando y derivando llaves...', 'info');
+
+      const clientNode = parsePrivateKeyOrMnemonic(clientKeyStr, network);
+      const recoveryNode = parsePrivateKeyOrMnemonic(recoveryKeyStr, network);
+
+      log('2. Calculando dirección Multisig 2-de-2 (P2WSH)...', 'info');
+
+      // Ordenar llaves públicas léxicamente
+      const pubkeys = [clientNode.publicKey, recoveryNode.publicKey].sort(Buffer.compare);
+
+      const p2ms = bitcoin.payments.p2ms({
+        m: 2,
+        pubkeys: pubkeys,
+        network: network
+      });
+
+      const p2wsh = bitcoin.payments.p2wsh({
+        redeem: p2ms,
+        network: network
+      });
+
+      const multisigAddress = p2wsh.address;
+      log(`Dirección calculada: ${multisigAddress}`, 'info');
+
+      log('3. Consultando balance en la red Bitcoin...', 'info');
+      const { data: utxos } = await axios.get(`${apiBaseUrl}/address/${multisigAddress}/utxo`);
+
+      if (!utxos || utxos.length === 0) {
+        log('❌ No se encontraron salidas no gastadas (UTXOs) en esta dirección.', 'error');
+        return;
+      }
+
+      let totalBalance = utxos.reduce((acc, u) => acc + u.value, 0);
+      log(` Balance total encontrado: ${totalBalance} SATs`, 'success');
+
+      log('4. Construyendo transacción de rescate...', 'info');
+      const psbt = new bitcoin.Psbt({ network });
+
+      for (const utxo of utxos) {
+        psbt.addInput({
+          hash: utxo.txid,
+          index: utxo.vout,
+          witnessScript: p2ms.output,
+          witnessUtxo: {
+            script: bitcoin.address.toOutputScript(multisigAddress, network),
+            value: utxo.value
+          }
+        });
+      }
+
+      // --- LÓGICA DE COMISIÓN PERSONALIZADA (FEE) ---
+      const BASE_MIN_FEE = 90; // Mínimo de 90 SATs para el proyecto
+      const estimatedVBytes = utxos.length * 140 + 2 * 34 + 10;
+      const calculatedNetworkFee = estimatedVBytes * userFeeRate;
+
+      // Garantiza que cuando se ponga fee rate en 1 o la comisión calculada sea baja, cobre exactamente 90 SATs
+      const fee = Math.max(BASE_MIN_FEE, calculatedNetworkFee);
+      const amountToSend = totalBalance - fee;
+
+      log(`Comisión calculada: ${fee} SATs (Fee rate aplicado: ${userFeeRate} sat/vB)`, 'info');
+
+      if (amountToSend <= 0) {
+        log('❌ El balance disponible es insuficiente para cubrir la comisión requerida de ' + fee + ' SATs.', 'error');
+        return;
+      }
+
+      psbt.addOutput({
+        address: destAddress,
+        value: amountToSend
+      });
+
+      log('5. Firmando la transacción con ambas llaves...', 'info');
+      psbt.signAllInputs(clientNode);
+      psbt.signAllInputs(recoveryNode);
+
+      psbt.finalizeAllInputs();
+
+      const txHex = psbt.extractTransaction().toHex();
+      log(' Transacción firmada con éxito.', 'success');
+
+      log('6. Transmitiendo transacción a la red...', 'info');
+      const broadcastRes = await axios.post(`${apiBaseUrl}/tx`, txHex);
+
+      log(` Transacción transmitida correctamente!`, 'success');
+      log(`TXID: ${broadcastRes.data}`, 'success');
+      log(`Puedes ver la transacción en: ${apiBaseUrl.replace('/api','')}/tx/${broadcastRes.data}`, 'info');
+
+    } catch (err) {
+      log(` Error: ${err.message}`, 'error');
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MEEN WALLET - Herramienta de Recuperación de Fondos</title>
+  <style>
+    :root {
+      --bg-color: #0f172a;
+      --card-bg: #1e293b;
+      --border-color: #38bdf8;
+      --primary: #0284c7;
+      --primary-hover: #0369a1;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --success: #4ade80;
+      --error: #f87171;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background-color: var(--card-bg);
+      border: 2px solid var(--border-color);
+      padding: 36px 32px;
+      border-radius: 16px;
+      max-width: 650px;
+      width: 100%;
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.25);
+    }
+
+    .header {
+      margin-bottom: 24px;
+      text-align: center;
+    }
+
+    .project-title {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .project-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .alert-box {
+      background-color: rgba(56, 189, 248, 0.1);
+      border-left: 4px solid var(--accent);
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #cbd5e1;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #334155;
+      background-color: var(--bg-color);
+      color: #fff;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+
+    button:hover {
+      background-color: var(--primary-hover);
+    }
+
+    button:active {
+      transform: scale(0.99);
+    }
+
+    #log {
+      margin-top: 24px;
+      padding: 16px;
+      border-radius: 8px;
+      background-color: var(--bg-color);
+      border: 1px solid #334155;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 0.85rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      display: none;
+      max-height: 250px;
+      overflow-y: auto;
+    }
+
+    .log-line {
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+
+    .success { color: var(--success); }
+    .error { color: var(--error); }
+    .info { color: var(--accent); }
+
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+  </style>
+
+  <!-- BitcoinJS, BIP39 & Axios CDN -->
+  <script src="https://bundle.run/bitcoinjs-lib@6.1.5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bip39@3.1.0/src/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1 class="project-title">MEEN WALLET</h1>
+    <p class="project-subtitle">Herramienta Oficial de Recuperación de Fondos (2-de-2 Multisig P2WSH)</p>
+  </div>
+
+  <div class="alert-box">
+    🔒 <strong>Seguridad garantizada:</strong> Esta herramienta se ejecuta 100% en tu navegador. Tus llaves privadas nunca son enviadas a ningún servidor ni guardadas externamente.
+  </div>
+
+  <form id="recoveryForm">
+    <div class="form-group">
+      <label for="network">Red de Bitcoin</label>
+      <select id="network">
+        <option value="mainnet">Bitcoin Mainnet (Red Principal)</option>
+        <option value="testnet">Bitcoin Testnet (Red de Pruebas)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="clientKey">Clave del Cliente (xprv / tprv o Frase / Código de Emergencia)</label>
+      <input type="text" id="clientKey" placeholder="Ej: xprv... o LA75 8UXQ YBQY UBHK LPUK X539 5TRF BQSH" required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="recoveryKey">Clave del Kit de Emergencia (xprv / tprv o Código)</label>
+      <input type="text" id="recoveryKey" placeholder="Ej: tprv... o LA75 8UXQ..." required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="destAddress">Dirección de Destino (Para recibir tus fondos)</label>
+      <input type="text" id="destAddress" placeholder="bc1q... o tb1q..." required autocomplete="off" />
+    </div>
+
+    <div class="form-group">
+      <label for="feeRate">Tarifa de Red / Fee Rate (sat/vByte)</label>
+      <input type="number" id="feeRate" value="1" min="1" step="1" required />
+    </div>
+
+    <button type="submit" id="btnSubmit">Escanear y Rescatar Fondos</button>
+  </form>
+
+  <div id="log"></div>
+
+  <div class="footer">
+    MEEN WALLET Beta • Open Source Bitcoin Recovery Tool
+  </div>
+</div>
+
+<script>
+  const logDiv = document.getElementById('log');
+
+  function log(message, type = 'info') {
+    logDiv.style.display = 'block';
+    const div = document.createElement('div');
+    div.className = `log-line ${type}`;
+    div.textContent = message;
+    logDiv.appendChild(div);
+    logDiv.scrollTop = logDiv.scrollHeight;
+  }
+
+  function clearLog() {
+    logDiv.textContent = '';
+    logDiv.style.display = 'none';
+  }
+
+  // Lógica para interpretar claves xprv/tprv, frases de palabras o códigos alfanuméricos de 32 caracteres
+  function parsePrivateKeyOrMnemonic(inputStr, network) {
+    const cleanInput = inputStr.trim().replace(/[-_]/g, ' ');
+
+    // 1. Si es una clave extendida xprv / tprv / xpub / tprv directa
+    if (cleanInput.startsWith('xprv') || cleanInput.startsWith('tprv') || cleanInput.startsWith('xpub') || cleanInput.startsWith('tpub')) {
+      return bitcoin.bip32.fromBase58(cleanInput.replace(/\s+/g, ''), network);
+    }
+
+    // 2. Si es una frase de palabras mnemónicas (BIP39)
+    if (window.bip39 && window.bip39.validateMnemonic(cleanInput.toLowerCase())) {
+      const seed = window.bip39.mnemonicToSeedSync(cleanInput.toLowerCase());
+      return bitcoin.bip32.fromSeed(seed, network);
+    }
+
+    // 3. Si es un código alfanumérico tipo Kit de Emergencia (ej. LA75 8UXQ YBQY UBHK LPUK X539 5TRF BQSH)
+    const formattedCode = cleanInput.replace(/\s+/g, '').toUpperCase();
+    if (formattedCode.length >= 32) {
+      // Crear semilla determinística desde los bytes del código
+      const encoder = new TextEncoder();
+      const codeBytes = encoder.encode(formattedCode);
+      const hashBuffer = bitcoin.crypto.sha256(codeBytes);
+      return bitcoin.bip32.fromSeed(hashBuffer, network);
+    }
+
+    // Intentar Parse Base58 por defecto
+    return bitcoin.bip32.fromBase58(cleanInput.replace(/\s+/g, ''), network);
+  }
+
+  document.getElementById('recoveryForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    clearLog();
+
+    const networkType = document.getElementById('network').value;
+    const clientKeyStr = document.getElementById('clientKey').value;
+    const recoveryKeyStr = document.getElementById('recoveryKey').value;
+    const destAddress = document.getElementById('destAddress').value.trim();
+    const userFeeRate = parseInt(document.getElementById('feeRate').value, 10) || 1;
+
+    const network = networkType === 'mainnet' 
+      ? bitcoin.networks.bitcoin 
+      : bitcoin.networks.testnet;
+
+    const apiBaseUrl = networkType === 'mainnet'
+      ? 'https://mempool.space/api'
+      : 'https://mempool.space/testnet/api';
+
+    try {
+      log('1. Procesando y derivando llaves...', 'info');
+
+      const clientNode = parsePrivateKeyOrMnemonic(clientKeyStr, network);
+      const recoveryNode = parsePrivateKeyOrMnemonic(recoveryKeyStr, network);
+
+      log('2. Calculando dirección Multisig 2-de-2 (P2WSH)...', 'info');
+
+      // Ordenar llaves públicas léxicamente
+      const pubkeys = [clientNode.publicKey, recoveryNode.publicKey].sort(Buffer.compare);
+
+      const p2ms = bitcoin.payments.p2ms({
+        m: 2,
+        pubkeys: pubkeys,
+        network: network
+      });
+
+      const p2wsh = bitcoin.payments.p2wsh({
+        redeem: p2ms,
+        network: network
+      });
+
+      const multisigAddress = p2wsh.address;
+      log(`Dirección calculada: ${multisigAddress}`, 'info');
+
+      log('3. Consultando balance en la red Bitcoin...', 'info');
+      const { data: utxos } = await axios.get(`${apiBaseUrl}/address/${multisigAddress}/utxo`);
+
+      if (!utxos || utxos.length === 0) {
+        log('❌ No se encontraron salidas no gastadas (UTXOs) en esta dirección.', 'error');
+        return;
+      }
+
+      let totalBalance = utxos.reduce((acc, u) => acc + u.value, 0);
+      log(` Balance total encontrado: ${totalBalance} SATs`, 'success');
+
+      log('4. Construyendo transacción de rescate...', 'info');
+      const psbt = new bitcoin.Psbt({ network });
+
+      for (const utxo of utxos) {
+        psbt.addInput({
+          hash: utxo.txid,
+          index: utxo.vout,
+          witnessScript: p2ms.output,
+          witnessUtxo: {
+            script: bitcoin.address.toOutputScript(multisigAddress, network),
+            value: utxo.value
+          }
+        });
+      }
+
+      // --- LÓGICA DE COMISIÓN PERSONALIZADA (FEE) ---
+      const BASE_MIN_FEE = 90; // Mínimo de 90 SATs para el proyecto
+      const estimatedVBytes = utxos.length * 140 + 2 * 34 + 10;
+      const calculatedNetworkFee = estimatedVBytes * userFeeRate;
+
+      // Garantiza que cuando se ponga fee rate en 1 o la comisión calculada sea baja, cobre exactamente 90 SATs
+      const fee = Math.max(BASE_MIN_FEE, calculatedNetworkFee);
+      const amountToSend = totalBalance - fee;
+
+      log(`Comisión calculada: ${fee} SATs (Fee rate aplicado: ${userFeeRate} sat/vB)`, 'info');
+
+      if (amountToSend <= 0) {
+        log('❌ El balance disponible es insuficiente para cubrir la comisión requerida de ' + fee + ' SATs.', 'error');
+        return;
+      }
+
+      psbt.addOutput({
+        address: destAddress,
+        value: amountToSend
+      });
+
+      log('5. Firmando la transacción con ambas llaves...', 'info');
+      psbt.signAllInputs(clientNode);
+      psbt.signAllInputs(recoveryNode);
+
+      psbt.finalizeAllInputs();
+
+      const txHex = psbt.extractTransaction().toHex();
+      log(' Transacción firmada con éxito.', 'success');
+
+      log('6. Transmitiendo transacción a la red...', 'info');
+      const broadcastRes = await axios.post(`${apiBaseUrl}/tx`, txHex);
+
+      log(` Transacción transmitida correctamente!`, 'success');
+      log(`TXID: ${broadcastRes.data}`, 'success');
+      log(`Puedes ver la transacción en: ${apiBaseUrl.replace('/api','')}/tx/${broadcastRes.data}`, 'info');
+
+    } catch (err) {
+      log(` Error: ${err.message}`, 'error');
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
