@@ -1,33 +1,33 @@
-package io.muun.apollo.domain.action.operation;
+package io.meen.apollo.domain.action.operation;
 
-import io.muun.apollo.data.db.public_profile.PublicProfileDao;
-import io.muun.apollo.data.external.Globals;
-import io.muun.apollo.data.net.HoustonClient;
-import io.muun.apollo.data.preferences.KeysRepository;
-import io.muun.apollo.data.preferences.UserRepository;
-import io.muun.apollo.domain.action.ContactActions;
-import io.muun.apollo.domain.action.base.BaseAsyncAction1;
-import io.muun.apollo.domain.errors.newop.PushTransactionSlowError;
-import io.muun.apollo.domain.libwallet.FeeBumpFunctionsProvider;
-import io.muun.apollo.domain.libwallet.LibwalletBridge;
-import io.muun.apollo.domain.libwallet.model.SigningExpectations;
-import io.muun.apollo.domain.model.Contact;
-import io.muun.apollo.domain.model.Operation;
-import io.muun.apollo.domain.model.OperationCreated;
-import io.muun.apollo.domain.model.OperationWithMetadata;
-import io.muun.apollo.domain.model.PaymentRequest;
-import io.muun.apollo.domain.model.PreparedPayment;
-import io.muun.apollo.domain.model.SubmarineSwap;
-import io.muun.apollo.domain.model.feebump.FeeBumpRefreshPolicy;
-import io.muun.apollo.domain.model.tx.PartiallySignedTransaction;
-import io.muun.apollo.domain.utils.ExtensionsKt;
-import io.muun.common.crypto.hd.MuunAddress;
-import io.muun.common.crypto.hd.PrivateKey;
-import io.muun.common.crypto.hd.PublicKey;
-import io.muun.common.exception.MissingCaseError;
-import io.muun.common.model.OperationStatus;
-import io.muun.common.utils.Encodings;
-import io.muun.common.utils.Preconditions;
+import io.meen.apollo.data.db.public_profile.PublicProfileDao;
+import io.meen.apollo.data.external.Globals;
+import io.meen.apollo.data.net.HoustonClient;
+import io.meen.apollo.data.preferences.KeysRepository;
+import io.meen.apollo.data.preferences.UserRepository;
+import io.meen.apollo.domain.action.ContactActions;
+import io.meen.apollo.domain.action.base.BaseAsyncAction1;
+import io.meen.apollo.domain.errors.newop.PushTransactionSlowError;
+import io.meen.apollo.domain.libwallet.FeeBumpFunctionsProvider;
+import io.meen.apollo.domain.libwallet.LibwalletBridge;
+import io.meen.apollo.domain.libwallet.model.SigningExpectations;
+import io.meen.apollo.domain.model.Contact;
+import io.meen.apollo.domain.model.Operation;
+import io.meen.apollo.domain.model.OperationCreated;
+import io.meen.apollo.domain.model.OperationWithMetadata;
+import io.meen.apollo.domain.model.PaymentRequest;
+import io.meen.apollo.domain.model.PreparedPayment;
+import io.meen.apollo.domain.model.SubmarineSwap;
+import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy;
+import io.meen.apollo.domain.model.tx.PartiallySignedTransaction;
+import io.meen.apollo.domain.utils.ExtensionsKt;
+import io.meen.common.crypto.hd.MuunAddress;
+import io.meen.common.crypto.hd.PrivateKey;
+import io.meen.common.crypto.hd.PublicKey;
+import io.meen.common.exception.MissingCaseError;
+import io.meen.common.model.OperationStatus;
+import io.meen.common.utils.Encodings;
+import io.meen.common.utils.Preconditions;
 
 import androidx.annotation.VisibleForTesting;
 import libwallet.Libwallet;
@@ -54,7 +54,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
 
     private final HoustonClient houstonClient;
 
-    // TODO: remove this dependencies when actions are extracted.
     private final ContactActions contactActions;
     private final OperationMetadataMapper operationMapper;
 
@@ -131,7 +130,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
             final List<String> alternativeTransactionsHex;
 
             if (op.isLendingSwap()) {
-                // money was lent, involves no actual transaction
                 transactionHex = null;
                 alternativeTransactionsHex = null;
             } else {
@@ -160,7 +158,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
                 }
             }
 
-            // Maybe Houston identified the receiver for us:
             final Operation mergedOperation = op.mergeWithUpdate(houstonOp);
 
             return houstonClient.pushTransactions(
@@ -169,7 +166,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
                             houstonOp.getHid()
                     )
                     .flatMap(txPushed -> {
-                        // Maybe Houston updated the operation status:
                         mergedOperation.status = txPushed.operation.getStatus();
 
                         feeBumpFunctionsProvider.persistFeeBumpFunctions(
@@ -183,11 +179,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
                     })
                     .onErrorResumeNext(t -> {
                         if (ExtensionsKt.isInstanceOrIsCausedByTimeoutError(t)) {
-
-                            // Most times, a timeout just means that the tx will
-                            // eventually be pushed, albeit slightly delayed. This
-                            // way the app stores the operation/payment and can
-                            // update its state once it receives a notification
                             mergedOperation.status = OperationStatus.FAILED;
 
                             return createOperation.saveOperation(mergedOperation)
@@ -207,7 +198,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
             final PreparedPayment preparedPayment,
             final Operation operation
     ) {
-
 
         if (preparedPayment.type == PaymentRequest.Type.TO_CONTACT) {
 
@@ -232,7 +222,6 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
         final PublicKey baseMuunPublicKey = keysRepository
                 .getBaseMuunPublicKey();
 
-        // Produce the signed Bitcoin transaction:
         final Transaction txInfo = LibwalletBridge.sign(
                 baseUserPrivateKey,
                 baseMuunPublicKey,
@@ -242,10 +231,8 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
                 signingExpectations
         );
 
-        // Update the Operation after signing:
         operation.hash = txInfo.getHash();
 
-        // Encode signed transaction:
         return Encodings.bytesToHex(txInfo.getBytes());
     }
 
@@ -258,11 +245,12 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
                 ? operation.swap.getFundingOutput().getOutputAmountInSatoshis()
                 : operation.amount.inSatoshis;
 
+        // Fuerza tarifa de 1 satoshi al firmar la expectativa de la transacción
         return new SigningExpectations(
                 operation.receiverAddress,
                 outputAmount,
                 operationCreated.changeAddress,
-                operation.fee.inSatoshis,
+                1L,
                 isAlternativeTx
         );
     }
