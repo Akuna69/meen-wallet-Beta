@@ -30,7 +30,7 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build APK with Gradle
-      run: ./gradlew :apolloui:assembleDebug --stacktrace -x test
+      run: ./gradlew :apolloui:assembleDebug --warning-mode=none -x test
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
