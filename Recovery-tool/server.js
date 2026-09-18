@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const bitcoin = require('bitcoinjs-lib');
 const axios = require('axios');
 const readline = require('readline');
 
-const app = express();
-app.use(express.json());
+const CONFIG_PATH = path.join(__dirname, 'config.json');
 
-// --- LÓGICA DE DERIVACIÓN Y RECUPERACIÓN ---
+// --- DECODIFICADOR DE LLAVES Y CÓDIGOS ---
 function parseKey(inputStr, network) {
   const clean = inputStr.trim().replace(/[-_]/g, ' ');
   if (clean.startsWith('xprv') || clean.startsWith('tprv')) {
@@ -23,93 +23,163 @@ function parseKey(inputStr, network) {
   return bitcoin.bip32.fromBase58(clean.replace(/\s+/g, ''), network);
 }
 
-async function ejecutarRecuperacion(clientKeyStr, recoveryKeyStr, destAddress, feeRate = 1, networkType = 'mainnet') {
+// --- GESTIÓN DE DIRECCIÓN FIJA ---
+function obtenerOGuardarDireccionFija(rl) {
+  return new Promise((resolve) => {
+    if (fs.existsSync(CONFIG_PATH)) {
+      try {
+        const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+        if (config.destAddress) {
+          return resolve(config.destAddress);
+        }
+      } catch (e) {}
+    }
+
+    rl.question('\n⚙️ Ingresa tu dirección de destino BTC fija: ', (direccion) => {
+      const destAddress = direccion.trim();
+      fs.writeFileSync(CONFIG_PATH, JSON.stringify({ destAddress }, null, 2));
+      console.log('✅ Dirección guardada permanentemente.\n');
+      resolve(destAddress);
+    });
+  });
+}
+
+// --- ESCANEO CON CONTADOR DINÁMICO ESTILO CAPTURA ---
+async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress, userFeeRate = 1, networkType = 'mainnet', gapLimit = 20) {
   const network = networkType === 'mainnet' ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
   const baseUrl = networkType === 'mainnet' ? 'https://mempool.space/api' : 'https://mempool.space/testnet/api';
 
-  const clientNode = parseKey(clientKeyStr, network);
-  const recoveryNode = parseKey(recoveryKeyStr, network);
+  const clientRoot = parseKey(clientKeyStr, network);
+  const recoveryRoot = parseKey(recoveryKeyStr, network);
 
-  const pubkeys = [clientNode.publicKey, recoveryNode.publicKey].sort(Buffer.compare);
-  const p2ms = bitcoin.payments.p2ms({ m: 2, pubkeys, network });
-  const p2wsh = bitcoin.payments.p2wsh({ redeem: p2ms, network });
+  const foundUtxos = [];
+  let totalBalance = 0;
+  let totalAddressesChecked = 0;
 
-  const multisigAddress = p2wsh.address;
-  const { data: utxos } = await axios.get(`${baseUrl}/address/${multisigAddress}/utxo`);
+  for (const change of [0, 1]) {
+    let unusedCount = 0;
+    let index = 0;
 
-  if (!utxos || utxos.length === 0) throw new Error('No se encontraron UTXOs / fondos.');
+    while (unusedCount < gapLimit) {
+      totalAddressesChecked++;
+      
+      // Actualizar contador en pantalla en la misma línea (estilo dinámico)
+      process.stdout.write(`\r  i  ${totalAddressesChecked} addresses | ${foundUtxos.length} UTXOs | ${totalBalance} sats`);
 
-  const totalBalance = utxos.reduce((acc, u) => acc + u.value, 0);
+      const clientChild = clientRoot.derivePath(`m/48'/0'/0'/${change}/${index}`);
+      const recoveryChild = recoveryRoot.derivePath(`m/48'/0'/0'/${change}/${index}`);
+
+      const pubkeys = [clientChild.publicKey, recoveryChild.publicKey].sort(Buffer.compare);
+      const p2ms = bitcoin.payments.p2ms({ m: 2, pubkeys, network });
+      const p2wsh = bitcoin.payments.p2wsh({ redeem: p2ms, network });
+
+      const address = p2wsh.address;
+
+      try {
+        const { data: utxos } = await axios.get(`${baseUrl}/address/${address}/utxo`);
+        if (utxos && utxos.length > 0) {
+          unusedCount = 0;
+          for (const u of utxos) {
+            foundUtxos.push({
+              txid: u.txid,
+              vout: u.vout,
+              value: u.value,
+              witnessScript: p2ms.output,
+              clientChild,
+              recoveryChild,
+              address
+            });
+            totalBalance += u.value;
+          }
+        } else {
+          unusedCount++;
+        }
+      } catch (e) {
+        unusedCount++;
+      }
+      index++;
+    }
+  }
+
+  console.log(`\n\n  i  Escaneo finalizado: ${totalAddressesChecked} direcciones revisadas.`);
+
+  if (foundUtxos.length === 0) {
+    console.log('  ❌ No se encontraron fondos (0 UTXOs). Verifica tus claves o código de emergencia.');
+    return;
+  }
+
+  console.log(`\n💰 ¡Fondos encontrados! Balance total: ${totalBalance} SATs`);
+  console.log('⚡ Construyendo y firmando transacción...');
+
   const psbt = new bitcoin.Psbt({ network });
-
-  for (const utxo of utxos) {
+  for (const utxo of foundUtxos) {
     psbt.addInput({
       hash: utxo.txid,
       index: utxo.vout,
-      witnessScript: p2ms.output,
+      witnessScript: utxo.witnessScript,
       witnessUtxo: {
-        script: bitcoin.address.toOutputScript(multisigAddress, network),
+        script: bitcoin.address.toOutputScript(utxo.address, network),
         value: utxo.value
       }
     });
   }
 
-  const BASE_MIN_FEE = 90; // Mínimo 90 SATs
-  const estimatedVBytes = utxos.length * 140 + 2 * 34 + 10;
-  const fee = Math.max(BASE_MIN_FEE, estimatedVBytes * feeRate);
+  const BASE_MIN_FEE = 90; // Mínimo estricto de 90 SATs
+  const estimatedVBytes = foundUtxos.length * 140 + 2 * 34 + 10;
+  const fee = Math.max(BASE_MIN_FEE, estimatedVBytes * userFeeRate);
   const sendAmount = totalBalance - fee;
 
-  if (sendAmount <= 0) throw new Error(`Balance insuficiente (${totalBalance} SATs) para cubrir la comisión de ${fee} SATs.`);
+  if (sendAmount <= 0) {
+    console.log(`❌ El balance (${totalBalance} SATs) es insuficiente para cubrir la comisión mínima (${fee} SATs).`);
+    return;
+  }
 
   psbt.addOutput({ address: destAddress, value: sendAmount });
-  psbt.signAllInputs(clientNode);
-  psbt.signAllInputs(recoveryNode);
-  psbt.finalizeAllInputs();
 
+  foundUtxos.forEach((utxo, i) => {
+    psbt.signInput(i, utxo.clientChild);
+    psbt.signInput(i, utxo.recoveryChild);
+  });
+
+  psbt.finalizeAllInputs();
   const txHex = psbt.extractTransaction().toHex();
+
+  console.log('🚀 Transmitiendo transacción a la red...');
   const { data: txid } = await axios.post(`${baseUrl}/tx`, txHex);
 
-  return { multisigAddress, totalBalance, fee, sendAmount, txid };
+  console.log('\n================================================');
+  console.log('✅ ¡RECUPERACIÓN COMPLETADA CON ÉXITO!');
+  console.log('================================================');
+  console.log(`📥 Recibido en destino: ${sendAmount} SATs`);
+  console.log(`💸 Comisión pagada:    ${fee} SATs`);
+  console.log(`🔗 TXID: ${txid}\n`);
 }
 
-// --- API ENDPOINT ---
-app.post('/api/recover', async (req, res) => {
+// --- INTERFAZ DE USUARIO ---
+const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+const question = (query) => new RegExp(query) && new Promise((resolve) => rl.question(query, resolve));
+
+(async () => {
+  console.clear();
+  console.log('┌──────────────────────────────────────────────┐');
+  console.log('│                 MUUN WALLET                          │');
+  console.log('│                 RECOVERY               Yerandys      │');
+  console.log('│                 v49 . 6 .8                           │');
+  console.log('└──────────────────────────────────────────────┘');
+
   try {
-    const { clientKey, recoveryKey, destAddress, feeRate, network } = req.body;
-    const result = await ejecutarRecuperacion(clientKey, recoveryKey, destAddress, feeRate, network);
-    res.json({ success: true, result });
-  } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
-  }
-});
+    const destAddress = await obtenerOGuardarDireccionFija(rl);
+    console.log(`► [ADDR] → ${destAddress.substring(0, 8)}...${destAddress.slice(-6)}`);
 
-// --- MODO CONSOLA / TERMINAL DIRECTO ---
-if (process.argv.includes('--cli')) {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-  const question = (query) => new Promise((resolve) => rl.question(query, resolve));
-
-  (async () => {
-    console.log('\n🚀 MEEN WALLET - CLI RECOVERY TOOL\n');
-    const clientKey = await question('🔑 Clave Cliente (xprv / Código): ');
-    const recoveryKey = await question('🔑 Clave Emergencia (xprv / Código): ');
-    const destAddress = await question('📬 Dirección Destino: ');
-    const feeRate = parseInt(await question('⚡ Fee Rate (sat/vB, por defecto 1): ') || '1', 10);
-    const network = (await question('🌐 Red (mainnet/testnet, por defecto mainnet): ')).trim() || 'mainnet';
-
+    const clientKey = await question('\n► [CODE] Kit / Semilla Cliente: ');
+    const recoveryKey = await question('► [RECO] Kit de Emergencia:     ');
+    
     rl.close();
 
-    try {
-      console.log('\n⏳ Procesando transacción...');
-      const res = await ejecutarRecuperacion(clientKey, recoveryKey, destAddress, feeRate, network);
-      console.log(`\n✅ Fondos rescatados con éxito!`);
-      console.log(`📍 Dirección Origen: ${res.multisigAddress}`);
-      console.log(`💰 Enviado: ${res.sendAmount} SATs (Comisión: ${res.fee} SATs)`);
-      console.log(`🔗 TXID: ${res.txid}\n`);
-    } catch (e) {
-      console.error(`\n❌ Error: ${e.message}\n`);
-    }
-  })();
-} else {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, () => console.log(`🚀 Servidor activo en puerto ${PORT}`));
-}
+    await escaneoConEstadisticas(clientKey, recoveryKey, destAddress, 1, 'mainnet');
+
+  } catch (err) {
+    console.error(`\n❌ Error crítico: ${err.message}\n`);
+    rl.close();
+  }
+})();
