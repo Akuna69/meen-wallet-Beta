@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository with submodules
+    - name: Checkout repository
       uses: actions/checkout@v4
       with:
         submodules: recursive
@@ -35,12 +35,13 @@ jobs:
       run: chmod +x gradlew || true
 
     - name: Build APK with Gradle
-      run: ./gradlew assembleDebug --stacktrace -x test
+      run: ./gradlew assembleDebug -x test --quiet
 
-    - name: Upload APK Artifact
+    - name: Upload Build Logs on Failure
+      if: failure()
       uses: actions/upload-artifact@v4
       with:
-        name: meen-wallet-app-debug
+        name: gradle-build-error-log
         path: |
-          android/apolloui/build/outputs/apk/debug/*.apk
-          **/build/outputs/apk/debug/*.apk
+          **/build/reports/
+          **/build/outputs/logs/
