@@ -1,26 +1,38 @@
-name: Build & Publish Release APK
+name: Build Android APK
 
 on:
+  workflow_dispatch:
   push:
-    tags:
-      - '*'
+    branches: [ "master", "main" ]
 
 jobs:
-  Gradle:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-    - name: checkout code
-      uses: actions/checkout@v2
-    - name: setup jdk
-      uses: actions/setup-java@v1
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
       with:
-        java-version: 11
-    - name: Make Gradle executable
-      run: chmod +x ./gradlew
-    - name: Build Release APK
-      run: ./gradlew assembleRelease
-    - name: Releasing using Hub
-      uses: sangatdesai/release-apk@main
-      env:
-       GITHUB_TOKEN: ${{ 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 }}
-       APP_FOLDER: app
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew || true
+
+    - name: Build APK with Gradle
+      run: ./gradlew assembleDebug --stacktrace -x test
+
+    - name: Upload APK Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: meen-wallet-app-debug
+        path: |
+          android/apolloui/build/outputs/apk/debug/*.apk
+          **/build/outputs/apk/debug/*.apk
+
