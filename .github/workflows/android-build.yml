@@ -33,7 +33,7 @@ jobs:
 
       - name: Set up Correct NDK Environment
         run: |
-          NDK_PATH=$(ls -d $ANDROID_SDK_ROOT/ndk/* | tail -n 1)
+          NDK_PATH=$(ls -d $ANDROID_SDK_ROOT/ndk/2* | tail -n 1)
           echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
           echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
           echo "ANDROID_NDK_ROOT=$NDK_PATH" >> $GITHUB_ENV
@@ -44,13 +44,24 @@ jobs:
           gomobile init
           cargo install cargo-ndk
 
-      - name: Grant execute permission for gradlew
+      - name: Grant execute permission for scripts
         run: |
           chmod +x gradlew || true
           chmod +x tools/*sh || true
+          chmod +x android/tools/*sh || true
+
+      - name: Create required native lib directories
+        run: |
+          mkdir -p libwallet/libs/armv7-linux-androideabi/
+          mkdir -p libwallet/libs/aarch64-linux-android/
+          mkdir -p libwallet/libs/x86_64-linux-android/
+          mkdir -p libwallet/libs/i686-linux-android/
+
+      - name: Build Common & Dependencies
+        run: ./gradlew :common:build -x test
 
       - name: Build APK with Gradle
-        run: ./gradlew assembleDebug --stacktrace -x test
+        run: ./gradlew :android:apolloui:assembleDebug --stacktrace -x test
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
