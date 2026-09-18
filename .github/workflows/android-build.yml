@@ -25,11 +25,11 @@ jobs:
         with:
           targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android, i686-linux-android
 
-      - name: Setup NDK
-  uses: nsetup/setup-ndk@v1
-  with:
-    ndk-version: '25.2.9519653'
- 
+      - name: Set up NDK
+        uses: nsetup/setup-ndk@v1
+        with:
+          ndk-version: '25.2.9519653'
+
       - name: Install gomobile & cargo-ndk
         run: |
           go install golang.org/x/mobile/cmd/gomobile@latest
@@ -46,14 +46,23 @@ jobs:
         run: |
           chmod +x gradlew || true
           chmod +x android/gradlew || true
-          chmod +x tools/*.sh || true
+          chmod +x tools/*sh || true
 
       - name: Build APK with Gradle
         working-directory: android
         run: ./gradlew apolloui:assembleDebug --stacktrace -x test
 
-      - name: Upload APK Artifact
+      - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: meen-wallet-app-debug
           path: android/apolloui/build/outputs/apk/debug/*.apk
+
+      - name: Upload Build Logs on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-build-error-log
+          path: |
+            android/**/build/reports/
+            android/**/build/outputs/logs/
