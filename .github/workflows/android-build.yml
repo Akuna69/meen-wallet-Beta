@@ -31,10 +31,12 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Set up NDK Environment
+      - name: Set up Correct NDK Environment
         run: |
-          echo "ANDROID_NDK_HOME=${ANDROID_SDK_ROOT}/ndk-bundle" >> $GITHUB_ENV
-          echo "NDK_HOME=${ANDROID_SDK_ROOT}/ndk-bundle" >> $GITHUB_ENV
+          NDK_PATH=$(ls -d $ANDROID_SDK_ROOT/ndk/* | tail -n 1)
+          echo "ANDROID_NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "NDK_HOME=$NDK_PATH" >> $GITHUB_ENV
+          echo "ANDROID_NDK_ROOT=$NDK_PATH" >> $GITHUB_ENV
 
       - name: Install gomobile & cargo-ndk
         run: |
@@ -48,13 +50,15 @@ jobs:
           chmod +x tools/*sh || true
 
       - name: Build APK with Gradle
-        run: ./gradlew :android:apolloui:assembleDebug --stacktrace -x test
+        run: ./gradlew assembleDebug --stacktrace -x test
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
           name: meen-wallet-app-debug
-          path: android/apolloui/build/outputs/apk/debug/*.apk
+          path: |
+            **/build/outputs/apk/debug/*.apk
+            **/build/outputs/apk/**/*.apk
 
       - name: Upload Build Logs on Failure
         if: failure()
