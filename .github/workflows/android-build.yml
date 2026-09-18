@@ -26,7 +26,7 @@ jobs:
           targets: aarch64-linux-android, armv7-linux-androideabi, x86_64-linux-android, i686-linux-android
 
       - name: Set up Android NDK
-        uses: nsmbl/setup-android-ndk@v1
+        uses: android-actions/setup-ndk@v3
         with:
           ndk-version: r25c
 
@@ -57,4 +57,3 @@ jobs:
         with:
           name: meen-wallet-app-debug
           path: android/apolloui/build/outputs/apk/debug/*.apk
-          
