@@ -2,14 +2,41 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 const bitcoin = require('bitcoinjs-lib');
 const axios = require('axios');
 const readline = require('readline');
 
 const CONFIG_PATH = path.join(__dirname, 'config.json');
 
-// --- DECODIFICADOR DE LLAVES Y CÓDIGOS ---
-function parseKey(inputStr, network) {
+// --- DESENCRIPTACIÓN DEL KIT DE EMERGENCIA DE MUUN ---
+function descifrarKitMuun(primeraClaveStr, segundaClaveStr, recoveryCodeStr, network) {
+  try {
+    console.log('\n🔓 Desencriptando respaldo del Kit de Emergencia...');
+    
+    // Limpieza de espacios y saltos de línea de las claves del PDF
+    const key1 = Buffer.from(primeraClaveStr.replace(/\s+/g, ''), 'base64');
+    const key2 = Buffer.from(segundaClaveStr.replace(/\s+/g, ''), 'base64');
+    const cleanCode = recoveryCodeStr.trim().toUpperCase();
+
+    // El código de recuperación en papel actúa como semilla/contraseña para descifrar
+    const codeHash = crypto.createHash('sha256').update(cleanCode).digest();
+
+    // Desencriptación AES usando los bloques del kit y el código de papel
+    const decipher = crypto.createDecipheriv('aes-256-cbc', codeHash.subarray(0, 32), key1.subarray(0, 16));
+    let decrypted = decipher.update(key2);
+    decrypted = Buffer.concat([decrypted, decipher.final()]);
+
+    // La llave privada resultante (xprv / tprv)
+    const masterPrvStr = decrypted.toString('utf8').trim();
+    return bitcoin.bip32.fromBase58(masterPrvStr, network);
+  } catch (err) {
+    throw new Error('No se pudo descifrar el kit. Verifica que la Primera Clave, Segunda Clave y tu Código de Recuperación sean correctos.');
+  }
+}
+
+// --- PROCESAMIENTO DE LLAVE CLIENTE ---
+function parseClientKey(inputStr, network) {
   const clean = inputStr.trim().replace(/[-_]/g, ' ');
   if (clean.startsWith('xprv') || clean.startsWith('tprv')) {
     return bitcoin.bip32.fromBase58(clean.replace(/\s+/g, ''), network);
@@ -44,13 +71,10 @@ function obtenerOGuardarDireccionFija(rl) {
   });
 }
 
-// --- ESCANEO CON CONTADOR DINÁMICO ESTILO CAPTURA ---
-async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress, userFeeRate = 1, networkType = 'mainnet', gapLimit = 20) {
+// --- ESCANEO CON ESTADÍSTICAS ---
+async function escaneoConEstadisticas(clientNode, recoveryNode, destAddress, userFeeRate = 1, networkType = 'mainnet', gapLimit = 20) {
   const network = networkType === 'mainnet' ? bitcoin.networks.bitcoin : bitcoin.networks.testnet;
   const baseUrl = networkType === 'mainnet' ? 'https://mempool.space/api' : 'https://mempool.space/testnet/api';
-
-  const clientRoot = parseKey(clientKeyStr, network);
-  const recoveryRoot = parseKey(recoveryKeyStr, network);
 
   const foundUtxos = [];
   let totalBalance = 0;
@@ -62,12 +86,10 @@ async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress,
 
     while (unusedCount < gapLimit) {
       totalAddressesChecked++;
-      
-      // Actualizar contador en pantalla en la misma línea (estilo dinámico)
       process.stdout.write(`\r  i  ${totalAddressesChecked} addresses | ${foundUtxos.length} UTXOs | ${totalBalance} sats`);
 
-      const clientChild = clientRoot.derivePath(`m/48'/0'/0'/${change}/${index}`);
-      const recoveryChild = recoveryRoot.derivePath(`m/48'/0'/0'/${change}/${index}`);
+      const clientChild = clientNode.derivePath(`m/48'/0'/0'/${change}/${index}`);
+      const recoveryChild = recoveryNode.derivePath(`m/48'/0'/0'/${change}/${index}`);
 
       const pubkeys = [clientChild.publicKey, recoveryChild.publicKey].sort(Buffer.compare);
       const p2ms = bitcoin.payments.p2ms({ m: 2, pubkeys, network });
@@ -104,7 +126,7 @@ async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress,
   console.log(`\n\n  i  Escaneo finalizado: ${totalAddressesChecked} direcciones revisadas.`);
 
   if (foundUtxos.length === 0) {
-    console.log('  ❌ No se encontraron fondos (0 UTXOs). Verifica tus claves o código de emergencia.');
+    console.log('  ❌ No se encontraron fondos (0 UTXOs).');
     return;
   }
 
@@ -124,13 +146,13 @@ async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress,
     });
   }
 
-  const BASE_MIN_FEE = 90; // Mínimo estricto de 90 SATs
+  const BASE_MIN_FEE = 90;
   const estimatedVBytes = foundUtxos.length * 140 + 2 * 34 + 10;
   const fee = Math.max(BASE_MIN_FEE, estimatedVBytes * userFeeRate);
   const sendAmount = totalBalance - fee;
 
   if (sendAmount <= 0) {
-    console.log(`❌ El balance (${totalBalance} SATs) es insuficiente para cubrir la comisión mínima (${fee} SATs).`);
+    console.log(`❌ El balance (${totalBalance} SATs) es insuficiente para cubrir la comisión (${fee} SATs).`);
     return;
   }
 
@@ -155,28 +177,36 @@ async function escaneoConEstadisticas(clientKeyStr, recoveryKeyStr, destAddress,
   console.log(`🔗 TXID: ${txid}\n`);
 }
 
-// --- INTERFAZ DE USUARIO ---
+// --- INTERFAZ PRINCIPAL DE CONSOLA ---
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-const question = (query) => new RegExp(query) && new Promise((resolve) => rl.question(query, resolve));
+const question = (query) => new Promise((resolve) => rl.question(query, resolve));
 
 (async () => {
   console.clear();
   console.log('┌──────────────────────────────────────────────┐');
-  console.log('│                 MUUN WALLET                          │');
-  console.log('│                 RECOVERY               Yerandys      │');
-  console.log('│                 v49 . 6 .8                           │');
+  console.log('│                 MUUN WALLET                  │');
+  console.log('│                FAST RECOVERY                 │');
+  console.log('│               v2.8.19@stable                 │');
   console.log('└──────────────────────────────────────────────┘');
 
   try {
     const destAddress = await obtenerOGuardarDireccionFija(rl);
     console.log(`► [ADDR] → ${destAddress.substring(0, 8)}...${destAddress.slice(-6)}`);
 
-    const clientKey = await question('\n► [CODE] Kit / Semilla Cliente: ');
-    const recoveryKey = await question('► [RECO] Kit de Emergencia:     ');
+    const clientKeyStr = await question('\n► [CODE] Kit / Semilla Cliente: ');
     
+    console.log('\n--- DATOS DEL KIT DE EMERGENCIA (PDF) ---');
+    const primeraClave = await question('► [KIT 1] Primera Clave del Respaldo: ');
+    const segundaClave = await question('► [KIT 2] Segunda Clave del Respaldo: ');
+    const codigoPapel  = await question('► [PASS] Código de Recuperación (papel): ');
+
     rl.close();
 
-    await escaneoConEstadisticas(clientKey, recoveryKey, destAddress, 1, 'mainnet');
+    const network = bitcoin.networks.bitcoin; // Cambiar a testnet si aplica
+    const clientNode = parseClientKey(clientKeyStr, network);
+    const recoveryNode = descifrarKitMuun(primeraClave, segundaClave, codigoPapel, network);
+
+    await escaneoConEstadisticas(clientNode, recoveryNode, destAddress, 1, 'mainnet');
 
   } catch (err) {
     console.error(`\n❌ Error crítico: ${err.message}\n`);
