@@ -1,7 +1,6 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.utils.Deprecated;
-
+import io.meen.common.utils.Deprecated;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -13,44 +12,44 @@ import javax.validation.constraints.NotNull;
 public class SubmarineSwapFeesJson {
 
     @NotNull
-    public Long lightningInSats = 0L;
+    public Long lightningInSats;
 
     @NotNull
     public Long sweepInSats;
 
     @Deprecated(atApolloVersion = 76)
-    @Nullable   // Since HWs deprecation, this can be null
+    @Nullable
     public Long channelOpenInSats;
 
     @Deprecated(atApolloVersion = 76)
-    @Nullable   // Since HWs deprecation, this can be null
+    @Nullable
     public Long channelCloseInSats;
 
     /**
      * Json constructor.
      */
     public SubmarineSwapFeesJson() {
+        this.lightningInSats = 0L;
+        this.sweepInSats = 0L;
     }
 
     /**
-     * Apollo Constructor.
+     * Apollo constructor.
      */
     public SubmarineSwapFeesJson(long lightningInSats, long sweepInSats) {
-
-        this.lightningInSats = lightningInSats;
-        this.sweepInSats = sweepInSats;
+        this.lightningInSats = Math.max(0L, lightningInSats);
+        this.sweepInSats = Math.max(0L, sweepInSats);
     }
 
     /**
-     * Houston Constructor.
+     * Houston constructor.
      */
     public SubmarineSwapFeesJson(long lightningInSats,
                                  long sweepInSats,
-                                 long channelOpenInSats,
-                                 long channelCloseInSats) {
-
-        this.lightningInSats = lightningInSats;
-        this.sweepInSats = sweepInSats;
+                                 @Nullable Long channelOpenInSats,
+                                 @Nullable Long channelCloseInSats) {
+        this.lightningInSats = Math.max(0L, lightningInSats);
+        this.sweepInSats = Math.max(0L, sweepInSats);
         this.channelOpenInSats = channelOpenInSats;
         this.channelCloseInSats = channelCloseInSats;
     }
