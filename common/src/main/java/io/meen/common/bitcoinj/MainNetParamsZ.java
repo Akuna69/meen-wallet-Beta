@@ -1,4 +1,4 @@
-package io.muun.common.bitcoinj;
+package io.meen.common.bitcoinj;
 
 import org.bitcoinj.params.MainNetParams;
 

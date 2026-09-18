@@ -1,4 +1,4 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

@@ -1,7 +1,7 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.crypto.hd.exception.KeyDerivationException;
-import io.muun.common.utils.Preconditions;
+import io.meen.common.crypto.hd.exception.KeyDerivationException;
+import io.meen.common.utils.Preconditions;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.bitcoinj.core.NetworkParameters;

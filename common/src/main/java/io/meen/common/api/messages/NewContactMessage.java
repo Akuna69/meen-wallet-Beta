@@ -1,7 +1,7 @@
-package io.muun.common.api.messages;
+package io.meen.common.api.messages;
 
-import io.muun.common.api.Contact;
-import io.muun.common.model.SessionStatus;
+import io.meen.common.api.Contact;
+import io.meen.common.model.SessionStatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

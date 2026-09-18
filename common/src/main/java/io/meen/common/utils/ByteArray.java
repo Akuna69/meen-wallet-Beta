@@ -1,4 +1,4 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 import java.util.Arrays;
 

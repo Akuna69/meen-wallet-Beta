@@ -1,4 +1,4 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
 /**
  * A list of the currently supported Emergency Kit versions (and what they represent).

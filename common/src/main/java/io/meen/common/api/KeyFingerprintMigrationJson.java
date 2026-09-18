@@ -1,4 +1,4 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
 import javax.validation.constraints.NotNull;
 

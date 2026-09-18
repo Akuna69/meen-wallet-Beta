@@ -1,4 +1,4 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;

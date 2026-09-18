@@ -1,4 +1,4 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,7 +8,7 @@ import org.junit.runners.Parameterized.Parameters;
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.muun.common.model.BtcAmount.MSATS_PER_BTC;
+import static io.meen.common.model.BtcAmount.MSATS_PER_BTC;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.withPrecision;
 

@@ -1,4 +1,4 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
 import com.google.common.collect.DiscreteDomain;
 import com.google.common.collect.Range;

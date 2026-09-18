@@ -1,4 +1,4 @@
-package io.muun.common.utils.internal;
+package io.meen.common.utils.internal;
 
 /*
  * Copyright 2013 Google Inc.

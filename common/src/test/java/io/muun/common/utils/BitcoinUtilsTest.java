@@ -1,4 +1,4 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 import org.javamoney.moneta.Money;
 import org.junit.Test;
@@ -7,8 +7,8 @@ import javax.money.CurrencyUnit;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 
-import static io.muun.common.utils.BitcoinUtils.bitcoinsToSatoshis;
-import static io.muun.common.utils.BitcoinUtils.satoshisToBitcoins;
+import static io.meen.common.utils.BitcoinUtils.bitcoinsToSatoshis;
+import static io.meen.common.utils.BitcoinUtils.satoshisToBitcoins;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class BitcoinUtilsTest {

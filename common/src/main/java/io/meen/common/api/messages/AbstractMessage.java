@@ -1,4 +1,4 @@
-package io.muun.common.api.messages;
+package io.meen.common.api.messages;
 
 public abstract class AbstractMessage implements Message {
 

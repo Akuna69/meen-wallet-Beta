@@ -1,4 +1,4 @@
-package io.muun.common.api.messages;
+package io.meen.common.api.messages;
 
 public enum MessageOrigin {
     APOLLO,

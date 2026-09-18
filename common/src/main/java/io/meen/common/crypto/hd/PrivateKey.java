@@ -1,16 +1,16 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.bitcoinj.MainNetParamsY;
-import io.muun.common.bitcoinj.MainNetParamsZ;
-import io.muun.common.bitcoinj.NetworkParametersHelper;
-import io.muun.common.bitcoinj.TestNetParamsU;
-import io.muun.common.bitcoinj.TestNetParamsV;
-import io.muun.common.crypto.hd.exception.InvalidDerivationBranchException;
-import io.muun.common.crypto.hd.exception.InvalidDerivationPathException;
-import io.muun.common.crypto.hd.exception.KeyDerivationException;
-import io.muun.common.utils.Encodings;
-import io.muun.common.utils.Hashes;
-import io.muun.common.utils.Preconditions;
+import io.meen.common.bitcoinj.MainNetParamsY;
+import io.meen.common.bitcoinj.MainNetParamsZ;
+import io.meen.common.bitcoinj.NetworkParametersHelper;
+import io.meen.common.bitcoinj.TestNetParamsU;
+import io.meen.common.bitcoinj.TestNetParamsV;
+import io.meen.common.crypto.hd.exception.InvalidDerivationBranchException;
+import io.meen.common.crypto.hd.exception.InvalidDerivationPathException;
+import io.meen.common.crypto.hd.exception.KeyDerivationException;
+import io.meen.common.utils.Encodings;
+import io.meen.common.utils.Hashes;
+import io.meen.common.utils.Preconditions;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.ImmutableList;

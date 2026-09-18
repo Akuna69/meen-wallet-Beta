@@ -1,7 +1,7 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
-import io.muun.common.utils.Preconditions;
-import io.muun.common.utils.RandomGenerator;
+import io.meen.common.utils.Preconditions;
+import io.meen.common.utils.RandomGenerator;
 
 import org.bouncycastle.crypto.BufferedBlockCipher;
 import org.bouncycastle.crypto.InvalidCipherTextException;

@@ -1,4 +1,4 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 import com.lambdaworks.crypto.SCrypt;
 import org.bouncycastle.crypto.digests.RIPEMD160Digest;

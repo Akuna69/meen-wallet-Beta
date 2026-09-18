@@ -1,6 +1,6 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.Optional;
+import io.meen.common.Optional;
 
 public class ExceptionUtils {
 

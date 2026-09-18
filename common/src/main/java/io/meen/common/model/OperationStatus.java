@@ -1,4 +1,4 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonInclude;

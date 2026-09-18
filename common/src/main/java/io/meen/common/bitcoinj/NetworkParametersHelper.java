@@ -1,6 +1,6 @@
-package io.muun.common.bitcoinj;
+package io.meen.common.bitcoinj;
 
-import io.muun.common.exception.MissingCaseError;
+import io.meen.common.exception.MissingCaseError;
 
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;

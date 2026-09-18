@@ -1,7 +1,7 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
 
-import io.muun.common.api.MuunAddressJson;
+import io.meen.common.api.MuunAddressJson;
 
 import org.bitcoinj.core.Address;
 

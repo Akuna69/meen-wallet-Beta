@@ -1,7 +1,7 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
-import io.muun.common.api.UtxoStatusJson;
-import io.muun.common.exception.MissingCaseError;
+import io.meen.common.api.UtxoStatusJson;
+import io.meen.common.exception.MissingCaseError;
 
 public enum UtxoStatus {
 

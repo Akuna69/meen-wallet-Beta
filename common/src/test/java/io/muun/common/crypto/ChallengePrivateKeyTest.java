@@ -1,7 +1,7 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
-import io.muun.common.crypto.hd.PrivateKey;
-import io.muun.common.utils.Encodings;
+import io.meen.common.crypto.hd.PrivateKey;
+import io.meen.common.utils.Encodings;
 
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;

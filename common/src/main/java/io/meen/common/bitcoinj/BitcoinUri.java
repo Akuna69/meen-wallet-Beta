@@ -1,6 +1,6 @@
-package io.muun.common.bitcoinj;
+package io.meen.common.bitcoinj;
 
-import io.muun.common.utils.Bech32SegwitAddress;
+import io.meen.common.utils.Bech32SegwitAddress;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;

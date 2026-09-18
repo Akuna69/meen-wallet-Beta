@@ -1,9 +1,9 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
-import io.muun.common.crypto.hd.PrivateKey;
-import io.muun.common.utils.Encodings;
-import io.muun.common.utils.Hashes;
-import io.muun.common.utils.Preconditions;
+import io.meen.common.crypto.hd.PrivateKey;
+import io.meen.common.utils.Encodings;
+import io.meen.common.utils.Hashes;
+import io.meen.common.utils.Preconditions;
 
 import com.google.common.annotations.VisibleForTesting;
 import org.bitcoinj.core.ECKey;

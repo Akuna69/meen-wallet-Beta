@@ -1,6 +1,6 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.crypto.hd.PrivateKey;
+import io.meen.common.crypto.hd.PrivateKey;
 
 import org.bitcoinj.core.LegacyAddress;
 import org.bitcoinj.core.NetworkParameters;

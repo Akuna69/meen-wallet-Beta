@@ -1,9 +1,9 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 
-import io.muun.common.crypto.hd.PrivateKey;
-import io.muun.common.crypto.hd.PublicKey;
-import io.muun.common.model.BtcAmount;
+import io.meen.common.crypto.hd.PrivateKey;
+import io.meen.common.crypto.hd.PublicKey;
+import io.meen.common.model.BtcAmount;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import org.bitcoinj.core.Context;

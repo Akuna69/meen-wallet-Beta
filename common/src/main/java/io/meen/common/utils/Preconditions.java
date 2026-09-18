@@ -12,7 +12,7 @@
  * limitations under the License.
  */
 
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 import org.jetbrains.annotations.Contract;
 

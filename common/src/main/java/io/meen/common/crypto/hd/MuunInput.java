@@ -1,8 +1,8 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
 
-import io.muun.common.api.MuunInputJson;
-import io.muun.common.utils.Encodings;
+import io.meen.common.api.MuunInputJson;
+import io.meen.common.utils.Encodings;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;

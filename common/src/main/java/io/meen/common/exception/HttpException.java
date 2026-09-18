@@ -1,8 +1,8 @@
-package io.muun.common.exception;
+package io.meen.common.exception;
 
-import io.muun.common.api.error.BaseErrorCode;
-import io.muun.common.api.error.Error;
-import io.muun.common.utils.RandomGenerator;
+import io.meen.common.api.error.BaseErrorCode;
+import io.meen.common.api.error.Error;
+import io.meen.common.utils.RandomGenerator;
 
 import javax.annotation.Nullable;
 

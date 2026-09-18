@@ -1,7 +1,7 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.dates.MuunZonedDateTime;
-import io.muun.common.model.HardwareWalletBrand;
+import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.model.HardwareWalletBrand;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

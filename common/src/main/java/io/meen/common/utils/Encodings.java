@@ -1,7 +1,7 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.crypto.CryptographyException;
-import io.muun.common.utils.internal.Base58;
+import io.meen.common.crypto.CryptographyException;
+import io.meen.common.utils.internal.Base58;
 
 import org.bitcoinj.core.ECKey;
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;

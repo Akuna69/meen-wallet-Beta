@@ -1,4 +1,4 @@
-package io.muun.common.exception;
+package io.meen.common.exception;
 
 public class MissingCaseError extends RuntimeException implements PotentialBug {
 

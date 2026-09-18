@@ -1,11 +1,11 @@
-package io.muun.common.bitcoinj;
+package io.meen.common.bitcoinj;
 
-import io.muun.common.api.ChallengeSetupJson;
-import io.muun.common.api.ChallengeSignatureJson;
-import io.muun.common.crypto.ChallengePublicKey;
-import io.muun.common.crypto.ChallengeType;
-import io.muun.common.utils.Bech32SegwitAddress;
-import io.muun.common.utils.Encodings;
+import io.meen.common.api.ChallengeSetupJson;
+import io.meen.common.api.ChallengeSignatureJson;
+import io.meen.common.crypto.ChallengePublicKey;
+import io.meen.common.crypto.ChallengeType;
+import io.meen.common.utils.Bech32SegwitAddress;
+import io.meen.common.utils.Encodings;
 
 import org.bitcoinj.core.AddressFormatException;
 import org.bitcoinj.core.ECKey;
@@ -68,7 +68,7 @@ public class ValidationHelpers {
             Bech32SegwitAddress.decode(params, address);
             return true;
 
-        } catch (io.muun.common.exception.AddressFormatException e) {
+        } catch (io.meen.common.exception.AddressFormatException e) {
             return false;
         }
     }

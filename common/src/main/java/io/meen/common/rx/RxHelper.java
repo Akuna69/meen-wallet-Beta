@@ -1,4 +1,4 @@
-package io.muun.common.rx;
+package io.meen.common.rx;
 
 import rx.Observable;
 import rx.functions.Func2;

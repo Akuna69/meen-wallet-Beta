@@ -1,6 +1,6 @@
-package io.muun.common.api.messages;
+package io.meen.common.api.messages;
 
-import io.muun.common.model.SessionStatus;
+import io.meen.common.model.SessionStatus;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

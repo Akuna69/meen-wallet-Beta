@@ -1,6 +1,6 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.model.DebtType;
+import io.meen.common.model.DebtType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

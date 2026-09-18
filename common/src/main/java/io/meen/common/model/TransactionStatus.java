@@ -1,9 +1,9 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
-import io.muun.common.api.TransactionStatusJson;
-import io.muun.common.bitcoinj.NetworkParametersHelper;
-import io.muun.common.exception.MissingCaseError;
-import io.muun.common.utils.Preconditions;
+import io.meen.common.api.TransactionStatusJson;
+import io.meen.common.bitcoinj.NetworkParametersHelper;
+import io.meen.common.exception.MissingCaseError;
+import io.meen.common.utils.Preconditions;
 
 import org.bitcoinj.core.NetworkParameters;
 

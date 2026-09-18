@@ -1,7 +1,7 @@
-package io.muun.common.rx;
+package io.meen.common.rx;
 
-import io.muun.common.Optional;
-import io.muun.common.utils.MathUtils;
+import io.meen.common.Optional;
+import io.meen.common.utils.MathUtils;
 
 import rx.Observable;
 import rx.functions.Func1;

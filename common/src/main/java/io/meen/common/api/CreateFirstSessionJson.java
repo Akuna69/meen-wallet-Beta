@@ -1,7 +1,7 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.Supports;
-import io.muun.common.utils.Deprecated;
+import io.meen.common.Supports;
+import io.meen.common.utils.Deprecated;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

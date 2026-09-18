@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.muun.common.utils.internal;
+package io.meen.common.utils.internal;
 
 import java.util.Arrays;
 

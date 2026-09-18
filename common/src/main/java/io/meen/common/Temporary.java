@@ -1,4 +1,4 @@
-package io.muun.common;
+package io.meen.common;
 
 public class Temporary {
 

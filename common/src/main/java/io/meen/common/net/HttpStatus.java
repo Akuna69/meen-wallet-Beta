@@ -1,4 +1,4 @@
-package io.muun.common.net;
+package io.meen.common.net;
 
 /**
  * Constants enumerating the HTTP status codes.

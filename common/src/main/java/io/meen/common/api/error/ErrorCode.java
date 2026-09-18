@@ -1,7 +1,7 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
-import io.muun.common.net.HttpStatus;
-import io.muun.common.utils.Deprecated;
+import io.meen.common.net.HttpStatus;
+import io.meen.common.utils.Deprecated;
 
 import com.google.common.collect.Range;
 

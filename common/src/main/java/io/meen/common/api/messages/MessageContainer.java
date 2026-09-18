@@ -1,4 +1,4 @@
-package io.muun.common.api.messages;
+package io.meen.common.api.messages;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

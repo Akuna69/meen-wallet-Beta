@@ -1,6 +1,6 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.crypto.hd.exception.InvalidDerivationPathException;
+import io.meen.common.crypto.hd.exception.InvalidDerivationPathException;
 
 import java.util.ArrayList;
 import java.util.List;

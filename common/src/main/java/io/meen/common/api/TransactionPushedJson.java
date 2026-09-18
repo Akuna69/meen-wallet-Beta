@@ -1,6 +1,6 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.api.error.BroadcastErrorJson;
+import io.meen.common.api.error.BroadcastErrorJson;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

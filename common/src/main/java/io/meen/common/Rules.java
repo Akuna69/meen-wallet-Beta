@@ -1,6 +1,6 @@
-package io.muun.common;
+package io.meen.common;
 
-import io.muun.common.utils.Deprecated;
+import io.meen.common.utils.Deprecated;
 
 public class Rules {
 

@@ -1,4 +1,4 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
 import com.google.common.annotations.VisibleForTesting;
 

@@ -1,7 +1,7 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.Optional;
-import io.muun.common.utils.Encodings;
+import io.meen.common.Optional;
+import io.meen.common.utils.Encodings;
 
 import com.google.protobuf.ByteString;
 import org.bitcoinj.crypto.EncryptedData;

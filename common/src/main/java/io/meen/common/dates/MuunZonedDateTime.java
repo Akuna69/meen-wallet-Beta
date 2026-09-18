@@ -1,4 +1,4 @@
-package io.muun.common.dates;
+package io.meen.common.dates;
 
 public interface MuunZonedDateTime {
 }

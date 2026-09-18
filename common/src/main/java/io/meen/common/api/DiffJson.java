@@ -1,6 +1,6 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.model.Diff;
+import io.meen.common.model.Diff;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

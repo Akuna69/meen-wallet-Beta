@@ -1,12 +1,12 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.crypto.ChallengePublicKey;
-import io.muun.common.crypto.hd.HardwareWalletAddress;
-import io.muun.common.crypto.hd.PublicKey;
-import io.muun.common.model.challenge.Challenge;
-import io.muun.common.model.challenge.ChallengeSetup;
-import io.muun.common.model.challenge.ChallengeSignature;
-import io.muun.common.utils.Encodings;
+import io.meen.common.crypto.ChallengePublicKey;
+import io.meen.common.crypto.hd.HardwareWalletAddress;
+import io.meen.common.crypto.hd.PublicKey;
+import io.meen.common.model.challenge.Challenge;
+import io.meen.common.model.challenge.ChallengeSetup;
+import io.meen.common.model.challenge.ChallengeSignature;
+import io.meen.common.utils.Encodings;
 
 import org.bitcoinj.core.NetworkParameters;
 

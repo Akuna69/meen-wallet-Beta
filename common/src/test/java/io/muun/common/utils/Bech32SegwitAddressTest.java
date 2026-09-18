@@ -1,6 +1,6 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.utils.internal.Bech32;
+import io.meen.common.utils.internal.Bech32;
 
 import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;

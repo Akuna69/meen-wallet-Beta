@@ -1,4 +1,4 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
 public class CryptographyException extends RuntimeException {
 

@@ -1,6 +1,6 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.validator.E164PhoneNumber;
+import io.meen.common.validator.E164PhoneNumber;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

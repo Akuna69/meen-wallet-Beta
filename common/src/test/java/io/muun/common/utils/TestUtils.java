@@ -1,4 +1,4 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

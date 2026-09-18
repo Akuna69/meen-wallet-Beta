@@ -1,7 +1,7 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
-import io.muun.common.exception.HttpException;
-import io.muun.common.utils.RandomGenerator;
+import io.meen.common.exception.HttpException;
+import io.meen.common.utils.RandomGenerator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,9 +1,9 @@
-package io.muun.common.rx;
+package io.meen.common.rx;
 
-import io.muun.common.Optional;
-import io.muun.common.api.error.BaseErrorCode;
-import io.muun.common.exception.HttpException;
-import io.muun.common.utils.ExceptionUtils;
+import io.meen.common.Optional;
+import io.meen.common.api.error.BaseErrorCode;
+import io.meen.common.exception.HttpException;
+import io.meen.common.utils.ExceptionUtils;
 
 import rx.Single;
 import rx.functions.Func1;

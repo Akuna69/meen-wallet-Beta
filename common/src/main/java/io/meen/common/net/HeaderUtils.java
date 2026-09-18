@@ -1,8 +1,8 @@
-package io.muun.common.net;
+package io.meen.common.net;
 
-import io.muun.common.Optional;
-import io.muun.common.api.ClientTypeJson;
-import io.muun.common.model.SessionStatus;
+import io.meen.common.Optional;
+import io.meen.common.api.ClientTypeJson;
+import io.meen.common.model.SessionStatus;
 
 import javax.annotation.Nullable;
 

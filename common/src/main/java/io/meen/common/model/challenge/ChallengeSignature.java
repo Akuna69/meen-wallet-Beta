@@ -1,6 +1,6 @@
-package io.muun.common.model.challenge;
+package io.meen.common.model.challenge;
 
-import io.muun.common.crypto.ChallengeType;
+import io.meen.common.crypto.ChallengeType;
 
 import javax.validation.constraints.NotNull;
 

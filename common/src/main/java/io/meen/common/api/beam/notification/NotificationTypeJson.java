@@ -1,4 +1,4 @@
-package io.muun.common.api.beam.notification;
+package io.meen.common.api.beam.notification;
 
 public enum NotificationTypeJson {
 

@@ -1,6 +1,6 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.api.MuunOutputJson;
+import io.meen.common.api.MuunOutputJson;
 
 import javax.validation.constraints.NotNull;
 

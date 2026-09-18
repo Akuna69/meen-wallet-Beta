@@ -1,9 +1,9 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
-import io.muun.common.Supports;
-import io.muun.common.dates.MuunZonedDateTime;
-import io.muun.common.utils.Deprecated;
-import io.muun.common.utils.Since;
+import io.meen.common.Supports;
+import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.utils.Deprecated;
+import io.meen.common.utils.Since;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

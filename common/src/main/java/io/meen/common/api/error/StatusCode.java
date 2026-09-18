@@ -1,6 +1,6 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
-import io.muun.common.net.HttpStatus;
+import io.meen.common.net.HttpStatus;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

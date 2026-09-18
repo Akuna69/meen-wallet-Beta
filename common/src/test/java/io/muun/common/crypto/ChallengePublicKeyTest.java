@@ -1,6 +1,6 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
-import io.muun.common.utils.Encodings;
+import io.meen.common.utils.Encodings;
 
 import com.google.common.primitives.Bytes;
 import org.junit.Test;

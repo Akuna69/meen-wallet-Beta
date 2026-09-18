@@ -1,7 +1,7 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
 
-import io.muun.common.exception.MissingCaseError;
+import io.meen.common.exception.MissingCaseError;
 
 public enum ChallengeType {
 

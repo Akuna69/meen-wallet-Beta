@@ -1,6 +1,6 @@
-package io.muun.common.crypto.hd;
+package io.meen.common.crypto.hd;
 
-import io.muun.common.Optional;
+import io.meen.common.Optional;
 
 import org.bitcoinj.core.Context;
 import org.bitcoinj.core.NetworkParameters;

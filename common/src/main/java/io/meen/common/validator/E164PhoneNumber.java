@@ -1,4 +1,4 @@
-package io.muun.common.validator;
+package io.meen.common.validator;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

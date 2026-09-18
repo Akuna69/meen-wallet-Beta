@@ -1,7 +1,7 @@
-package io.muun.common.crypto;
+package io.meen.common.crypto;
 
-import io.muun.common.utils.Preconditions;
-import io.muun.common.utils.internal.Base58;
+import io.meen.common.utils.Preconditions;
+import io.meen.common.utils.internal.Base58;
 
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;

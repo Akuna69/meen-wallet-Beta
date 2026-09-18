@@ -1,6 +1,6 @@
-package io.muun.common.bitcoinj;
+package io.meen.common.bitcoinj;
 
-import io.muun.common.utils.Preconditions;
+import io.meen.common.utils.Preconditions;
 
 import org.bitcoinj.core.Block;
 

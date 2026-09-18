@@ -1,8 +1,8 @@
-package io.muun.common.crypto.hwallet;
+package io.meen.common.crypto.hwallet;
 
-import io.muun.common.crypto.hd.HardwareWalletAddress;
-import io.muun.common.crypto.hd.HardwareWalletOutput;
-import io.muun.common.model.SizeForAmount;
+import io.meen.common.crypto.hd.HardwareWalletAddress;
+import io.meen.common.crypto.hd.HardwareWalletOutput;
+import io.meen.common.model.SizeForAmount;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
 import com.google.common.collect.Range;
 import org.assertj.core.api.Assertions;

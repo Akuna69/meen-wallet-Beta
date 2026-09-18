@@ -1,4 +1,4 @@
-package io.muun.common.crypto.hd.exception;
+package io.meen.common.crypto.hd.exception;
 
 public class InvalidDerivationPathException extends RuntimeException {
 

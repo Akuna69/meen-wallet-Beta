@@ -1,9 +1,9 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.crypto.hd.PrivateKey;
-import io.muun.common.exception.ParsingException;
-import io.muun.common.model.BtcAmount;
-import io.muun.common.utils.internal.Bech32;
+import io.meen.common.crypto.hd.PrivateKey;
+import io.meen.common.exception.ParsingException;
+import io.meen.common.model.BtcAmount;
+import io.meen.common.utils.internal.Bech32;
 
 import com.google.common.primitives.Bytes;
 import org.bitcoinj.core.ECKey;

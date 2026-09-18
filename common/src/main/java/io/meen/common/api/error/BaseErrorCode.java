@@ -1,7 +1,7 @@
-package io.muun.common.api.error;
+package io.meen.common.api.error;
 
-import io.muun.common.utils.Pair;
-import io.muun.common.utils.Preconditions;
+import io.meen.common.utils.Pair;
+import io.meen.common.utils.Preconditions;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -17,7 +17,7 @@ import javax.annotation.Nullable;
 
 /**
  * Muun HTTP errors are serialized as a json-encoded {@link Error}, and automatically deserialized
- * as an {@link io.muun.common.exception.HttpException}. These errors have globally unique error
+ * as an {@link io.meen.common.exception.HttpException}. These errors have globally unique error
  * codes used to identify and handle different failure scenarios.
  *
  * <p>If you want to register new error codes, you must create an enum class implementing

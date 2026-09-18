@@ -1,6 +1,6 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
-import io.muun.common.Optional;
+import io.meen.common.Optional;
 
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;

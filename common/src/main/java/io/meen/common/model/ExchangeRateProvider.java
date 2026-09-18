@@ -1,7 +1,7 @@
-package io.muun.common.model;
+package io.meen.common.model;
 
-import io.muun.common.Optional;
-import io.muun.common.api.ExchangeRateWindow;
+import io.meen.common.Optional;
+import io.meen.common.api.ExchangeRateWindow;
 
 import org.javamoney.moneta.convert.ExchangeRateBuilder;
 import org.javamoney.moneta.spi.AbstractRateProvider;

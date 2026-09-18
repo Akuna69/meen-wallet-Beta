@@ -1,6 +1,6 @@
-package io.muun.common.utils;
+package io.meen.common.utils;
 
-import io.muun.common.utils.internal.LinuxSecureRandom;
+import io.meen.common.utils.internal.LinuxSecureRandom;
 
 import java.security.SecureRandom;
 import java.security.Security;

@@ -1,4 +1,4 @@
-package io.muun.common.api.beam.notification;
+package io.meen.common.api.beam.notification;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -1,11 +1,11 @@
-package io.muun.common.utils.internal;
+package io.meen.common.utils.internal;
 
-import io.muun.common.utils.ByteArray;
+import io.meen.common.utils.ByteArray;
 
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 
-import static io.muun.common.utils.Preconditions.checkArgument;
+import static io.meen.common.utils.Preconditions.checkArgument;
 
 /**
  * Based on Java ref implementation in https://github.com/sipa/bech32/pull/19/files.
