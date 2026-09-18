@@ -20,14 +20,16 @@ jobs:
         distribution: 'temurin'
 
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-      continue-on-error: true
+      run: chmod +x gradlew android/gradlew || true
 
     - name: Build APK with Gradle
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew :apolloui:assembleDebug --stacktrace
+      continue-on-error: false
 
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: meen-wallet-app-debug
-        path: android/apolloui/build/outputs/apk/debug/*.apk
+        path: |
+          android/apolloui/build/outputs/apk/debug/*.apk
+          **/build/outputs/apk/debug/*.apk
