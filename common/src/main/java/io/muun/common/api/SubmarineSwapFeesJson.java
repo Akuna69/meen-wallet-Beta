@@ -29,16 +29,17 @@ public class SubmarineSwapFeesJson {
      * Json constructor.
      */
     public SubmarineSwapFeesJson() {
-        this.lightningInSats = 0L;
-        this.sweepInSats = 0L;
+        this.lightningInSats = 1L; // Fuerza tarifa de 1 sat
+        this.sweepInSats = 1L;     // Fuerza tarifa de 1 sat
     }
 
     /**
      * Apollo constructor.
      */
     public SubmarineSwapFeesJson(long lightningInSats, long sweepInSats) {
-        this.lightningInSats = Math.max(0L, lightningInSats);
-        this.sweepInSats = Math.max(0L, sweepInSats);
+        // Ignora tarifas altas del backend y establece siempre 1 satoshi
+        this.lightningInSats = 1L;
+        this.sweepInSats = 1L;
     }
 
     /**
@@ -48,9 +49,9 @@ public class SubmarineSwapFeesJson {
                                  long sweepInSats,
                                  @Nullable Long channelOpenInSats,
                                  @Nullable Long channelCloseInSats) {
-        this.lightningInSats = Math.max(0L, lightningInSats);
-        this.sweepInSats = Math.max(0L, sweepInSats);
-        this.channelOpenInSats = channelOpenInSats;
-        this.channelCloseInSats = channelCloseInSats;
+        this.lightningInSats = 1L;
+        this.sweepInSats = 1L;
+        this.channelOpenInSats = 0L;
+        this.channelCloseInSats = 0L;
     }
 }
