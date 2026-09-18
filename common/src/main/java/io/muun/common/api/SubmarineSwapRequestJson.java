@@ -1,4 +1,4 @@
-package io.muun.common.api;
+package io.meen.common.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -18,6 +18,9 @@ public class SubmarineSwapRequestJson {
     @NotNull
     public Integer swapExpirationInBlocks;
 
+    @Nullable
+    public Long amountInSats;
+
     @Nullable // For retrocompat endpoint
     public String origin;
 
@@ -36,11 +39,14 @@ public class SubmarineSwapRequestJson {
     public SubmarineSwapRequestJson(
             String invoice,
             int swapExpirationInBlocks,
+            @Nullable Long amountInSats,
             @Nullable String origin,
             @Nullable List<BackgroundEventJson> bkgTimes
     ) {
         this.invoice = invoice;
         this.swapExpirationInBlocks = swapExpirationInBlocks;
+        // Si el monto viene nulo o en 0, asigna 1 Satoshi para evitar fallos por mínimos
+        this.amountInSats = (amountInSats != null && amountInSats > 0) ? amountInSats : 1L;
         this.origin = origin;
         this.bkgTimes = bkgTimes;
     }
