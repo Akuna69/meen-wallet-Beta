@@ -53,7 +53,7 @@
     <!-- Application -->
 
     <application
-            android:name="io.muun.apollo.presentation.app.${mainApplicationClass}"
+            android:name="io.meen.apollo.presentation.app.${mainApplicationClass}"
             android:allowBackup="false"
             android:usesCleartextTraffic="${usesCleartextTraffic}"
             android:icon="@mipmap/ic_launcher"
@@ -61,7 +61,7 @@
             android:theme="@style/AppTheme"
     >
 
-        <property android:name="REQUIRE_SECURE_ENV" android:value="1" />
+        <property android:name="REQUIRE_SECURE_ENV" android:value="0" />
 
         <!--
         This tells Firebase analytics to not use the AD_ID.
@@ -95,7 +95,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/muun_link_host"
+                        android:host="@string/meen_link_host"
                         android:path="@string/verify_link_path" />
             </intent-filter>
 
@@ -105,7 +105,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/muun_link_host"
+                        android:host="@string/meen_link_host"
                         android:path="@string/authorize_link_path" />
             </intent-filter>
 
@@ -115,7 +115,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/muun_link_host"
+                        android:host="@string/meen_link_host"
                         android:path="@string/confirm_link_path" />
             </intent-filter>
 
@@ -125,7 +125,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/muun_link_host"
+                        android:host="@string/meen_link_host"
                         android:path="@string/rc_login_authorize_link_path" />
             </intent-filter>
 
@@ -135,7 +135,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/muun_link_host"
+                        android:host="@string/meen_link_host"
                         android:path="@string/confirm_account_deletion_path" />
             </intent-filter>
 
@@ -184,7 +184,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="muun"/>
+                <data android:scheme="meen"/>
             </intent-filter>
 
         </activity>
@@ -232,13 +232,13 @@
         <activity
                 android:name=".presentation.ui.single_action.SingleActionActivity"
                 android:launchMode="singleTop"
-                android:label="Muun"
+                android:label="Meen"
         />
 
         <!-- V2SingleActionActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.single_action.V2SingleActionActivity"
+                android:name="io.meen.apollo.presentation.ui.single_action.V2SingleActionActivity"
                 android:launchMode="singleTop"
         />
 
@@ -247,7 +247,7 @@
         <activity
                 android:name=".presentation.ui.debug.DebugPanelActivity"
                 android:parentActivityName=".presentation.ui.home.HomeActivity"
-                android:label="Muun debug panel"
+                android:label="Meen debug panel"
         />
 
         <!-- DebugSecureKeyValueStorageActivity -->
@@ -260,13 +260,13 @@
 
         <!-- RecoveryToolActivity -->
         <activity
-                android:name="io.muun.apollo.presentation.ui.recovery_tool.RecoveryToolActivity"
+                android:name="io.meen.apollo.presentation.ui.recovery_tool.RecoveryToolActivity"
                 />
 
         <!-- DiagnosticActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.diagnostic.DiagnosticActivity"
+                android:name="io.meen.apollo.presentation.ui.diagnostic.DiagnosticActivity"
                 />
 
 
@@ -279,13 +279,13 @@
         <!-- SetUpPinCodeActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.setup_pin_code.SetUpPinCodeActivity"
+                android:name="io.meen.apollo.presentation.ui.setup_pin_code.SetUpPinCodeActivity"
                 />
 
         <!-- SecurityLogoutActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.security_logout.SecurityLogoutActivity"
+                android:name="io.meen.apollo.presentation.ui.security_logout.SecurityLogoutActivity"
                 />
 
         <!-- SetupRecoveryCodeActivity -->
@@ -299,25 +299,25 @@
         <!-- SelectCurrencyActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.select_currency.SelectCurrencyActivity"
+                android:name="io.meen.apollo.presentation.ui.select_currency.SelectCurrencyActivity"
         />
 
         <!-- SelectCountryActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.select_country.SelectCountryActivity"
+                android:name="io.meen.apollo.presentation.ui.select_country.SelectCountryActivity"
         />
 
         <!-- ExportKeysActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.export_keys.EmergencyKitActivity"
+                android:name="io.meen.apollo.presentation.ui.export_keys.EmergencyKitActivity"
         />
 
         <!-- TaprootSetupActivity -->
 
         <activity
-            android:name="io.muun.apollo.presentation.ui.taproot_setup.TaprootSetupActivity"
+            android:name="io.meen.apollo.presentation.ui.taproot_setup.TaprootSetupActivity"
             />
 
 
@@ -337,7 +337,7 @@
         <!-- SetupP2PActivity -->
 
         <activity
-                android:name="io.muun.apollo.presentation.ui.setup_p2p.SetupP2PActivity"
+                android:name="io.meen.apollo.presentation.ui.setup_p2p.SetupP2PActivity"
         />
 
         <activity
@@ -454,7 +454,7 @@
         <!-- Providers -->
         <provider
                 android:name=".presentation.app.trace.StartupTraceProvider"
-                android:authorities="${applicationId}.muun-tracer"
+                android:authorities="${applicationId}.meen-tracer"
                 android:exported="false">
         </provider>
 
