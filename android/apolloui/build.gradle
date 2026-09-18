@@ -74,7 +74,7 @@ static def configExternalLinks(productFlavor, String host) {
     String confirmAccountDeletionPath = "/link/confirm-account-deletion/index.html"
 
     // Required for AndroidManifest:
-    productFlavor.resValue "string", "muun_link_host", host
+    productFlavor.resValue "string", "meen_link_host", host
     productFlavor.resValue "string", "verify_link_path", verifyPath
     productFlavor.resValue "string", "authorize_link_path", authorizePath
     productFlavor.resValue "string", "confirm_link_path", changePasswdPath
@@ -82,7 +82,7 @@ static def configExternalLinks(productFlavor, String host) {
     productFlavor.resValue "string", "confirm_account_deletion_path", confirmAccountDeletionPath
 
     // Required for code access in action layer:
-    productFlavor.buildConfigField "String", "MUUN_LINK_HOST", quote(host)
+    productFlavor.buildConfigField "String", "MEEN_LINK_HOST", quote(host)
     productFlavor.buildConfigField "String", "VERIFY_LINK_PATH", quote(verifyPath)
     productFlavor.buildConfigField "String", "AUTHORIZE_LINK_PATH", quote(authorizePath)
     productFlavor.buildConfigField "String", "CONFIRM_LINK_PATH", quote(changePasswdPath)
@@ -91,7 +91,7 @@ static def configExternalLinks(productFlavor, String host) {
 }
 
 android {
-    namespace "io.muun.apollo"
+    namespace "io.meen.apollo"
 
     compileSdk 35
 
@@ -101,7 +101,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.muun.apollo"
+        applicationId "io.meen.apollo"
         minSdk 21
         targetSdk 35
         versionCode 1510
@@ -194,7 +194,7 @@ android {
         local {
             // naming
             applicationIdSuffix ".debug"
-            resValue "string", "app_name", "Muun (local)"
+            resValue "string", "app_name", "Meen (local)"
 
             // external link configuration
             // This picks up our local links with localhost:8000 (local houston) while
@@ -216,10 +216,10 @@ android {
         regtest {
             // naming
             applicationIdSuffix ".regtest"
-            resValue "string", "app_name", "Muun (regtest-remote)"
+            resValue "string", "app_name", "Meen (regtest-remote)"
 
             // external link configuration
-            configExternalLinks(owner, "dev.muun.io")
+            configExternalLinks(owner, "dev.meen.io")
 
             // server
             houstonRemoteRegtest.each { key, value -> buildConfigField("String", key, quote(value)) }
@@ -228,17 +228,17 @@ android {
             // we use to send to the server. Eventually we can deprecate it
             buildConfigField("String", "OLD_BUILD_TYPE", quote("regtestDebug"))
 
-            buildConfigField("String", "LAPP_URL", quote("https://pub.reg.api.muun.wtf/lapp"))
+            buildConfigField("String", "LAPP_URL", quote("https://pub.reg.api.meen.wtf/lapp"))
 
             signingConfig signingConfigs.debug
         }
 
         prod {
             // naming
-            resValue "string", "app_name", "Muun"
+            resValue "string", "app_name", "Meen"
 
             // external link configuration
-            configExternalLinks(owner, "muun.com")
+            configExternalLinks(owner, "meen.com")
 
             // Production application class, which is interpolated into AndroidManifest.xml
             manifestPlaceholders = [
@@ -263,14 +263,14 @@ android {
             // Note: if we ever change smth about this suffix our CI/CD needs to patched
             versionNameSuffix "-" + commitTag()
             applicationIdSuffix ".internal.beta"
-            resValue "string", "app_name", "Muun (Dogfood)"
+            resValue "string", "app_name", "Meen (Dogfood)"
 
             // external link configuration
-            configExternalLinks(owner, "muun.com")
+            configExternalLinks(owner, "meen.com")
 
             // Production application class, which is interpolated into AndroidManifest.xml
             manifestPlaceholders = [
-                    usseCleartextTraffic: 'false'
+                    usesCleartextTraffic: 'false'
             ]
 
             // server
@@ -653,7 +653,7 @@ androidComponents {
             output.versionCode.set(finalVersionCode)
 
             if (System.getenv("CI")) {
-                println "ABI: ${abiIdentifier}, Final versionCode: ${finalVersionCode}"
+                println "ABI: ${abiIdentifier}, Final versionCode:${finalVersionCode}"
             }
         }
     }
@@ -669,7 +669,7 @@ afterEvaluate {
         doLast {
             if (versionName.length() > maxLength) {
                 throw new GradleException(
-                        "❌ versionName '${versionName}' exceeds ${maxLength} characters.\n" +
+                        "❌ versionName '${versionName}' exceeds${maxLength} characters.\n" +
                                 "Houston has size limit for this."
                 )
             }
