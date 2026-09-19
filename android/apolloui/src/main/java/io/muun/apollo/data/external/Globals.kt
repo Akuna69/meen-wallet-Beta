@@ -74,7 +74,7 @@ abstract class Globals {
     /**
      * Get the hostname of this app's deeplink.
      */
-    abstract val muunLinkHost: String
+    abstract val mewnLinkHost: String
 
     /**
      * Get the path of this app's "Verify" deeplink.
