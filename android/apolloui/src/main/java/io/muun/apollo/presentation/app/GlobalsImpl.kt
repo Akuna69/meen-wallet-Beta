@@ -1,8 +1,8 @@
-package io.muun.apollo.presentation.app
+package io.meen.apollo.presentation.app
 
-import io.muun.apollo.BuildConfig
-import io.muun.apollo.data.external.Globals
-import io.muun.common.bitcoinj.NetworkParametersHelper
+import io.meen.apollo.BuildConfig
+import io.meen.apollo.data.external.Globals
+import io.meen.common.bitcoinj.NetworkParametersHelper
 import org.bitcoinj.core.NetworkParameters
 
 class GlobalsImpl : Globals() {
@@ -41,7 +41,7 @@ class GlobalsImpl : Globals() {
         get() = BuildConfig.VERSION_NAME
 
     override val muunLinkHost: String
-        get() = BuildConfig.MUUN_LINK_HOST
+        get() = BuildConfig.MEEN_LINK_HOST
 
     override val verifyLinkPath: String
         get() = BuildConfig.VERIFY_LINK_PATH
