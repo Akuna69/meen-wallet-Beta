@@ -10,11 +10,8 @@ ENV ANDROID_PLATFORM_VERSION 28
 ENV ANDROID_BUILD_TOOLS_VERSION 28.0.3
 ENV GO_VERSION 1.24.7
 
-RUN sed -i \
-    -e 's/deb.debian.org/archive.debian.org/g' \
-    -e 's|security.debian.org/debian-security|archive.debian.org/debian-security|g' \
-    /etc/apt/sources.list \
-    && sed -i '/-updates/d' /etc/apt/sources.list
+RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list \
+    && echo "Acquire::Check-Valid-Until false;" > /etc/apt/apt.conf.d/99no-check-valid-until
 
 RUN apt-get update \
     && apt-get install --yes --no-install-recommends \
