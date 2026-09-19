@@ -1,4 +1,4 @@
-package io.muun.apollo.data.external
+package io.meen.apollo.data.external
 
 import org.bitcoinj.core.NetworkParameters
 
