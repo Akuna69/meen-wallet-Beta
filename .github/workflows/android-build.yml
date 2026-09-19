@@ -61,6 +61,11 @@ jobs:
           mkdir -p libwallet/libs/x86_64-linux-android/
           mkdir -p libwallet/libs/i686-linux-android/
 
+      - name: Create google-services.json
+        run: |
+          mkdir -p android/apolloui
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > android/apolloui/google-services.json
+
       - name: Build Common & Dependencies
         run: ./gradlew :common:build -x test -x checkstyleMain -x checkstyleTest -x pmdMain -x pmdTest
 
