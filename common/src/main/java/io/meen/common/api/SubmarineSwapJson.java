@@ -1,7 +1,7 @@
 package io.meen.common.api;
 
 import io.meen.common.Supports;
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.utils.Deprecated;
 import io.meen.common.utils.Since;
 
@@ -42,14 +42,14 @@ public class SubmarineSwapJson {
     public SubmarineSwapFeesJson fees;
 
     @NotNull
-    public MuunZonedDateTime expiresAt;
+    public MeenZonedDateTime expiresAt;
 
     @NotNull
     @Deprecated(atApolloVersion = 76)
     public Boolean willPreOpenChannel;
 
     @Nullable
-    public MuunZonedDateTime payedAt;
+    public MeenZonedDateTime payedAt;
 
     @Nullable
     public String preimageInHex;
@@ -82,8 +82,8 @@ public class SubmarineSwapJson {
                              SubmarineSwapReceiverJson receiver,
                              SubmarineSwapFundingOutputJson fundingOutput,
                              @Nullable SubmarineSwapFeesJson fees,
-                             MuunZonedDateTime expiresAt,
-                             @Nullable MuunZonedDateTime payedAt,
+                             MeenZonedDateTime expiresAt,
+                             @Nullable MeenZonedDateTime payedAt,
                              @Nullable String preimageInHex) {
         this(
                 swapUuid,
@@ -110,9 +110,9 @@ public class SubmarineSwapJson {
             SubmarineSwapReceiverJson receiver,
             SubmarineSwapFundingOutputJson fundingOutput,
             @Nullable SubmarineSwapFeesJson fees,
-            MuunZonedDateTime expiresAt,
+            MeenZonedDateTime expiresAt,
             Boolean willPreOpenChannel,
-            @Nullable MuunZonedDateTime payedAt,
+            @Nullable MeenZonedDateTime payedAt,
             @Nullable String preimageInHex,
             @Nullable List<SubmarineSwapBestRouteFeesJson> bestRouteFees,
             @Nullable SubmarineSwapFundingOutputPoliciesJson fundingOutputPolicies,

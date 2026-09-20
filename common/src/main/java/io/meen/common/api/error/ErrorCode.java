@@ -277,7 +277,7 @@ public enum ErrorCode implements BaseErrorCode {
             2038, StatusCode.CLIENT_FAILURE, "The session has expired"
     ),
     COUNTRY_NOT_SUPPORTED(
-            2039, StatusCode.CLIENT_FAILURE, "Muun isn't yet available for this country"
+            2039, StatusCode.CLIENT_FAILURE, "Meen isn't yet available for this country"
     ),
     EXPIRED_SATELLITE_SESSION(
             2073, StatusCode.CLIENT_FAILURE, "Satellite session has expired"

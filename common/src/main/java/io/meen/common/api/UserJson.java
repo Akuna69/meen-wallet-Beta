@@ -1,7 +1,7 @@
 package io.meen.common.api;
 
 import io.meen.common.Supports;
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.model.UserPreferences;
 import io.meen.common.utils.Since;
 
@@ -26,7 +26,7 @@ public class UserJson {
 
     @Nullable
     @Deprecated // Keeping it for legacy users/clients. New ones should use emergencyKit field
-    public MuunZonedDateTime emergencyKitLastExportedAt;
+    public MeenZonedDateTime emergencyKitLastExportedAt;
 
     @Nullable
     @Since(
@@ -55,7 +55,7 @@ public class UserJson {
             apolloVersion = Supports.CreationDateInUserInfo.APOLLO,
             falconVersion = Supports.CreationDateInUserInfo.FALCON
     )
-    public MuunZonedDateTime createdAt;
+    public MeenZonedDateTime createdAt;
 
     public UserPreferences preferences;
 
@@ -80,7 +80,7 @@ public class UserJson {
                     boolean hasPasswordChallengeKey,
                     boolean hasRecoveryCodeChallengeKey,
                     boolean hasP2PEnabled,
-                    MuunZonedDateTime createdAt,
+                    MeenZonedDateTime createdAt,
                     UserPreferences preferences) {
 
         this.id = id;

@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MuunOutputJson {
+public class MeenOutputJson {
 
     @NotNull
     public String txId;
@@ -21,13 +21,13 @@ public class MuunOutputJson {
     /**
      * Json constructor.
      */
-    public MuunOutputJson() {
+    public MeenOutputJson() {
     }
 
     /**
      * Manual constructor.
      */
-    public MuunOutputJson(String txId, Integer index, Long amount) {
+    public MeenOutputJson(String txId, Integer index, Long amount) {
 
         this.txId = txId;
         this.index = index;

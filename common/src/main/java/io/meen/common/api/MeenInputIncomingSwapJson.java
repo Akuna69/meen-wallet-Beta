@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MuunInputIncomingSwapJson {
+public class MeenInputIncomingSwapJson {
 
     @NotNull
     public String sphinxHex;
@@ -36,13 +36,13 @@ public class MuunInputIncomingSwapJson {
     /**
      * JSON constructor.
      */
-    public MuunInputIncomingSwapJson() {
+    public MeenInputIncomingSwapJson() {
     }
 
     /**
      * Constructor.
      */
-    public MuunInputIncomingSwapJson(
+    public MeenInputIncomingSwapJson(
             final byte[] sphinx,
             final byte[] htlcTx,
             final byte[] swapServerPublicKey,

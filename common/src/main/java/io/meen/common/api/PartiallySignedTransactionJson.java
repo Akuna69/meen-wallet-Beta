@@ -15,7 +15,7 @@ public class PartiallySignedTransactionJson {
     public String hexTransaction;
 
     @NotNull
-    public List<MuunInputJson> inputs;
+    public List<MeenInputJson> inputs;
 
     /**
      * Json constructor.
@@ -27,7 +27,7 @@ public class PartiallySignedTransactionJson {
      * Houston constructor.
      */
     public PartiallySignedTransactionJson(String hexTransaction,
-                                          List<MuunInputJson> inputs) {
+                                          List<MeenInputJson> inputs) {
 
         this.hexTransaction = hexTransaction;
         this.inputs = inputs;

@@ -1,6 +1,6 @@
 package io.meen.common.api;
 
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -13,7 +13,7 @@ public class SensorEventJson {
 
     public Long eventId;
 
-    public MuunZonedDateTime eventTimestamp;
+    public MeenZonedDateTime eventTimestamp;
 
     public String eventType;
 
@@ -21,7 +21,7 @@ public class SensorEventJson {
 
     public SensorEventJson(
             Long eventId,
-            MuunZonedDateTime eventTimestamp,
+            MeenZonedDateTime eventTimestamp,
             String eventType,
             Map<String, Object> eventData
     ) {

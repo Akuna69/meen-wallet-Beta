@@ -1,6 +1,6 @@
 package io.meen.common.api;
 
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.model.HardwareWalletBrand;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -30,10 +30,10 @@ public class HardwareWalletJson {
     public PublicKeyJson publicKey;
 
     @NotNull
-    public MuunZonedDateTime createdAt;
+    public MeenZonedDateTime createdAt;
 
     @NotNull
-    public MuunZonedDateTime lastPairedAt;
+    public MeenZonedDateTime lastPairedAt;
 
     @NotNull
     public Boolean isPaired;
@@ -52,8 +52,8 @@ public class HardwareWalletJson {
                               @NotNull String model,
                               @NotNull String label,
                               @NotNull PublicKeyJson publicKey,
-                              @NotNull MuunZonedDateTime createdAt,
-                              @NotNull MuunZonedDateTime lastPairedAt,
+                              @NotNull MeenZonedDateTime createdAt,
+                              @NotNull MeenZonedDateTime lastPairedAt,
                               boolean isPaired) {
 
         this.id = id;

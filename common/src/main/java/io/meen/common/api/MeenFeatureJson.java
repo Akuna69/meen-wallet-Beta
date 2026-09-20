@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonEnumDefaultValue;
  * Welcome to our Feature Flags! This will represent, hopefully, the many features that we will
  * slowly activate to out users.
  */
-public enum MuunFeatureJson {
+public enum MeenFeatureJson {
     @JsonEnumDefaultValue
     UNSUPPORTED_FEATURE,
     TAPROOT,

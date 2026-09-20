@@ -1,6 +1,6 @@
 package io.meen.common.api;
 
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +16,7 @@ public class ExchangeRateWindow {
     public Long id;
 
     @NotNull
-    public MuunZonedDateTime fetchDate;
+    public MeenZonedDateTime fetchDate;
 
     @NotNull
     public Map<String, Double> rates;
@@ -30,7 +30,7 @@ public class ExchangeRateWindow {
     /**
      * Houston constructor.
      */
-    public ExchangeRateWindow(Long id, MuunZonedDateTime fetchDate, Map<String, Double> rates) {
+    public ExchangeRateWindow(Long id, MeenZonedDateTime fetchDate, Map<String, Double> rates) {
 
         this.id = id;
         this.fetchDate = fetchDate;

@@ -108,7 +108,7 @@ public class ChallengePrivateKey {
             NetworkParameters networkParameters
     ) {
 
-        final MuunEncryptedPrivateKey encryptedKey = MuunEncryptedPrivateKey.fromBase58(
+        final MeenEncryptedPrivateKey encryptedKey = MeenEncryptedPrivateKey.fromBase58(
                 cypherText
         );
 

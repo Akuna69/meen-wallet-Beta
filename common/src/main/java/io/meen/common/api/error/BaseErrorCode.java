@@ -16,7 +16,7 @@ import java.util.TreeMap;
 import javax.annotation.Nullable;
 
 /**
- * Muun HTTP errors are serialized as a json-encoded {@link Error}, and automatically deserialized
+ * Meen HTTP errors are serialized as a json-encoded {@link Error}, and automatically deserialized
  * as an {@link io.meen.common.exception.HttpException}. These errors have globally unique error
  * codes used to identify and handle different failure scenarios.
  *

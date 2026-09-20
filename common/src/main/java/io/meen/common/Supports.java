@@ -152,7 +152,7 @@ public class Supports {
     }
 
     // Up until version 907 (included), apollo didn't support additional feature flags (added after
-    // the initial ones) due to a proguard bug regarding MuunFeatureJson
+    // the initial ones) due to a proguard bug regarding MeenFeatureJson
     public interface AdditionalFeatureFlags {
 
         int APOLLO = 908;

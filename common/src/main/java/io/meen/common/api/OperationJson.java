@@ -1,7 +1,7 @@
 package io.meen.common.api;
 
 import io.meen.common.Supports;
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.model.OperationDirection;
 import io.meen.common.model.OperationStatus;
 import io.meen.common.utils.Deprecated;
@@ -84,7 +84,7 @@ public class OperationJson {
     public Transaction transaction;
 
     @Nullable // When creating a new op, clients should send null, as creationDate is set by Houston
-    public MuunZonedDateTime creationDate;
+    public MeenZonedDateTime creationDate;
 
     @Nullable
     public String swapUuid;
@@ -193,7 +193,7 @@ public class OperationJson {
                          @Nullable String description,
                          OperationStatus status,
                          @Nullable Transaction transaction,
-                         MuunZonedDateTime creationDate,
+                         MeenZonedDateTime creationDate,
                          SubmarineSwapJson swap,
                          IncomingSwapJson incomingSwap,
                          @Nullable String senderMetadata,

@@ -1,10 +1,10 @@
 package io.meen.common.crypto.hd;
 
-import io.meen.common.api.MuunOutputJson;
+import io.meen.common.api.MeenOutputJson;
 
 import javax.validation.constraints.NotNull;
 
-public class MuunOutput {
+public class MeenOutput {
 
     @NotNull
     private final String txId;
@@ -13,14 +13,14 @@ public class MuunOutput {
 
     private final long amount;
 
-    public static MuunOutput fromJson(MuunOutputJson json) {
-        return new MuunOutput(json.txId, json.index, json.amount);
+    public static MeenOutput fromJson(MeenOutputJson json) {
+        return new MeenOutput(json.txId, json.index, json.amount);
     }
 
     /**
      * Constructor.
      */
-    public MuunOutput(String txId, int index, long amount) {
+    public MeenOutput(String txId, int index, long amount) {
         this.txId = txId;
         this.index = index;
         this.amount = amount;
@@ -38,7 +38,7 @@ public class MuunOutput {
         return amount;
     }
 
-    public MuunOutputJson toJson() {
-        return new MuunOutputJson(txId, index, amount);
+    public MeenOutputJson toJson() {
+        return new MeenOutputJson(txId, index, amount);
     }
 }

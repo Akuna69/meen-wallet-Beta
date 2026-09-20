@@ -1,20 +1,20 @@
 package io.meen.common.crypto.hd;
 
-import io.meen.common.api.MuunInputSubmarineSwapV101Json;
+import io.meen.common.api.MeenInputSubmarineSwapV101Json;
 import io.meen.common.utils.Encodings;
 
 import javax.validation.constraints.NotNull;
 
 /**
- * Additional details required to spend a MuunInput consuming a SubmarineSwap output V101.
+ * Additional details required to spend a MeenInput consuming a SubmarineSwap output V101.
  */
-public class MuunInputSubmarineSwapV101 {
+public class MeenInputSubmarineSwapV101 {
 
     /**
      * Build from a json-serializable representation.
      */
-    public static MuunInputSubmarineSwapV101 fromJson(MuunInputSubmarineSwapV101Json json) {
-        return new MuunInputSubmarineSwapV101(
+    public static MeenInputSubmarineSwapV101 fromJson(MeenInputSubmarineSwapV101Json json) {
+        return new MeenInputSubmarineSwapV101(
                 json.refundAddress,
                 Encodings.hexToBytes(json.swapPaymentHash256Hex),
                 Encodings.hexToBytes(json.swapServerPublicKeyHex),
@@ -37,7 +37,7 @@ public class MuunInputSubmarineSwapV101 {
     /**
      * Constructor.
      */
-    public MuunInputSubmarineSwapV101(String refundAddress,
+    public MeenInputSubmarineSwapV101(String refundAddress,
                                       byte[] swapPaymentHash256,
                                       byte[] swapServerPublicKey,
                                       long lockTime) {
@@ -67,8 +67,8 @@ public class MuunInputSubmarineSwapV101 {
     /**
      * Convert to a json-serializable representation.
      */
-    public MuunInputSubmarineSwapV101Json toJson() {
-        return new MuunInputSubmarineSwapV101Json(
+    public MeenInputSubmarineSwapV101Json toJson() {
+        return new MeenInputSubmarineSwapV101Json(
                 refundAddress,
                 Encodings.bytesToHex(swapPaymentHash256),
                 Encodings.bytesToHex(swapServerPublicKey),

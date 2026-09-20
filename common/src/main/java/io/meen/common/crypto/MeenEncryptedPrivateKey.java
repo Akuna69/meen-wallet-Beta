@@ -3,7 +3,7 @@ package io.meen.common.crypto;
 import io.meen.common.utils.Preconditions;
 import io.meen.common.utils.internal.Base58;
 
-public interface MuunEncryptedPrivateKey {
+public interface MeenEncryptedPrivateKey {
     int PUBLIC_KEY_SIZE = 33;
 
     enum Version {
@@ -35,11 +35,11 @@ public interface MuunEncryptedPrivateKey {
     byte getVersion();
 
     /**
-     * Factory MuunEncryptedPrivateKey abstracting the caller from the encryptedKey version.
+     * Factory MeenEncryptedPrivateKey abstracting the caller from the encryptedKey version.
      */
     @SuppressWarnings("checkstyle:MissingSwitchDefault") // We want to have a compiling error here
     // if a new value is added.
-    static MuunEncryptedPrivateKey create(
+    static MeenEncryptedPrivateKey create(
             Version version,
             long birthday,
             byte[] ephemeralPublicKey,
@@ -48,14 +48,14 @@ public interface MuunEncryptedPrivateKey {
     ) {
         switch (version) {
             case V2:
-                return new MuunEncryptedPrivateKeyV2(
+                return new MeenEncryptedPrivateKeyV2(
                         birthday,
                         ephemeralPublicKey,
                         cypherText,
                         recoveryCodeSalt
                 );
             case V3:
-                return new MuunEncryptedPrivateKeyV3(
+                return new MeenEncryptedPrivateKeyV3(
                         ephemeralPublicKey,
                         cypherText,
                         recoveryCodeSalt
@@ -66,19 +66,19 @@ public interface MuunEncryptedPrivateKey {
     }
 
     /**
-     * Factory MuunEncryptedPrivateKey abstracting the caller from the encryptedKey version.
+     * Factory MeenEncryptedPrivateKey abstracting the caller from the encryptedKey version.
      */
     @SuppressWarnings("checkstyle:MissingSwitchDefault") // We want to have a compiling error here
     // if a new value is added.
-    static MuunEncryptedPrivateKey fromBase58(
+    static MeenEncryptedPrivateKey fromBase58(
             String serialization
     ) {
         final Version version = Version.fromEncryptedPrivateKey(serialization);
         switch (version) {
             case V2:
-                return MuunEncryptedPrivateKeyV2.fromBase58(serialization);
+                return MeenEncryptedPrivateKeyV2.fromBase58(serialization);
             case V3:
-                return MuunEncryptedPrivateKeyV3.fromBase58(serialization);
+                return MeenEncryptedPrivateKeyV3.fromBase58(serialization);
         }
 
         throw new IllegalStateException();

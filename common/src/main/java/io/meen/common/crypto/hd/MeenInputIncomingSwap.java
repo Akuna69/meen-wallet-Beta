@@ -1,15 +1,15 @@
 package io.meen.common.crypto.hd;
 
-import io.meen.common.api.MuunInputIncomingSwapJson;
+import io.meen.common.api.MeenInputIncomingSwapJson;
 import io.meen.common.utils.Encodings;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 /**
- * Additional details required to spend a MuunInput consuming a SubmarineSwap output V101.
+ * Additional details required to spend a MeenInput consuming a SubmarineSwap output V101.
  */
-public class MuunInputIncomingSwap {
+public class MeenInputIncomingSwap {
 
     @NotNull
     private final byte[] sphinx;
@@ -35,8 +35,8 @@ public class MuunInputIncomingSwap {
     /**
      * Convert from JSON to model.
      */
-    public static MuunInputIncomingSwap fromJson(final MuunInputIncomingSwapJson json) {
-        return new MuunInputIncomingSwap(
+    public static MeenInputIncomingSwap fromJson(final MeenInputIncomingSwapJson json) {
+        return new MeenInputIncomingSwap(
                 Encodings.hexToBytes(json.sphinxHex),
                 Encodings.hexToBytes(json.htlcTxHex),
                 Encodings.hexToBytes(json.swapServerPublicKeyHex),
@@ -51,7 +51,7 @@ public class MuunInputIncomingSwap {
     /**
      * Constructor.
      */
-    public MuunInputIncomingSwap(
+    public MeenInputIncomingSwap(
             @Nullable byte[] sphinx,
             byte[] htlcTx,
             byte[] swapServerPublicKey,
@@ -62,7 +62,7 @@ public class MuunInputIncomingSwap {
             final String htlcOutputKeyPath
     ) {
         // Due to a few mapping errors, apps expect sphinx to always be non-null. However,
-        // Muun to Muun payments don't have a sphinx and swapper now (properly) returns it as null.
+        // Meen to Meen payments don't have a sphinx and swapper now (properly) returns it as null.
         // We map it here for retrocompat with the apps.
         this.sphinx = sphinx != null ? sphinx : new byte[0];
         this.htlcTx = htlcTx;
@@ -109,8 +109,8 @@ public class MuunInputIncomingSwap {
     /**
      * Convert to JSON.
      */
-    public MuunInputIncomingSwapJson toJson() {
-        return new MuunInputIncomingSwapJson(
+    public MeenInputIncomingSwapJson toJson() {
+        return new MeenInputIncomingSwapJson(
                 sphinx,
                 htlcTx,
                 swapServerPublicKey,

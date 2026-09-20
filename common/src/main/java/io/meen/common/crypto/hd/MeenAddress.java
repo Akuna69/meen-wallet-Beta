@@ -1,13 +1,13 @@
 package io.meen.common.crypto.hd;
 
 
-import io.meen.common.api.MuunAddressJson;
+import io.meen.common.api.MeenAddressJson;
 
 import org.bitcoinj.core.Address;
 
 import javax.validation.constraints.NotNull;
 
-public class MuunAddress {
+public class MeenAddress {
 
     public static final int VERSION_P2PKH = 1;
 
@@ -47,20 +47,20 @@ public class MuunAddress {
     private final String address;
 
     /**
-     * Create a MuunAddress model from its Json counterpart.
+     * Create a MeenAddress model from its Json counterpart.
      */
-    public static MuunAddress fromJson(MuunAddressJson json) {
+    public static MeenAddress fromJson(MeenAddressJson json) {
         if (json == null) {
             return null;
         }
 
-        return new MuunAddress(json.version, json.derivationPath, json.address);
+        return new MeenAddress(json.version, json.derivationPath, json.address);
     }
 
     /**
      * Constructor.
      */
-    public MuunAddress(int version, String derivationPath, String address) {
+    public MeenAddress(int version, String derivationPath, String address) {
         this.version = version;
         this.derivationPath = derivationPath;
         this.address = address;
@@ -69,7 +69,7 @@ public class MuunAddress {
     /**
      * Constructor with default address version.
      */
-    public MuunAddress(String derivationPath, String address) {
+    public MeenAddress(String derivationPath, String address) {
         this.version = getDefaultVersion();
         this.derivationPath = derivationPath;
         this.address = address;
@@ -114,7 +114,7 @@ public class MuunAddress {
     /**
      * Map this model to json.
      */
-    public MuunAddressJson toJson() {
-        return new MuunAddressJson(version, derivationPath, address);
+    public MeenAddressJson toJson() {
+        return new MeenAddressJson(version, derivationPath, address);
     }
 }
