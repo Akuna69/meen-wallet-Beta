@@ -3,7 +3,7 @@ package libwallet
 import (
 	"testing"
 
-	"github.com/meen/libwallet/app_provided_data"
+	"github.com/muun/libwallet/app_provided_data"
 )
 
 func Test_DetermineUserActivatedFeatureStatus(t *testing.T) {

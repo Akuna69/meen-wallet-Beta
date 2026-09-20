@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/meen/libwallet/cryptography"
-	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/muun/libwallet/cryptography"
+	"github.com/muun/libwallet/domain/model/security_card"
 )
 
 type SignChallenge = security_card.SecurityCardSignChallenge

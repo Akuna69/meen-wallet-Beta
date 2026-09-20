@@ -6,10 +6,10 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/btcsuitew/btcutilw"
-	"github.com/meen/libwallet/btcsuitew/txscriptw"
-	"github.com/meen/libwallet/electrum"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/muun/libwallet/btcsuitew/txscriptw"
+	"github.com/muun/libwallet/electrum"
 )
 
 // scanTask encapsulates a parallelizable Scanner unit of work.

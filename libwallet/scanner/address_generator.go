@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	"github.com/meen/libwallet"
+	"github.com/muun/libwallet"
 )
 
 type AddressGenerator struct {

@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"github.com/meen/libwallet/service"
-	"github.com/meen/libwallet/service/model"
+	"github.com/muun/libwallet/service"
+	"github.com/muun/libwallet/service/model"
 )
 
 // Compile-time check.

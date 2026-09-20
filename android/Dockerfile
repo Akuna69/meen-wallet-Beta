@@ -1,5 +1,5 @@
 # VERY IMPORTANT!!!
-# This file is used by build-release.yml (https://github.com/meen/apollo/blob/eedb679b9a5b7af2c617cc794c8dcf53eb1b4321/.github/workflows/build-release.yml).
+# This file is used by build-release.yml (https://github.com/muun/apollo/blob/eedb679b9a5b7af2c617cc794c8dcf53eb1b4321/.github/workflows/build-release.yml).
 # Any change made here will affect how the APK is built in the OSS repository (github action)
 # and will impact the reproducible build verification.
 

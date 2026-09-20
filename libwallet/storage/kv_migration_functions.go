@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/walletdb"
 )
 
 // Change is the interface that represents a single, atomic modification to the

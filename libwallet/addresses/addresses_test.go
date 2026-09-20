@@ -3,7 +3,7 @@ package addresses
 import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 
-	"github.com/meen/libwallet/hdpath"
+	"github.com/muun/libwallet/hdpath"
 )
 
 func parseKey(s string) *hdkeychain.ExtendedKey {

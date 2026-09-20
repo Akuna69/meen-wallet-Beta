@@ -87,7 +87,7 @@ const contentEN = `
   </div>
   <div class="text-box">
     <h3>Download the Recovery Tool</h3>
-    <p>Go to <a href="https://github.com/meen/recovery">github.com/meen/recovery</a> and download the tool on your computer.</p>
+    <p>Go to <a href="https://github.com/muun/recovery">github.com/muun/recovery</a> and download the tool on your computer.</p>
   </div>
 </div>
 
@@ -199,7 +199,7 @@ const contentES = `
   </div>
   <div class="text-box">
     <h3>Descarga la Herramienta de Recuperación</h3>
-    <p>Ingresa en <a href="github.com/meen/recovery">github.com/meen/recovery</a> y descarga la herramienta en tu computadora.</p>
+    <p>Ingresa en <a href="github.com/muun/recovery">github.com/muun/recovery</a> y descarga la herramienta en tu computadora.</p>
   </div>
 </div>
 

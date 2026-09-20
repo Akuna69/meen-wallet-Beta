@@ -3,8 +3,8 @@ package libwallet
 import (
 	"encoding/hex"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/musig"
 )
 
 type MusigNonces struct {

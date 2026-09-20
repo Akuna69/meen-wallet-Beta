@@ -1,4 +1,4 @@
-module github.com/meen/libwallet/linters
+module github.com/muun/libwallet/linters
 
 go 1.23.0
 

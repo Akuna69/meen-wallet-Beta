@@ -1,6 +1,6 @@
 package nfc
 
-import "github.com/meen/libwallet/domain/nfc"
+import "github.com/muun/libwallet/domain/nfc"
 
 // SignedPairChallenge bundles the output of the NFC sign step into a
 // single value that the submit step consumes. It lives in the action

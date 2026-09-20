@@ -13,10 +13,10 @@ import (
 	lndinput "github.com/lightningnetwork/lnd/input"
 	"github.com/lightningnetwork/lnd/lnwire"
 
-	"github.com/meen/libwallet/btcsuitew/txscriptw"
-	"github.com/meen/libwallet/hdpath"
-	"github.com/meen/libwallet/sphinx"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/btcsuitew/txscriptw"
+	"github.com/muun/libwallet/hdpath"
+	"github.com/muun/libwallet/sphinx"
+	"github.com/muun/libwallet/walletdb"
 )
 
 type IncomingSwap struct {

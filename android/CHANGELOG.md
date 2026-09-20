@@ -801,7 +801,7 @@ flow rewrite (48.2)
 - "Fixed rate window" feature, to keep exchange rates fixed/constant through a flow
 - Rather unlikely error during sign in where, after a process death, we navigated to SYNC step
  while also recoding SYNC step as previous step.
-- Home Screen Back Navigation. Issue reported: https://github.com/meen/apollo/issues/63
+- Home Screen Back Navigation. Issue reported: https://github.com/muun/apollo/issues/63
 
 ## [48.4] - 2022-01-17
 

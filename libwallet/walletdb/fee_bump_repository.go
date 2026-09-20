@@ -7,7 +7,7 @@ import (
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 
-	"github.com/meen/libwallet/operation"
+	"github.com/muun/libwallet/operation"
 )
 
 type FeeBumpRepository interface {

@@ -8,7 +8,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/rpcclient"
 
-	"github.com/meen/libwallet"
+	"github.com/muun/libwallet"
 )
 
 // This is the M3-family counterpart of TestKitToBtcCore_Integration (see recovery_test.go). It

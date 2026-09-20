@@ -9,7 +9,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/data/emergency_kit/resources"
+	"github.com/muun/libwallet/data/emergency_kit/resources"
 )
 
 // Input struct to fill the PDF

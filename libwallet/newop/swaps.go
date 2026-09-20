@@ -3,7 +3,7 @@ package newop
 import (
 	"github.com/btcsuite/btcd/btcutil"
 
-	"github.com/meen/libwallet/fees"
+	"github.com/muun/libwallet/fees"
 )
 
 type SubmarineSwapReceiver struct {

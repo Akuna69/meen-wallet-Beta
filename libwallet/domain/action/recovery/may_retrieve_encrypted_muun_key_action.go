@@ -1,7 +1,7 @@
 package recovery
 
 import (
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/storage"
 )
 
 type EncryptedMeenKeyStatus int

@@ -19,7 +19,7 @@ There's also a pure java **common** module with code shared all over.
 
 ## Build
 
-For instructions on how to build Meen Wallet please refer to [BUILD.md](https://github.com/meen/apollo/blob/master/BUILD.md).
+For instructions on how to build Meen Wallet please refer to [BUILD.md](https://github.com/muun/apollo/blob/master/BUILD.md).
 
 ## Auditing
 

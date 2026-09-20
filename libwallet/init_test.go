@@ -4,8 +4,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/meen/libwallet/app_provided_data"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/app_provided_data"
+	"github.com/muun/libwallet/walletdb"
 )
 
 func setup() {

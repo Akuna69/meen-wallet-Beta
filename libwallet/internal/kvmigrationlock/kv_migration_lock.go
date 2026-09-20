@@ -12,7 +12,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/storage"
 )
 
 // Lockfile represents the structure of the lockfile on disk.

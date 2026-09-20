@@ -6,9 +6,9 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/domain/action/recovery"
-	"github.com/meen/libwallet/internal/testutils"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/domain/action/recovery"
+	"github.com/muun/libwallet/internal/testutils"
+	"github.com/muun/libwallet/storage"
 )
 
 func TestFinishChallengeSetupAction(t *testing.T) {

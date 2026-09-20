@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	data "github.com/meen/libwallet/data/lightning"
-	"github.com/meen/libwallet/platform/concurrency/memlock"
+	data "github.com/muun/libwallet/data/lightning"
+	"github.com/muun/libwallet/platform/concurrency/memlock"
 )
 
 // RevealPreimagesAction marks the preimage for the given paymentHash as having been revealed.

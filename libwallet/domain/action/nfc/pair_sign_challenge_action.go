@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/domain/model/security_card"
-	"github.com/meen/libwallet/domain/nfc"
+	"github.com/muun/libwallet/domain/model/security_card"
+	"github.com/muun/libwallet/domain/nfc"
 )
 
 type PairSignChallengeAction struct {

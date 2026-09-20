@@ -10,8 +10,8 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	electrum "github.com/meen/libwallet/electrum/v2"
-	"github.com/meen/libwallet/platform/test/testbitcoind"
+	electrum "github.com/muun/libwallet/electrum/v2"
+	"github.com/muun/libwallet/platform/test/testbitcoind"
 )
 
 const (

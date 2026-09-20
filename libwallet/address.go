@@ -13,9 +13,9 @@ import (
 	"github.com/shopspring/decimal"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/btcsuitew/btcutilw"
-	"github.com/meen/libwallet/errors"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/muun/libwallet/errors"
 )
 
 // These constants are here for clients usage.

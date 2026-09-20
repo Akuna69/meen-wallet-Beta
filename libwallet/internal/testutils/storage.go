@@ -4,8 +4,8 @@ import (
 	"path"
 	"testing"
 
-	"github.com/meen/libwallet/storage"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/storage"
+	"github.com/muun/libwallet/walletdb"
 )
 
 // NewTestKeyValueStorage creates a KeyValueStorage backed by a temp file with the production

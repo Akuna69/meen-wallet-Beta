@@ -6,10 +6,10 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/data/keys"
-	"github.com/meen/libwallet/domain/model/verifiable_meen_key"
-	"github.com/meen/libwallet/service"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/data/keys"
+	"github.com/muun/libwallet/domain/model/verifiable_meen_key"
+	"github.com/muun/libwallet/service"
+	"github.com/muun/libwallet/storage"
 )
 
 type PopulateEncryptedMeenKeyAction struct {

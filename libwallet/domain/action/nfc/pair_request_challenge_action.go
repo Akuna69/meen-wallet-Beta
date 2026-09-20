@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/data/security_cards"
-	"github.com/meen/libwallet/service"
+	"github.com/muun/libwallet/data/security_cards"
+	"github.com/muun/libwallet/service"
 )
 
 type PairRequestChallengeAction struct {

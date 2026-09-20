@@ -8,8 +8,8 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/cryptography/bitcoin_hpke"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/cryptography/bitcoin_hpke"
 )
 
 const (

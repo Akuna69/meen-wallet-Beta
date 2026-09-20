@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/meen/libwallet/linters"
+	"github.com/muun/libwallet/linters"
 )
 
 // TestSourceChecksum verifies that .checksum matches the current linter sources.

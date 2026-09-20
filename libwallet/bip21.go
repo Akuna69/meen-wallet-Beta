@@ -5,7 +5,7 @@ import (
 
 	"github.com/shopspring/decimal"
 
-	"github.com/meen/libwallet/errors"
+	"github.com/muun/libwallet/errors"
 )
 
 // GenerateBip21Uri generates the serialized version (string) of a bitcoin uri from a MeenPaymentUri

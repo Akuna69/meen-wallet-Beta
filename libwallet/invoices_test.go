@@ -10,7 +10,7 @@ import (
 	"github.com/lightningnetwork/lnd/lnwire"
 	"github.com/lightningnetwork/lnd/zpay32"
 
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/walletdb"
 )
 
 func TestInvoiceSecrets(t *testing.T) {

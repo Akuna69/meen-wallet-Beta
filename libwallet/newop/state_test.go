@@ -8,10 +8,10 @@ import (
 
 	"github.com/shopspring/decimal"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/app_provided_data"
-	"github.com/meen/libwallet/operation"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/app_provided_data"
+	"github.com/muun/libwallet/operation"
+	"github.com/muun/libwallet/walletdb"
 )
 
 type testListener struct {

@@ -20,8 +20,8 @@ import (
 	"github.com/lightningnetwork/lnd/netann"
 	"github.com/lightningnetwork/lnd/zpay32"
 
-	"github.com/meen/libwallet/hdpath"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/hdpath"
+	"github.com/muun/libwallet/walletdb"
 )
 
 const MaxUnusedSecrets = 5

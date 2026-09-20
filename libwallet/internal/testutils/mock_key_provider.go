@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/data/keys"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/data/keys"
 )
 
 // Compile-time check that MockKeyProvider implements keys.KeyProvider.

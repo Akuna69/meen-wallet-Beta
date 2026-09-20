@@ -11,7 +11,7 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/meen/libwallet/linters"
+	"github.com/muun/libwallet/linters"
 )
 
 func init() {

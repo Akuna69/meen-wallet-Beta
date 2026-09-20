@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/meen/libwallet/app_provided_data"
+	"github.com/muun/libwallet/app_provided_data"
 )
 
 type JavaCardApplet interface {

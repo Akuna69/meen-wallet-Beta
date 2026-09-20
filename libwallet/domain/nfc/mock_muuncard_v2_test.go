@@ -3,7 +3,7 @@ package nfc
 import (
 	"testing"
 
-	"github.com/meen/libwallet/cryptography"
+	"github.com/muun/libwallet/cryptography"
 )
 
 // TODO another reason why "reason" (yes pun intended) should be part of SignChallenge

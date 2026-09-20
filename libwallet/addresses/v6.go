@@ -5,8 +5,8 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/btcsuitew/btcutilw"
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/muun/libwallet/musig"
 )
 
 // CreateAddressV6 returns a P2TR WalletAddress using Musig2v100 with the signing and cosigning

@@ -9,8 +9,8 @@ import (
 	"github.com/go-errors/errors"
 	hash "golang.org/x/crypto/ripemd160" //lint:ignore SA1019 using deprecated hash function for compatibility
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/hdpath"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/hdpath"
 )
 
 type SubmarineSwap struct {

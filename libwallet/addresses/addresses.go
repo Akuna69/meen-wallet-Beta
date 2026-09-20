@@ -5,7 +5,7 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/musig"
 )
 
 const (

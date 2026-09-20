@@ -9,10 +9,10 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/btcsuitew/txscriptw"
-	"github.com/meen/libwallet/data/keys"
-	"github.com/meen/libwallet/scanner"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/btcsuitew/txscriptw"
+	"github.com/muun/libwallet/data/keys"
+	"github.com/muun/libwallet/scanner"
 )
 
 const dustThreshold = 546

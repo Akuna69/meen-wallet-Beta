@@ -74,7 +74,7 @@ class LinkBuilder @Inject internal constructor(
      * Create a RichText containing a clickable link to the recovery tool repository.
      */
     fun recoveryToolLink(): RichText {
-        val url = "https://github.com/meen/recovery"
+        val url = "https://github.com/muun/recovery"
         return createLink(url, url, "recovery_tool")
     }
 

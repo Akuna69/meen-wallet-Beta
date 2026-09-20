@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/domain/action/lightning"
-	"github.com/meen/libwallet/platform/test/testsuite"
+	"github.com/muun/libwallet/domain/action/lightning"
+	"github.com/muun/libwallet/platform/test/testsuite"
 )
 
 func TestExternalSpendEnforcer_Integration(t *testing.T) {

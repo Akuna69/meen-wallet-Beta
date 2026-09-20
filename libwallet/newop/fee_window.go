@@ -1,6 +1,6 @@
 package newop
 
-import "github.com/meen/libwallet/operation"
+import "github.com/muun/libwallet/operation"
 
 // FeeWindow holds a map of target block to fee rate for a given time
 type FeeWindow struct {

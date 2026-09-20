@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/emergencykit"
+	"github.com/muun/libwallet/emergencykit"
 )
 
 const (

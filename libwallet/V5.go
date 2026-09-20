@@ -8,9 +8,9 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/btcsuitew/txscriptw"
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/btcsuitew/txscriptw"
+	"github.com/muun/libwallet/musig"
 )
 
 // CreateAddressV5 returns a P2TR MeenAddress using Musig with the signing and cosigning keys.

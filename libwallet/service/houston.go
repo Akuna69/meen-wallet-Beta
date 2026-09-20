@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/meen/libwallet/app_provided_data"
-	"github.com/meen/libwallet/service/model"
+	"github.com/muun/libwallet/app_provided_data"
+	"github.com/muun/libwallet/service/model"
 )
 
 type HoustonService interface {

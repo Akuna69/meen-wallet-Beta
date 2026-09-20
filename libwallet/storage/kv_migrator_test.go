@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/walletdb"
 )
 
 func TestMigrateValueTypeWithMap_FromIntToString(t *testing.T) {

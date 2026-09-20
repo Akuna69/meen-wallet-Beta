@@ -1,8 +1,8 @@
 package libwallet
 
 import (
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/swaps"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/swaps"
 )
 
 type SubmarineSwap interface {

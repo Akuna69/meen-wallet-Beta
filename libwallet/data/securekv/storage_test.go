@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/app_provided_data"
-	"github.com/meen/libwallet/data/securekv"
+	"github.com/muun/libwallet/app_provided_data"
+	"github.com/muun/libwallet/data/securekv"
 )
 
 type fakeBridge struct {

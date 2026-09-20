@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/meen/libwallet/domain/model/security_card"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/domain/model/security_card"
+	"github.com/muun/libwallet/storage"
 )
 
 // ProtocolRepository owns the client-side state of the Security Cards

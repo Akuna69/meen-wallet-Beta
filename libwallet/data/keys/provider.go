@@ -3,8 +3,8 @@ package keys
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/app_provided_data"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/app_provided_data"
 )
 
 // Provide keys. All keys are already derived at our usual base path "m/schema:1'/recovery:1'"

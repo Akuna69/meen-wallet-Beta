@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/swaps"
+	"github.com/muun/libwallet/swaps"
 )
 
 type coinSubmarineSwapV1 struct {

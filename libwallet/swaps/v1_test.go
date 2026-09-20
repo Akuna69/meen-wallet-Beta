@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/meen/libwallet/addresses"
+	"github.com/muun/libwallet/addresses"
 )
 
 func TestValidateSubmarineSwapV1(t *testing.T) {

@@ -14,7 +14,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/platform/observability/slogctx"
+	"github.com/muun/libwallet/platform/observability/slogctx"
 )
 
 const (

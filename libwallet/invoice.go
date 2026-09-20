@@ -5,7 +5,7 @@ import (
 
 	"github.com/lightningnetwork/lnd/zpay32"
 
-	"github.com/meen/libwallet/errors"
+	"github.com/muun/libwallet/errors"
 )
 
 // Invoice is meen's invoice struct

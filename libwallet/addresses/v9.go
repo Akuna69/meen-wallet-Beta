@@ -8,8 +8,8 @@ import (
 	"github.com/btcsuite/btcd/txscript"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/btcsuitew/btcutilw"
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/muun/libwallet/musig"
 )
 
 // CreateAddressV9 returns a native taproot (P2TR) address for `to_client`

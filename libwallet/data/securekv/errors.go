@@ -3,7 +3,7 @@ package securekv
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/app_provided_data"
+	"github.com/muun/libwallet/app_provided_data"
 )
 
 type (

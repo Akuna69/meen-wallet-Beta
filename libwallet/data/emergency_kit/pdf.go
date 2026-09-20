@@ -8,7 +8,7 @@ import (
 
 	"github.com/phpdave11/gofpdf"
 
-	"github.com/meen/libwallet/data/emergency_kit/resources"
+	"github.com/muun/libwallet/data/emergency_kit/resources"
 )
 
 type RenderingContext struct {

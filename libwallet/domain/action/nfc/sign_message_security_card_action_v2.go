@@ -6,10 +6,10 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/domain/nfc"
-	"github.com/meen/libwallet/service"
-	"github.com/meen/libwallet/service/model"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/domain/nfc"
+	"github.com/muun/libwallet/service"
+	"github.com/muun/libwallet/service/model"
+	"github.com/muun/libwallet/storage"
 )
 
 type SignMessageSecurityCardActionV2 struct {

@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/meen/libwallet/domain/action/debug"
+	"github.com/muun/libwallet/domain/action/debug"
 )
 
 func TestZipDataDirAction_Run(t *testing.T) {

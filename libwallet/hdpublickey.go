@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/hdpath"
+	"github.com/muun/libwallet/hdpath"
 )
 
 // HDPublicKey is an HD capable pub key

@@ -10,12 +10,12 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/cryptography/bitcoin_hpke"
-	"github.com/meen/libwallet/domain/model/encrypted_key_v3"
-	"github.com/meen/libwallet/encryption"
-	"github.com/meen/libwallet/librs"
-	"github.com/meen/libwallet/service/model"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/cryptography/bitcoin_hpke"
+	"github.com/muun/libwallet/domain/model/encrypted_key_v3"
+	"github.com/muun/libwallet/encryption"
+	"github.com/muun/libwallet/librs"
+	"github.com/muun/libwallet/service/model"
 )
 
 type VerifiableMeenKey struct {

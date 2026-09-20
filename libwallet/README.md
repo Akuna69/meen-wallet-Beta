@@ -4,7 +4,7 @@
 
 This is the source code repository for meen's wallet core library. Meen is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
 
-This library is used by our mobile wallets with [gomobile](https://godoc.org/golang.org/x/mobile/cmd/gomobile) and by the [recovery tool](https://github.com/meen/recovery).
+This library is used by our mobile wallets with [gomobile](https://godoc.org/golang.org/x/mobile/cmd/gomobile) and by the [recovery tool](https://github.com/muun/recovery).
 
 ## Setup
 

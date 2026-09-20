@@ -3,7 +3,7 @@ package storage
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/walletdb"
 )
 
 // Migration is a collection of Changes that are executed together

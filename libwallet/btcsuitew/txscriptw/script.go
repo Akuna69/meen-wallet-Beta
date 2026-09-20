@@ -9,7 +9,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/btcsuitew/chainhashw"
+	"github.com/muun/libwallet/btcsuitew/chainhashw"
 )
 
 // CalcTaprootSigHash crafts signature digest.

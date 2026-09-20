@@ -8,8 +8,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/internal/kvmigrationlock"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/internal/kvmigrationlock"
+	"github.com/muun/libwallet/storage"
 )
 
 // Default paths assume the tool is run from the libwallet directory.

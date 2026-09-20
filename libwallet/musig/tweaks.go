@@ -4,7 +4,7 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	musig2v100 "github.com/btcsuite/btcd/btcec/v2/schnorr/musig2"
 
-	"github.com/meen/libwallet/musig2v040"
+	"github.com/muun/libwallet/musig2v040"
 )
 
 // MuSig2Tweaks is a struct that contains all tweaks that can be applied to a

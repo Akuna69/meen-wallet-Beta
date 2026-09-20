@@ -8,10 +8,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/meen/libwallet/domain/nfc"
-	"github.com/meen/libwallet/service/model"
-	"github.com/meen/libwallet/storage"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/domain/nfc"
+	"github.com/muun/libwallet/service/model"
+	"github.com/muun/libwallet/storage"
+	"github.com/muun/libwallet/walletdb"
 )
 
 func TestMockCardPairCardSuccess(t *testing.T) {

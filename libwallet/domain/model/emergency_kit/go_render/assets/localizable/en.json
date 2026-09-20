@@ -17,7 +17,7 @@
     "step1_title": "Find your Recovery Code",
     "step1_desc": "You wrote this code on paper before creating your Emergency Kit. You'll need it later.",
     "step2_title": "Download the Recovery Tool",
-    "step2_desc": "Go to github.com/meen/recovery and download the tool on your computer.",
+    "step2_desc": "Go to github.com/muun/recovery and download the tool on your computer.",
     "step3_title": "Recover your funds",
     "step3_desc": "Run the Recovery Tool and follow the steps. It will safely transfer your funds to a Bitcoin address that you choose."
   },

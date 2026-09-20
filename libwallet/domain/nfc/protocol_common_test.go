@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/meen/libwallet/cryptography"
+	"github.com/muun/libwallet/cryptography"
 )
 
 func TestParseMetadata_ErrorScenarios(t *testing.T) {

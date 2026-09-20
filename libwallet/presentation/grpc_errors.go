@@ -7,9 +7,9 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	apierrors "github.com/meen/libwallet/errors"
-	"github.com/meen/libwallet/presentation/api"
-	"github.com/meen/libwallet/service"
+	apierrors "github.com/muun/libwallet/errors"
+	"github.com/muun/libwallet/presentation/api"
+	"github.com/muun/libwallet/service"
 )
 
 func NewGrpcErrorFromCode(errorCode apierrors.ErrorCode) error {

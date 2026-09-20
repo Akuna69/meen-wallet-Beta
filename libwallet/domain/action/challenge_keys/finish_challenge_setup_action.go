@@ -6,10 +6,10 @@ import (
 
 	"github.com/btcsuite/btcd/btcec/v2"
 
-	"github.com/meen/libwallet/domain/action/recovery"
-	"github.com/meen/libwallet/service"
-	"github.com/meen/libwallet/service/model"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet/domain/action/recovery"
+	"github.com/muun/libwallet/service"
+	"github.com/muun/libwallet/service/model"
+	"github.com/muun/libwallet/storage"
 )
 
 type FinishChallengeSetupAction struct {

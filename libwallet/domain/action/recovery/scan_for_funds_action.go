@@ -5,10 +5,10 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/data/keys"
-	"github.com/meen/libwallet/electrum"
-	"github.com/meen/libwallet/scanner"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/data/keys"
+	"github.com/muun/libwallet/electrum"
+	"github.com/muun/libwallet/scanner"
 )
 
 type ScanForFundsAction struct {

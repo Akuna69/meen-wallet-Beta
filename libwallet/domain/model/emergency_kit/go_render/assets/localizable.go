@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/meen/libwallet/data/emergency_kit/resources"
+	"github.com/muun/libwallet/data/emergency_kit/resources"
 )
 
 //go:embed localizable/en.json

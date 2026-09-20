@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/operation"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/operation"
+	"github.com/muun/libwallet/walletdb"
 )
 
 const invalidationTimeInSeconds = 150.0

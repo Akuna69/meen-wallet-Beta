@@ -8,8 +8,8 @@ import (
 
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/electrum"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/electrum"
 )
 
 const taskTimeout = 15 * time.Minute

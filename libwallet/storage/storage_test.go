@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/walletdb"
 )
 
 func newKeyValueStorageForTesting(t *testing.T) *KeyValueStorage {

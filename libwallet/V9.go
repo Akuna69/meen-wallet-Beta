@@ -6,8 +6,8 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/musig"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/musig"
 )
 
 func CreateAddressV9(

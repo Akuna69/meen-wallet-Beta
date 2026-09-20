@@ -6,9 +6,9 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/app_provided_data"
-	"github.com/meen/libwallet/cryptography"
-	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/muun/libwallet/app_provided_data"
+	"github.com/muun/libwallet/cryptography"
+	"github.com/muun/libwallet/domain/model/security_card"
 )
 
 // Implementation to interact with our reference security card firmware v3.

@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/addresses"
+	"github.com/muun/libwallet/addresses"
 )
 
 func CreateAddressV2(userKey, meenKey *HDPublicKey) (MeenAddress, error) {

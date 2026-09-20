@@ -11,8 +11,8 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/lightningnetwork/lnd/zpay32"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/btcsuitew/btcutilw"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/btcsuitew/btcutilw"
 )
 
 func (swap *SubmarineSwap) validateV1(

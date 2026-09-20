@@ -9,8 +9,8 @@ import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/encryption"
-	"github.com/meen/libwallet/hdpath"
+	"github.com/muun/libwallet/encryption"
+	"github.com/muun/libwallet/hdpath"
 )
 
 // HDPrivateKey is an HD capable priv key

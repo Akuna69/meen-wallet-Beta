@@ -11,7 +11,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/lightningnetwork/lnd/input"
 
-	"github.com/meen/libwallet/musig2v040"
+	"github.com/muun/libwallet/musig2v040"
 )
 
 type MusigVersion uint8

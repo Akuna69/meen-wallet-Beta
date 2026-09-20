@@ -9,7 +9,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/rpcclient"
 
-	"github.com/meen/libwallet"
+	"github.com/muun/libwallet"
 )
 
 /*

@@ -5,8 +5,8 @@ import (
 
 	"github.com/btcsuite/btcd/btcec/v2"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/recoverycode"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/recoverycode"
 )
 
 // TestKeys holds all cryptographic keys needed for testing recovery and challenge key actions.

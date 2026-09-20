@@ -1,6 +1,6 @@
 package newop
 
-import "github.com/meen/libwallet/operation"
+import "github.com/muun/libwallet/operation"
 
 // InitialPaymentContext receives operation data provided by the native platform.
 type InitialPaymentContext struct {

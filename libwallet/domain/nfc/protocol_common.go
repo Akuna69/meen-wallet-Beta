@@ -7,7 +7,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/cryptography"
+	"github.com/muun/libwallet/cryptography"
 )
 
 // parseMetadata parses raw card metadata bytes into a structured CardMetadata.

@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/btcsuitew/bech32m"
+	"github.com/muun/libwallet/btcsuitew/bech32m"
 )
 
 // -------------------------------------------------------------------------------------------------

@@ -7,8 +7,8 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/btcsuitew/txscriptw"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/btcsuitew/txscriptw"
 )
 
 // CreateAddressV1 returns a P2PKH MeenAddress from a publicKey for use in TransactionSchemeV1

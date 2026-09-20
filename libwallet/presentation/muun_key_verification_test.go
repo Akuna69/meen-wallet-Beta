@@ -14,14 +14,14 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/test-go/testify/assert"
 
-	"github.com/meen/libwallet"
-	"github.com/meen/libwallet/domain/action/challenge_keys"
-	"github.com/meen/libwallet/domain/action/recovery"
-	"github.com/meen/libwallet/domain/model/encrypted_key_v3"
-	"github.com/meen/libwallet/presentation/api"
-	"github.com/meen/libwallet/recoverycode"
-	"github.com/meen/libwallet/service/model"
-	"github.com/meen/libwallet/storage"
+	"github.com/muun/libwallet"
+	"github.com/muun/libwallet/domain/action/challenge_keys"
+	"github.com/muun/libwallet/domain/action/recovery"
+	"github.com/muun/libwallet/domain/model/encrypted_key_v3"
+	"github.com/muun/libwallet/presentation/api"
+	"github.com/muun/libwallet/recoverycode"
+	"github.com/muun/libwallet/service/model"
+	"github.com/muun/libwallet/storage"
 )
 
 func TestEncryptedMeenKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) {

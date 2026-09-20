@@ -1,9 +1,9 @@
 package components
 
 import (
-	"github.com/meen/libwallet/data/emergency_kit"
-	"github.com/meen/libwallet/data/emergency_kit/resources"
-	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/assets"
+	"github.com/muun/libwallet/data/emergency_kit"
+	"github.com/muun/libwallet/data/emergency_kit/resources"
+	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/assets"
 )
 
 var (
@@ -189,7 +189,7 @@ func (r *InstructionsComponent) renderItemDescription(
 ) {
 	descriptionY := itemY + assets.SubtitleLineHeight + assets.IntraComponentSpacing
 
-	parts := r.pdf.ParseTextWithLinks(description, []string{"github.com/meen/recovery"})
+	parts := r.pdf.ParseTextWithLinks(description, []string{"github.com/muun/recovery"})
 	r.pdf.RenderMultiStyledText(
 		textX,
 		descriptionY,

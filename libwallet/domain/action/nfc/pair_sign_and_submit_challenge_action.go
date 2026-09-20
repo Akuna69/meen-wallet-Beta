@@ -3,7 +3,7 @@ package nfc
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/muun/libwallet/domain/model/security_card"
 )
 
 // PairProgress identifies a non-terminal milestone reached during

@@ -15,9 +15,9 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/test-go/testify/require"
 
-	"github.com/meen/libwallet/addresses"
-	"github.com/meen/libwallet/musig"
-	"github.com/meen/libwallet/walletdb"
+	"github.com/muun/libwallet/addresses"
+	"github.com/muun/libwallet/musig"
+	"github.com/muun/libwallet/walletdb"
 )
 
 const (
