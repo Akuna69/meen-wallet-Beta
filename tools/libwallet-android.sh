@@ -55,7 +55,7 @@ go run golang.org/x/mobile/cmd/gomobile bind \
     -target="android" -o "$libwallet" \
     -androidapi 21 \
     -trimpath -ldflags="-buildid=. -v" \
-    .
+    . ./newop ./app_provided_data ./libwallet_init
 
 st=$?
 set -e
