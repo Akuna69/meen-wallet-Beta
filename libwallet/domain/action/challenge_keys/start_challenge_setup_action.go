@@ -1,8 +1,8 @@
 package challenge_keys
 
 import (
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/service/model"
 )
 
 type StartChallengeSetupAction struct {

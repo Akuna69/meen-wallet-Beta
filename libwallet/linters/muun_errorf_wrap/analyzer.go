@@ -1,4 +1,4 @@
-package muun_errorf_wrap
+package meen_errorf_wrap
 
 import (
 	"go/ast"
@@ -11,11 +11,11 @@ import (
 	"golang.org/x/tools/go/analysis/passes/inspect"
 	"golang.org/x/tools/go/ast/inspector"
 
-	"github.com/muun/libwallet/linters"
+	"github.com/meen/libwallet/linters"
 )
 
 func init() {
-	register.Plugin("muun_errorf_wrap", newPlugin)
+	register.Plugin("meen_errorf_wrap", newPlugin)
 }
 
 func newPlugin(any) (register.LinterPlugin, error) {
@@ -33,7 +33,7 @@ func (p *plugin) GetLoadMode() string {
 }
 
 var Analyzer = &analysis.Analyzer{
-	Name:     "muun_errorf_wrap",
+	Name:     "meen_errorf_wrap",
 	Doc:      "Checks that errors.Errorf from go-errors uses %w for error arguments.",
 	Requires: []*analysis.Analyzer{inspect.Analyzer},
 	Run:      run,

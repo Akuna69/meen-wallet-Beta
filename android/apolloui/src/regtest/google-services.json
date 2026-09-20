@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "880007565849",
-    "firebase_url": "https://muun-debug.firebaseio.com",
-    "project_id": "muun-debug",
-    "storage_bucket": "muun-debug.appspot.com"
+    "firebase_url": "https://meen-debug.firebaseio.com",
+    "project_id": "meen-debug",
+    "storage_bucket": "meen-debug.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:880007565849:android:ef5949071c84bde7b6d088",
         "android_client_info": {
-          "package_name": "io.muun.apollo.regtest"
+          "package_name": "io.meen.apollo.regtest"
         }
       },
       "oauth_client": [

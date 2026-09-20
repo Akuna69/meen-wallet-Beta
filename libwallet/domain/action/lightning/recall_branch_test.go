@@ -3,8 +3,8 @@ package lightning_test
 import (
 	"testing"
 
-	"github.com/muun/libwallet/domain/action/lightning"
-	"github.com/muun/libwallet/platform/test/testsuite"
+	"github.com/meen/libwallet/domain/action/lightning"
+	"github.com/meen/libwallet/platform/test/testsuite"
 )
 
 func TestRecallBranchEnforcer_Integration(t *testing.T) {

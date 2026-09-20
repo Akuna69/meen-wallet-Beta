@@ -8,10 +8,10 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/muun_screen_margin"
+            android:padding="@dimen/meen_screen_margin"
             android:orientation="vertical">
 
-        <io.muun.apollo.presentation.ui.view.MuunProgressBar
+        <io.meen.apollo.presentation.ui.view.MeenProgressBar
                 android:id="@+id/progress"
                 android:layout_width="match_parent"
                 android:layout_height="8dp" />
@@ -75,10 +75,10 @@
                     android:fontFamily="@font/roboto_mono_medium"
                     android:textColor="@color/blue"
                     android:gravity="center"
-                    android:background="@drawable/muun_task_card_skipped_tag"
+                    android:background="@drawable/meen_task_card_skipped_tag"
                     />
 
-            <io.muun.apollo.presentation.ui.view.MuunTaskCard
+            <io.meen.apollo.presentation.ui.view.MeenTaskCard
                     android:id="@+id/task_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,13 +86,13 @@
 
         </RelativeLayout>
 
-        <io.muun.apollo.presentation.ui.view.MuunTaskCard
+        <io.meen.apollo.presentation.ui.view.MeenTaskCard
                 android:id="@+id/task_recovery_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-        <io.muun.apollo.presentation.ui.view.MuunTaskCard
+        <io.meen.apollo.presentation.ui.view.MeenTaskCard
                 android:id="@+id/task_export_keys"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,7 +112,7 @@
                 android:textSize="14sp"
                 android:textColor="@color/blue"
                 android:textStyle="bold"
-                android:background="@drawable/muun_bubble_button" />
+                android:background="@drawable/meen_bubble_button" />
 
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

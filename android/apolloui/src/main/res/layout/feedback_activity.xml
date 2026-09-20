@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/scan_qr_linear_container"
@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <io.muun.apollo.presentation.ui.view.MuunHeader
+    <io.meen.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -17,15 +17,15 @@
             android:id="@+id/feedback_explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/muun_screen_margin"
+            android:layout_marginTop="@dimen/meen_screen_margin"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/signup_explanation_margin"
             android:text="@string/feedback_explanation"
-            android:textSize="@dimen/muun_text_size_body"
+            android:textSize="@dimen/meen_text_size_body"
             android:color="@color/text_secondary_color" />
 
-    <io.muun.apollo.presentation.ui.view.MuunTextInput
+    <io.meen.apollo.presentation.ui.view.MeenTextInput
             android:id="@+id/feedback_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,11 +34,11 @@
             android:inputType="textMultiLine"
             android:hint="@string/feedback_input_hint" />
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
-            style="@style/muun_button_primary"
+    <io.meen.apollo.presentation.ui.view.MeenButton
+            style="@style/meen_button_primary"
             android:id="@+id/submit"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/feedback_action" />
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>

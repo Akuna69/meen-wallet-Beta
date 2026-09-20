@@ -3,7 +3,7 @@ package newop
 import (
 	"strings"
 
-	"github.com/muun/libwallet/operation"
+	"github.com/meen/libwallet/operation"
 )
 
 const (

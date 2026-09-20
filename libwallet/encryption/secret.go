@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/aescbc"
+	"github.com/meen/libwallet/aescbc"
 )
 
 // GenerateSharedEncryptionSecret performs a ECDH with pubKey

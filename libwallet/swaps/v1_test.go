@@ -6,14 +6,14 @@ import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/muun/libwallet/addresses"
+	"github.com/meen/libwallet/addresses"
 )
 
 func TestValidateSubmarineSwapV1(t *testing.T) {
 	type args struct {
 		rawInvoice    string
 		userPublicKey *KeyDescriptor
-		muunPublicKey *KeyDescriptor
+		meenPublicKey *KeyDescriptor
 		swap          *SubmarineSwap
 		network       *chaincfg.Params
 	}
@@ -32,7 +32,7 @@ func TestValidateSubmarineSwapV1(t *testing.T) {
 					),
 					Path: "m",
 				},
-				muunPublicKey: &KeyDescriptor{
+				meenPublicKey: &KeyDescriptor{
 					Key: decodeKey(
 						"tpubD6NzVbkrYhZ4XbhomyY2axxKe3KB1FK2Wq2z7XYyDF3T4QCuEDZFBUyGfjfHChvEbsbP9RpaYA8cwxkZpQjEcNdaPfuj3cKGqCiHC5YeRTo", //nolint:lll
 					),
@@ -51,7 +51,7 @@ func TestValidateSubmarineSwapV1(t *testing.T) {
 						UserPublicKey: decodeKey(
 							"tpubD6NzVbkrYhZ4Y3iy9soFSA9zoYbpyhUFu3eAH1sDWyERxH2yJVZUhPUX5QsxD6bZfMWRKzxw28ohD5n6AZWmvZbDpZzgxSVxUnMevqzTXQk", //nolint:lll
 						),
-						MuunPublicKey: decodeKey(
+						MeenPublicKey: decodeKey(
 							"tpubD6NzVbkrYhZ4XbhomyY2axxKe3KB1FK2Wq2z7XYyDF3T4QCuEDZFBUyGfjfHChvEbsbP9RpaYA8cwxkZpQjEcNdaPfuj3cKGqCiHC5YeRTo", //nolint:lll
 						),
 					},
@@ -69,7 +69,7 @@ func TestValidateSubmarineSwapV1(t *testing.T) {
 			err := tt.args.swap.validateV1(
 				tt.args.rawInvoice,
 				tt.args.userPublicKey,
-				tt.args.muunPublicKey,
+				tt.args.meenPublicKey,
 				tt.args.network,
 			)
 			if (err != nil) != tt.wantErr {

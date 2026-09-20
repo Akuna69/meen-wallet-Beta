@@ -1,6 +1,6 @@
-package io.muun
+package io.meen
 
-import io.muun.apollo.data.logging.TraceSection
+import io.meen.apollo.data.logging.TraceSection
 
 class Cause(section: TraceSection, chainTo: Throwable?):
     Throwable("${section.cause.className.split(".").last()}: ${section.cause.message}", chainTo) {

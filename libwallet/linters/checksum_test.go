@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/muun/libwallet/linters"
+	"github.com/meen/libwallet/linters"
 )
 
 // TestSourceChecksum verifies that .checksum matches the current linter sources.
@@ -23,7 +23,7 @@ func TestSourceChecksum(t *testing.T) {
 
 	checksumFile := filepath.Join(
 		repoRoot, "libwallet", "linters",
-		"muun_model_constructor", ".checksum",
+		"meen_model_constructor", ".checksum",
 	)
 	stored, err := os.ReadFile(checksumFile)
 	if err != nil {
@@ -35,7 +35,7 @@ func TestSourceChecksum(t *testing.T) {
 		t.Fatalf(
 			"linter source checksum mismatch (got %s, want %s).\n"+
 				"The linter source changed. Rebuild the custom binary and update the checksum:\n"+
-				"  muun local build-golangci\n"+
+				"  meen local build-golangci\n"+
 				"  # then update .checksum with the new checksum: %s",
 			got, want, got,
 		)

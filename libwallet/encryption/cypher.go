@@ -14,7 +14,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil/base58"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/hdpath"
+	"github.com/meen/libwallet/hdpath"
 )
 
 const serializedPublicKeyLength = btcec.PubKeyBytesLenCompressed
@@ -151,7 +151,7 @@ type KeyProvider interface {
 	Path() string
 }
 
-// hdPrivKeyDecrypter holds the keys for validation and decryption of messages using Muun's scheme
+// hdPrivKeyDecrypter holds the keys for validation and decryption of messages using Meen's scheme
 type HdPrivKeyDecrypter struct {
 	KeyProvider KeyProvider
 

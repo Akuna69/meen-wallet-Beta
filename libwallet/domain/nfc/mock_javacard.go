@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/muun/libwallet/app_provided_data"
+	"github.com/meen/libwallet/app_provided_data"
 )
 
 type JavaCardApplet interface {
@@ -15,15 +15,15 @@ type JavaCardApplet interface {
 }
 
 type MockJavaCard struct {
-	muuncardApplet JavaCardApplet
+	meencardApplet JavaCardApplet
 }
 
 // Enforce we implement the interface
 var _ app_provided_data.NfcBridge = (*MockJavaCard)(nil)
 
-func NewMockJavaCard(muuncardApplet JavaCardApplet) *MockJavaCard {
+func NewMockJavaCard(meencardApplet JavaCardApplet) *MockJavaCard {
 	return &MockJavaCard{
-		muuncardApplet: muuncardApplet,
+		meencardApplet: meencardApplet,
 	}
 }
 
@@ -38,7 +38,7 @@ func (m *MockJavaCard) processCommand(apdu []byte) (*app_provided_data.NfcBridge
 	case insSelect:
 		return m.handleSelectApplet(apdu)
 	default:
-		return m.muuncardApplet.processCommand(apdu)
+		return m.meencardApplet.processCommand(apdu)
 	}
 }
 
@@ -61,11 +61,11 @@ func (m *MockJavaCard) handleSelectApplet(apdu []byte) (
 	}
 
 	appletId := hex.EncodeToString(data)
-	if strings.ToUpper(appletId) != m.muuncardApplet.getAppletId() {
+	if strings.ToUpper(appletId) != m.meencardApplet.getAppletId() {
 		return nil, fmt.Errorf("incorrect applet id: %s", appletId)
 	}
 
-	// Return some internal OS stuff + "muun.com" in hex (e.g. 6D75756E2E636F6D).
+	// Return some internal OS stuff + "meen.com" in hex (e.g. 6D75756E2E636F6D).
 	return newSuccessResponse([]byte("D1010855046D75756E2E636F6D")), nil
 }
 

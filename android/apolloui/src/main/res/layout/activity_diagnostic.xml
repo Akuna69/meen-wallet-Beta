@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:textSize="@dimen/muun_text_size_body"
+            android:textSize="@dimen/meen_text_size_body"
             android:textColor="@color/text_secondary_color"
             android:layout_marginTop="16dp"
             android:lineSpacingExtra="6dp"
@@ -19,9 +19,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/begin_button"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_gap"
@@ -51,12 +51,12 @@
                 android:layout_margin="@dimen/default_gap" />
     </ScrollView>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             app:layout_constraintTop_toBottomOf="@+id/log_scrollview"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:id="@+id/scan_button"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_gap"
@@ -65,9 +65,9 @@
             android:layout_margin="8dp"
             tools:ignore="HardcodedText" />
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/send_button"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_below="@+id/scan_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

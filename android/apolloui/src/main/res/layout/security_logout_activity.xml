@@ -35,12 +35,12 @@
 
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/security_logout_sign_in"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/muun_button_floating_bg"
+            android:background="@drawable/meen_button_floating_bg"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="80dp"
             android:layout_gravity="center"

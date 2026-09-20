@@ -219,7 +219,7 @@ android {
             resValue "string", "app_name", "Meen (regtest-remote)"
 
             // external link configuration
-            configExternalLinks(owner, "dev.meen.io")
+            configExternalLinks(owner, "dev.muun.io")
 
             // server
             houstonRemoteRegtest.each { key, value -> buildConfigField("String", key, quote(value)) }
@@ -228,7 +228,7 @@ android {
             // we use to send to the server. Eventually we can deprecate it
             buildConfigField("String", "OLD_BUILD_TYPE", quote("regtestDebug"))
 
-            buildConfigField("String", "LAPP_URL", quote("https://pub.reg.api.meen.wtf/lapp"))
+            buildConfigField("String", "LAPP_URL", quote("https://pub.reg.api.muun.wtf/lapp"))
 
             signingConfig signingConfigs.debug
         }
@@ -238,7 +238,7 @@ android {
             resValue "string", "app_name", "Meen"
 
             // external link configuration
-            configExternalLinks(owner, "meen.com")
+            configExternalLinks(owner, "muun.com")
 
             // Production application class, which is interpolated into AndroidManifest.xml
             manifestPlaceholders = [
@@ -266,7 +266,7 @@ android {
             resValue "string", "app_name", "Meen (Dogfood)"
 
             // external link configuration
-            configExternalLinks(owner, "meen.com")
+            configExternalLinks(owner, "muun.com")
 
             // Production application class, which is interpolated into AndroidManifest.xml
             manifestPlaceholders = [

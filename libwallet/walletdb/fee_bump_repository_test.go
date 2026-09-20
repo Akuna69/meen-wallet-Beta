@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/muun/libwallet/operation"
+	"github.com/meen/libwallet/operation"
 )
 
 func TestCreateFeeBumpFunctions(t *testing.T) {

@@ -6,17 +6,17 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/btcsuitew/btcutilw"
-	"github.com/muun/libwallet/btcsuitew/txscriptw"
-	"github.com/muun/libwallet/electrum"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/btcsuitew/btcutilw"
+	"github.com/meen/libwallet/btcsuitew/txscriptw"
+	"github.com/meen/libwallet/electrum"
 )
 
 // scanTask encapsulates a parallelizable Scanner unit of work.
 type scanTask struct {
 	servers     *electrum.ServerProvider
 	client      *electrum.Client
-	addresses   []libwallet.MuunAddress
+	addresses   []libwallet.MeenAddress
 	timeout     time.Duration
 	exit        chan struct{}
 	chainParams *chaincfg.Params
@@ -181,7 +181,7 @@ func getIndexHashes(outputScripts [][]byte) ([]string, error) {
 
 // getOutputScripts creates all the scripts that send to an list of Bitcoin address.
 func getOutputScripts(
-	addresses []libwallet.MuunAddress,
+	addresses []libwallet.MeenAddress,
 	chainParams *chaincfg.Params,
 ) ([][]byte, error) {
 	outputScripts := make([][]byte, len(addresses))

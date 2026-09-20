@@ -13,17 +13,17 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 
-	"github.com/muun/libwallet/btcsuitew/btcutilw"
-	data "github.com/muun/libwallet/data/lightning"
-	"github.com/muun/libwallet/domain/action/lightning"
-	model "github.com/muun/libwallet/domain/model/lightning"
-	electrum "github.com/muun/libwallet/electrum/v2"
-	"github.com/muun/libwallet/platform/concurrency/memlock"
-	"github.com/muun/libwallet/platform/test/testbitcoind"
-	"github.com/muun/libwallet/platform/test/testelectrum"
-	"github.com/muun/libwallet/platform/test/testsuite"
-	"github.com/muun/libwallet/storage"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet/btcsuitew/btcutilw"
+	data "github.com/meen/libwallet/data/lightning"
+	"github.com/meen/libwallet/domain/action/lightning"
+	model "github.com/meen/libwallet/domain/model/lightning"
+	electrum "github.com/meen/libwallet/electrum/v2"
+	"github.com/meen/libwallet/platform/concurrency/memlock"
+	"github.com/meen/libwallet/platform/test/testbitcoind"
+	"github.com/meen/libwallet/platform/test/testelectrum"
+	"github.com/meen/libwallet/platform/test/testsuite"
+	"github.com/meen/libwallet/storage"
+	"github.com/meen/libwallet/walletdb"
 )
 
 const (

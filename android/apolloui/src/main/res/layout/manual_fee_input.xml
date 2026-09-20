@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        style="@style/muun_item"
+        style="@style/meen_item"
         android:layout_height="wrap_content"
         android:id="@+id/fee_option_item"
         android:background="@drawable/border_no_selection">
 
-    <io.muun.apollo.presentation.ui.view.MuunEditText
+    <io.meen.apollo.presentation.ui.view.MeenEditText
             android:id="@+id/fee_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

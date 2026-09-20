@@ -1,0 +1,159 @@
+package io.meen.apollo.application_lock;
+
+
+import io.meen.apollo.BaseTest;
+import io.meen.apollo.data.os.authentication.PinManager;
+import io.meen.apollo.data.os.secure_storage.FakeKeyStore;
+import io.meen.apollo.data.os.secure_storage.FakePreferences;
+import io.meen.apollo.data.os.secure_storage.SecureStorageProvider;
+import io.meen.apollo.domain.ApplicationLockManager;
+import io.meen.apollo.domain.errors.WeirdIncorrectAttemptsBugError;
+import io.meen.apollo.domain.selector.ChallengePublicKeySelector;
+import io.meen.apollo.domain.selector.LogoutOptionsSelector;
+
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+import org.mockito.Mock;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.when;
+
+public class ApplicationLockTest extends BaseTest {
+
+    private static final String CORRECT_PIN = "1234";
+    private static final String INCORRECT_PIN = "5678";
+
+    @Mock
+    private PinManager pinManager;
+
+    @Mock
+    private ChallengePublicKeySelector challengePublicKeySel;
+
+    @Mock
+    private LogoutOptionsSelector logoutOptionsSelector;
+
+    private ApplicationLockManager lockManager;
+
+    @Before
+    public void setUp() {
+        final SecureStorageProvider secureStorageProvider = new SecureStorageProvider(
+                new FakeKeyStore(),
+                new FakePreferences()
+        );
+
+        lockManager = new ApplicationLockManager(
+                pinManager,
+                secureStorageProvider,
+                challengePublicKeySel,
+                logoutOptionsSelector
+        );
+
+        when(pinManager.verifyPin(CORRECT_PIN)).thenReturn(true);
+        when(pinManager.verifyPin(INCORRECT_PIN)).thenReturn(false);
+
+        doReturn(false).when(logoutOptionsSelector).isRecoverable();
+    }
+
+    @Test
+    public void lockBeginsUnset() {
+        assertThat(lockManager.isLockSet()).isFalse();
+    }
+
+    @Test
+    public void isLockConfigured() {
+        when(pinManager.hasPin()).thenReturn(false);
+        assertThat(lockManager.isLockConfigured()).isFalse();
+
+        when(pinManager.hasPin()).thenReturn(true);
+        assertThat(lockManager.isLockConfigured()).isTrue();
+    }
+
+    @Test
+    public void unlockWithCorrectPin() {
+        lockManager.setLock();
+        assertThat(lockManager.isLockSet()).isTrue();
+
+        lockManager.tryUnlockWithPin(CORRECT_PIN);
+        assertThat(lockManager.isLockSet()).isFalse();
+    }
+
+    @Test
+    public void noUnlockWithIncorrectPin() {
+        lockManager.setLock();
+        assertThat(lockManager.isLockSet()).isTrue();
+
+        lockManager.tryUnlockWithPin(INCORRECT_PIN);
+        assertThat(lockManager.isLockSet()).isTrue();
+    }
+
+    @Test
+    public void decrementsRemainingAttemptsWhenRecoverable() {
+        doReturn(true).when(logoutOptionsSelector).isRecoverable();
+
+        final int maxAttempts = lockManager.getMaxAttempts();
+        assertThat(lockManager.getRemainingAttempts()).isEqualTo(maxAttempts);
+
+        for (int i = 1; i <= maxAttempts; i++) {
+            lockManager.tryUnlockWithPin(INCORRECT_PIN);
+            assertThat(lockManager.getRemainingAttempts()).isEqualTo(maxAttempts - i);
+        }
+    }
+
+    @Test(expected = WeirdIncorrectAttemptsBugError.class)
+    public void errorOnZeroRemainingAttemptsWhenRecoverable() {
+        doReturn(true).when(logoutOptionsSelector).isRecoverable();
+
+        burnRemainingAttempts(lockManager.getMaxAttempts() + 1);
+    }
+
+    @Test
+    public void doesNotDecrementAttemptsWhenUnrecoverable() {
+        final int maxAttempts = lockManager.getMaxAttempts();
+
+        assertThat(lockManager.getRemainingAttempts()).isEqualTo(maxAttempts);
+        lockManager.tryUnlockWithPin(INCORRECT_PIN);
+        assertThat(lockManager.getRemainingAttempts()).isEqualTo(maxAttempts);
+    }
+
+    @Test
+    @Ignore("flaky")
+    public void autoSetLock() throws InterruptedException {
+        lockManager.autoSetLockAfterDelay(10);
+
+        assertThat(lockManager.isLockSet()).isFalse();
+        Thread.sleep(20);
+        assertThat(lockManager.isLockSet()).isTrue();
+    }
+
+    @Test
+    @Ignore("flaky")
+    public void cancelAutoSetLock() throws InterruptedException {
+        lockManager.autoSetLockAfterDelay(10);
+
+        assertThat(lockManager.isLockSet()).isFalse();
+        Thread.sleep(5);
+        lockManager.cancelAutoSetLocked();
+        Thread.sleep(15);
+        assertThat(lockManager.isLockSet()).isFalse();
+    }
+
+    @Test
+    public void resetAttemptsAfterUnlock() {
+        lockManager.tryUnlockWithPin(INCORRECT_PIN);
+
+        burnRemainingAttempts(1);
+        lockManager.tryUnlockWithPin(CORRECT_PIN);
+        assertThat(lockManager.getRemainingAttempts()).isEqualTo(lockManager.getMaxAttempts());
+
+
+        // TODO attempts should be reset on biometric successful unlock
+    }
+
+    private void burnRemainingAttempts(int amount) {
+        for (int i = 0; i < amount; i++) {
+            lockManager.tryUnlockWithPin(INCORRECT_PIN);
+        }
+    }
+}

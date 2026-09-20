@@ -8,9 +8,9 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render"
-	"github.com/muun/libwallet/emergencykit"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render"
+	"github.com/meen/libwallet/emergencykit"
 )
 
 // GeneratedEKPDF is a model including the verificationCode and version

@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/muun/libwallet/internal/kvmigrationlock"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/internal/kvmigrationlock"
+	"github.com/meen/libwallet/storage"
 )
 
 // TestMigrationsLockfileIsUpToDate verifies that no past migration has been modified

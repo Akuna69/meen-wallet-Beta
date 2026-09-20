@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet/walletdb"
 )
 
 type KeyValueStorage struct {

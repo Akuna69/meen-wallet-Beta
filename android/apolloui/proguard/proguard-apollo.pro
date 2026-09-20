@@ -4,52 +4,52 @@
 
 -dontwarn sun.misc.Unsafe
 
--keepnames class io.muun.apollo.domain.model.ExchangeRateWindow
--keep class io.muun.apollo.domain.model.ExchangeRateWindow { *; }
--keepclassmembers class io.muun.apollo.domain.model.ExchangeRateWindow { *; }
--keepclassmembernames class io.muun.apollo.domain.model.ExchangeRateWindow { *; }
+-keepnames class io.meen.apollo.domain.model.ExchangeRateWindow
+-keep class io.meen.apollo.domain.model.ExchangeRateWindow { *; }
+-keepclassmembers class io.meen.apollo.domain.model.ExchangeRateWindow { *; }
+-keepclassmembernames class io.meen.apollo.domain.model.ExchangeRateWindow { *; }
 
--keepnames class io.muun.apollo.domain.model.NextTransactionSize
--keep class io.muun.apollo.domain.model.NextTransactionSize { *; }
--keepclassmembers class io.muun.apollo.domain.model.NextTransactionSize { *; }
--keepclassmembernames class io.muun.apollo.domain.model.NextTransactionSize { *; }
+-keepnames class io.meen.apollo.domain.model.NextTransactionSize
+-keep class io.meen.apollo.domain.model.NextTransactionSize { *; }
+-keepclassmembers class io.meen.apollo.domain.model.NextTransactionSize { *; }
+-keepclassmembernames class io.meen.apollo.domain.model.NextTransactionSize { *; }
 
--keepnames class io.muun.apollo.domain.model.SignupDraft
--keep class io.muun.apollo.domain.model.SignupDraft { *; }
--keepclassmembers class io.muun.apollo.domain.model.SignupDraft { *; }
--keepclassmembernames class io.muun.apollo.domain.model.SignupDraft { *; }
+-keepnames class io.meen.apollo.domain.model.SignupDraft
+-keep class io.meen.apollo.domain.model.SignupDraft { *; }
+-keepclassmembers class io.meen.apollo.domain.model.SignupDraft { *; }
+-keepclassmembernames class io.meen.apollo.domain.model.SignupDraft { *; }
 
--keepnames class io.muun.apollo.domain.model.LoginWithRc
--keep class io.muun.apollo.domain.model.LoginWithRc { *; }
--keepclassmembers class io.muun.apollo.domain.model.LoginWithRc { *; }
--keepclassmembernames class io.muun.apollo.domain.model.LoginWithRc { *; }
+-keepnames class io.meen.apollo.domain.model.LoginWithRc
+-keep class io.meen.apollo.domain.model.LoginWithRc { *; }
+-keepclassmembers class io.meen.apollo.domain.model.LoginWithRc { *; }
+-keepclassmembernames class io.meen.apollo.domain.model.LoginWithRc { *; }
 
 # Preserve all JSON preference classes and attributes:
--keepnames class io.muun.apollo.data.preferences.stored.**
--keep class io.muun.apollo.data.preferences.stored.** { *; }
--keepclassmembers class io.muun.apollo.data.preferences.stored.** { *; }
--keepclassmembernames class io.muun.apollo.data.preferences.stored.** { *; }
+-keepnames class io.meen.apollo.data.preferences.stored.**
+-keep class io.meen.apollo.data.preferences.stored.** { *; }
+-keepclassmembers class io.meen.apollo.data.preferences.stored.** { *; }
+-keepclassmembernames class io.meen.apollo.data.preferences.stored.** { *; }
 
--keepnames class io.muun.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences
--keep class io.muun.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
--keepclassmembers class io.muun.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
--keepclassmembernames class io.muun.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
+-keepnames class io.meen.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences
+-keep class io.meen.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
+-keepclassmembers class io.meen.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
+-keepclassmembernames class io.meen.apollo.data.preferences.UserPreferencesRepository$StoredUserPreferences { *; }
 
 -keepattributes InnerClasses
 
--keepnames class io.muun.apollo.domain.analytics.**
--keep class io.muun.apollo.domain.analytics.** { *; }
--keepclassmembers class io.muun.apollo.domain.analytics.** { *; }
--keepclassmembernames class io.muun.apollo.domain.analytics.** { *; }
+-keepnames class io.meen.apollo.domain.analytics.**
+-keep class io.meen.apollo.domain.analytics.** { *; }
+-keepclassmembers class io.meen.apollo.domain.analytics.** { *; }
+-keepclassmembernames class io.meen.apollo.domain.analytics.** { *; }
 
--keep public enum io.muun.apollo.data.os.secure_storage.SecureStorageMode$** {
+-keep public enum io.meen.apollo.data.os.secure_storage.SecureStorageMode$** {
     **[] $VALUES;
     public *;
 }
 
 # Don't mangle classes user for serialization
--keep class io.muun.apollo.data.preferences.ForwardingPoliciesRepository$StoredForwardingPolicy { *; }
--keep class io.muun.apollo.data.preferences.BackgroundTimesRepository$StoredBackgroundEvent { *; }
+-keep class io.meen.apollo.data.preferences.ForwardingPoliciesRepository$StoredForwardingPolicy { *; }
+-keep class io.meen.apollo.data.preferences.BackgroundTimesRepository$StoredBackgroundEvent { *; }
 
 # Intentionally removed an old protobuf from an unused transitive dependecy.
 -dontwarn com.google.protobuf.AbstractMessage$Builder
@@ -91,6 +91,6 @@
 # Keep class names used by the extraStackElements signal to detect unexpected
 # stack trace entries.
 -keepnames class rx.**
--keepnames class io.muun.apollo.data.afs.RuntimeInfoProvider
--keepnames class io.muun.apollo.data.net.base.interceptor.BackgroundExecutionMetricsInterceptor
--keepnames class io.muun.apollo.data.net.base.BaseInterceptor
+-keepnames class io.meen.apollo.data.afs.RuntimeInfoProvider
+-keepnames class io.meen.apollo.data.net.base.interceptor.BackgroundExecutionMetricsInterceptor
+-keepnames class io.meen.apollo.data.net.base.BaseInterceptor

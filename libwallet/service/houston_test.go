@@ -11,7 +11,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/service/model"
 )
 
 // 127.0.0.1 instead of localhost to avoid problems with network interfaces in local env

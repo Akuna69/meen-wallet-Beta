@@ -1,4 +1,4 @@
-package verifiable_muun_key
+package verifiable_meen_key
 
 import (
 	"encoding/base64"
@@ -10,38 +10,38 @@ import (
 	"github.com/btcsuite/btcd/btcec/v2"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/cryptography/bitcoin_hpke"
-	"github.com/muun/libwallet/domain/model/encrypted_key_v3"
-	"github.com/muun/libwallet/encryption"
-	"github.com/muun/libwallet/librs"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/cryptography/bitcoin_hpke"
+	"github.com/meen/libwallet/domain/model/encrypted_key_v3"
+	"github.com/meen/libwallet/encryption"
+	"github.com/meen/libwallet/librs"
+	"github.com/meen/libwallet/service/model"
 )
 
-type VerifiableMuunKey struct {
+type VerifiableMeenKey struct {
 	FirstHalfKeyEncryptedToClient        *bitcoin_hpke.EncryptedMessage
 	SecondHalfKeyEncryptedToRecoveryCode *bitcoin_hpke.EncryptedMessage
 	Proof                                *string
 }
 
-func NewVerifiableMuunKey(
+func NewVerifiableMeenKey(
 	firstHalf *bitcoin_hpke.EncryptedMessage,
 	secondHalf *bitcoin_hpke.EncryptedMessage,
 	proof *string,
-) *VerifiableMuunKey {
-	return &VerifiableMuunKey{
+) *VerifiableMeenKey {
+	return &VerifiableMeenKey{
 		FirstHalfKeyEncryptedToClient:        firstHalf,
 		SecondHalfKeyEncryptedToRecoveryCode: secondHalf,
 		Proof:                                proof,
 	}
 }
 
-func VerifiableMuunKeyFromJson( //nolint:staticcheck // TODO: func VerifiableMuunKeyFromJson should be VerifiableMuunKeyFromJSON
-	verifiableMuunKeyJson *model.VerifiableMuunKeyJson, //nolint:staticcheck // TODO: func parameter verifiableMuunKeyJson should be verifiableMuunKeyJSON
-) (*VerifiableMuunKey, error) {
+func VerifiableMeenKeyFromJson( //nolint:staticcheck // TODO: func VerifiableMeenKeyFromJson should be VerifiableMeenKeyFromJSON
+	verifiableMeenKeyJson *model.VerifiableMeenKeyJson, //nolint:staticcheck // TODO: func parameter verifiableMeenKeyJson should be verifiableMeenKeyJSON
+) (*VerifiableMeenKey, error) {
 
 	firstHalfKeyEncryptedToClientBytes, err := hex.DecodeString(
-		verifiableMuunKeyJson.FirstHalfKeyEncryptedToClient,
+		verifiableMeenKeyJson.FirstHalfKeyEncryptedToClient,
 	)
 	if err != nil {
 		return nil, err
@@ -55,7 +55,7 @@ func VerifiableMuunKeyFromJson( //nolint:staticcheck // TODO: func VerifiableMuu
 	}
 
 	secondHalfKeyEncryptedToRecoveryCodeBytes, err := hex.DecodeString(
-		verifiableMuunKeyJson.SecondHalfKeyEncryptedToRecoveryCode,
+		verifiableMeenKeyJson.SecondHalfKeyEncryptedToRecoveryCode,
 	)
 	if err != nil {
 		return nil, err
@@ -68,48 +68,48 @@ func VerifiableMuunKeyFromJson( //nolint:staticcheck // TODO: func VerifiableMuu
 		return nil, err
 	}
 
-	return NewVerifiableMuunKey(
+	return NewVerifiableMeenKey(
 		firstHalfKeyEncryptedToClient,
 		secondHalfKeyEncryptedToRecoveryCode,
-		verifiableMuunKeyJson.Proof,
+		verifiableMeenKeyJson.Proof,
 	), nil
 
 }
 
-type EncryptedMuunKeyWithVerificationFlag struct {
-	// The base64 encoded encrypted muun key that can be decrypted with the recovery code private
+type EncryptedMeenKeyWithVerificationFlag struct {
+	// The base64 encoded encrypted meen key that can be decrypted with the recovery code private
 	// key.
-	EncryptedMuunKey string
+	EncryptedMeenKey string
 	// A boolean value indicating if the encryption was proven to be correct with a zero-knowledge
 	// proof.
 	Verified bool
 }
 
-func NewEncryptedMuunKeyWithVerificationFlag(
-	encryptedMuunKey string,
+func NewEncryptedMeenKeyWithVerificationFlag(
+	encryptedMeenKey string,
 	verified bool,
-) *EncryptedMuunKeyWithVerificationFlag {
-	return &EncryptedMuunKeyWithVerificationFlag{
-		EncryptedMuunKey: encryptedMuunKey,
+) *EncryptedMeenKeyWithVerificationFlag {
+	return &EncryptedMeenKeyWithVerificationFlag{
+		EncryptedMeenKey: encryptedMeenKey,
 		Verified:         verified,
 	}
 }
 
-// Verify returning an EncryptedMuunKeyWithVerificationFlag.
-func (vk *VerifiableMuunKey) Verify(
-	muunPublicKey *libwallet.HDPublicKey,
+// Verify returning an EncryptedMeenKeyWithVerificationFlag.
+func (vk *VerifiableMeenKey) Verify(
+	meenPublicKey *libwallet.HDPublicKey,
 	userPrivateKey *btcec.PrivateKey,
 	recoveryCodePublicKey *btcec.PublicKey,
-) (*EncryptedMuunKeyWithVerificationFlag, error) {
+) (*EncryptedMeenKeyWithVerificationFlag, error) {
 
-	muunBtcecPubKey, err := muunPublicKey.ECPubKey()
+	meenBtcecPubKey, err := meenPublicKey.ECPubKey()
 	if err != nil {
 		return nil, err
 	}
 
 	firstHalfKeyBytes, err := vk.FirstHalfKeyEncryptedToClient.SingleShotDecrypt(
 		userPrivateKey,
-		[]byte(encrypted_key_v3.MuunFirstHalfToClient),
+		[]byte(encrypted_key_v3.MeenFirstHalfToClient),
 		[]byte(""),
 	)
 	if err != nil {
@@ -121,11 +121,11 @@ func (vk *VerifiableMuunKey) Verify(
 
 	firstHalfKey, firstHalfPubKey := btcec.PrivKeyFromBytes(firstHalfKeyBytes)
 
-	var secondHalfPubkey = subtractPublicKeys(muunBtcecPubKey, firstHalfPubKey)
+	var secondHalfPubkey = subtractPublicKeys(meenBtcecPubKey, firstHalfPubKey)
 
 	var verified bool
 	if vk.Proof == nil {
-		// If no proof is provided we produce an unverified encryptedMuunKey
+		// If no proof is provided we produce an unverified encryptedMeenKey
 		verified = false
 	} else {
 		// TODO For now, a verification error results in an unverified key, without impeding to
@@ -139,17 +139,17 @@ func (vk *VerifiableMuunKey) Verify(
 		)
 	}
 
-	encryptedMuunKey, err := encrypted_key_v3.FinishMuunKeyEncryption(
+	encryptedMeenKey, err := encrypted_key_v3.FinishMeenKeyEncryption(
 		recoveryCodePublicKey,
 		firstHalfKey,
-		muunPublicKey.ChainCode(),
+		meenPublicKey.ChainCode(),
 		vk.SecondHalfKeyEncryptedToRecoveryCode,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return NewEncryptedMuunKeyWithVerificationFlag(encryptedMuunKey, verified), nil
+	return NewEncryptedMeenKeyWithVerificationFlag(encryptedMeenKey, verified), nil
 }
 
 func verifyZeroKnowledgeProof(

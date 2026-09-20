@@ -3,7 +3,7 @@ package lightning
 import (
 	"github.com/go-errors/errors"
 
-	model "github.com/muun/libwallet/domain/model/lightning"
+	model "github.com/meen/libwallet/domain/model/lightning"
 )
 
 // EnforcementBroadcastError is the base error for failed enforcer Tx broadcasts.

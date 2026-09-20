@@ -6,8 +6,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/domain/nfc"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/domain/nfc"
+	"github.com/meen/libwallet/service/model"
 )
 
 func MapRegisterSecurityCardJson( //nolint:staticcheck // TODO: func MapRegisterSecurityCardJson should be MapRegisterSecurityCardJSON

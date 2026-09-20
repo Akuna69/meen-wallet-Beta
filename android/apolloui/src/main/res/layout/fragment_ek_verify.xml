@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -31,7 +31,7 @@
                 android:layout_marginBottom="24dp"
                 android:text="@string/ek_verify_explanation" />
 
-        <io.muun.apollo.presentation.ui.view.MuunTextInput
+        <io.meen.apollo.presentation.ui.view.MeenTextInput
                 android:id="@+id/code_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
                 app:helperTextVisibility="visible"
                 />
 
-        <io.muun.apollo.presentation.ui.view.HtmlTextView
+        <io.meen.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/need_help"
                 style="@style/explanation"
                 android:layout_width="match_parent"
@@ -57,11 +57,11 @@
                 android:text="@string/ek_verify_need_help" />
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
-            style="@style/muun_button_primary"
+    <io.meen.apollo.presentation.ui.view.MeenButton
+            style="@style/meen_button_primary"
             android:id="@+id/ek_verify_action"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/ek_verify_action" />
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>

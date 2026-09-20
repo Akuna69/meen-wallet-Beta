@@ -53,7 +53,7 @@
     <color name="warning_color">@color/yellow</color>
     <color name="pending_color">@color/yellow</color>
     <color name="rbf_color">@color/orange</color>
-    <color name="muun_task_card_default_bg">@color/background</color>
+    <color name="meen_task_card_default_bg">@color/background</color>
 
     <!-- Special cases -->
 
@@ -75,42 +75,42 @@
 
     <!-- Styles occurrences. Named after the style name -->
     <color name="settings_item_separator">@color/gray_lightest</color>
-    <color name="muun_new_operation_separator">@color/gray_lightest</color>
-    <color name="muun_ek_save_separator">@color/gray_lightest</color>
+    <color name="meen_new_operation_separator">@color/gray_lightest</color>
+    <color name="meen_ek_save_separator">@color/gray_lightest</color>
 
     <!--  Drawable res colors. Named after the drawable name and state/item  -->
     <color name="cursor">@color/black</color>
-    <color name="muun_button_covered_bg">@color/gray_dark</color>
-    <color name="muun_button_floating_bg_enabled">@color/blue</color>
-    <color name="muun_button_floating_bg_disabled">@color/blue_lightest</color>
-    <color name="muun_button_primary_bg_enabled">@color/blue</color>
-    <color name="muun_button_primary_bg_disabled">@color/blue_light</color>
-    <color name="muun_button_primary_text_disabled">@color/white</color>
-    <color name="muun_button_secondary_bg">@color/white</color>
-    <color name="muun_button_tertiary_bg">@color/white</color>
+    <color name="meen_button_covered_bg">@color/gray_dark</color>
+    <color name="meen_button_floating_bg_enabled">@color/blue</color>
+    <color name="meen_button_floating_bg_disabled">@color/blue_lightest</color>
+    <color name="meen_button_primary_bg_enabled">@color/blue</color>
+    <color name="meen_button_primary_bg_disabled">@color/blue_light</color>
+    <color name="meen_button_primary_text_disabled">@color/white</color>
+    <color name="meen_button_secondary_bg">@color/white</color>
+    <color name="meen_button_tertiary_bg">@color/white</color>
     <color name="round_rect_background">@color/white</color>
     <color name="round_rect_background_border">@color/gray_light</color>
     <color name="border_bg_selected">@color/blue_lightest</color>
     <color name="border_border_selected">@color/blue</color>
     <color name="border_border">@color/gray_light</color>
     <color name="border_border_manual_fee">@color/blue</color>
-    <color name="muun_bubble_button_bg">@color/blue_lightest</color>
-    <color name="muun_bubble_button_ripple">@color/blue_light</color>
-    <color name="muun_bubble_error">@color/red</color>
-    <color name="muun_bubble_off_border">@color/blue</color>
-    <color name="muun_bubble_on_bg">@color/blue</color>
-    <color name="muun_bubble_success_bg">@color/green</color>
-    <color name="muun_button_layout_bg">@color/white</color>
-    <color name="muun_pill_background">@color/gray_lightest</color>
-    <color name="muun_progress_bar_bg">@color/gray_lightest</color>
-    <color name="muun_recovery_code_box_background">@color/gray_light</color>
-    <color name="muun_save_option_label_disabled_bg">@color/gray_light</color>
-    <color name="muun_save_option_label_recommended_bg">@color/blue_lightest</color>
-    <color name="muun_task_card_active_bg_border">@color/blue_light</color>
-    <color name="muun_task_card_default_bg_border">@color/gray_lightest</color>
-    <color name="muun_task_card_done_bg">@color/green_lightest</color>
-    <color name="muun_task_card_skipped_bg_border">@color/blue_light</color>
-    <color name="muun_task_card_skipped_tag">@color/blue_light</color>
+    <color name="meen_bubble_button_bg">@color/blue_lightest</color>
+    <color name="meen_bubble_button_ripple">@color/blue_light</color>
+    <color name="meen_bubble_error">@color/red</color>
+    <color name="meen_bubble_off_border">@color/blue</color>
+    <color name="meen_bubble_on_bg">@color/blue</color>
+    <color name="meen_bubble_success_bg">@color/green</color>
+    <color name="meen_button_layout_bg">@color/white</color>
+    <color name="meen_pill_background">@color/gray_lightest</color>
+    <color name="meen_progress_bar_bg">@color/gray_lightest</color>
+    <color name="meen_recovery_code_box_background">@color/gray_light</color>
+    <color name="meen_save_option_label_disabled_bg">@color/gray_light</color>
+    <color name="meen_save_option_label_recommended_bg">@color/blue_lightest</color>
+    <color name="meen_task_card_active_bg_border">@color/blue_light</color>
+    <color name="meen_task_card_default_bg_border">@color/gray_lightest</color>
+    <color name="meen_task_card_done_bg">@color/green_lightest</color>
+    <color name="meen_task_card_skipped_bg_border">@color/blue_light</color>
+    <color name="meen_task_card_skipped_tag">@color/blue_light</color>
     <color name="new_op_badge_blue_bkg">@color/blue_lightest</color>
     <color name="new_op_badge_green_bkg">@color/green_lightest</color>
     <color name="notice_banner_background">@color/yellow_lightest</color>
@@ -120,7 +120,7 @@
     <color name="ripple_gray">@color/gray_dark</color>
     <color name="slider_dot_active">@color/blue</color>
     <color name="slider_dot_inactive">@color/blue_light</color>
-    <color name="muun_ripple_circle_bg">@color/white</color>
+    <color name="meen_ripple_circle_bg">@color/white</color>
     <color name="address_type_card_bg_border">@color/gray_lightest</color>
 
     <!-- Code References -->

@@ -9,10 +9,10 @@ import (
 	"github.com/btcsuite/btcd/chaincfg/chainhash"
 	"github.com/btcsuite/btcd/wire"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/btcsuitew/txscriptw"
-	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/scanner"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/btcsuitew/txscriptw"
+	"github.com/meen/libwallet/data/keys"
+	"github.com/meen/libwallet/scanner"
 )
 
 const dustThreshold = 546
@@ -96,14 +96,14 @@ func (action *BuildSweepTxAction) Run(
 
 type input struct {
 	utxo          *scanner.Utxo
-	muunSignature []byte
+	meenSignature []byte
 }
 
 func (i *input) OutPoint() libwallet.Outpoint {
 	return &outpoint{utxo: i.utxo}
 }
 
-func (i *input) Address() libwallet.MuunAddress {
+func (i *input) Address() libwallet.MeenAddress {
 	return i.utxo.Address
 }
 
@@ -111,8 +111,8 @@ func (i *input) UserSignature() []byte {
 	return []byte{}
 }
 
-func (i *input) MuunSignature() []byte {
-	return i.muunSignature
+func (i *input) MeenSignature() []byte {
+	return i.meenSignature
 }
 
 func (i *input) SubmarineSwapV1() libwallet.InputSubmarineSwapV1 {
@@ -127,7 +127,7 @@ func (i *input) IncomingSwap() libwallet.InputIncomingSwap {
 	return nil
 }
 
-func (i *input) MuunPublicNonce() []byte {
+func (i *input) MeenPublicNonce() []byte {
 	// Will always be nil in this context
 	// Look at coinV5.signFirstWith for reasons.
 	return nil

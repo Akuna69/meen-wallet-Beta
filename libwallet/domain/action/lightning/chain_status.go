@@ -1,8 +1,8 @@
 package lightning
 
 import (
-	model "github.com/muun/libwallet/domain/model/lightning"
-	electrum "github.com/muun/libwallet/electrum/v2"
+	model "github.com/meen/libwallet/domain/model/lightning"
+	electrum "github.com/meen/libwallet/electrum/v2"
 )
 
 const (

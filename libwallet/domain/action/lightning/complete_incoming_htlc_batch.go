@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	data "github.com/muun/libwallet/data/lightning"
-	"github.com/muun/libwallet/platform/concurrency/memlock"
+	data "github.com/meen/libwallet/data/lightning"
+	"github.com/meen/libwallet/platform/concurrency/memlock"
 )
 
 // CompleteIncomingHTLCBatchAction stores the recall revocation transaction for a

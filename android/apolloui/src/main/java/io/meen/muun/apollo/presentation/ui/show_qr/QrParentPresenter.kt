@@ -1,0 +1,16 @@
+package io.meen.apollo.presentation.ui.show_qr
+
+import io.meen.apollo.domain.analytics.AnalyticsEvent
+import io.meen.apollo.presentation.ui.base.ParentPresenter
+
+interface QrParentPresenter : ParentPresenter {
+
+    fun handleNotificationPermissionPrompt()
+
+    fun shareQrContent(content: String)
+
+    fun copyQrContent(content: String, origin: AnalyticsEvent.ADDRESS_ORIGIN)
+
+    fun getOrigin(): AnalyticsEvent.RECEIVE_ORIGIN
+
+}

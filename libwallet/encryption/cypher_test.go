@@ -16,7 +16,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil/hdkeychain"
 	"github.com/btcsuite/btcd/chaincfg"
 
-	"github.com/muun/libwallet/hdpath"
+	"github.com/meen/libwallet/hdpath"
 )
 
 func cryptersFromKey(key *hdkeychain.ExtendedKey) (HdPubKeyEncrypter, HdPrivKeyDecrypter) {

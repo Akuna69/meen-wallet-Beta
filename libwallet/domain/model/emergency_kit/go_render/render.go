@@ -6,13 +6,13 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/data/emergency_kit"
-	"github.com/muun/libwallet/data/emergency_kit/resources"
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/assets"
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/components"
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/components/advanced"
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/components/keys"
-	"github.com/muun/libwallet/emergencykit"
+	"github.com/meen/libwallet/data/emergency_kit"
+	"github.com/meen/libwallet/data/emergency_kit/resources"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/assets"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/components"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/components/advanced"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/components/keys"
+	"github.com/meen/libwallet/emergencykit"
 )
 
 // GeneratedEKPDF is a model including the path in which Libwallet left the generated pdf, the

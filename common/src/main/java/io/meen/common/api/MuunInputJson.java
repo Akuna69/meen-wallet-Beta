@@ -9,62 +9,62 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MuunInputJson {
+public class MeenInputJson {
 
     @NotNull
-    public MuunOutputJson prevOut;
+    public MeenOutputJson prevOut;
 
     @NotNull
-    public MuunAddressJson address;
+    public MeenAddressJson address;
 
     @Nullable
     public SignatureJson userSignature;
 
     @Nullable
-    public SignatureJson muunSignature;
+    public SignatureJson meenSignature;
 
     @Nullable
     public SignatureJson swapServerSignature;
 
     @Nullable
-    public MuunInputSubmarineSwapV101Json submarineSwap;
+    public MeenInputSubmarineSwapV101Json submarineSwap;
 
     @Nullable
-    public MuunInputSubmarineSwapV102Json submarineSwapV102;
+    public MeenInputSubmarineSwapV102Json submarineSwapV102;
 
     @Nullable
-    public MuunInputIncomingSwapJson incomingSwap;
+    public MeenInputIncomingSwapJson incomingSwap;
 
     @Nullable
-    public String rawMuunPublicNonceHex;
+    public String rawMeenPublicNonceHex;
 
     /**
      * Json constructor.
      */
-    public MuunInputJson() {
+    public MeenInputJson() {
     }
 
     /**
      * Manual constructor.
      */
-    public MuunInputJson(MuunOutputJson prevOut,
-                         MuunAddressJson address,
+    public MeenInputJson(MeenOutputJson prevOut,
+                         MeenAddressJson address,
                          @Nullable SignatureJson userSignature,
-                         @Nullable SignatureJson muunSignature,
+                         @Nullable SignatureJson meenSignature,
                          @Nullable SignatureJson swapServerSignature,
-                         @Nullable MuunInputSubmarineSwapV101Json submarineSwap,
-                         @Nullable MuunInputSubmarineSwapV102Json submarineSwapV102,
-                         @Nullable MuunInputIncomingSwapJson incomingSwap,
-                         @Nullable String rawMuunPublicNonceHex) {
+                         @Nullable MeenInputSubmarineSwapV101Json submarineSwap,
+                         @Nullable MeenInputSubmarineSwapV102Json submarineSwapV102,
+                         @Nullable MeenInputIncomingSwapJson incomingSwap,
+                         @Nullable String rawMeenPublicNonceHex) {
 
         this.prevOut = prevOut;
         this.address = address;
         this.userSignature = userSignature;
-        this.muunSignature = muunSignature;
+        this.meenSignature = meenSignature;
         this.swapServerSignature = swapServerSignature;
         this.submarineSwap = submarineSwap;
         this.submarineSwapV102 = submarineSwapV102;
         this.incomingSwap = incomingSwap;
-        this.rawMuunPublicNonceHex = rawMuunPublicNonceHex;
+        this.rawMeenPublicNonceHex = rawMeenPublicNonceHex;
     }
 }

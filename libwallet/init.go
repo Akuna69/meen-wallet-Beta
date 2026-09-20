@@ -1,8 +1,8 @@
 package libwallet
 
 import (
-	"github.com/muun/libwallet/app_provided_data"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet/app_provided_data"
+	"github.com/meen/libwallet/walletdb"
 )
 
 var Cfg *app_provided_data.Config

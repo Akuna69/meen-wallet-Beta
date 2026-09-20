@@ -1,0 +1,42 @@
+package io.meen.apollo.presentation.model
+
+import android.content.Context
+import io.meen.apollo.R
+import io.meen.apollo.domain.model.BitcoinUnit
+import io.meen.apollo.domain.model.Operation
+import io.meen.apollo.domain.model.PublicProfile
+import io.meen.apollo.presentation.ui.utils.LinkBuilder
+import io.meen.apollo.presentation.ui.view.RichText
+import io.meen.common.model.OperationDirection
+
+class InternalOperation(
+    operation: Operation,
+    linkBuilder: LinkBuilder,
+    bitcoinUnit: BitcoinUnit,
+    context: Context
+) : UiOperation(operation, linkBuilder, bitcoinUnit, context) {
+
+    private val contact: PublicProfile = if (operation.direction == OperationDirection.OUTGOING)
+        checkNotNull(operation.receiverProfile)
+    else
+        checkNotNull(operation.senderProfile)
+
+    override fun getFormattedTitle(context: Context, shortName: Boolean): CharSequence =
+        if (isCyclical) {
+            context.getString(R.string.operation_sent_to_yourself)
+        } else {
+            val formattedName = RichText(getContactName(shortName)).setBold()
+            if (operation.direction == OperationDirection.INCOMING) {
+                context.getString(R.string.internal_incoming_operation, formattedName)
+            } else {
+                context.getString(R.string.internal_outgoing_operation, formattedName)
+            }
+        }
+
+    private fun getContactName(shortName: Boolean): String =
+        if (shortName) "${contact.firstName} ${contact.lastName[0]}" else contact.fullName
+
+    override fun getPictureUri(context: Context): String? {
+        return contact.profilePictureUrl
+    }
+}

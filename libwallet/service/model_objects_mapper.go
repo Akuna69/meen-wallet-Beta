@@ -5,9 +5,9 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/domain/model/security_card"
-	"github.com/muun/libwallet/domain/model/security_cards_marketplace"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/meen/libwallet/domain/model/security_cards_marketplace"
+	"github.com/meen/libwallet/service/model"
 )
 
 func MapSecurityCardPaired(in model.RegisterSecurityCardOkJson) *security_card.SecurityCardPaired {

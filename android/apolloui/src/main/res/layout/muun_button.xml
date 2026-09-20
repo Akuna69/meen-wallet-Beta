@@ -16,23 +16,23 @@
     -->
 
     <Button
-            android:id="@+id/muun_button_button"
+            android:id="@+id/meen_button_button"
             android:translationZ="0dp"
             android:minHeight="0dp"
             app:backgroundTint="@null"
-            style="@style/muun_button_internal"
+            style="@style/meen_button_internal"
             android:letterSpacing="0"
             tools:text="Action"
-            tools:background="@drawable/muun_button_primary_bg" />
+            tools:background="@drawable/meen_button_primary_bg" />
 
     <TextView
-            android:id="@+id/muun_button_cover"
-            style="@style/muun_button_internal_cover"
+            android:id="@+id/meen_button_cover"
+            style="@style/meen_button_internal_cover"
             tools:text="Lost internet connection"
             android:visibility="gone" />
 
     <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/muun_button_progress_bar"
+            android:id="@+id/meen_button_progress_bar"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_centerInParent="true"

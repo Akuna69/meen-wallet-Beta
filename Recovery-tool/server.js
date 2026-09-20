@@ -15,11 +15,11 @@ const { BIP32Factory } = require('bip32');
 const bip32 = BIP32Factory(ecc);
 bitcoin.initEccLib(ecc);
 
-// --- INTERFAZ VISUAL ESTILO MUUN FAST RECOVERY ---
+// --- INTERFAZ VISUAL ESTILO MEEN FAST RECOVERY ---
 function mostrarBanner(code = '----', fKey = '----', sKey = '----', addr = '----') {
   console.clear();
   console.log('┌────────────────────────────────────────────────────────┐');
-  console.log('│                   MUUN WALLET                          │');
+  console.log('│                   MEEN WALLET                          │');
   console.log('│                  FAST RECOVERY                         │');
   console.log('│                 v2.8.19@stable                         │');
   console.log('└────────────────────────────────────────────────────────┘');
@@ -85,9 +85,9 @@ async function extraerClavesDePDF() {
     throw new Error('No se pudo acceder a la carpeta de Descargas del teléfono.');
   }
 
-  // Buscar archivos PDF que parezcan el kit de Muun
+  // Buscar archivos PDF que parezcan el kit de Meen
   const archivos = fs.readdirSync(carpetaDescargas);
-  const pdfKit = archivos.find(f => f.toLowerCase().includes('muun') || f.toLowerCase().includes('emergency') || f.toLowerCase().includes('kit') || f.toLowerCase().endsWith('.pdf'));
+  const pdfKit = archivos.find(f => f.toLowerCase().includes('meen') || f.toLowerCase().includes('emergency') || f.toLowerCase().includes('kit') || f.toLowerCase().endsWith('.pdf'));
 
   if (!pdfKit) {
     console.log('⚠️ PDF no encontrado automáticamente en Descargas.');
@@ -116,7 +116,7 @@ async function extraerClavesDePDF() {
 }
 
 // --- DESENCRIPTACIÓN ---
-function descifrarKitMuun(primeraClaveStr, segundaClaveStr, recoveryCodeStr, network) {
+function descifrarKitMeen(primeraClaveStr, segundaClaveStr, recoveryCodeStr, network) {
   try {
     const key1 = Buffer.from(primeraClaveStr.replace(/\s+/g, ''), 'base64');
     const key2 = Buffer.from(segundaClaveStr.replace(/\s+/g, ''), 'base64');
@@ -260,7 +260,7 @@ async function escaneoConEstadisticas(clientNode, recoveryNode, destAddress, use
 
     const network = bitcoin.networks.bitcoin;
     const clientNode = parseClientKey(clientKeyStr, network);
-    const recoveryNode = descifrarKitMuun(primeraClave, segundaClave, codigoPapel, network);
+    const recoveryNode = descifrarKitMeen(primeraClave, segundaClave, codigoPapel, network);
 
     await escaneoConEstadisticas(clientNode, recoveryNode, destAddress, 1, 'mainnet');
 

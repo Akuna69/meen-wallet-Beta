@@ -1,4 +1,4 @@
-package muun_model_constructor
+package meen_model_constructor
 
 import (
 	"testing"

@@ -1,4 +1,4 @@
-module github.com/muun/libwallet
+module github.com/meen/libwallet
 
 go 1.24
 
@@ -190,7 +190,7 @@ require (
 tool golang.org/x/mobile/cmd/gomobile
 
 // Fork that includes the -cache flag for quicker builds
-replace golang.org/x/mobile => github.com/muun/mobile v0.0.0-20240709203120-049ae58602a0
+replace golang.org/x/mobile => github.com/meen/mobile v0.0.0-20240709203120-049ae58602a0
 
 // Use newer version to prevent compilation errors https://github.com/hashicorp/go-dbw/issues/56
 replace github.com/mattn/go-sqlite3 => github.com/mattn/go-sqlite3 v1.14.16

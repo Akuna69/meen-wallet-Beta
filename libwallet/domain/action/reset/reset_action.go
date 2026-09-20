@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/storage"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet/storage"
+	"github.com/meen/libwallet/walletdb"
 )
 
 type ResetDataAction interface {

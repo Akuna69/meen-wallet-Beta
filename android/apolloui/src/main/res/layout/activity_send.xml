@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.MuunHeader
+    <io.meen.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,7 +25,7 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"> <!-- focusable to avoid auto-focus on inputs -->
 
-            <io.muun.apollo.presentation.ui.view.MuunUriInput
+            <io.meen.apollo.presentation.ui.view.MeenUriInput
                     android:id="@+id/uri_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -34,7 +34,7 @@
                     style="@style/divider"
                     android:layout_marginBottom="16dp" />
 
-            <io.muun.apollo.presentation.ui.view.StatusMessage
+            <io.meen.apollo.presentation.ui.view.StatusMessage
                     android:id="@+id/uri_status_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -44,17 +44,17 @@
                     android:visibility="gone"
                     tools:visibility="visible" />
 
-            <io.muun.apollo.presentation.ui.view.MuunButton
-                    style="@style/muun_button_primary"
+            <io.meen.apollo.presentation.ui.view.MeenButton
+                    style="@style/meen_button_primary"
                     android:id="@+id/paste_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/muun_screen_margin"
+                    android:layout_margin="@dimen/meen_screen_margin"
                     android:text="@string/paste_from_clipboard_button"
                     android:visibility="gone"
                     tools:visibility="visible" />
 
-            <io.muun.apollo.presentation.ui.view.MuunUriPaster
+            <io.meen.apollo.presentation.ui.view.MeenUriPaster
                     android:id="@+id/uri_paster"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -68,7 +68,7 @@
             Height changes to wrap_content when list have contacts (e.g shows recyclerView).
             See comment in SendActivity#setP2PState
              -->
-            <io.muun.apollo.presentation.ui.view.MuunContactList
+            <io.meen.apollo.presentation.ui.view.MeenContactList
                     android:id="@+id/contact_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -76,11 +76,11 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
-            style="@style/muun_button_primary"
+    <io.meen.apollo.presentation.ui.view.MeenButton
+            style="@style/meen_button_primary"
             android:id="@+id/confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/send_confirm" />
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>

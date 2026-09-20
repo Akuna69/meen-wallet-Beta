@@ -3,8 +3,8 @@ package security_cards_marketplace
 import (
 	"fmt"
 
-	"github.com/muun/libwallet/domain/model/security_cards_marketplace"
-	"github.com/muun/libwallet/service"
+	"github.com/meen/libwallet/domain/model/security_cards_marketplace"
+	"github.com/meen/libwallet/service"
 )
 
 type GetSecurityCardsMarketplaceAction struct {

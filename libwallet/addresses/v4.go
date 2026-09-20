@@ -9,15 +9,15 @@ import (
 	"github.com/go-errors/errors"
 )
 
-// CreateAddressV4 returns a P2WSH WalletAddress from a user HD-pubkey and a Muun co-signing
+// CreateAddressV4 returns a P2WSH WalletAddress from a user HD-pubkey and a Meen co-signing
 // HD-pubkey.
 func CreateAddressV4(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
 
-	witnessScript, err := CreateWitnessScriptV4(userKey, muunKey, network)
+	witnessScript, err := CreateWitnessScriptV4(userKey, meenKey, network)
 	if err != nil {
 		return nil, errors.Errorf("failed to generate witness script v4: %w", err)
 	}
@@ -36,9 +36,9 @@ func CreateAddressV4(
 }
 
 func CreateWitnessScriptV4(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	network *chaincfg.Params,
 ) ([]byte, error) {
 	// createMultisigRedeemScript creates a valid script for V2, V3 and V4 schemes
-	return createMultisigRedeemScript(userKey, muunKey, network)
+	return createMultisigRedeemScript(userKey, meenKey, network)
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,21 +12,21 @@
             android:orientation="vertical"
             android:gravity="center">
 
-        <io.muun.apollo.presentation.ui.view.MuunHeader
+        <io.meen.apollo.presentation.ui.view.MeenHeader
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:elevated="true" />
 
-        <io.muun.apollo.presentation.ui.view.HtmlTextView
+        <io.meen.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/anon_feedback_explanation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/muun_screen_margin"
-                android:layout_marginRight="@dimen/muun_screen_margin"
-                android:layout_marginTop="@dimen/muun_screen_margin"
+                android:layout_marginLeft="@dimen/meen_screen_margin"
+                android:layout_marginRight="@dimen/meen_screen_margin"
+                android:layout_marginTop="@dimen/meen_screen_margin"
                 android:text="@string/anon_feedback_explanation"
-                android:textSize="@dimen/muun_text_size_body"
+                android:textSize="@dimen/meen_text_size_body"
                 android:textColor="@color/text_secondary_color"
                 android:lineSpacingMultiplier="1.2"
                 android:gravity="center_horizontal" />
@@ -43,11 +43,11 @@
         <View style="@style/expander" />
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/anon_feedback_open_email_app"
-            style="@style/muun_button_secondary"
+            style="@style/meen_button_secondary"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/anon_feedback_open_email" />
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>

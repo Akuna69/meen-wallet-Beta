@@ -13,7 +13,7 @@ import (
 	"github.com/go-errors/errors"
 	"golang.org/x/crypto/scrypt"
 
-	"github.com/muun/libwallet/aescbc"
+	"github.com/meen/libwallet/aescbc"
 )
 
 const (

@@ -18,7 +18,7 @@
 
         <TextView
                 android:id="@+id/expiration_time_label"
-                style="@style/muun_new_operation_label_text"
+                style="@style/meen_new_operation_label_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="12dp"
@@ -33,19 +33,19 @@
             android:id="@+id/expiration_time_value"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:paddingStart="@dimen/muun_screen_margin"
-            android:paddingEnd="@dimen/muun_screen_margin"
+            android:paddingStart="@dimen/meen_screen_margin"
+            android:paddingEnd="@dimen/meen_screen_margin"
             android:textSize="16sp"
             android:textColor="@color/text_secondary_color"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             tools:text="23:59:58"/>
 
-    <io.muun.apollo.presentation.ui.view.LoadingView
+    <io.meen.apollo.presentation.ui.view.LoadingView
             android:id="@+id/expiration_time_loading"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:padding="@dimen/muun_screen_margin"
+            android:padding="@dimen/meen_screen_margin"
             android:layout_gravity="center"
             app:showTitle="false"
             android:visibility="gone" />

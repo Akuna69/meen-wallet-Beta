@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/domain/model/lightning"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/domain/model/lightning"
+	"github.com/meen/libwallet/storage"
 )
 
 // IncomingHTLCBatchRepository provides persistence operations for lightning HTLC batches.

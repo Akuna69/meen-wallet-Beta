@@ -6,11 +6,11 @@ import (
 
 	"github.com/go-errors/errors"
 
-	data "github.com/muun/libwallet/data/lightning"
-	model "github.com/muun/libwallet/domain/model/lightning"
-	electrum "github.com/muun/libwallet/electrum/v2"
-	"github.com/muun/libwallet/platform/concurrency/memlock"
-	"github.com/muun/libwallet/platform/observability/slogctx"
+	data "github.com/meen/libwallet/data/lightning"
+	model "github.com/meen/libwallet/domain/model/lightning"
+	electrum "github.com/meen/libwallet/electrum/v2"
+	"github.com/meen/libwallet/platform/concurrency/memlock"
+	"github.com/meen/libwallet/platform/observability/slogctx"
 )
 
 const settledConfirmations = 6

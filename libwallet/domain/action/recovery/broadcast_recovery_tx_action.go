@@ -8,7 +8,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/electrum"
+	"github.com/meen/libwallet/electrum"
 )
 
 type BroadcastRecoveryTxAction struct {

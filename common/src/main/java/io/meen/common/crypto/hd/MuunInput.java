@@ -1,43 +1,43 @@
 package io.meen.common.crypto.hd;
 
 
-import io.meen.common.api.MuunInputJson;
+import io.meen.common.api.MeenInputJson;
 import io.meen.common.utils.Encodings;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
-public class MuunInput {
+public class MeenInput {
 
     @NotNull
-    private final MuunOutput prevOut;
+    private final MeenOutput prevOut;
 
     @NotNull
-    private final MuunAddress address;
+    private final MeenAddress address;
 
     @Nullable
     private Signature userSignature;
 
     @Nullable
-    private Signature muunSignature; // co-signed inputs only
+    private Signature meenSignature; // co-signed inputs only
 
     @Nullable
     private Signature swapServerSignature; // channel inputs only
 
     @Nullable
-    private MuunInputSubmarineSwapV101 submarineSwap; // submarine swap V101 refund inputs only
+    private MeenInputSubmarineSwapV101 submarineSwap; // submarine swap V101 refund inputs only
 
     @Nullable
-    private MuunInputSubmarineSwapV102 submarineSwapV102; // submarine swap V102 refund inputs only
+    private MeenInputSubmarineSwapV102 submarineSwapV102; // submarine swap V102 refund inputs only
 
     @Nullable
-    private MuunInputIncomingSwap incomingSwap; // for incoming swap inputs only
+    private MeenInputIncomingSwap incomingSwap; // for incoming swap inputs only
 
     @Nullable
     private byte[] rawUserPublicNonce; // musig inputs only. Set by user.
 
     @Nullable
-    private byte[] rawMuunPublicNonce; // musig inputs only. Set by houston.
+    private byte[] rawMeenPublicNonce; // musig inputs only. Set by houston.
 
     // NOTE: exists only for testing capabilities. DO NOT EVER assume its existence or try to use it
     @Nullable
@@ -46,27 +46,27 @@ public class MuunInput {
     /**
      * Build from a json-serializable representation.
      */
-    public static MuunInput fromJson(MuunInputJson json) {
+    public static MeenInput fromJson(MeenInputJson json) {
 
-        return new MuunInput(
-                MuunOutput.fromJson(json.prevOut),
-                MuunAddress.fromJson(json.address),
+        return new MeenInput(
+                MeenOutput.fromJson(json.prevOut),
+                MeenAddress.fromJson(json.address),
                 json.userSignature == null ? null : Signature.fromJson(json.userSignature),
-                json.muunSignature == null ? null : Signature.fromJson(json.muunSignature),
+                json.meenSignature == null ? null : Signature.fromJson(json.meenSignature),
                 json.swapServerSignature == null ? null : Signature.fromJson(
                         json.swapServerSignature
                 ),
-                json.submarineSwap == null ? null : MuunInputSubmarineSwapV101.fromJson(
+                json.submarineSwap == null ? null : MeenInputSubmarineSwapV101.fromJson(
                         json.submarineSwap
                 ),
-                json.submarineSwapV102 == null ? null : MuunInputSubmarineSwapV102.fromJson(
+                json.submarineSwapV102 == null ? null : MeenInputSubmarineSwapV102.fromJson(
                         json.submarineSwapV102
                 ),
-                json.incomingSwap == null ? null : MuunInputIncomingSwap.fromJson(
+                json.incomingSwap == null ? null : MeenInputIncomingSwap.fromJson(
                         json.incomingSwap
                 ),
-                json.rawMuunPublicNonceHex == null ? null : Encodings.hexToBytes(
-                        json.rawMuunPublicNonceHex
+                json.rawMeenPublicNonceHex == null ? null : Encodings.hexToBytes(
+                        json.rawMeenPublicNonceHex
                 )
         );
     }
@@ -74,7 +74,7 @@ public class MuunInput {
     /**
      * Constructor without signatures or additional details.
      */
-    public MuunInput(MuunOutput prevOut, MuunAddress address) {
+    public MeenInput(MeenOutput prevOut, MeenAddress address) {
         this.prevOut = prevOut;
         this.address = address;
     }
@@ -82,28 +82,28 @@ public class MuunInput {
     /**
      * Full constructor.
      */
-    public MuunInput(MuunOutput prevOut,
-                     MuunAddress address,
+    public MeenInput(MeenOutput prevOut,
+                     MeenAddress address,
                      @Nullable Signature userSignature,
-                     @Nullable Signature muunSignature,
+                     @Nullable Signature meenSignature,
                      @Nullable Signature swapServerSignature,
-                     @Nullable MuunInputSubmarineSwapV101 submarineSwap,
-                     @Nullable MuunInputSubmarineSwapV102 submarineSwapV102,
-                     @Nullable MuunInputIncomingSwap incomingSwap,
-                     @Nullable byte[] rawMuunPublicNonce) {
+                     @Nullable MeenInputSubmarineSwapV101 submarineSwap,
+                     @Nullable MeenInputSubmarineSwapV102 submarineSwapV102,
+                     @Nullable MeenInputIncomingSwap incomingSwap,
+                     @Nullable byte[] rawMeenPublicNonce) {
 
         this.prevOut = prevOut;
         this.address = address;
         this.userSignature = userSignature;
-        this.muunSignature = muunSignature;
+        this.meenSignature = meenSignature;
         this.swapServerSignature = swapServerSignature;
         this.submarineSwap = submarineSwap;
         this.submarineSwapV102 = submarineSwapV102;
         this.incomingSwap = incomingSwap;
-        this.rawMuunPublicNonce = rawMuunPublicNonce;
+        this.rawMeenPublicNonce = rawMeenPublicNonce;
     }
 
-    public MuunOutput getPrevOut() {
+    public MeenOutput getPrevOut() {
         return prevOut;
     }
 
@@ -115,7 +115,7 @@ public class MuunInput {
         return address.getDerivationPath();
     }
 
-    public MuunAddress getAddress() {
+    public MeenAddress getAddress() {
         return address;
     }
 
@@ -125,8 +125,8 @@ public class MuunInput {
     }
 
     @Nullable
-    public Signature getMuunSignature() {
-        return muunSignature;
+    public Signature getMeenSignature() {
+        return meenSignature;
     }
 
     @Nullable
@@ -138,8 +138,8 @@ public class MuunInput {
         this.userSignature = userSignature;
     }
 
-    public void setMuunSignature(Signature muunSignature) {
-        this.muunSignature = muunSignature;
+    public void setMeenSignature(Signature meenSignature) {
+        this.meenSignature = meenSignature;
     }
 
     public void setSwapServerSignature(Signature swapServerSignature) {
@@ -147,29 +147,29 @@ public class MuunInput {
     }
 
     @Nullable
-    public MuunInputSubmarineSwapV101 getSubmarineSwap() {
+    public MeenInputSubmarineSwapV101 getSubmarineSwap() {
         return submarineSwap;
     }
 
-    public void setSubmarineSwap(@Nullable MuunInputSubmarineSwapV101 submarineSwap) {
+    public void setSubmarineSwap(@Nullable MeenInputSubmarineSwapV101 submarineSwap) {
         this.submarineSwap = submarineSwap;
     }
 
     @Nullable
-    public MuunInputSubmarineSwapV102 getSubmarineSwapV102() {
+    public MeenInputSubmarineSwapV102 getSubmarineSwapV102() {
         return submarineSwapV102;
     }
 
-    public void setSubmarineSwapV102(@Nullable MuunInputSubmarineSwapV102 submarineSwapV102) {
+    public void setSubmarineSwapV102(@Nullable MeenInputSubmarineSwapV102 submarineSwapV102) {
         this.submarineSwapV102 = submarineSwapV102;
     }
 
     @Nullable
-    public MuunInputIncomingSwap getIncomingSwap() {
+    public MeenInputIncomingSwap getIncomingSwap() {
         return incomingSwap;
     }
 
-    public void setIncomingSwap(@Nullable MuunInputIncomingSwap incomingSwap) {
+    public void setIncomingSwap(@Nullable MeenInputIncomingSwap incomingSwap) {
         this.incomingSwap = incomingSwap;
     }
 
@@ -178,13 +178,13 @@ public class MuunInput {
         return rawUserPublicNonce;
     }
 
-    public void setRawMuunPublicNonce(@Nullable byte[] rawMuunPublicNonce) {
-        this.rawMuunPublicNonce = rawMuunPublicNonce;
+    public void setRawMeenPublicNonce(@Nullable byte[] rawMeenPublicNonce) {
+        this.rawMeenPublicNonce = rawMeenPublicNonce;
     }
 
     @Nullable
-    public byte[] getRawMuunPublicNonce() {
-        return rawMuunPublicNonce;
+    public byte[] getRawMeenPublicNonce() {
+        return rawMeenPublicNonce;
     }
 
     public void setRawUserPublicNonce(@Nullable byte[] rawUserPublicNonce) {
@@ -203,18 +203,18 @@ public class MuunInput {
     /**
      * Convert to a json-serializable representation.
      */
-    public MuunInputJson toJson() {
+    public MeenInputJson toJson() {
 
-        return new MuunInputJson(
+        return new MeenInputJson(
                 prevOut.toJson(),
                 address.toJson(),
                 userSignature == null ? null : userSignature.toJson(),
-                muunSignature == null ? null : muunSignature.toJson(),
+                meenSignature == null ? null : meenSignature.toJson(),
                 swapServerSignature == null ? null : swapServerSignature.toJson(),
                 submarineSwap == null ? null : submarineSwap.toJson(),
                 submarineSwapV102 == null ? null : submarineSwapV102.toJson(),
                 incomingSwap == null ? null : incomingSwap.toJson(),
-                rawMuunPublicNonce == null ? null : Encodings.bytesToHex(rawMuunPublicNonce)
+                rawMeenPublicNonce == null ? null : Encodings.bytesToHex(rawMeenPublicNonce)
         );
     }
 

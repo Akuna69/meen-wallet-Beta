@@ -1,7 +1,7 @@
 package libwallet
 
 import (
-	"github.com/muun/libwallet/recoverycode"
+	"github.com/meen/libwallet/recoverycode"
 )
 
 // RecoveryCodeAlphabet contains all upper-case characters except for

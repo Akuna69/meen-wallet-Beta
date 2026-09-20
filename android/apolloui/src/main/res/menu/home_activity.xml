@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:muun="http://schemas.android.com/apk/res-auto">
+        xmlns:meen="http://schemas.android.com/apk/res-auto">
 
     <item
             android:id="@+id/feedback"
             android:title="@string/home_send_feedback_action_title"
             android:icon="@drawable/feedback"
-            muun:iconTint="@color/icon_color"
-            muun:showAsAction="always" />
+            meen:iconTint="@color/icon_color"
+            meen:showAsAction="always" />
 
 </menu>

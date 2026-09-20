@@ -1,8 +1,8 @@
 package diagnostic_mode_reports
 
 import (
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/service/model"
 )
 
 type SubmitDiagnosticAction struct {

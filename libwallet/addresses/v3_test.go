@@ -19,15 +19,15 @@ func TestCreateAddressV3(t *testing.T) {
 		v3EncodedScript = "0020e1fbfbd395aff8b4087fee3e4488815ef659b559b3cd0d6800b5a591efd99f38"
 	)
 
-	baseMuunKey := parseKey(baseCosigningPK)
-	muunKey := derive(baseMuunKey, basePath, addressPath)
+	baseMeenKey := parseKey(baseCosigningPK)
+	meenKey := derive(baseMeenKey, basePath, addressPath)
 
 	baseUserKey := parseKey(basePK)
 	userKey := derive(baseUserKey, basePath, addressPath)
 
 	type args struct {
 		userKey *hdkeychain.ExtendedKey
-		muunKey *hdkeychain.ExtendedKey
+		meenKey *hdkeychain.ExtendedKey
 	}
 	tests := []struct {
 		name    string
@@ -36,12 +36,12 @@ func TestCreateAddressV3(t *testing.T) {
 		wantErr bool
 	}{
 		{name: "gen address",
-			args: args{userKey: userKey, muunKey: muunKey},
+			args: args{userKey: userKey, meenKey: meenKey},
 			want: &WalletAddress{address: v3Address, derivationPath: addressPath, version: V3}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := CreateAddressV3(tt.args.userKey, tt.args.muunKey, addressPath, network)
+			got, err := CreateAddressV3(tt.args.userKey, tt.args.meenKey, addressPath, network)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("CreateAddressV3() error = %v, wantErr %v", err, tt.wantErr)
 				return

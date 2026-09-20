@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:muun="http://schemas.android.com/apk/res-auto"
+        xmlns:meen="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.MuunHeader
+    <io.meen.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/select_dark_mode_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            muun:elevated="true" />
+            meen:elevated="true" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSettingItem
+    <io.meen.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_light"
-            muun:label="@string/dark_mode_light"
-            muun:iconTint="@color/blue"
+            meen:label="@string/dark_mode_light"
+            meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSettingItem
+    <io.meen.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_dark"
-            muun:label="@string/dark_mode_dark"
-            muun:iconTint="@color/blue"
+            meen:label="@string/dark_mode_dark"
+            meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSettingItem
+    <io.meen.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_follow_system"
-            muun:label="@string/dark_mode_follow_system"
-            muun:iconTint="@color/blue"
+            meen:label="@string/dark_mode_follow_system"
+            meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
 </LinearLayout>

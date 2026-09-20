@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/app_provided_data"
+	"github.com/meen/libwallet/app_provided_data"
 )
 
 const nullByte = 0x00

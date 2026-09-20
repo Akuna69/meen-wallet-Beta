@@ -3,7 +3,7 @@ package advanced
 import (
 	"encoding/hex"
 
-	"github.com/muun/libwallet/domain/model/emergency_kit/go_render/assets"
+	"github.com/meen/libwallet/domain/model/emergency_kit/go_render/assets"
 )
 
 var (

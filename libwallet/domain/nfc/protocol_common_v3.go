@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/cryptography"
+	"github.com/meen/libwallet/cryptography"
 )
 
 // ParseMetadataV3 decodes the GET_METADATA wire format for V3 cards.

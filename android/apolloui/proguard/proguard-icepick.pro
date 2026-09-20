@@ -6,4 +6,4 @@
     @icepick.* <fields>;
 }
 
--keepnames class io.muun.apollo.presentation.ui.** { @icepick.State *;}
+-keepnames class io.meen.apollo.presentation.ui.** { @icepick.State *;}

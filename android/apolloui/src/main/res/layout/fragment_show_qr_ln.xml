@@ -17,7 +17,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="32dp"
-                android:paddingBottom="@dimen/muun_screen_margin">
+                android:paddingBottom="@dimen/meen_screen_margin">
 
             <RelativeLayout
                     android:id="@+id/invoice_expired_overlay"
@@ -47,9 +47,9 @@
                             android:textSize="16sp"
                             android:gravity="center" />
 
-                    <io.muun.apollo.presentation.ui.view.MuunButton
+                    <io.meen.apollo.presentation.ui.view.MeenButton
                             android:id="@+id/create_other_invoice"
-                            style="@style/muun_button_primary"
+                            style="@style/meen_button_primary"
                             android:layout_height="wrap_content"
                             android:layout_width="wrap_content"
                             android:text="@string/show_qr_invoice_create_other" />
@@ -117,7 +117,7 @@
                             android:contentDescription="@string/qr_code_image"
                             tools:src="@drawable/qr_code" />
 
-                    <io.muun.apollo.presentation.ui.view.LoadingView
+                    <io.meen.apollo.presentation.ui.view.LoadingView
                             android:id="@+id/invoice_loading"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
@@ -160,36 +160,36 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent">
 
-                    <!-- Wrapping LinearLayout needed as MuunButton can't handle layout_weight -->
+                    <!-- Wrapping LinearLayout needed as MeenButton can't handle layout_weight -->
                     <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
-                        <io.muun.apollo.presentation.ui.view.MuunButton
+                        <io.meen.apollo.presentation.ui.view.MeenButton
                                 android:id="@+id/show_qr_share"
-                                style="@style/muun_button_primary"
+                                style="@style/meen_button_primary"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginEnd="4dp"
-                                android:background="@drawable/muun_button_floating_bg"
+                                android:background="@drawable/meen_button_floating_bg"
                                 android:text="@string/share" />
 
                     </LinearLayout>
 
-                    <!-- Wrapping LinearLayout needed as MuunButton can't handle layout_weight -->
+                    <!-- Wrapping LinearLayout needed as MeenButton can't handle layout_weight -->
                     <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1">
 
-                        <io.muun.apollo.presentation.ui.view.MuunButton
+                        <io.meen.apollo.presentation.ui.view.MeenButton
                                 android:id="@+id/show_qr_copy"
-                                style="@style/muun_button_primary"
+                                style="@style/meen_button_primary"
                                 android:layout_width="match_parent"
                                 android:layout_height="40dp"
                                 android:layout_marginStart="4dp"
-                                android:background="@drawable/muun_button_floating_bg"
+                                android:background="@drawable/meen_button_floating_bg"
                                 android:text="@string/copy" />
 
                     </LinearLayout>
@@ -198,7 +198,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <io.muun.apollo.presentation.ui.view.HiddenSection
+            <io.meen.apollo.presentation.ui.view.HiddenSection
                     android:id="@+id/invoice_settings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -221,12 +221,12 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/invoice_settings">
 
-                <io.muun.apollo.presentation.ui.view.EditAmountItem
+                <io.meen.apollo.presentation.ui.view.EditAmountItem
                         android:id="@+id/edit_amount_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                <io.muun.apollo.presentation.ui.view.ExpirationTimeItem
+                <io.meen.apollo.presentation.ui.view.ExpirationTimeItem
                         android:id="@+id/expiration_time_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -235,7 +235,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <io.muun.apollo.presentation.ui.show_qr.NotificationsPrimingView
+        <io.meen.apollo.presentation.ui.show_qr.NotificationsPrimingView
                 android:id="@+id/invoice_notifications_priming"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

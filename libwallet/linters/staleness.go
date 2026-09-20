@@ -16,7 +16,7 @@ import (
 	"golang.org/x/tools/go/analysis"
 )
 
-//go:embed muun_model_constructor/.checksum
+//go:embed meen_model_constructor/.checksum
 var checksum string
 
 var (
@@ -51,17 +51,17 @@ func ReportStalenessOnce(pass *analysis.Pass) {
 func VerifyStaleness() string {
 	repoRoot, err := findRepoRoot()
 	if err != nil {
-		log.Printf("muun_model_constructor: skipping staleness check: %v", err)
+		log.Printf("meen_model_constructor: skipping staleness check: %v", err)
 		return ""
 	}
 	current, err := ComputeSourceChecksum(repoRoot)
 	if err != nil {
-		log.Printf("muun_model_constructor: skipping staleness check: %v", err)
+		log.Printf("meen_model_constructor: skipping staleness check: %v", err)
 		return ""
 	}
 	if current != strings.TrimSpace(checksum) {
-		return "muun-golangci-lint binary is stale — " +
-			"run: muun local build-golangci"
+		return "meen-golangci-lint binary is stale — " +
+			"run: meen local build-golangci"
 	}
 	return ""
 }

@@ -3,16 +3,16 @@ package keys
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/app_provided_data"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/app_provided_data"
 )
 
 // Provide keys. All keys are already derived at our usual base path "m/schema:1'/recovery:1'"
 type KeyProvider interface {
 	UserPrivateKey() (*libwallet.HDPrivateKey, error)
 	UserPublicKey() (*libwallet.HDPublicKey, error)
-	MuunPublicKey() (*libwallet.HDPublicKey, error)
-	EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error)
+	MeenPublicKey() (*libwallet.HDPublicKey, error)
+	EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error)
 	MaxDerivedIndex() int
 }
 
@@ -52,26 +52,26 @@ func (p *keyProvider) UserPublicKey() (*libwallet.HDPublicKey, error) {
 	return userPrivKey.PublicKey(), nil
 }
 
-func (p *keyProvider) MuunPublicKey() (*libwallet.HDPublicKey, error) {
-	muunKeyData, err := p.keyProvider.FetchMuunKey()
+func (p *keyProvider) MeenPublicKey() (*libwallet.HDPublicKey, error) {
+	meenKeyData, err := p.keyProvider.FetchMeenKey()
 	if err != nil {
 		return nil, err
 	}
 
-	muunKey, err := libwallet.NewHDPublicKeyFromString(
-		muunKeyData.Serialized,
-		muunKeyData.Path,
+	meenKey, err := libwallet.NewHDPublicKeyFromString(
+		meenKeyData.Serialized,
+		meenKeyData.Path,
 		&p.network,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return muunKey, nil
+	return meenKey, nil
 }
 
-func (p *keyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
-	encodedKeyData, err := p.keyProvider.FetchEncryptedMuunPrivateKey()
+func (p *keyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
+	encodedKeyData, err := p.keyProvider.FetchEncryptedMeenPrivateKey()
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (p *keyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyI
 	return libwallet.DecodeEncryptedPrivateKey(encodedKeyData)
 }
 
-func (p *keyProvider) DecryptMuunPrivateKey(
+func (p *keyProvider) DecryptMeenPrivateKey(
 	recoveryCode string,
 	encryptedKey *libwallet.EncryptedPrivateKeyInfo,
 	network *libwallet.Network,

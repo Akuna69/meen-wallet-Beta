@@ -3,8 +3,8 @@ package libwallet
 import (
 	"encoding/hex"
 
-	"github.com/muun/libwallet/addresses"
-	"github.com/muun/libwallet/musig"
+	"github.com/meen/libwallet/addresses"
+	"github.com/meen/libwallet/musig"
 )
 
 type MusigNonces struct {
@@ -31,7 +31,7 @@ func GenerateMusigNonces(count int) *MusigNonces {
 	for i := 0; i < count; i += 1 {
 		sessionIDs = append(sessionIDs, musig.RandomSessionID())
 		nonce, _ := musig.MuSig2GenerateNonce(
-			musig.Musig2v040Muun,
+			musig.Musig2v040Meen,
 			sessionIDs[i][:],
 			nil,
 		)

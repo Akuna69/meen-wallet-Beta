@@ -3,8 +3,8 @@ package securekv
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/app_provided_data"
-	"github.com/muun/libwallet/platform/preconditions"
+	"github.com/meen/libwallet/app_provided_data"
+	"github.com/meen/libwallet/platform/preconditions"
 )
 
 // Secret holds no plaintext: bytes only exist inside WithSecret's callback.

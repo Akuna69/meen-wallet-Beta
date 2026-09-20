@@ -11,13 +11,13 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/lightningnetwork/lnd/zpay32"
 
-	"github.com/muun/libwallet/addresses"
-	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/meen/libwallet/addresses"
+	"github.com/meen/libwallet/btcsuitew/btcutilw"
 )
 
 func (swap *SubmarineSwap) validateV1(
 	rawInvoice string,
-	userPublicKey, muunPublicKey *KeyDescriptor,
+	userPublicKey, meenPublicKey *KeyDescriptor,
 	network *chaincfg.Params,
 ) error {
 
@@ -50,15 +50,15 @@ func (swap *SubmarineSwap) validateV1(
 	if err != nil {
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
-	derivedMuunKey, err := muunPublicKey.DeriveTo(swapRefundAddress.DerivationPath())
+	derivedMeenKey, err := meenPublicKey.DeriveTo(swapRefundAddress.DerivationPath())
 	if err != nil {
-		return errors.Errorf("failed to derive muun key: %w", err)
+		return errors.Errorf("failed to derive meen key: %w", err)
 	}
 
 	refundAddress, err := addresses.Create(
 		swapRefundAddress.Version(),
 		derivedUserKey,
-		derivedMuunKey,
+		derivedMeenKey,
 		swapRefundAddress.DerivationPath(),
 		network,
 	)

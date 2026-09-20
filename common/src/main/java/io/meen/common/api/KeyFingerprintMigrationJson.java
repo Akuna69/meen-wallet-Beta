@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 public class KeyFingerprintMigrationJson {
 
     @NotNull
-    public String muunKeyFingerprint;
+    public String meenKeyFingerprint;
 
     /**
      * Json constructor.
@@ -16,7 +16,7 @@ public class KeyFingerprintMigrationJson {
     /**
      * Data constructor.
      */
-    public KeyFingerprintMigrationJson(@NotNull String muunKeyFingerprint) {
-        this.muunKeyFingerprint = muunKeyFingerprint;
+    public KeyFingerprintMigrationJson(@NotNull String meenKeyFingerprint) {
+        this.meenKeyFingerprint = meenKeyFingerprint;
     }
 }

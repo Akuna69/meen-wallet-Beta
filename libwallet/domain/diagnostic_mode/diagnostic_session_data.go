@@ -7,7 +7,7 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/scanner"
+	"github.com/meen/libwallet/scanner"
 )
 
 type DiagnosticSessionData struct {

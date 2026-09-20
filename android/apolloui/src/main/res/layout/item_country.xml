@@ -50,7 +50,7 @@
             android:layout_width="0dp"
             android:layout_height="1dp"
             android:alpha="0.2"
-            android:background="@color/muun_new_operation_separator"
+            android:background="@color/meen_new_operation_separator"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

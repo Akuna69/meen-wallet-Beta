@@ -9,9 +9,9 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/operation"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/operation"
+	"github.com/meen/libwallet/walletdb"
 )
 
 // Transitions that involve asynchronous work block, so apps should always fire in background and
@@ -205,7 +205,7 @@ func (s *StartState) Resolve(address string, network *libwallet.Network) error {
 	return nil
 }
 
-func (s *StartState) resolveBip70(uri *libwallet.MuunPaymentURI, network *libwallet.Network) {
+func (s *StartState) resolveBip70(uri *libwallet.MeenPaymentURI, network *libwallet.Network) {
 
 	intent := &PaymentIntent{
 		URI: uri,
@@ -263,7 +263,7 @@ func (s *StartState) ResolveInvoice(
 	next := &ResolveState{
 		BaseState: s.BaseState,
 		PaymentIntent: &PaymentIntent{
-			URI: &libwallet.MuunPaymentURI{
+			URI: &libwallet.MeenPaymentURI{
 				Invoice: invoice,
 			},
 		},
@@ -277,7 +277,7 @@ func (s *StartState) ResolveInvoice(
 
 // PaymentIntent contains the resolved payment intent and does not change during the flow
 type PaymentIntent struct {
-	URI *libwallet.MuunPaymentURI
+	URI *libwallet.MeenPaymentURI
 }
 
 func (p *PaymentIntent) Amount() *MonetaryAmount {

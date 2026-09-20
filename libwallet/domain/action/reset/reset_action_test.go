@@ -8,9 +8,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/muun/libwallet/domain/action/reset"
-	"github.com/muun/libwallet/storage"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet/domain/action/reset"
+	"github.com/meen/libwallet/storage"
+	"github.com/meen/libwallet/walletdb"
 )
 
 func TestResetDataAction_Integration(t *testing.T) {

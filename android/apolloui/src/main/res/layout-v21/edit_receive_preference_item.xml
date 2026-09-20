@@ -18,7 +18,7 @@
 
         <TextView
                 android:id="@+id/receive_preference_label"
-                style="@style/muun_new_operation_label_text"
+                style="@style/meen_new_operation_label_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="start"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:padding="@dimen/muun_screen_margin"
+            android:padding="@dimen/meen_screen_margin"
             android:textSize="16sp"
             android:textColor="@color/text_secondary_color"
             android:gravity="center"

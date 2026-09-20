@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="@dimen/muun_screen_margin">
+        android:padding="@dimen/meen_screen_margin">
 
     <LinearLayout
         android:id="@+id/dialog_form_group"
@@ -23,14 +23,14 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/muun_text_size_body"
+            android:textSize="@dimen/meen_text_size_body"
             android:textColor="@color/text_secondary_color"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="24dp"
             android:lineSpacingExtra="6dp"
             android:text="@string/save_option_feedback_dialog_body" />
 
-        <io.muun.apollo.presentation.ui.view.MuunTextInput
+        <io.meen.apollo.presentation.ui.view.MeenTextInput
             android:id="@+id/dialog_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,9 +38,9 @@
             android:imeOptions="actionNext"
             android:fontFamily="sans-serif" />
 
-        <io.muun.apollo.presentation.ui.view.MuunButton
+        <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/dialog_confirm"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save_option_feedback_dialog_action" />
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save_option_feedback_dialog_success"
-            android:textSize="@dimen/muun_text_size_h2"
+            android:textSize="@dimen/meen_text_size_h2"
             android:textColor="@color/text_primary_color"
             android:gravity="center_horizontal"
             android:layout_marginBottom="24dp"

@@ -25,7 +25,7 @@
             android:textSize="24sp"
             tools:text="Example info"/>
 
-    <io.muun.apollo.presentation.ui.view.HtmlTextView
+    <io.meen.apollo.presentation.ui.view.HtmlTextView
             android:id="@+id/description"
             style="@style/explanation"
             android:layout_width="match_parent"

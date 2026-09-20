@@ -1,4 +1,4 @@
-package verifiable_muun_key
+package verifiable_meen_key
 
 import (
 	"encoding/hex"

@@ -1,60 +1,60 @@
 package recovery
 
 import (
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/storage"
 )
 
-type EncryptedMuunKeyStatus int
+type EncryptedMeenKeyStatus int
 
 const (
-	HasVerifiedEncryptedMuunKey EncryptedMuunKeyStatus = iota
-	OnlyHasUnverifiedEncryptedMuunKey
-	HasNoEncryptedMuunKey
+	HasVerifiedEncryptedMeenKey EncryptedMeenKeyStatus = iota
+	OnlyHasUnverifiedEncryptedMeenKey
+	HasNoEncryptedMeenKey
 )
 
-type MayRetrieveEncryptedMuunKeyAction struct {
+type MayRetrieveEncryptedMeenKeyAction struct {
 	keyValueStorage *storage.KeyValueStorage
 }
 
-type EncryptedMuunKeyWithStatus struct {
-	EncryptedMuunKey *string
-	Status           EncryptedMuunKeyStatus
+type EncryptedMeenKeyWithStatus struct {
+	EncryptedMeenKey *string
+	Status           EncryptedMeenKeyStatus
 }
 
-func NewMayRetrieveEncryptedMuunKeyAction(
+func NewMayRetrieveEncryptedMeenKeyAction(
 	keyValueStorage *storage.KeyValueStorage,
-) *MayRetrieveEncryptedMuunKeyAction {
-	return &MayRetrieveEncryptedMuunKeyAction{keyValueStorage: keyValueStorage}
+) *MayRetrieveEncryptedMeenKeyAction {
+	return &MayRetrieveEncryptedMeenKeyAction{keyValueStorage: keyValueStorage}
 }
 
-// Try to retrieve the encrypted Muun key from the key value storage,
+// Try to retrieve the encrypted Meen key from the key value storage,
 // without incurring a Houston API call if it is not found in storage.
-func (a *MayRetrieveEncryptedMuunKeyAction) Run() (*EncryptedMuunKeyWithStatus, error) {
+func (a *MayRetrieveEncryptedMeenKeyAction) Run() (*EncryptedMeenKeyWithStatus, error) {
 	keys, err := a.keyValueStorage.GetBatch([]string{
-		storage.UnverifiedEncryptedMuunKey,
-		storage.VerifiedEncryptedMuunKey,
+		storage.UnverifiedEncryptedMeenKey,
+		storage.VerifiedEncryptedMeenKey,
 	})
 
 	if err != nil {
 		return nil, err
 	}
 
-	if key, ok := keys[storage.VerifiedEncryptedMuunKey]; ok && key != nil {
-		encryptedMuunKey := key.(string)
-		return &EncryptedMuunKeyWithStatus{
-			EncryptedMuunKey: &encryptedMuunKey,
-			Status:           HasVerifiedEncryptedMuunKey,
+	if key, ok := keys[storage.VerifiedEncryptedMeenKey]; ok && key != nil {
+		encryptedMeenKey := key.(string)
+		return &EncryptedMeenKeyWithStatus{
+			EncryptedMeenKey: &encryptedMeenKey,
+			Status:           HasVerifiedEncryptedMeenKey,
 		}, nil
-	} else if key, ok := keys[storage.UnverifiedEncryptedMuunKey]; ok && key != nil {
-		encryptedMuunKey := key.(string)
-		return &EncryptedMuunKeyWithStatus{
-			EncryptedMuunKey: &encryptedMuunKey,
-			Status:           OnlyHasUnverifiedEncryptedMuunKey,
+	} else if key, ok := keys[storage.UnverifiedEncryptedMeenKey]; ok && key != nil {
+		encryptedMeenKey := key.(string)
+		return &EncryptedMeenKeyWithStatus{
+			EncryptedMeenKey: &encryptedMeenKey,
+			Status:           OnlyHasUnverifiedEncryptedMeenKey,
 		}, nil
 	} else {
-		return &EncryptedMuunKeyWithStatus{
-			EncryptedMuunKey: nil,
-			Status:           HasNoEncryptedMuunKey,
+		return &EncryptedMeenKeyWithStatus{
+			EncryptedMeenKey: nil,
+			Status:           HasNoEncryptedMeenKey,
 		}, nil
 	}
 }

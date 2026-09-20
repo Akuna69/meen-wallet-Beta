@@ -1,6 +1,6 @@
 package service
 
-import "github.com/muun/libwallet/app_provided_data"
+import "github.com/meen/libwallet/app_provided_data"
 
 type TestProvider struct {
 	ClientVersion     string

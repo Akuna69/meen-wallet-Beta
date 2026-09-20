@@ -3,7 +3,7 @@ package newop
 import (
 	"github.com/shopspring/decimal"
 
-	"github.com/muun/libwallet"
+	"github.com/meen/libwallet"
 )
 
 // ExchangeRateWindow holds a map of exchange rates from BTC to every currency we handle

@@ -3,7 +3,7 @@
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:muun="http://schemas.android.com/apk/res-auto"
+        xmlns:meen="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="?attr/actionBarSize">
 
-            <io.muun.apollo.presentation.ui.view.MuunPictureInput
+            <io.meen.apollo.presentation.ui.view.MeenPictureInput
                     android:id="@+id/settings_profile_picture"
                     android:layout_width="112dp"
                     android:layout_height="112dp"
@@ -50,7 +50,7 @@
                     android:ellipsize="end"
                     tools:text="@string/tools_mock_long_name" />
 
-            <io.muun.apollo.presentation.ui.view.MuunIconButton
+            <io.meen.apollo.presentation.ui.view.MeenIconButton
                     android:id="@+id/settings_edit_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -58,9 +58,9 @@
                     android:layout_alignTop="@+id/settings_username"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="16dp"
-                    muun:icon="@drawable/ic_edit_black_24"
-                    muun:iconSize="24dp"
-                    muun:color="@color/icon_color" />
+                    meen:icon="@drawable/ic_edit_black_24"
+                    meen:iconSize="24dp"
+                    meen:color="@color/icon_color" />
 
             <View style="@style/drop_shadow_bottom"
                     android:layout_below="@id/settings_username"
@@ -84,9 +84,9 @@
                     android:text="@string/settings_header_wallet_details"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_phone_number"
-                    muun:label="@string/settings_item_phone"
+                    meen:label="@string/settings_item_phone"
                     style="@style/settings_item" />
 
             <View style="@style/settings_item_separator"/>
@@ -102,19 +102,19 @@
                     android:text="@string/settings_header_general"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_bitcoin_unit"
-                    muun:label="@string/settings_item_bitcoin_unit"
+                    meen:label="@string/settings_item_bitcoin_unit"
                     style="@style/settings_item" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_primary_currency"
-                    muun:label="@string/settings_item_primary_currency"
+                    meen:label="@string/settings_item_primary_currency"
                     style="@style/settings_item" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_dark_mode"
-                    muun:label="@string/dark_mode"
+                    meen:label="@string/dark_mode"
                     style="@style/settings_item" />
 
         </LinearLayout>
@@ -131,9 +131,9 @@
                     android:text="@string/settings_header_recovery"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_password"
-                    muun:label="@string/settings_password"
+                    meen:label="@string/settings_password"
                     style="@style/settings_item" />
 
             <View style="@style/settings_item_separator"/>
@@ -149,19 +149,19 @@
                     android:text="@string/settings_header_advanced"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_bitcoin"
-                    muun:label="@string/settings_bitcoin"
+                    meen:label="@string/settings_bitcoin"
                     style="@style/settings_item" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_lightning"
-                    muun:label="@string/settings_lightning"
+                    meen:label="@string/settings_lightning"
                     style="@style/settings_item" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_diagnostic"
-                    muun:label="@string/settings_diagnostic"
+                    meen:label="@string/settings_diagnostic"
                     android:visibility="gone"
                     style="@style/settings_item" />
 
@@ -179,11 +179,11 @@
                     android:text="@string/settings_header_security"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSwitchSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSwitchSettingItem
                     android:id="@+id/settings_biometrics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    muun:label="@string/settings_biometrics"
+                    meen:label="@string/settings_biometrics"
                     tools:checked="false"
                     android:paddingVertical="0dp"
                     style="@style/settings_item" />
@@ -204,14 +204,14 @@
                     android:text="@string/settings_internal_debugging"
                     style="@style/settings_section_header" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_disable_feature_flags"
-                    muun:label="@string/settings_disable_feature_flags"
+                    meen:label="@string/settings_disable_feature_flags"
                     style="@style/settings_item" />
 
-            <io.muun.apollo.presentation.ui.view.MuunSettingItem
+            <io.meen.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_send_debug_data"
-                    muun:label="@string/settings_send_debug_data"
+                    meen:label="@string/settings_send_debug_data"
                     style="@style/settings_item" />
 
             <View style="@style/settings_item_separator" />
@@ -235,7 +235,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@color/text_primary_color"
-                    android:textSize="@dimen/muun_text_size_body"
+                    android:textSize="@dimen/meen_text_size_body"
                     android:text="@string/settings_logout" />
 
         </LinearLayout>
@@ -255,7 +255,7 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="16dp"
                     android:textColor="@color/red"
-                    android:textSize="@dimen/muun_text_size_body"
+                    android:textSize="@dimen/meen_text_size_body"
                     android:text="@string/settings_delete_wallet" />
 
         </LinearLayout>

@@ -11,28 +11,28 @@ import (
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"google.golang.org/grpc"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/app_provided_data"
-	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/data/securekv"
-	"github.com/muun/libwallet/data/security_cards"
-	"github.com/muun/libwallet/domain/action/challenge_keys"
-	debugAction "github.com/muun/libwallet/domain/action/debug"
-	"github.com/muun/libwallet/domain/action/diagnostic_mode_reports"
-	"github.com/muun/libwallet/domain/action/emergency_kit"
-	nfcActions "github.com/muun/libwallet/domain/action/nfc"
-	"github.com/muun/libwallet/domain/action/recovery"
-	"github.com/muun/libwallet/domain/action/reset"
-	"github.com/muun/libwallet/domain/action/security_cards_marketplace"
-	"github.com/muun/libwallet/domain/nfc"
-	"github.com/muun/libwallet/electrum"
-	"github.com/muun/libwallet/storage"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/app_provided_data"
+	"github.com/meen/libwallet/data/keys"
+	"github.com/meen/libwallet/data/securekv"
+	"github.com/meen/libwallet/data/security_cards"
+	"github.com/meen/libwallet/domain/action/challenge_keys"
+	debugAction "github.com/meen/libwallet/domain/action/debug"
+	"github.com/meen/libwallet/domain/action/diagnostic_mode_reports"
+	"github.com/meen/libwallet/domain/action/emergency_kit"
+	nfcActions "github.com/meen/libwallet/domain/action/nfc"
+	"github.com/meen/libwallet/domain/action/recovery"
+	"github.com/meen/libwallet/domain/action/reset"
+	"github.com/meen/libwallet/domain/action/security_cards_marketplace"
+	"github.com/meen/libwallet/domain/nfc"
+	"github.com/meen/libwallet/electrum"
+	"github.com/meen/libwallet/storage"
+	"github.com/meen/libwallet/walletdb"
 
-	"github.com/muun/libwallet/log"
-	"github.com/muun/libwallet/presentation"
-	"github.com/muun/libwallet/presentation/api"
-	"github.com/muun/libwallet/service"
+	"github.com/meen/libwallet/log"
+	"github.com/meen/libwallet/presentation"
+	"github.com/meen/libwallet/presentation/api"
+	"github.com/meen/libwallet/service"
 )
 
 var server *grpc.Server
@@ -45,8 +45,8 @@ var mockHoustonService service.HoustonService
 var keyProvider keys.KeyProvider
 var startChallengeSetupAction *challenge_keys.StartChallengeSetupAction
 var finishChallengeSetupAction *challenge_keys.FinishChallengeSetupAction
-var computeAndStoreEncryptedMuunKeyAction *recovery.ComputeAndStoreEncryptedMuunKeyAction
-var populateEncryptedMuunKeyAction *recovery.PopulateEncryptedMuunKeyAction
+var computeAndStoreEncryptedMeenKeyAction *recovery.ComputeAndStoreEncryptedMeenKeyAction
+var populateEncryptedMeenKeyAction *recovery.PopulateEncryptedMeenKeyAction
 var scanForFundsAction *recovery.ScanForFundsAction
 var submitDiagnosticAction *diagnostic_mode_reports.SubmitDiagnosticAction
 var buildSweepTxAction *recovery.BuildSweepTxAction
@@ -116,16 +116,16 @@ func Init(c *app_provided_data.Config) {
 
 	// TODO do this only for debug builds and while making use of FakeNfcSession or equivalent
 	// Enables security cards testing in emulators and ui tests.
-	//mockMuunCardV2, _ := nfc.NewMockMuunCardV2()
-	//cfg.NfcBridge = nfc.NewMockJavaCard(mockMuunCardV2)
+	//mockMeenCardV2, _ := nfc.NewMockMeenCardV2()
+	//cfg.NfcBridge = nfc.NewMockJavaCard(mockMeenCardV2)
 
-	muuncardV2 := nfc.NewCardV2(cfg.NfcBridge)
+	meencardV2 := nfc.NewCardV2(cfg.NfcBridge)
 	// Actions
-	computeAndStoreEncryptedMuunKeyAction = recovery.NewComputeAndStoreEncryptedMuunKeyAction(
+	computeAndStoreEncryptedMeenKeyAction = recovery.NewComputeAndStoreEncryptedMeenKeyAction(
 		keyValueStorage,
 		keyProvider,
 	)
-	populateEncryptedMuunKeyAction = recovery.NewPopulateEncryptedMuunKeyAction(
+	populateEncryptedMeenKeyAction = recovery.NewPopulateEncryptedMeenKeyAction(
 		houstonService,
 		keyValueStorage,
 		keyProvider,
@@ -134,7 +134,7 @@ func Init(c *app_provided_data.Config) {
 	finishChallengeSetupAction = challenge_keys.NewFinishChallengeSetupAction(
 		houstonService,
 		keyValueStorage,
-		computeAndStoreEncryptedMuunKeyAction,
+		computeAndStoreEncryptedMeenKeyAction,
 	)
 	electrumProvider := electrum.NewServerProvider(electrum.PublicServers)
 	scanForFundsAction = recovery.NewScanForFundsAction(keyProvider, electrumProvider, network)
@@ -143,11 +143,11 @@ func Init(c *app_provided_data.Config) {
 	signSweepTxAction = recovery.NewSignSweepTxAction(keyProvider, network)
 	pairSecurityCardActionV2 = nfcActions.NewPairSecurityCardActionV2(
 		keyValueStorage,
-		muuncardV2,
+		meencardV2,
 		mockHoustonService,
 	)
 	signMessageSecurityCardActionV2 = nfcActions.NewSignMessageSecurityCardActionV2(
-		muuncardV2,
+		meencardV2,
 		mockHoustonService,
 		keyValueStorage,
 		pairSecurityCardActionV2,
@@ -160,7 +160,7 @@ func Init(c *app_provided_data.Config) {
 	pairLoadPersistedChallengeAction = nfcActions.NewPairLoadPersistedChallengeAction(
 		securityCardsProtocolRepository,
 	)
-	pairSignChallengeAction = nfcActions.NewPairSignChallengeAction(muuncardV2)
+	pairSignChallengeAction = nfcActions.NewPairSignChallengeAction(meencardV2)
 	pairSubmitSolvedChallengeAction = nfcActions.NewPairSubmitSolvedChallengeAction(
 		securityCardsProtocolRepository,
 		mockHoustonService,
@@ -219,7 +219,7 @@ func StartServer() error {
 		resetDataAction,
 		startChallengeSetupAction,
 		finishChallengeSetupAction,
-		populateEncryptedMuunKeyAction,
+		populateEncryptedMeenKeyAction,
 		scanForFundsAction,
 		submitDiagnosticAction,
 		buildSweepTxAction,

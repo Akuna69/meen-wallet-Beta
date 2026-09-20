@@ -3,7 +3,7 @@ package lightning_test
 import (
 	"testing"
 
-	"github.com/muun/libwallet/platform/test/testsuite"
+	"github.com/meen/libwallet/platform/test/testsuite"
 )
 
 func TestCrossCuttingEnforcer_Integration(t *testing.T) {

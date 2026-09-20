@@ -7,12 +7,12 @@ import (
 	"github.com/btcsuite/btcd/wire"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/addresses"
-	"github.com/muun/libwallet/btcsuitew/txscriptw"
+	"github.com/meen/libwallet/addresses"
+	"github.com/meen/libwallet/btcsuitew/txscriptw"
 )
 
-// CreateAddressV1 returns a P2PKH MuunAddress from a publicKey for use in TransactionSchemeV1
-func CreateAddressV1(publicKey *HDPublicKey) (MuunAddress, error) {
+// CreateAddressV1 returns a P2PKH MeenAddress from a publicKey for use in TransactionSchemeV1
+func CreateAddressV1(publicKey *HDPublicKey) (MeenAddress, error) {
 	return addresses.CreateAddressV1(&publicKey.key, publicKey.Path, publicKey.Network.network)
 }
 
@@ -49,7 +49,7 @@ func (c *coinV1) SignInput(index int, tx *wire.MsgTx, userKey *HDPrivateKey, _ *
 func (c *coinV1) FullySignInput(
 	index int,
 	tx *wire.MsgTx,
-	userKey, muunKey *HDPrivateKey, //nolint:revive // TODO: use or remove muunKey
+	userKey, meenKey *HDPrivateKey, //nolint:revive // TODO: use or remove meenKey
 ) error {
 	return c.SignInput(index, tx, userKey, nil)
 }

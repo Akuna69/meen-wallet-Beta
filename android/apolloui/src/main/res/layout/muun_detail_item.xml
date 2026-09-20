@@ -42,7 +42,7 @@
 
         </RelativeLayout>
 
-        <io.muun.apollo.presentation.ui.view.HtmlTextView
+        <io.meen.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/operation_detail_item_text_content"
                 style="@style/detail_item_content"
                 android:visibility="gone"

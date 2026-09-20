@@ -3,7 +3,7 @@ package libwallet
 import (
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/keycrypt"
+	"github.com/meen/libwallet/keycrypt"
 )
 
 type DecryptedKey struct {

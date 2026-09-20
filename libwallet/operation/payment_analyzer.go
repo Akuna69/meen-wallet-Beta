@@ -6,7 +6,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/fees"
+	"github.com/meen/libwallet/fees"
 )
 
 // paymentAnalyzer is the component that decides whether a payment can be made or not, and what

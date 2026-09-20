@@ -8,25 +8,25 @@ import org.bitcoinj.core.NetworkParameters;
 public class PublicKeyPair {
 
     private final PublicKey userPublicKey;
-    private final PublicKey muunPublicKey;
+    private final PublicKey meenPublicKey;
 
     /**
      * Constructor.
      */
-    public PublicKeyPair(PublicKey userPublicKey, PublicKey muunPublicKey) {
+    public PublicKeyPair(PublicKey userPublicKey, PublicKey meenPublicKey) {
         this.userPublicKey = userPublicKey;
-        this.muunPublicKey = muunPublicKey;
+        this.meenPublicKey = meenPublicKey;
 
-        checkDerivationPaths(userPublicKey, muunPublicKey);
-        checkNetworkParameters(userPublicKey, muunPublicKey);
+        checkDerivationPaths(userPublicKey, meenPublicKey);
+        checkNetworkParameters(userPublicKey, meenPublicKey);
     }
 
     public PublicKey getUserPublicKey() {
         return userPublicKey;
     }
 
-    public PublicKey getMuunPublicKey() {
-        return muunPublicKey;
+    public PublicKey getMeenPublicKey() {
+        return meenPublicKey;
     }
 
     public String getAbsoluteDerivationPath() {
@@ -47,7 +47,7 @@ public class PublicKeyPair {
     public PublicKeyPair deriveFromAbsolutePath(String absolutePath) throws KeyDerivationException {
         return new PublicKeyPair(
                 userPublicKey.deriveFromAbsolutePath(absolutePath),
-                muunPublicKey.deriveFromAbsolutePath(absolutePath)
+                meenPublicKey.deriveFromAbsolutePath(absolutePath)
         );
     }
 
@@ -73,21 +73,21 @@ public class PublicKeyPair {
     public PublicKeyPair deriveChild(int childIndex) throws KeyDerivationException {
         return new PublicKeyPair(
                 userPublicKey.deriveChild(childIndex),
-                muunPublicKey.deriveChild(childIndex)
+                meenPublicKey.deriveChild(childIndex)
         );
     }
 
-    private void checkDerivationPaths(PublicKey userPublicKey, PublicKey muunPublicKey) {
+    private void checkDerivationPaths(PublicKey userPublicKey, PublicKey meenPublicKey) {
         final String userPath = userPublicKey.getAbsoluteDerivationPath();
-        final String muunPath = muunPublicKey.getAbsoluteDerivationPath();
+        final String meenPath = meenPublicKey.getAbsoluteDerivationPath();
 
-        Preconditions.checkArgument(userPath.equals(muunPath));
+        Preconditions.checkArgument(userPath.equals(meenPath));
     }
 
-    private void checkNetworkParameters(PublicKey userPublicKey, PublicKey muunPublicKey) {
+    private void checkNetworkParameters(PublicKey userPublicKey, PublicKey meenPublicKey) {
         final NetworkParameters userNetwork = userPublicKey.getNetworkParameters();
-        final NetworkParameters muunNetwork = muunPublicKey.getNetworkParameters();
+        final NetworkParameters meenNetwork = meenPublicKey.getNetworkParameters();
 
-        Preconditions.checkArgument(userNetwork.equals(muunNetwork));
+        Preconditions.checkArgument(userNetwork.equals(meenNetwork));
     }
 }

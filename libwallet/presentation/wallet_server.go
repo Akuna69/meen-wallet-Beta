@@ -15,26 +15,26 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/app_provided_data"
-	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/data/securekv"
-	"github.com/muun/libwallet/domain/action/challenge_keys"
-	"github.com/muun/libwallet/domain/action/debug"
-	"github.com/muun/libwallet/domain/action/diagnostic_mode_reports"
-	"github.com/muun/libwallet/domain/action/emergency_kit"
-	"github.com/muun/libwallet/domain/action/nfc"
-	"github.com/muun/libwallet/domain/action/recovery"
-	"github.com/muun/libwallet/domain/action/reset"
-	"github.com/muun/libwallet/domain/action/security_cards_marketplace"
-	"github.com/muun/libwallet/domain/diagnostic_mode"
-	security_cards_marketplace_model "github.com/muun/libwallet/domain/model/security_cards_marketplace"
-	apierrors "github.com/muun/libwallet/errors"
-	"github.com/muun/libwallet/platform/preconditions"
-	"github.com/muun/libwallet/presentation/api"
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/service/model"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/app_provided_data"
+	"github.com/meen/libwallet/data/keys"
+	"github.com/meen/libwallet/data/securekv"
+	"github.com/meen/libwallet/domain/action/challenge_keys"
+	"github.com/meen/libwallet/domain/action/debug"
+	"github.com/meen/libwallet/domain/action/diagnostic_mode_reports"
+	"github.com/meen/libwallet/domain/action/emergency_kit"
+	"github.com/meen/libwallet/domain/action/nfc"
+	"github.com/meen/libwallet/domain/action/recovery"
+	"github.com/meen/libwallet/domain/action/reset"
+	"github.com/meen/libwallet/domain/action/security_cards_marketplace"
+	"github.com/meen/libwallet/domain/diagnostic_mode"
+	security_cards_marketplace_model "github.com/meen/libwallet/domain/model/security_cards_marketplace"
+	apierrors "github.com/meen/libwallet/errors"
+	"github.com/meen/libwallet/platform/preconditions"
+	"github.com/meen/libwallet/presentation/api"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/service/model"
+	"github.com/meen/libwallet/storage"
 )
 
 type WalletServer struct {
@@ -47,7 +47,7 @@ type WalletServer struct {
 	resetData                   reset.ResetDataAction
 	startChallengeSetup         *challenge_keys.StartChallengeSetupAction
 	finishChallengeSetup        *challenge_keys.FinishChallengeSetupAction
-	populateEncryptedMuunKey    *recovery.PopulateEncryptedMuunKeyAction
+	populateEncryptedMeenKey    *recovery.PopulateEncryptedMeenKeyAction
 	scanForFunds                *recovery.ScanForFundsAction
 	submitDiagnostic            *diagnostic_mode_reports.SubmitDiagnosticAction
 	buildSweepTx                *recovery.BuildSweepTxAction
@@ -71,7 +71,7 @@ func NewWalletServer(
 	resetData reset.ResetDataAction,
 	startChallengeSetup *challenge_keys.StartChallengeSetupAction,
 	finishChallengeSetup *challenge_keys.FinishChallengeSetupAction,
-	obtainVerifiedEncryptedMuunKeyIfAbsent *recovery.PopulateEncryptedMuunKeyAction,
+	obtainVerifiedEncryptedMeenKeyIfAbsent *recovery.PopulateEncryptedMeenKeyAction,
 	scanForFunds *recovery.ScanForFundsAction,
 	submitDiagnostic *diagnostic_mode_reports.SubmitDiagnosticAction,
 	buildSweepTx *recovery.BuildSweepTxAction,
@@ -95,7 +95,7 @@ func NewWalletServer(
 		resetData:                   resetData,
 		startChallengeSetup:         startChallengeSetup,
 		finishChallengeSetup:        finishChallengeSetup,
-		populateEncryptedMuunKey:    obtainVerifiedEncryptedMuunKeyIfAbsent,
+		populateEncryptedMeenKey:    obtainVerifiedEncryptedMeenKeyIfAbsent,
 		scanForFunds:                scanForFunds,
 		submitDiagnostic:            submitDiagnostic,
 		buildSweepTx:                buildSweepTx,
@@ -152,7 +152,7 @@ func (ws WalletServer) SignMessageSecurityCardV2(
 		var challengeExpiredErr *nfc.ChallengeExpiredError
 		var pairInternalErr *nfc.PairInternalError
 		var noSlotsAvailableErr *nfc.NoSlotsAvailableError
-		var muunAppletNotFoundErr *nfc.MuunAppletNotFoundError
+		var meenAppletNotFoundErr *nfc.MeenAppletNotFoundError
 
 		switch {
 		case errors.As(err, &invalidMacErr):
@@ -163,7 +163,7 @@ func (ws WalletServer) SignMessageSecurityCardV2(
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrPairInternalError, err)
 		case errors.As(err, &noSlotsAvailableErr):
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrNoSlotsAvailable, err)
-		case errors.As(err, &muunAppletNotFoundErr):
+		case errors.As(err, &meenAppletNotFoundErr):
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrAppletNotFound, err)
 		default:
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrSignInternalError, err)
@@ -206,13 +206,13 @@ func (ws WalletServer) PairSignAndSubmitChallenge(
 
 	if err != nil {
 		var noSlotsAvailableErr *nfc.NoSlotsAvailableError
-		var muunAppletNotFoundErr *nfc.MuunAppletNotFoundError
+		var meenAppletNotFoundErr *nfc.MeenAppletNotFoundError
 		var invalidMacErr *nfc.InvalidMacError
 		var challengeExpiredErr *nfc.ChallengeExpiredError
 		switch {
 		case errors.As(err, &noSlotsAvailableErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrNoSlotsAvailable, err)
-		case errors.As(err, &muunAppletNotFoundErr):
+		case errors.As(err, &meenAppletNotFoundErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrAppletNotFound, err)
 		case errors.As(err, &invalidMacErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrSignMacValidation, err)
@@ -396,8 +396,8 @@ func (ws WalletServer) StartChallengeSetup(
 	}
 
 	return api.SetupChallengeResponse_builder{
-		MuunKey:            setupChallengeResponseJson.MuunKey,
-		MuunKeyFingerprint: setupChallengeResponseJson.MuunKeyFingerprint,
+		MeenKey:            setupChallengeResponseJson.MeenKey,
+		MeenKeyFingerprint: setupChallengeResponseJson.MeenKeyFingerprint,
 	}.Build(), nil
 }
 
@@ -419,16 +419,16 @@ func (ws WalletServer) FinishRecoveryCodeSetup(
 	return &emptypb.Empty{}, nil
 }
 
-func (ws WalletServer) PopulateEncryptedMuunKey(
+func (ws WalletServer) PopulateEncryptedMeenKey(
 	ctx context.Context, //nolint:revive // TODO: use or remove ctx
-	req *api.PopulateEncryptedMuunKeyRequest,
+	req *api.PopulateEncryptedMeenKeyRequest,
 ) (*emptypb.Empty, error) {
 	recoveryCodePublicKey, err := hexToPublicKey(req.GetRecoveryCodePublicKeyHex())
 	if err != nil {
 		return nil, goerr.Errorf("error parsing recovery code public key: %w", err)
 	}
 
-	err = ws.populateEncryptedMuunKey.Run(recoveryCodePublicKey)
+	err = ws.populateEncryptedMeenKey.Run(recoveryCodePublicKey)
 	if err != nil {
 		return nil, err
 	}

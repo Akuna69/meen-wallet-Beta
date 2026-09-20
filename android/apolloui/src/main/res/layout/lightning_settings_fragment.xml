@@ -25,7 +25,7 @@
 
                 <!-- Using specially tuned margin top/bottom params to have same height as
                  turbo channels setting component-->
-                <io.muun.apollo.presentation.ui.view.ReceivePreferenceItem
+                <io.meen.apollo.presentation.ui.view.ReceivePreferenceItem
                         android:id="@+id/receive_preference_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -34,14 +34,14 @@
 
             </LinearLayout>
 
-            <io.muun.apollo.presentation.ui.view.HtmlTextView
+            <io.meen.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/receive_preference_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/muun_screen_margin"
-                    android:layout_marginBottom="@dimen/muun_screen_margin"
-                    android:layout_marginStart="@dimen/muun_screen_margin"
-                    android:layout_marginEnd="@dimen/muun_screen_margin"
+                    android:layout_marginTop="@dimen/meen_screen_margin"
+                    android:layout_marginBottom="@dimen/meen_screen_margin"
+                    android:layout_marginStart="@dimen/meen_screen_margin"
+                    android:layout_marginEnd="@dimen/meen_screen_margin"
                     android:textSize="16sp"
                     android:textColor="@color/text_secondary_color"
                     android:textAlignment="viewStart"
@@ -65,22 +65,22 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/turbo_channels"
-                        android:layout_marginTop="@dimen/muun_screen_margin"
-                        android:layout_marginBottom="@dimen/muun_screen_margin"
-                        android:layout_marginStart="@dimen/muun_screen_margin"
-                        android:layout_marginEnd="@dimen/muun_screen_margin"
-                        android:textSize="@dimen/muun_text_size_body" />
+                        android:layout_marginTop="@dimen/meen_screen_margin"
+                        android:layout_marginBottom="@dimen/meen_screen_margin"
+                        android:layout_marginStart="@dimen/meen_screen_margin"
+                        android:layout_marginEnd="@dimen/meen_screen_margin"
+                        android:textSize="@dimen/meen_text_size_body" />
 
             </LinearLayout>
 
-            <io.muun.apollo.presentation.ui.view.HtmlTextView
+            <io.meen.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/turbo_channels_learn_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingTop="@dimen/muun_screen_margin"
-                    android:paddingBottom="@dimen/muun_screen_margin"
-                    android:layout_marginStart="@dimen/muun_screen_margin"
-                    android:layout_marginEnd="@dimen/muun_screen_margin"
+                    android:paddingTop="@dimen/meen_screen_margin"
+                    android:paddingBottom="@dimen/meen_screen_margin"
+                    android:layout_marginStart="@dimen/meen_screen_margin"
+                    android:layout_marginEnd="@dimen/meen_screen_margin"
                     android:textSize="16sp"
                     android:textColor="@color/text_secondary_color"
                     android:textAlignment="viewStart"
@@ -88,7 +88,7 @@
 
         </LinearLayout>
 
-        <io.muun.apollo.presentation.ui.view.LoadingView
+        <io.meen.apollo.presentation.ui.view.LoadingView
                 android:id="@+id/lightning_settings_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

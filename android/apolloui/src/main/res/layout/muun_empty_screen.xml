@@ -9,7 +9,7 @@
         android:gravity="center">
 
     <ImageView
-            android:id="@+id/muun_empty_screen_icon"
+            android:id="@+id/meen_empty_screen_icon"
             android:contentDescription="@null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             tools:src="@drawable/enable_p2p_empty_state" />
 
     <TextView
-            android:id="@+id/muun_empty_screen_title"
+            android:id="@+id/meen_empty_screen_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
@@ -34,8 +34,8 @@
             tools:visibility="visible"
             tools:text="@string/camera_permission_request_title" />
 
-    <io.muun.apollo.presentation.ui.view.HtmlTextView
-            android:id="@+id/muun_empty_screen_text"
+    <io.meen.apollo.presentation.ui.view.HtmlTextView
+            android:id="@+id/meen_empty_screen_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -50,11 +50,11 @@
             android:gravity="center_horizontal"
             tools:text="Some long empty state description that wraps into  two lines." />
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
-            style="@style/muun_button_floating"
-            android:id="@+id/muun_empty_screen_button"
+    <io.meen.apollo.presentation.ui.view.MeenButton
+            style="@style/meen_button_floating"
+            android:id="@+id/meen_empty_screen_button"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/muun_button_compact_height"
+            android:layout_height="@dimen/meen_button_compact_height"
             android:elevation="3dp"
             android:visibility="gone"
             android:textAllCaps="true"

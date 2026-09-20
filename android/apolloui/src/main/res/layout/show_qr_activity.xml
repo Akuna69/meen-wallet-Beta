@@ -4,7 +4,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:muun="http://schemas.android.com/apk/res-auto"
+        xmlns:meen="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -15,11 +15,11 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
-        <io.muun.apollo.presentation.ui.view.MuunHeader
+        <io.meen.apollo.presentation.ui.view.MeenHeader
                 android:id="@+id/show_qr_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                muun:elevated="false" />
+                meen:elevated="false" />
 
         <com.google.android.material.tabs.TabLayout
                 android:id="@+id/show_qr_tab"
@@ -52,7 +52,7 @@
         <!-- Keep this below ViewPager so that it overlaps the content, instead of pushing down -->
         <View style="@style/drop_shadow_bottom" />
 
-        <io.muun.apollo.presentation.ui.show_qr.NotificationsPrimingView
+        <io.meen.apollo.presentation.ui.show_qr.NotificationsPrimingView
                 android:id="@+id/show_qr_notifications_priming"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

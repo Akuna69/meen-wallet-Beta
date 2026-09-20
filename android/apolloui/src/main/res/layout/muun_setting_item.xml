@@ -20,7 +20,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_primary_color"
-                android:textSize="@dimen/muun_text_size_body"
+                android:textSize="@dimen/meen_text_size_body"
                 tools:text="Change email" />
 
         <RelativeLayout
@@ -48,11 +48,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_toEndOf="@+id/setting_item_description_icon"
-                    android:textSize="@dimen/muun_text_size_body"
+                    android:textSize="@dimen/meen_text_size_body"
                     android:textColor="@color/text_secondary_color"
                     android:visibility="gone"
                     tools:visibility="visible"
-                    tools:text="crespi@muun.io" />
+                    tools:text="crespi@meen.io" />
 
         </RelativeLayout>
 

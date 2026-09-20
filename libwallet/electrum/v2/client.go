@@ -5,11 +5,11 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/platform/observability/slogctx"
+	"github.com/meen/libwallet/platform/observability/slogctx"
 )
 
 const (
-	clientName    = "muun"
+	clientName    = "meen"
 	clientVersion = "1.4" // Electrum version we support.
 )
 

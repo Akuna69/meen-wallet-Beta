@@ -1,0 +1,65 @@
+package io.meen.apollo.presentation.ui.settings.bitcoin
+
+import android.os.Bundle
+import io.meen.apollo.domain.action.user.UpdateUserPreferencesAction
+import io.meen.apollo.domain.analytics.AnalyticsEvent
+import io.meen.apollo.domain.model.UserActivatedFeatureStatus
+import io.meen.apollo.domain.selector.BlockchainHeightSelector
+import io.meen.apollo.domain.selector.UserActivatedFeatureStatusSelector
+import io.meen.apollo.domain.selector.UserPreferencesSelector
+import io.meen.apollo.presentation.ui.base.ParentPresenter
+import io.meen.apollo.presentation.ui.base.SingleFragmentPresenter
+import rx.Observable
+import javax.inject.Inject
+
+class BitcoinSettingsPresenter @Inject constructor(
+    private val userPreferencesSel: UserPreferencesSelector,
+    private val blockchainHeightSel: BlockchainHeightSelector,
+    private val userActivatedFeatureStatusSel: UserActivatedFeatureStatusSelector,
+    private val updateUserPreferences: UpdateUserPreferencesAction
+): SingleFragmentPresenter<BitcoinSettingsView, ParentPresenter>() {
+
+    class State(
+        val taprootByDefault: Boolean,
+        val blocksToTaproot: Int,
+        val taprootStatus: UserActivatedFeatureStatus
+    )
+
+    override fun setUp(arguments: Bundle) {
+        super.setUp(arguments)
+
+        val combined = Observable.combineLatest(
+            userPreferencesSel.watch().map { userPref -> userPref.defaultAddressType == "taproot" },
+            blockchainHeightSel.watchBlocksToTaproot(),
+            userActivatedFeatureStatusSel.watchTaproot(),
+            ::State
+        )
+
+        subscribeTo(combined) { state ->
+            onStateChange(state)
+        }
+
+        // Handle loading and errors. Action updates userPrefs repo, triggers a change in selector
+        updateUserPreferences.state
+            .compose(handleStates(view::setLoading, this::handleError))
+            .let(this::subscribeTo)
+    }
+
+    private fun onStateChange(state: State) {
+        view.setTaprootByDefault(state.taprootByDefault)
+        view.setTaprootStatus(
+            state.taprootStatus,
+            BlockchainHeightSelector.getBlocksInHours(state.blocksToTaproot)
+        )
+    }
+
+    fun reportTaprootByDefaultChange(taprootByDefault: Boolean) {
+        val defaultAddressType = if (taprootByDefault) "taproot" else "segwit"
+        updateUserPreferences.run { prefs ->
+            prefs.copy(defaultAddressType = defaultAddressType)
+        }
+    }
+
+    override fun getEntryEvent() =
+        AnalyticsEvent.S_SETTINGS_BITCOIN_NETWORK()
+}

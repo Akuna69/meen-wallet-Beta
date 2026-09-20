@@ -53,7 +53,7 @@ import io.meen.common.api.UpdateOperationMetadataJson;
 import io.meen.common.api.UserInvoiceJson;
 import io.meen.common.api.UserJson;
 import io.meen.common.api.UserProfileJson;
-import io.meen.common.api.VerifiableMuunKeyJson;
+import io.meen.common.api.VerifiableMeenKeyJson;
 import io.meen.common.api.beam.notification.NotificationReportJson;
 import io.meen.common.model.UserPreferences;
 import io.meen.common.model.VerificationType;
@@ -148,8 +148,8 @@ public interface HoustonService {
     @POST("user/challenge/setup/finish")
     Completable finishChallengeSetup(@Body ChallengeSetupVerifyJson challengeSetupVerifyJson);
 
-    @POST("user/challenge/setup/finish-with-verifiable-muun-key")
-    Observable<VerifiableMuunKeyJson> finishChallengeSetupWithVerifiableMuunKey(
+    @POST("user/challenge/setup/finish-with-verifiable-meen-key")
+    Observable<VerifiableMeenKeyJson> finishChallengeSetupWithVerifiableMeenKey(
             @Body ChallengeSetupVerifyJson challengeSetupVerifyJson
     );
 
@@ -224,8 +224,8 @@ public interface HoustonService {
     @POST("user/profile")
     Observable<UserJson> createProfile(@Body UserProfileJson userProfileJson);
 
-    @GET("user/verifiable-muun-key")
-    Observable<VerifiableMuunKeyJson> getVerifiableServerCosigningKey();
+    @GET("user/verifiable-meen-key")
+    Observable<VerifiableMeenKeyJson> getVerifiableServerCosigningKey();
 
     @POST("user/emergency-kit/exported")
     Observable<Void> reportEmergencyKitExported(@Body ExportEmergencyKitJson json);

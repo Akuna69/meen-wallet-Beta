@@ -1,7 +1,7 @@
 package assets
 
 import (
-	"github.com/muun/libwallet/data/emergency_kit/resources"
+	"github.com/meen/libwallet/data/emergency_kit/resources"
 )
 
 // Standard padding used throughout the emergency kit

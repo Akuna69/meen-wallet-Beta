@@ -11,7 +11,7 @@
         android:background="@color/dialog_background">
 
     <TextView
-            android:id="@+id/muun_action_drawer_title"
+            android:id="@+id/meen_action_drawer_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
@@ -26,7 +26,7 @@
             android:visibility="gone" />
 
     <LinearLayout
-            android:id="@+id/muun_action_drawer_container"
+            android:id="@+id/meen_action_drawer_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" />

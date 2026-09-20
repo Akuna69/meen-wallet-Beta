@@ -38,7 +38,7 @@
             android:textStyle="bold"
             tools:text="Do the thing very long title" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSaveOptionLabel
+    <io.meen.apollo.presentation.ui.view.MuunSaveOptionLabel
             android:id="@+id/label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

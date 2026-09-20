@@ -7,26 +7,26 @@ import (
 
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/domain/model/security_card"
-	"github.com/muun/libwallet/domain/nfc"
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/meen/libwallet/domain/nfc"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/storage"
 )
 
 type PairSecurityCardActionV2 struct {
 	keyValueStorage *storage.KeyValueStorage
-	muunCard        *nfc.MuunCardV2
+	meenCard        *nfc.MeenCardV2
 	houstonService  service.HoustonService
 }
 
 func NewPairSecurityCardActionV2(
 	storage *storage.KeyValueStorage,
-	muunCard *nfc.MuunCardV2,
+	meenCard *nfc.MeenCardV2,
 	houstonService service.HoustonService,
 ) *PairSecurityCardActionV2 {
 	return &PairSecurityCardActionV2{
 		keyValueStorage: storage,
-		muunCard:        muunCard,
+		meenCard:        meenCard,
 		houstonService:  houstonService,
 	}
 }
@@ -49,7 +49,7 @@ func (ac *PairSecurityCardActionV2) Run() (*security_card.SecurityCardPaired, er
 
 	clientPublicKey := clientPrivateKey.PublicKey().Bytes()
 
-	pairingResponse, err := ac.muunCard.Pair(serverPublicKey, clientPublicKey)
+	pairingResponse, err := ac.meenCard.Pair(serverPublicKey, clientPublicKey)
 	if err != nil {
 		var cardError *nfc.CardError
 		if errors.As(err, &cardError) {
@@ -60,8 +60,8 @@ func (ac *PairSecurityCardActionV2) Run() (*security_card.SecurityCardPaired, er
 					Cause:   err,
 				}
 			case cardError.Code == nfc.ErrAppletIdNotFound:
-				return nil, &MuunAppletNotFoundError{
-					Message: "muun applet not found",
+				return nil, &MeenAppletNotFoundError{
+					Message: "meen applet not found",
 					Cause:   err,
 				}
 			}

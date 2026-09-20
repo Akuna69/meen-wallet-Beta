@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
         <shape android:shape="rectangle">
-            <corners android:radius="@dimen/muun_welcome_dialog_corner_radius"/>
+            <corners android:radius="@dimen/meen_welcome_dialog_corner_radius"/>
             <solid android:color="@color/dialog_background" />
         </shape>
     </item>

@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/muun/libwallet/domain/model/security_card"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/domain/model/security_card"
+	"github.com/meen/libwallet/storage"
 )
 
 // ProtocolRepository owns the client-side state of the Security Cards
@@ -52,7 +52,7 @@ func (r *ProtocolRepository) LoadPendingPairChallenge() (*security_card.PendingP
 	if serverPubKeyHex == nil || receivedAtMillis == nil {
 		return nil, nil
 	}
-	return &security_card.PendingPairChallenge{ //nolint:muun_model_constructor // TODO: use NewPendingPairChallenge instead of struct literal
+	return &security_card.PendingPairChallenge{ //nolint:meen_model_constructor // TODO: use NewPendingPairChallenge instead of struct literal
 		ServerPubKeyInHex:  serverPubKeyHex.(string),
 		ReceivedAtInMillis: receivedAtMillis.(int64),
 	}, nil

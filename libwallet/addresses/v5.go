@@ -5,18 +5,18 @@ import (
 	"github.com/btcsuite/btcd/chaincfg"
 	"github.com/go-errors/errors"
 
-	"github.com/muun/libwallet/btcsuitew/btcutilw"
-	"github.com/muun/libwallet/musig"
+	"github.com/meen/libwallet/btcsuitew/btcutilw"
+	"github.com/meen/libwallet/musig"
 )
 
-// CreateAddressV5 returns a P2TR WalletAddress using Musig2v040Muun with the signing and cosigning
+// CreateAddressV5 returns a P2TR WalletAddress using Musig2v040Meen with the signing and cosigning
 // keys.
 func CreateAddressV5(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
-	witnessProgram, err := CreateWitnessScriptV5(userKey, muunKey)
+	witnessProgram, err := CreateWitnessScriptV5(userKey, meenKey)
 	if err != nil {
 		return nil, errors.Errorf("failed to generate witness script v5: %w", err)
 	}
@@ -33,24 +33,24 @@ func CreateAddressV5(
 	}, nil
 }
 
-func CreateWitnessScriptV5(userKey, muunKey *hdkeychain.ExtendedKey) ([]byte, error) {
+func CreateWitnessScriptV5(userKey, meenKey *hdkeychain.ExtendedKey) ([]byte, error) {
 	userPublicKey, err := userKey.ECPubKey()
 	if err != nil {
 		return nil, errors.Errorf("error getting pub key: %w", err)
 	}
-	muunPublicKey, err := muunKey.ECPubKey()
+	meenPublicKey, err := meenKey.ECPubKey()
 	if err != nil {
 		return nil, errors.Errorf("error getting pub key: %w", err)
 	}
 
 	pubKeys := [][]byte{
 		userPublicKey.SerializeCompressed(),
-		muunPublicKey.SerializeCompressed(),
+		meenPublicKey.SerializeCompressed(),
 	}
 
 	tweak := musig.KeySpendOnlyTweak()
 
-	aggregateKey, err := musig.Musig2CombinePubKeysWithTweak(musig.Musig2v040Muun, pubKeys, tweak)
+	aggregateKey, err := musig.Musig2CombinePubKeysWithTweak(musig.Musig2v040Meen, pubKeys, tweak)
 	if err != nil {
 		return nil, errors.Errorf("error combining keys: %w", err)
 	}

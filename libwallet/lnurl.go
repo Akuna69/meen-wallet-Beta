@@ -5,7 +5,7 @@ import (
 
 	"github.com/lightningnetwork/lnd/lnwire"
 
-	"github.com/muun/libwallet/lnurl"
+	"github.com/meen/libwallet/lnurl"
 )
 
 type LNURLEvent struct {

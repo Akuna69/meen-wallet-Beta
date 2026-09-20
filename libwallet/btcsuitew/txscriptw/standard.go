@@ -4,7 +4,7 @@ import (
 	"github.com/btcsuite/btcd/btcutil"
 	"github.com/btcsuite/btcd/txscript"
 
-	"github.com/muun/libwallet/btcsuitew/btcutilw"
+	"github.com/meen/libwallet/btcsuitew/btcutilw"
 )
 
 // PayToAddrScript uses txscript.PayToAddrScript for all cases except AddressTaprootKey, which is

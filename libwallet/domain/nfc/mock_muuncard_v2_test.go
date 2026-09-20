@@ -3,7 +3,7 @@ package nfc
 import (
 	"testing"
 
-	"github.com/muun/libwallet/cryptography"
+	"github.com/meen/libwallet/cryptography"
 )
 
 // TODO another reason why "reason" (yes pun intended) should be part of SignChallenge
@@ -17,9 +17,9 @@ type SignChallengeData struct {
 // TODO add TestMockCardPairCard_Success
 
 func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
-	mockCard, err := NewMockMuunCardV2()
+	mockCard, err := NewMockMeenCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMuunCardV2: %v", err)
+		t.Fatalf("failed NewMockMeenCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -55,14 +55,14 @@ func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
 		{
 			name:               "MockCardSignChallengeEmptyData",
 			apduData:           func() []byte { return []byte{} },
-			expectedStatusCode: swMuuncardV2WrongLength,
+			expectedStatusCode: swMeencardV2WrongLength,
 		},
 		{
 			// Test APDU too short
 			// (minimum is 102 bytes: C(65) + count(2) + index(2) + has_more_chunks(1) + mac(32))
 			name:               "MockCardSignChallengeWrongLength",
 			apduData:           func() []byte { return make([]byte, 101) },
-			expectedStatusCode: swMuuncardV2WrongLength,
+			expectedStatusCode: swMeencardV2WrongLength,
 		},
 		{
 			name: "MockCardSignChallengeInvalidPublicKey",
@@ -74,7 +74,7 @@ func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
 				challengeData.challenge.ServerPublicKey = invalidPubKey
 				return challengeData
 			},
-			expectedStatusCode: swMuuncardV2InvalidPubKey,
+			expectedStatusCode: swMeencardV2InvalidPubKey,
 		},
 		{
 			name: "MockCardSignChallengeInvalidCounter",
@@ -84,7 +84,7 @@ func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
 				challengeData.challenge.CardUsageCount = uint16(0)
 				return challengeData
 			},
-			expectedStatusCode: swMuuncardV2InvalidCounter,
+			expectedStatusCode: swMeencardV2InvalidCounter,
 		},
 		{
 			name: "MockCardSignChallengeInvalidMac",
@@ -93,7 +93,7 @@ func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
 				challengeData.challenge.Mac = make([]byte, 32) // All zeros - invalid MAC
 				return challengeData
 			},
-			expectedStatusCode: swMuuncardV2InvalidMac,
+			expectedStatusCode: swMeencardV2InvalidMac,
 		},
 		{
 			name: "MockCardSignChallengeInvalidHasMoreChunks",
@@ -172,9 +172,9 @@ func TestMockCardSignChallengeSingle_ErrorScenarios(t *testing.T) {
 }
 
 func TestMockCardSignChallengeSingle_Success(t *testing.T) {
-	mockCard, err := NewMockMuunCardV2()
+	mockCard, err := NewMockMeenCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMuunCardV2: %v", err)
+		t.Fatalf("failed NewMockMeenCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)

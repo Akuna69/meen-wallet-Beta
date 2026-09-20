@@ -1,0 +1,27 @@
+package io.meen.apollo.data.preferences
+
+import android.content.Context
+import io.meen.apollo.data.preferences.rx.Preference
+import javax.inject.Inject
+
+class NotificationPermissionDeniedRepository @Inject constructor(
+    context: Context,
+    repositoryRegistry: RepositoryRegistry,
+) : BaseRepository(context, repositoryRegistry) {
+
+    companion object {
+        private const val NOTIFICATION_PERMISSION_DENIED = "notification_permission_denied"
+    }
+
+    private val permissionDeniedPref: Preference<Boolean>
+        get() = rxSharedPreferences.getBoolean(NOTIFICATION_PERMISSION_DENIED)
+
+    override val fileName get() = "notification_permission_denied"
+
+    fun setHasPreviouslyDeniedNotificationPermission() {
+        permissionDeniedPref.set(true)
+    }
+
+    fun hasPreviouslyDeniedNotificationPermission(): Boolean =
+        permissionDeniedPref.get()!!
+}

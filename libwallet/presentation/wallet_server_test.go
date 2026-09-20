@@ -22,18 +22,18 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/test/bufconn"
 
-	"github.com/muun/libwallet"
-	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/domain/action/challenge_keys"
-	"github.com/muun/libwallet/domain/action/recovery"
-	"github.com/muun/libwallet/domain/action/reset"
-	apierrors "github.com/muun/libwallet/errors"
-	"github.com/muun/libwallet/presentation/api"
-	"github.com/muun/libwallet/recoverycode"
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/service/model"
-	"github.com/muun/libwallet/storage"
-	"github.com/muun/libwallet/walletdb"
+	"github.com/meen/libwallet"
+	"github.com/meen/libwallet/data/keys"
+	"github.com/meen/libwallet/domain/action/challenge_keys"
+	"github.com/meen/libwallet/domain/action/recovery"
+	"github.com/meen/libwallet/domain/action/reset"
+	apierrors "github.com/meen/libwallet/errors"
+	"github.com/meen/libwallet/presentation/api"
+	"github.com/meen/libwallet/recoverycode"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/service/model"
+	"github.com/meen/libwallet/storage"
+	"github.com/meen/libwallet/walletdb"
 )
 
 var bufconnListener *bufconn.Listener
@@ -837,7 +837,7 @@ func TestFinishRecoveryCodeSetupEndpoint_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
@@ -845,15 +845,15 @@ func TestFinishRecoveryCodeSetupEndpoint_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
-	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
+	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMuunKeyAction,
+		computeAndStoreEncryptedMeenKeyAction,
 	)
 
 	_, err = walletServer.StartChallengeSetup(
@@ -1052,18 +1052,18 @@ func buildTestMigrationPlan() []storage.Migration {
 
 type mockKeyProvider struct {
 	userPrivateKey  *libwallet.HDPrivateKey
-	muunPublicKey   *libwallet.HDPublicKey
+	meenPublicKey   *libwallet.HDPublicKey
 	maxDerivedIndex int
 }
 
 func NewMockKeyProvider(
 	userPrivateKey *libwallet.HDPrivateKey,
-	muunPublicKey *libwallet.HDPublicKey,
+	meenPublicKey *libwallet.HDPublicKey,
 	maxDerivedIndex int,
 ) keys.KeyProvider {
 	return &mockKeyProvider{
 		userPrivateKey:  userPrivateKey,
-		muunPublicKey:   muunPublicKey,
+		meenPublicKey:   meenPublicKey,
 		maxDerivedIndex: maxDerivedIndex,
 	}
 }
@@ -1076,15 +1076,15 @@ func (m *mockKeyProvider) UserPublicKey() (*libwallet.HDPublicKey, error) {
 	return m.userPrivateKey.PublicKey(), nil
 }
 
-func (m *mockKeyProvider) MuunPublicKey() (*libwallet.HDPublicKey, error) {
-	return m.muunPublicKey, nil
+func (m *mockKeyProvider) MeenPublicKey() (*libwallet.HDPublicKey, error) {
+	return m.meenPublicKey, nil
 }
 
 func (m *mockKeyProvider) MaxDerivedIndex() int {
 	return m.maxDerivedIndex
 }
 
-func (m *mockKeyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
+func (m *mockKeyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
 	return nil, goerr.New("not implemented")
 }
 

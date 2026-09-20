@@ -6,7 +6,7 @@ import (
 
 	"github.com/btcsuite/btcd/btcec/v2"
 
-	"github.com/muun/libwallet/encryption"
+	"github.com/meen/libwallet/encryption"
 )
 
 // See Section 4.1 of RFC 9180

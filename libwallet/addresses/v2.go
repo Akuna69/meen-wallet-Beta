@@ -10,12 +10,12 @@ import (
 )
 
 func CreateAddressV2(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
 
-	script, err := CreateRedeemScriptV2(userKey, muunKey, network)
+	script, err := CreateRedeemScriptV2(userKey, meenKey, network)
 	if err != nil {
 		return nil, goerr.Errorf("failed to generate redeem script v2: %w", err)
 	}
@@ -33,14 +33,14 @@ func CreateAddressV2(
 }
 
 func CreateRedeemScriptV2(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	network *chaincfg.Params,
 ) ([]byte, error) {
-	return createMultisigRedeemScript(userKey, muunKey, network)
+	return createMultisigRedeemScript(userKey, meenKey, network)
 }
 
 func createMultisigRedeemScript(
-	userKey, muunKey *hdkeychain.ExtendedKey,
+	userKey, meenKey *hdkeychain.ExtendedKey,
 	network *chaincfg.Params,
 ) ([]byte, error) {
 	userPublicKey, err := userKey.ECPubKey()
@@ -52,13 +52,13 @@ func createMultisigRedeemScript(
 		return nil, errors.Wrapf(err, "failed to generate address for user")
 	}
 
-	muunPublicKey, err := muunKey.ECPubKey()
+	meenPublicKey, err := meenKey.ECPubKey()
 	if err != nil {
 		return nil, err
 	}
-	WalletAddress, err := btcutil.NewAddressPubKey(muunPublicKey.SerializeCompressed(), network)
+	WalletAddress, err := btcutil.NewAddressPubKey(meenPublicKey.SerializeCompressed(), network)
 	if err != nil {
-		return nil, errors.Wrapf(err, "failed to generate address for muun")
+		return nil, errors.Wrapf(err, "failed to generate address for meen")
 	}
 
 	return txscript.MultiSigScript([]*btcutil.AddressPubKey{

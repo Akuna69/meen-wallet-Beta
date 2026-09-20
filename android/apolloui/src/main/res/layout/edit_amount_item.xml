@@ -18,7 +18,7 @@
 
         <TextView
                 android:id="@+id/amount_label"
-                style="@style/muun_new_operation_label_text"
+                style="@style/meen_new_operation_label_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawablePadding="12dp"
@@ -34,7 +34,7 @@
 
     <TextView
             android:id="@+id/selected_amount"
-            style="@style/muun_new_operation_label_text_strong"
+            style="@style/meen_new_operation_label_text_strong"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="10000 SAT"
@@ -44,12 +44,12 @@
             android:id="@+id/add_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/muun_screen_margin"
+            android:layout_marginEnd="@dimen/meen_screen_margin"
             android:paddingStart="24dp"
             android:paddingEnd="24dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:background="@drawable/muun_button_tertiary_bg"
+            android:background="@drawable/meen_button_tertiary_bg"
             android:textSize="14sp"
             android:textColor="@color/blue"
             android:fontFamily="sans-serif-medium"

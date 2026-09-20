@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.NewOpBadge
+    <io.meen.apollo.presentation.ui.view.NewOpBadge
             android:id="@+id/new_op_badge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
             android:paddingEnd="32dp"
             android:layout_centerInParent="true">
 
-        <io.muun.apollo.presentation.ui.view.BalanceView
+        <io.meen.apollo.presentation.ui.view.BalanceView
                 android:id="@+id/home_balance_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,43 +38,43 @@
                 android:orientation="horizontal"
                 android:baselineAligned="false">
 
-            <!-- Wrapping LinearLayout needed as MuunButton can't handle layout_weight -->
+            <!-- Wrapping LinearLayout needed as MeenButton can't handle layout_weight -->
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                <io.muun.apollo.presentation.ui.view.MuunButton
+                <io.meen.apollo.presentation.ui.view.MeenButton
                         android:id="@+id/home_receive_button"
-                        style="@style/muun_button_primary"
+                        style="@style/meen_button_primary"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginEnd="8dp"
-                        android:background="@drawable/muun_button_floating_bg"
+                        android:background="@drawable/meen_button_floating_bg"
                         android:text="@string/home_footer_action_receive" />
 
             </LinearLayout>
 
-            <!-- Wrapping LinearLayout needed as MuunButton can't handle layout_weight -->
+            <!-- Wrapping LinearLayout needed as MeenButton can't handle layout_weight -->
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1">
 
-                <io.muun.apollo.presentation.ui.view.MuunButton
+                <io.meen.apollo.presentation.ui.view.MeenButton
                         android:id="@+id/home_send_button"
-                        style="@style/muun_button_primary"
+                        style="@style/meen_button_primary"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:layout_marginStart="8dp"
-                        android:background="@drawable/muun_button_floating_bg"
+                        android:background="@drawable/meen_button_floating_bg"
                         android:text="@string/home_footer_action_send" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-        <io.muun.apollo.presentation.ui.view.MuunHomeCard
+        <io.meen.apollo.presentation.ui.view.MeenHomeCard
                 android:id="@+id/home_taproot_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-        <io.muun.apollo.presentation.ui.view.MuunHomeCard
+        <io.meen.apollo.presentation.ui.view.MeenHomeCard
                 android:id="@+id/home_security_center_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -92,7 +92,7 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-        <io.muun.apollo.presentation.ui.view.MuunHomeCard
+        <io.meen.apollo.presentation.ui.view.MeenHomeCard
                 android:id="@+id/home_high_fees_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -101,7 +101,7 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-        <io.muun.apollo.presentation.ui.view.BlockClock
+        <io.meen.apollo.presentation.ui.view.BlockClock
                 android:id="@+id/home_block_clock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -120,7 +120,7 @@
 
         <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/chevron"
-                android:background="@drawable/muun_ripple_circle_bg"
+                android:background="@drawable/meen_ripple_circle_bg"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 app:lottie_loop="true"

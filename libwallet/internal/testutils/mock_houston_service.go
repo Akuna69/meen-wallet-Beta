@@ -1,8 +1,8 @@
 package testutils
 
 import (
-	"github.com/muun/libwallet/service"
-	"github.com/muun/libwallet/service/model"
+	"github.com/meen/libwallet/service"
+	"github.com/meen/libwallet/service/model"
 )
 
 // Compile-time check.
@@ -11,22 +11,22 @@ var _ service.HoustonService = (*MockHoustonService)(nil)
 // MockHoustonService is a configurable test double for service.HoustonService.
 // Set the fields you need for your test; all unconfigured methods panic.
 type MockHoustonService struct {
-	VerifiableMuunKeyResult    model.VerifiableMuunKeyJson
-	VerifiableMuunKeyErr       error
-	FinishWithVerifiableResult model.VerifiableMuunKeyJson
+	VerifiableMeenKeyResult    model.VerifiableMeenKeyJson
+	VerifiableMeenKeyErr       error
+	FinishWithVerifiableResult model.VerifiableMeenKeyJson
 	FinishWithVerifiableErr    error
 
 	// Captured requests for assertions
 	CapturedChallengeSetupVerify *model.ChallengeSetupVerifyJson
 }
 
-func (m *MockHoustonService) VerifiableMuunKey() (model.VerifiableMuunKeyJson, error) {
-	return m.VerifiableMuunKeyResult, m.VerifiableMuunKeyErr
+func (m *MockHoustonService) VerifiableMeenKey() (model.VerifiableMeenKeyJson, error) {
+	return m.VerifiableMeenKeyResult, m.VerifiableMeenKeyErr
 }
 
-func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMuunKey(
+func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMeenKey(
 	req model.ChallengeSetupVerifyJson,
-) (model.VerifiableMuunKeyJson, error) {
+) (model.VerifiableMeenKeyJson, error) {
 	m.CapturedChallengeSetupVerify = &req
 	return m.FinishWithVerifiableResult, m.FinishWithVerifiableErr
 }

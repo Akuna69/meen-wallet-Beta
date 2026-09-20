@@ -10,11 +10,11 @@ import (
 	"fmt"
 	"math/big"
 
-	"github.com/muun/libwallet/app_provided_data"
-	"github.com/muun/libwallet/cryptography"
+	"github.com/meen/libwallet/app_provided_data"
+	"github.com/meen/libwallet/cryptography"
 )
 
-type MockMuunCardV2 struct {
+type MockMeenCardV2 struct {
 	// Global card state
 	globalPrivateKey []byte // 32 bytes
 	globalPublicKey  []byte // 65 bytes
@@ -26,7 +26,7 @@ type MockMuunCardV2 struct {
 }
 
 // Enforce we implement the interface
-var _ JavaCardApplet = (*MockMuunCardV2)(nil)
+var _ JavaCardApplet = (*MockMeenCardV2)(nil)
 
 type Metadata struct {
 	cardVendor      [2]byte // 2 bytes - Vendor name
@@ -43,7 +43,7 @@ type PairingData struct {
 	Counter          uint16
 }
 
-func NewMockMuunCardV2() (*MockMuunCardV2, error) {
+func NewMockMeenCardV2() (*MockMeenCardV2, error) {
 	// Generate global key pair for the card
 	privateKey, err := cryptography.GenerateSecp256r1PrivateKey()
 	if err != nil {
@@ -57,14 +57,14 @@ func NewMockMuunCardV2() (*MockMuunCardV2, error) {
 
 	// Initialize card metadata with default values
 	metadata := &Metadata{
-		cardVendor:      [2]byte{0x4D, 0x55}, // "MU" for Muun
+		cardVendor:      [2]byte{0x4D, 0x55}, // "MU" for Meen
 		cardModel:       [2]byte{0x56, 0x32}, // "V2" for Version 2
 		firmwareVersion: [2]byte{0x02, 0x00}, // Version 2.0
 		usageCount:      0,
 		languageCode:    [2]byte{0x65, 0x6E}, // "en" for English
 	}
 
-	return &MockMuunCardV2{
+	return &MockMeenCardV2{
 		globalPrivateKey: privateKey,
 		globalPublicKey:  publicKey,
 		metadata:         metadata,
@@ -72,25 +72,25 @@ func NewMockMuunCardV2() (*MockMuunCardV2, error) {
 	}, nil
 }
 
-func (c *MockMuunCardV2) getAppletId() string {
-	return MuuncardV2AppletId
+func (c *MockMeenCardV2) getAppletId() string {
+	return MeencardV2AppletId
 }
 
-func (c *MockMuunCardV2) processCommand(apdu []byte) (*app_provided_data.NfcBridgeResponse, error) {
+func (c *MockMeenCardV2) processCommand(apdu []byte) (*app_provided_data.NfcBridgeResponse, error) {
 	ins := apdu[iso7816OffsetIns]
 
-	fmt.Printf("MockMuunCardV2 command apdu %s\n", hex.EncodeToString(apdu))
+	fmt.Printf("MockMeenCardV2 command apdu %s\n", hex.EncodeToString(apdu))
 
 	switch ins {
-	case insMuuncardV2GetVersion:
+	case insMeencardV2GetVersion:
 		return c.handleGetVersion(), nil
-	case insMuuncardV2GetMetadata:
+	case insMeencardV2GetMetadata:
 		return c.handleGetMetadata(), nil
-	case insMuuncardV2Setup:
+	case insMeencardV2Setup:
 		return c.handlePairCard(apdu)
-	case insMuuncardV2SignChallenge:
+	case insMeencardV2SignChallenge:
 		return c.handleSignChallenge(apdu)
-	case insMuuncardV2ContinueChallenge:
+	case insMeencardV2ContinueChallenge:
 		return c.handleContinueChallenge(apdu)
 
 	default:
@@ -98,7 +98,7 @@ func (c *MockMuunCardV2) processCommand(apdu []byte) (*app_provided_data.NfcBrid
 	}
 }
 
-func (c *MockMuunCardV2) handleGetVersion() *app_provided_data.NfcBridgeResponse {
+func (c *MockMeenCardV2) handleGetVersion() *app_provided_data.NfcBridgeResponse {
 	// Return: vendor(6) + major(1) + minor(1) = 8 bytes total
 	response := make([]byte, 8)
 
@@ -113,14 +113,14 @@ func (c *MockMuunCardV2) handleGetVersion() *app_provided_data.NfcBridgeResponse
 	return newSuccessResponse(response)
 }
 
-func (c *MockMuunCardV2) handleGetMetadata() *app_provided_data.NfcBridgeResponse {
+func (c *MockMeenCardV2) handleGetMetadata() *app_provided_data.NfcBridgeResponse {
 	// Build metadata (75 bytes)
 	metadata := c.buildMetadata()
 
 	return newSuccessResponse(metadata)
 }
 
-func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBridgeResponse, error) {
+func (c *MockMeenCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBridgeResponse, error) {
 	// This should:
 	// 1. Extract serverRandomPublicKey and clientPublicKey from APDU data
 	// 2. Generate ephemeral key pair for this pairing session
@@ -137,7 +137,7 @@ func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBrid
 
 	// Expected: C(65) + pub_client(65) = 130 bytes
 	if len(data) != 130 {
-		return newErrorResponse(swMuuncardV2WrongLength), nil
+		return newErrorResponse(swMeencardV2WrongLength), nil
 	}
 	serverPubKey := data[0:65]   // C
 	clientPubKey := data[65:130] // pub_client
@@ -145,25 +145,25 @@ func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBrid
 	// Validate public key formats
 	err := cryptography.ValidateSecp256r1PublicKey(serverPubKey)
 	if err != nil {
-		return newErrorResponse(swMuuncardV2InvalidPubKey), nil
+		return newErrorResponse(swMeencardV2InvalidPubKey), nil
 	}
 
 	err = cryptography.ValidateSecp256r1PublicKey(clientPubKey)
 	if err != nil {
-		return newErrorResponse(swMuuncardV2InvalidPubKey), nil
+		return newErrorResponse(swMeencardV2InvalidPubKey), nil
 	}
 
 	// Find available slot
 	slot := c.findAvailablePairingSlot()
 	if slot == -1 {
-		return newErrorResponse(swMuuncardV2NoSlotsAvailable), nil
+		return newErrorResponse(swMeencardV2NoSlotsAvailable), nil
 
 	}
 
 	// Generate ephemeral keypair [p], [P]
 	ephemeralPrivate, err := cryptography.GenerateSecp256r1PrivateKey()
 	if err != nil {
-		return newErrorResponse(swMuuncardV2CryptoError), nil
+		return newErrorResponse(swMeencardV2CryptoError), nil
 
 	}
 	ephemeralPublic, err := cryptography.GenerateSecp256r1PublicKey(ephemeralPrivate)
@@ -175,7 +175,7 @@ func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBrid
 	sharedPoint, err := cryptography.ECDH(ephemeralPrivate, serverPubKey)
 
 	if err != nil {
-		return newErrorResponse(swMuuncardV2CryptoError), nil
+		return newErrorResponse(swMeencardV2CryptoError), nil
 	}
 
 	// Derive secret_card = SHA256(shared_x)
@@ -207,7 +207,7 @@ func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBrid
 	// Sign MAC with global private key
 	signature, err := c.signWithGlobalKey(mac)
 	if err != nil {
-		return newErrorResponse(swMuuncardV2CryptoError), nil
+		return newErrorResponse(swMeencardV2CryptoError), nil
 
 	}
 
@@ -222,14 +222,14 @@ func (c *MockMuunCardV2) handlePairCard(apdu []byte) (*app_provided_data.NfcBrid
 	// Mark slot as used
 	c.pairingSlotsBitmap |= 1 << slot
 
-	fmt.Printf("MockMuunCardV2 pair response %s\n", hex.EncodeToString(response[:]))
+	fmt.Printf("MockMeenCardV2 pair response %s\n", hex.EncodeToString(response[:]))
 
 	return newSuccessResponse(response), nil
 }
 
 // Input: [C] || [count_card] || [index] || [has_more_chunks] || [reason] || [mac]
 // Output: [P] || [response_mac] (97 bytes)
-func (c *MockMuunCardV2) handleSignChallenge(apdu []byte) (
+func (c *MockMeenCardV2) handleSignChallenge(apdu []byte) (
 	*app_provided_data.NfcBridgeResponse,
 	error,
 ) {
@@ -248,7 +248,7 @@ func (c *MockMuunCardV2) handleSignChallenge(apdu []byte) (
 
 	// Minimum: C(65) + count(2) + index(2) + has_more_chunks(1) + mac(32) = 102 bytes
 	if len(data) < 102 {
-		return newErrorResponse(swMuuncardV2WrongLength), nil
+		return newErrorResponse(swMeencardV2WrongLength), nil
 	}
 
 	// Parse has_more_chunks flag - after C(65) + count(2) + index(2)
@@ -267,7 +267,7 @@ func (c *MockMuunCardV2) handleSignChallenge(apdu []byte) (
 // signChallengeSingle processes single-chunk challenge (reason fits in one APDU)
 // Input: [C] || [count_card] || [index] || [has_more_chunks] || [reason] || [mac]
 // Output: [P] || [response_mac] (97 bytes)
-func (c *MockMuunCardV2) signChallengeSingle(data []byte) (
+func (c *MockMeenCardV2) signChallengeSingle(data []byte) (
 	*app_provided_data.NfcBridgeResponse,
 	error,
 ) {
@@ -278,7 +278,7 @@ func (c *MockMuunCardV2) signChallengeSingle(data []byte) (
 	challengeC := data[offset : offset+65]
 	err := cryptography.ValidateSecp256r1PublicKey(challengeC)
 	if err != nil {
-		return newErrorResponse(swMuuncardV2InvalidPubKey), nil
+		return newErrorResponse(swMeencardV2InvalidPubKey), nil
 
 	}
 	offset += 65
@@ -303,18 +303,18 @@ func (c *MockMuunCardV2) signChallengeSingle(data []byte) (
 	slot := receivedIndex
 
 	if c.pairingSlots[slot] == nil {
-		return newErrorResponse(swMuuncardV2SlotNotPaired), nil
+		return newErrorResponse(swMeencardV2SlotNotPaired), nil
 	}
 
 	// Verify counter increment
 	currentCounter := c.pairingSlots[slot].Counter
 	if receivedCounter <= currentCounter {
-		return newErrorResponse(swMuuncardV2InvalidCounter), nil
+		return newErrorResponse(swMeencardV2InvalidCounter), nil
 	}
 
 	macValid := c.verifyChallengeMac(slot, challengeC, receivedCounter, receivedIndex, reason, mac)
 	if !macValid {
-		return newErrorResponse(swMuuncardV2InvalidMac), nil
+		return newErrorResponse(swMeencardV2InvalidMac), nil
 	}
 
 	// Update counter
@@ -324,7 +324,7 @@ func (c *MockMuunCardV2) signChallengeSingle(data []byte) (
 	return c.generateChallengeResponse(slot, challengeC)
 }
 
-func (c *MockMuunCardV2) startStreamingFromSignChallenge(data []byte) (
+func (c *MockMeenCardV2) startStreamingFromSignChallenge(data []byte) (
 	*app_provided_data.NfcBridgeResponse,
 	error,
 ) {
@@ -332,7 +332,7 @@ func (c *MockMuunCardV2) startStreamingFromSignChallenge(data []byte) (
 	return newErrorResponse(swInsNotSupported), nil
 }
 
-func (c *MockMuunCardV2) handleContinueChallenge(apdu []byte) (
+func (c *MockMeenCardV2) handleContinueChallenge(apdu []byte) (
 	*app_provided_data.NfcBridgeResponse,
 	error,
 ) {
@@ -340,7 +340,7 @@ func (c *MockMuunCardV2) handleContinueChallenge(apdu []byte) (
 	return newErrorResponse(swInsNotSupported), nil
 }
 
-func (c *MockMuunCardV2) buildMetadata() []byte {
+func (c *MockMeenCardV2) buildMetadata() []byte {
 	// Build metadata structure:
 	// global_pub_card(65) + vendor(2) + model(2) + firmware(2) + usage_count(2) + language(2)
 	metadata := make([]byte, 75)
@@ -373,7 +373,7 @@ func (c *MockMuunCardV2) buildMetadata() []byte {
 	return metadata
 }
 
-func (c *MockMuunCardV2) findAvailablePairingSlot() int {
+func (c *MockMeenCardV2) findAvailablePairingSlot() int {
 	foundSlot := -1
 	foundFlag := byte(0) // 0 = not found, 0xFF = found
 
@@ -399,7 +399,7 @@ func (c *MockMuunCardV2) findAvailablePairingSlot() int {
 	return foundSlot
 }
 
-func (c *MockMuunCardV2) computePairingMac(
+func (c *MockMeenCardV2) computePairingMac(
 	secretCard [32]byte,
 	serverPubKey []byte,
 	ephemeralPublic []byte,
@@ -424,10 +424,10 @@ func (c *MockMuunCardV2) computePairingMac(
 	return ComputeHMACSHA256(macSecretCard, macInput)
 }
 
-func (c *MockMuunCardV2) signWithGlobalKey(data []byte) ([]byte, error) {
+func (c *MockMeenCardV2) signWithGlobalKey(data []byte) ([]byte, error) {
 	hash := sha256.Sum256(data)
 
-	fmt.Printf("MockMuunCardV2 mac hash %s\n", hex.EncodeToString(hash[:]))
+	fmt.Printf("MockMeenCardV2 mac hash %s\n", hex.EncodeToString(hash[:]))
 
 	// Create ECDSA private key. Sadly, PublicKey also needs to be initialized here. Apparently,
 	// ecdsa.PrivateKey represents the whole keypair and ecdsa.Sign() uses X and Y from Public key.
@@ -459,18 +459,18 @@ func parsePublicKeyIntoEcdsaModel(publicKey []byte) ecdsa.PublicKey {
 }
 
 // validateAPDULength validates APDU structure and returns the data portion
-func (c *MockMuunCardV2) validateAPDULength(apdu []byte) (
+func (c *MockMeenCardV2) validateAPDULength(apdu []byte) (
 	[]byte,
 	*app_provided_data.NfcBridgeResponse,
 ) {
 
 	if len(apdu) < 5 {
-		return nil, newErrorResponse(swMuuncardV2WrongLength)
+		return nil, newErrorResponse(swMeencardV2WrongLength)
 	}
 
 	dataLength := int(apdu[4])
 	if len(apdu) != 5+dataLength {
-		return nil, newErrorResponse(swMuuncardV2WrongLength)
+		return nil, newErrorResponse(swMeencardV2WrongLength)
 	}
 
 	return apdu[5:], nil
@@ -488,7 +488,7 @@ func encodeDERSignature(r, s *big.Int) []byte {
 	return der
 }
 
-func (c *MockMuunCardV2) verifyChallengeMac(
+func (c *MockMeenCardV2) verifyChallengeMac(
 	slot uint16,
 	challengeC []byte,
 	receivedCounter uint16,
@@ -530,7 +530,7 @@ func buildChallengeMacInput(challengeC []byte, counter, index uint16, payload []
 }
 
 // verifyChallengeMac verifies challenge MAC with given input
-func (c *MockMuunCardV2) verifyChallengeMacForInput(secret, macInput, mac []byte) bool {
+func (c *MockMeenCardV2) verifyChallengeMacForInput(secret, macInput, mac []byte) bool {
 	// Compute expected MAC using first 16 bytes of secret
 	macSecretCard := secret[:16]
 	expectedMAC := ComputeHMACSHA256(macSecretCard, macInput)
@@ -554,14 +554,14 @@ func constantTimeCompare(a, b []byte) bool {
 
 // generateChallengeResponse generates unified challenge response for both single and streaming
 // modes
-func (c *MockMuunCardV2) generateChallengeResponse(slot uint16, challengeC []byte) (
+func (c *MockMeenCardV2) generateChallengeResponse(slot uint16, challengeC []byte) (
 	*app_provided_data.NfcBridgeResponse,
 	error,
 ) {
 	// Generate ephemeral keypair for response: ephemeralPrivate [p], ephemeralPublic [P]
 	ephemeralPrivate, err := cryptography.GenerateSecp256r1PrivateKey()
 	if err != nil {
-		return newErrorResponse(swMuuncardV2CryptoError), nil
+		return newErrorResponse(swMeencardV2CryptoError), nil
 
 	}
 	ephemeralPublic, err := cryptography.GenerateSecp256r1PublicKey(ephemeralPrivate)
@@ -572,7 +572,7 @@ func (c *MockMuunCardV2) generateChallengeResponse(slot uint16, challengeC []byt
 	// Perform ECDH: shared_point = p * C
 	sharedPoint, err := cryptography.ECDH(ephemeralPrivate, challengeC)
 	if err != nil {
-		return newErrorResponse(swMuuncardV2CryptoError), nil
+		return newErrorResponse(swMeencardV2CryptoError), nil
 	}
 
 	// Store secret_next = HMAC(secret_card, shared_point)

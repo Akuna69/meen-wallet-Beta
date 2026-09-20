@@ -11,9 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/muun_screen_margin"
-            android:paddingRight="@dimen/muun_screen_margin"
-            android:paddingBottom="@dimen/muun_screen_margin">
+            android:paddingLeft="@dimen/meen_screen_margin"
+            android:paddingRight="@dimen/meen_screen_margin"
+            android:paddingBottom="@dimen/meen_screen_margin">
 
         <TextView
                 style="@style/help_screen_title"
@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ek_verify_help_title" />
 
-        <io.muun.apollo.presentation.ui.view.HtmlTextView
+        <io.meen.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/subtitle"
                 style="@style/help_screen_body"
                 android:layout_width="match_parent"

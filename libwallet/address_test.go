@@ -96,7 +96,7 @@ func TestGetPaymentURI(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    *MuunPaymentURI
+		want    *MeenPaymentURI
 		wantErr bool
 	}{
 
@@ -106,7 +106,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: address,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri:     bitcoinScheme + address,
 			},
@@ -117,7 +117,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: amountURI,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "1.2",
 				Uri:     bitcoinScheme + amountURI,
@@ -129,7 +129,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: completeURI,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "1.2",
 				Label:   "hola",
@@ -144,7 +144,7 @@ func TestGetPaymentURI(t *testing.T) {
 					"&label=hola&message=mensaje%20con%20espacios",
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "0.0012",
 				Label:   "hola",
@@ -175,7 +175,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip70NonRetroCompatAddress,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Uri:      bip70NonRetroCompatAddress,
 				Bip70Url: bip70URL,
 			},
@@ -186,7 +186,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip70RetroCompatAddress,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address:  address,
 				Uri:      bip70RetroCompatAddress,
 				Bip70Url: bip70URL,
@@ -198,7 +198,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: uriWithSlashes,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri:     uriWithSlashes,
 				Amount:  "1.2",
@@ -210,7 +210,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: "bitcoin:2NDhvuRPCYXq4fB8SprminieZ2a1i3JFXyS?",
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: "2NDhvuRPCYXq4fB8SprminieZ2a1i3JFXyS",
 				Uri:     "bitcoin:2NDhvuRPCYXq4fB8SprminieZ2a1i3JFXyS?",
 			},
@@ -241,7 +241,7 @@ func TestGetPaymentURI(t *testing.T) {
 			// TODO we should probably return an error here but that breaks
 			// current assumptions in newop state
 			// machine (see TestInvalidAmountEmitsInvalidAddress in state_test.go)
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri: bitcoinScheme + address + "?amount=Nan" +
 					"&label=hola&message=mensaje%20con%20espacios",
@@ -260,7 +260,7 @@ func TestGetPaymentURI(t *testing.T) {
 			// TODO we should probably return an error here but that breaks
 			// current assumptions in newop state
 			// machine (see TestInvalidAmountEmitsInvalidAddress in state_test.go)
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri: bitcoinScheme + address + "?amount=hola" +
 					"&label=hola&message=mensaje%20con%20espacios",
@@ -283,7 +283,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip21UnifiedQr,
 				network: *network,
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri:     bitcoinScheme + address + "?lightning=" + invoice,
 
@@ -303,7 +303,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip21UnifiedQrWithAmount,
 				network: *network,
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "0.000001",
 				Uri:     bip21UnifiedQrWithAmount,
@@ -333,7 +333,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bitcoinScheme + address + "?amount=1e-6&" + lightningParam + invoice100Sat,
 				network: *network,
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "0.000001",
 				Uri:     bitcoinScheme + address + "?amount=1e-6&" + lightningParam + invoice100Sat,
@@ -357,7 +357,7 @@ func TestGetPaymentURI(t *testing.T) {
 			},
 			// Instead of marking this uri as invalid (technically correct) and showing an error we
 			// allow a way forward for the payment and assume the lightning part is the correct one
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri:     bip21UnifiedQrInconsistentCase1,
 
@@ -380,7 +380,7 @@ func TestGetPaymentURI(t *testing.T) {
 			},
 			// Instead of marking this uri as invalid (technically correct) and showing an error we
 			// allow a way forward for the payment and assume the lightning part is the correct one
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Amount:  "2",
 				Uri:     bip21UnifiedQrInconsistentCase2,
@@ -400,7 +400,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip21UnifiedQrBip70RetroCompat,
 				network: *network,
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address:  address,
 				Uri:      bip21UnifiedQrBip70RetroCompat,
 				Bip70Url: bip70URL,
@@ -428,7 +428,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: bip21UnifiedQrBip70NonRetroCompat,
 				network: *network,
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Uri:      bip21UnifiedQrBip70NonRetroCompat,
 				Bip70Url: bip70URL,
 
@@ -455,7 +455,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: "BITCOIN:BC1QSQP0D3TY8AAA8N9J8R0D2PF3G40VN4AS9TPWY3J9R3GK5K64VX6QWPAXH2",
 				network: *Mainnet(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: strings.ToLower(
 					"BC1QSQP0D3TY8AAA8N9J8R0D2PF3G40VN4AS9TPWY3J9R3GK5K64VX6QWPAXH2",
 				),
@@ -468,7 +468,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: "BiTcOiN:BC1QSQP0D3TY8AAA8N9J8R0D2PF3G40VN4AS9TPWY3J9R3GK5K64VX6QWPAXH2",
 				network: *Mainnet(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: strings.ToLower(
 					"BC1QSQP0D3TY8AAA8N9J8R0D2PF3G40VN4AS9TPWY3J9R3GK5K64VX6QWPAXH2",
 				),
@@ -481,7 +481,7 @@ func TestGetPaymentURI(t *testing.T) {
 				address: "BiTcOiN:" + address + "?LiGhTnInG=" + invoice,
 				network: *Regtest(),
 			},
-			want: &MuunPaymentURI{
+			want: &MeenPaymentURI{
 				Address: address,
 				Uri:     "BiTcOiN:" + address + "?LiGhTnInG=" + invoice,
 
@@ -550,17 +550,17 @@ func Test_normalizeAddress(t *testing.T) {
 			want: bitcoinScheme + address,
 		},
 		{
-			name: "muunAddress",
+			name: "meenAddress",
 			args: args{
-				rawAddress:   muunScheme + address,
+				rawAddress:   meenScheme + address,
 				targetScheme: bitcoinScheme,
 			},
 			want: bitcoinScheme + address,
 		},
 		{
-			name: "muun to lightning",
+			name: "meen to lightning",
 			args: args{
-				rawAddress:   muunScheme + address,
+				rawAddress:   meenScheme + address,
 				targetScheme: lightningScheme,
 			},
 			want: lightningScheme + address,
@@ -619,7 +619,7 @@ func TestDoPaymentRequestCall(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	expected := &MuunPaymentURI{
+	expected := &MeenPaymentURI{
 		Address:      "mqdofsXHpePPGBFXuwwypAqCcXi48Xhb2f",
 		Message:      "Hello World",
 		Amount:       "0.000025",

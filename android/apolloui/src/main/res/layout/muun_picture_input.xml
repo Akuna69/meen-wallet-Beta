@@ -6,8 +6,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.ProfilePictureView
-            android:id="@+id/muun_picture_input_button"
+    <io.meen.apollo.presentation.ui.view.ProfilePictureView
+            android:id="@+id/meen_picture_input_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="0dp"
@@ -24,7 +24,7 @@
             android:contentDescription="@string/edit_profile_pic" />
 
     <androidx.core.widget.ContentLoadingProgressBar
-            android:id="@+id/muun_button_progress_bar"
+            android:id="@+id/meen_button_progress_bar"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center"

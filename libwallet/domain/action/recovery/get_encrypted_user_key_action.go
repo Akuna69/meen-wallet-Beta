@@ -3,9 +3,9 @@ package recovery
 import (
 	"github.com/btcsuite/btcd/btcec/v2"
 
-	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/domain/model/encrypted_key_v3"
-	"github.com/muun/libwallet/storage"
+	"github.com/meen/libwallet/data/keys"
+	"github.com/meen/libwallet/domain/model/encrypted_key_v3"
+	"github.com/meen/libwallet/storage"
 )
 
 type GetEncryptedUserKeyAction struct {

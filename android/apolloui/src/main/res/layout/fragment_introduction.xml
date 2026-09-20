@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -50,13 +50,13 @@
         </FrameLayout>
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
             android:id="@+id/accept"
-            style="@style/muun_button_primary"
+            style="@style/meen_button_primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="invisible"
             tools:visibility="visible" />
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>
 

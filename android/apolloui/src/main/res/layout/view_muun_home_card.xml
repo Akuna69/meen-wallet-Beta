@@ -11,7 +11,7 @@
         android:paddingEnd="8dp"
         android:paddingBottom="16dp"
         android:paddingTop="16dp"
-        android:background="@drawable/muun_task_card_active_bg">
+        android:background="@drawable/meen_task_card_active_bg">
 
     <!-- This view is tinted programmatically (for the cards that required it).  -->
     <ImageView

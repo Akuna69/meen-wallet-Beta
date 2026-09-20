@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/muun/libwallet/fees"
+	"github.com/meen/libwallet/fees"
 )
 
 var defaultFeeWindow = &FeeWindow{

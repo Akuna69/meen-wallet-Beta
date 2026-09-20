@@ -9,7 +9,7 @@ import (
 
 	goLnurl "github.com/fiatjaf/go-lnurl"
 
-	"github.com/muun/libwallet/lnurl"
+	"github.com/meen/libwallet/lnurl"
 )
 
 func encode(url string) (string, error) {

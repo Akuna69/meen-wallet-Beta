@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MuunButtonLayout
+<io.meen.apollo.presentation.ui.view.MeenButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -24,16 +24,16 @@
                     style="@style/explanation_title"
                     android:text="@string/signup_phone_number_title"/>
 
-            <io.muun.apollo.presentation.ui.view.HtmlTextView
+            <io.meen.apollo.presentation.ui.view.HtmlTextView
                     style="@style/explanation"
                     android:id="@+id/explanation"
                     android:layout_marginTop="8dp"
-                    android:layout_marginLeft="@dimen/muun_screen_margin"
-                    android:layout_marginRight="@dimen/muun_screen_margin"
+                    android:layout_marginLeft="@dimen/meen_screen_margin"
+                    android:layout_marginRight="@dimen/meen_screen_margin"
                     app:layout_constraintTop_toBottomOf="@+id/explanation_title"
                     tools:text="@string/signup_phone_number_explanation" />
 
-            <io.muun.apollo.presentation.ui.view.MuunCountryInput
+            <io.meen.apollo.presentation.ui.view.MeenCountryInput
                     android:id="@+id/signup_phone_number_country_picker"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -44,7 +44,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
 
-            <io.muun.apollo.presentation.ui.view.MuunTextInput
+            <io.meen.apollo.presentation.ui.view.MeenTextInput
                     android:id="@+id/signup_phone_number_edit_country_prefix"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -59,7 +59,7 @@
                     app:layout_constraintStart_toStartOf="@+id/signup_phone_number_country_picker"
                     app:layout_constraintTop_toBottomOf="@+id/signup_phone_number_country_picker" />
 
-            <io.muun.apollo.presentation.ui.view.MuunPhoneInput
+            <io.meen.apollo.presentation.ui.view.MeenPhoneInput
                     android:id="@id/signup_phone_number_edit_local_number"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -80,12 +80,12 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
-            style="@style/muun_button_primary"
+    <io.meen.apollo.presentation.ui.view.MeenButton
+            style="@style/meen_button_primary"
             android:id="@+id/signup_continue"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/signup_enter_number"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-</io.muun.apollo.presentation.ui.view.MuunButtonLayout>
+</io.meen.apollo.presentation.ui.view.MeenButtonLayout>

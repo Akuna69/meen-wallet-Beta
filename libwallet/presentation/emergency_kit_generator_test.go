@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/muun/libwallet/presentation/api"
+	"github.com/meen/libwallet/presentation/api"
 )
 
 func TestGenerateEmergencyKitPDFGrpc(t *testing.T) {

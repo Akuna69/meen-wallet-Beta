@@ -1565,8 +1565,8 @@ func (b0 ChallengeSetupRequest_builder) Build() *ChallengeSetupRequest {
 
 type SetupChallengeResponse struct {
 	state                         protoimpl.MessageState `protogen:"opaque.v1"`
-	xxx_hidden_MuunKey            *string                `protobuf:"bytes,1,opt,name=muun_key,json=muunKey,proto3,oneof"`
-	xxx_hidden_MuunKeyFingerprint *string                `protobuf:"bytes,2,opt,name=muun_key_fingerprint,json=muunKeyFingerprint,proto3,oneof"`
+	xxx_hidden_MeenKey            *string                `protobuf:"bytes,1,opt,name=meen_key,json=meenKey,proto3,oneof"`
+	xxx_hidden_MeenKeyFingerprint *string                `protobuf:"bytes,2,opt,name=meen_key_fingerprint,json=meenKeyFingerprint,proto3,oneof"`
 	XXX_raceDetectHookData        protoimpl.RaceDetectHookData
 	XXX_presence                  [1]uint32
 	unknownFields                 protoimpl.UnknownFields
@@ -1598,78 +1598,78 @@ func (x *SetupChallengeResponse) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *SetupChallengeResponse) GetMuunKey() string {
+func (x *SetupChallengeResponse) GetMeenKey() string {
 	if x != nil {
-		if x.xxx_hidden_MuunKey != nil {
-			return *x.xxx_hidden_MuunKey
+		if x.xxx_hidden_MeenKey != nil {
+			return *x.xxx_hidden_MeenKey
 		}
 		return ""
 	}
 	return ""
 }
 
-func (x *SetupChallengeResponse) GetMuunKeyFingerprint() string {
+func (x *SetupChallengeResponse) GetMeenKeyFingerprint() string {
 	if x != nil {
-		if x.xxx_hidden_MuunKeyFingerprint != nil {
-			return *x.xxx_hidden_MuunKeyFingerprint
+		if x.xxx_hidden_MeenKeyFingerprint != nil {
+			return *x.xxx_hidden_MeenKeyFingerprint
 		}
 		return ""
 	}
 	return ""
 }
 
-func (x *SetupChallengeResponse) SetMuunKey(v string) {
-	x.xxx_hidden_MuunKey = &v
+func (x *SetupChallengeResponse) SetMeenKey(v string) {
+	x.xxx_hidden_MeenKey = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 0, 2)
 }
 
-func (x *SetupChallengeResponse) SetMuunKeyFingerprint(v string) {
-	x.xxx_hidden_MuunKeyFingerprint = &v
+func (x *SetupChallengeResponse) SetMeenKeyFingerprint(v string) {
+	x.xxx_hidden_MeenKeyFingerprint = &v
 	protoimpl.X.SetPresent(&(x.XXX_presence[0]), 1, 2)
 }
 
-func (x *SetupChallengeResponse) HasMuunKey() bool {
+func (x *SetupChallengeResponse) HasMeenKey() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 0)
 }
 
-func (x *SetupChallengeResponse) HasMuunKeyFingerprint() bool {
+func (x *SetupChallengeResponse) HasMeenKeyFingerprint() bool {
 	if x == nil {
 		return false
 	}
 	return protoimpl.X.Present(&(x.XXX_presence[0]), 1)
 }
 
-func (x *SetupChallengeResponse) ClearMuunKey() {
+func (x *SetupChallengeResponse) ClearMeenKey() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 0)
-	x.xxx_hidden_MuunKey = nil
+	x.xxx_hidden_MeenKey = nil
 }
 
-func (x *SetupChallengeResponse) ClearMuunKeyFingerprint() {
+func (x *SetupChallengeResponse) ClearMeenKeyFingerprint() {
 	protoimpl.X.ClearPresent(&(x.XXX_presence[0]), 1)
-	x.xxx_hidden_MuunKeyFingerprint = nil
+	x.xxx_hidden_MeenKeyFingerprint = nil
 }
 
 type SetupChallengeResponse_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
-	MuunKey            *string
-	MuunKeyFingerprint *string
+	MeenKey            *string
+	MeenKeyFingerprint *string
 }
 
 func (b0 SetupChallengeResponse_builder) Build() *SetupChallengeResponse {
 	m0 := &SetupChallengeResponse{}
 	b, x := &b0, m0
 	_, _ = b, x
-	if b.MuunKey != nil {
+	if b.MeenKey != nil {
 		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 0, 2)
-		x.xxx_hidden_MuunKey = b.MuunKey
+		x.xxx_hidden_MeenKey = b.MeenKey
 	}
-	if b.MuunKeyFingerprint != nil {
+	if b.MeenKeyFingerprint != nil {
 		protoimpl.X.SetPresentNonAtomic(&(x.XXX_presence[0]), 1, 2)
-		x.xxx_hidden_MuunKeyFingerprint = b.MuunKeyFingerprint
+		x.xxx_hidden_MeenKeyFingerprint = b.MeenKeyFingerprint
 	}
 	return m0
 }
@@ -1731,27 +1731,27 @@ func (b0 FinishRecoveryCodeSetupRequest_builder) Build() *FinishRecoveryCodeSetu
 	return m0
 }
 
-type PopulateEncryptedMuunKeyRequest struct {
+type PopulateEncryptedMeenKeyRequest struct {
 	state                               protoimpl.MessageState `protogen:"opaque.v1"`
 	xxx_hidden_RecoveryCodePublicKeyHex string                 `protobuf:"bytes,1,opt,name=recovery_code_public_key_hex,json=recoveryCodePublicKeyHex,proto3"`
 	unknownFields                       protoimpl.UnknownFields
 	sizeCache                           protoimpl.SizeCache
 }
 
-func (x *PopulateEncryptedMuunKeyRequest) Reset() {
-	*x = PopulateEncryptedMuunKeyRequest{}
+func (x *PopulateEncryptedMeenKeyRequest) Reset() {
+	*x = PopulateEncryptedMeenKeyRequest{}
 	mi := &file_wallet_service_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *PopulateEncryptedMuunKeyRequest) String() string {
+func (x *PopulateEncryptedMeenKeyRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*PopulateEncryptedMuunKeyRequest) ProtoMessage() {}
+func (*PopulateEncryptedMeenKeyRequest) ProtoMessage() {}
 
-func (x *PopulateEncryptedMuunKeyRequest) ProtoReflect() protoreflect.Message {
+func (x *PopulateEncryptedMeenKeyRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_wallet_service_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -1763,25 +1763,25 @@ func (x *PopulateEncryptedMuunKeyRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-func (x *PopulateEncryptedMuunKeyRequest) GetRecoveryCodePublicKeyHex() string {
+func (x *PopulateEncryptedMeenKeyRequest) GetRecoveryCodePublicKeyHex() string {
 	if x != nil {
 		return x.xxx_hidden_RecoveryCodePublicKeyHex
 	}
 	return ""
 }
 
-func (x *PopulateEncryptedMuunKeyRequest) SetRecoveryCodePublicKeyHex(v string) {
+func (x *PopulateEncryptedMeenKeyRequest) SetRecoveryCodePublicKeyHex(v string) {
 	x.xxx_hidden_RecoveryCodePublicKeyHex = v
 }
 
-type PopulateEncryptedMuunKeyRequest_builder struct {
+type PopulateEncryptedMeenKeyRequest_builder struct {
 	_ [0]func() // Prevents comparability and use of unkeyed literals for the builder.
 
 	RecoveryCodePublicKeyHex string
 }
 
-func (b0 PopulateEncryptedMuunKeyRequest_builder) Build() *PopulateEncryptedMuunKeyRequest {
-	m0 := &PopulateEncryptedMuunKeyRequest{}
+func (b0 PopulateEncryptedMeenKeyRequest_builder) Build() *PopulateEncryptedMeenKeyRequest {
+	m0 := &PopulateEncryptedMeenKeyRequest{}
 	b, x := &b0, m0
 	_, _ = b, x
 	x.xxx_hidden_RecoveryCodePublicKeyHex = b.RecoveryCodePublicKeyHex
@@ -4919,7 +4919,7 @@ var file_wallet_service_proto_goTypes = []any{
 	(*ChallengeSetupRequest)(nil),               // 17: rpc.ChallengeSetupRequest
 	(*SetupChallengeResponse)(nil),              // 18: rpc.SetupChallengeResponse
 	(*FinishRecoveryCodeSetupRequest)(nil),      // 19: rpc.FinishRecoveryCodeSetupRequest
-	(*PopulateEncryptedMuunKeyRequest)(nil),     // 20: rpc.PopulateEncryptedMuunKeyRequest
+	(*PopulateEncryptedMeenKeyRequest)(nil),     // 20: rpc.PopulateEncryptedMeenKeyRequest
 	(*Struct)(nil),                              // 21: rpc.Struct
 	(*Value)(nil),                               // 22: rpc.Value
 	(*SaveRequest)(nil),                         // 23: rpc.SaveRequest
@@ -4996,7 +4996,7 @@ var file_wallet_service_proto_depIdxs = []int32{
 	15, // 39: rpc.WalletService.SignAndBroadcastSweepTx:input_type -> rpc.SignAndBroadcastSweepTxRequest
 	17, // 40: rpc.WalletService.StartChallengeSetup:input_type -> rpc.ChallengeSetupRequest
 	19, // 41: rpc.WalletService.FinishRecoveryCodeSetup:input_type -> rpc.FinishRecoveryCodeSetupRequest
-	20, // 42: rpc.WalletService.PopulateEncryptedMuunKey:input_type -> rpc.PopulateEncryptedMuunKeyRequest
+	20, // 42: rpc.WalletService.PopulateEncryptedMeenKey:input_type -> rpc.PopulateEncryptedMeenKeyRequest
 	23, // 43: rpc.WalletService.Save:input_type -> rpc.SaveRequest
 	24, // 44: rpc.WalletService.Get:input_type -> rpc.GetRequest
 	26, // 45: rpc.WalletService.Delete:input_type -> rpc.DeleteRequest
@@ -5022,7 +5022,7 @@ var file_wallet_service_proto_depIdxs = []int32{
 	16, // 65: rpc.WalletService.SignAndBroadcastSweepTx:output_type -> rpc.SignAndBroadcastSweepTxResponse
 	18, // 66: rpc.WalletService.StartChallengeSetup:output_type -> rpc.SetupChallengeResponse
 	52, // 67: rpc.WalletService.FinishRecoveryCodeSetup:output_type -> google.protobuf.Empty
-	52, // 68: rpc.WalletService.PopulateEncryptedMuunKey:output_type -> google.protobuf.Empty
+	52, // 68: rpc.WalletService.PopulateEncryptedMeenKey:output_type -> google.protobuf.Empty
 	52, // 69: rpc.WalletService.Save:output_type -> google.protobuf.Empty
 	25, // 70: rpc.WalletService.Get:output_type -> rpc.GetResponse
 	52, // 71: rpc.WalletService.Delete:output_type -> google.protobuf.Empty

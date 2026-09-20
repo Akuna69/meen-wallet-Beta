@@ -12,10 +12,10 @@
 }
 
 # Change here com.yourcompany.yourpackage
--keep,includedescriptorclasses class io.muun.apollo.**$$serializer { *; }
--keepclassmembers class io.muun.apollo.** {
+-keep,includedescriptorclasses class io.meen.apollo.**$$serializer { *; }
+-keepclassmembers class io.meen.apollo.** {
     *** Companion;
 }
--keepclasseswithmembers class io.muun.apollo.** {
+-keepclasseswithmembers class io.meen.apollo.** {
     kotlinx.serialization.KSerializer serializer(...);
 }

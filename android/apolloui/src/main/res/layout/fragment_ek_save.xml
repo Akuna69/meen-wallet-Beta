@@ -20,24 +20,24 @@
             style="@style/explanation_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/muun_screen_margin"
-            android:layout_marginRight="@dimen/muun_screen_margin"
+            android:layout_marginLeft="@dimen/meen_screen_margin"
+            android:layout_marginRight="@dimen/meen_screen_margin"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="12dp"
             android:textSize="24sp"
             android:text="@string/ek_save_title" />
 
-    <io.muun.apollo.presentation.ui.view.HtmlTextView
+    <io.meen.apollo.presentation.ui.view.HtmlTextView
             style="@style/explanation"
             android:id="@+id/explanation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/muun_screen_margin"
-            android:layout_marginRight="@dimen/muun_screen_margin"
+            android:layout_marginLeft="@dimen/meen_screen_margin"
+            android:layout_marginRight="@dimen/meen_screen_margin"
             android:layout_marginBottom="24dp"
             tools:text="@string/ek_save_explanation" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSaveOption
+    <io.meen.apollo.presentation.ui.view.MeenSaveOption
             android:id="@+id/save_option_drive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,9 +45,9 @@
             app:title="@string/save_option_drive_title"
             app:icon="@drawable/ic_google_drive" />
 
-    <View style="@style/muun_ek_save_separator" />
+    <View style="@style/meen_ek_save_separator" />
 
-    <io.muun.apollo.presentation.ui.view.MuunSaveOption
+    <io.meen.apollo.presentation.ui.view.MeenSaveOption
         android:id="@+id/save_option_feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
         app:title="@string/save_option_feedback_title"
         app:icon="@drawable/ic_suggest_cloud" />
 
-    <View style="@style/muun_ek_save_separator" />
+    <View style="@style/meen_ek_save_separator" />
 
-    <io.muun.apollo.presentation.ui.view.HtmlTextView
+    <io.meen.apollo.presentation.ui.view.HtmlTextView
         android:id="@+id/save_link_manual"
         style="@style/explanation"
         android:layout_width="match_parent"

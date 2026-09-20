@@ -22,7 +22,7 @@
             android:layout_marginBottom="-8dp"
             android:src="@drawable/taproot_rocket3" />
 
-        <io.muun.apollo.presentation.ui.view.BlockClock
+        <io.meen.apollo.presentation.ui.view.BlockClock
             android:id="@+id/dialog_block_clock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,9 +57,9 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MuunButton
+    <io.meen.apollo.presentation.ui.view.MeenButton
         android:id="@+id/dialog_confirm"
-        style="@style/muun_button_primary"
+        style="@style/meen_button_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

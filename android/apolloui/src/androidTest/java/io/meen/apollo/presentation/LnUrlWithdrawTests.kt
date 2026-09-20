@@ -1,0 +1,185 @@
+package io.meen.apollo.presentation
+
+import android.os.SystemClock
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import io.meen.apollo.R
+import io.meen.apollo.data.debug.LappClient
+import io.meen.apollo.utils.MeenTexts
+import io.meen.common.utils.BitcoinUtils
+import org.junit.Test
+import org.junit.runner.RunWith
+import javax.money.MonetaryAmount
+
+@RunWith(AndroidJUnit4::class)
+open class LnUrlWithdrawTests : BaseInstrumentationTest() {
+
+    // For now the withdraw amount is fixed
+    private val lnurlWithdrawAmount: MonetaryAmount = BitcoinUtils.satoshisToBitcoins(3000)
+
+    @Test
+    fun test_01_a_user_can_withdraw_using_lnurl_via_receive() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.lnUrlWithdrawViaReceive()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore.add(lnurlWithdrawAmount))
+    }
+
+    @Test
+    fun test_02_a_user_can_withdraw_using_lnurl_via_send() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.lnUrlWithdrawViaSend()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore.add(lnurlWithdrawAmount))
+    }
+
+    @Test
+    fun test_03_a_user_can_withdraw_using_lnurl_when_taking_too_long() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.lnUrlWithdrawViaSend(LappClient.LnUrlVariant.SLOW)
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore)  // balance should not change immediately
+        homeScreen.waitUntilBalanceEquals(balanceBefore.add(lnurlWithdrawAmount))
+    }
+
+    @Test
+    fun test_04_a_user_can_report_a_reportable_lnurl_error() {
+        autoFlows.signUp()
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.FAILS)
+
+        label(R.string.error_lnurl_unknown_title).assertExists()
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.send_report))
+            .press()
+    }
+
+    @Test
+    fun test_05_a_user_can_retry_a_retryable_lnurl_error() {
+        autoFlows.signUp()
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.UNRESPONSIVE)
+
+        // Let's wait for unresponsive service error (+15 secs)
+        SystemClock.sleep(16_000)
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.retry))
+            .press()
+
+        meenButton(R.id.primary_button).doesntExist()
+
+        labelWith(R.string.contacting).assertExists()
+
+        // Let's wait for unresponsive service error (+15 secs)
+        SystemClock.sleep(16_000)
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.retry))
+            .press()
+
+        meenButton(R.id.primary_button).doesntExist()
+
+        labelWith(R.string.contacting).assertExists()
+
+        // Unfortunately this is as far as we go, we only test that the withdraw can be retried
+    }
+
+    @Test
+    fun test_06_handle_no_balance_to_withdraw_using_lnurl() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.NO_BALANCE)
+
+        label(R.string.error_lnurl_no_balance_title).assertExists()
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+            .press()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore)  // balance should not change
+    }
+
+    @Test
+    fun test_07_handle_expired_lnurl_error() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.EXPIRED_LNURL)
+
+        label(R.string.error_lnurl_expired_title).assertExists()
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+            .press()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore)  // balance should not change
+    }
+
+    @Test
+    fun test_08_handle_no_route_lnurl_error() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.NO_ROUTE)
+
+        label(R.string.error_lnurl_no_route_title).assertExists()
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+            .press()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore)  // balance should not change
+    }
+
+    @Test
+    fun test_09_handle_invalid_lnurl_tag_error() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.startLnUrlWithdrawViaSend(LappClient.LnUrlVariant.WRONG_TAG)
+
+        label(R.string.error_invalid_lnurl_tag_title).assertExists()
+
+        meenButton(R.id.primary_button).waitForExists()
+            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+            .press()
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore)  // balance should not change
+    }
+
+    @Test
+    fun test_10_a_user_can_withdraw_using_lnurl_via_send_via_manual_input() {
+        autoFlows.signUp()
+
+        val balanceBefore = homeScreen.balanceInBtc
+
+        autoFlows.lnUrlWithdrawViaSend { lnurl ->
+            autoFlows.startOperationManualInputTo(lnurl)
+        }
+
+        // We should be at home by now
+        homeScreen.waitUntilBalanceCloseTo(balanceBefore.add(lnurlWithdrawAmount))
+    }
+}

@@ -14,7 +14,7 @@ import (
 	"github.com/go-errors/errors"
 	"github.com/google/uuid"
 
-	"github.com/muun/libwallet/app_provided_data"
+	"github.com/meen/libwallet/app_provided_data"
 )
 
 type Method string

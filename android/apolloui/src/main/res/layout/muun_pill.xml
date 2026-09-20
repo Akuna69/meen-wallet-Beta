@@ -7,17 +7,17 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="end"
-        android:background="@drawable/muun_pill_background"
+        android:background="@drawable/meen_pill_background"
         android:gravity="center_vertical">
 
-    <io.muun.apollo.presentation.ui.view.ProfilePictureView
-            android:id="@+id/muun_pill_picture"
+    <io.meen.apollo.presentation.ui.view.ProfilePictureView
+            android:id="@+id/meen_pill_picture"
             android:layout_height="0px"
             android:layout_width="0px"
             android:visibility="gone" />
 
     <TextView
-            android:id="@+id/muun_pill_text"
+            android:id="@+id/meen_pill_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
