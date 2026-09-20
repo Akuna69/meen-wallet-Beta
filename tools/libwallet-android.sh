@@ -52,10 +52,11 @@ echo "🚀 Iniciando gomobile bind..."
 # Se desactiva temporalmente set -e para capturar correctamente el código de salida
 set +e
 go run golang.org/x/mobile/cmd/gomobile bind \
-    -target="android" -o "$libwallet" \
+    -target=android/arm64,android/amd64 \
+    -o "$libwallet" \
     -androidapi 21 \
-    -trimpath -ldflags="-buildid=. -v" \
-    . ./newop ./app_provided_data ./libwallet_init
+    -trimpath -ldflags="-buildid=" -v \
+    ./newcop ./app_provided_data ./libwallet_init
 
 st=$?
 set -e
