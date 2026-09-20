@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="MuunHeader">
+    <declare-styleable name="MeenHeader">
         <attr name="elevated" format="boolean" />
     </declare-styleable>
 
-    <declare-styleable name="MuunDetailItem">
+    <declare-styleable name="MeenDetailItem">
         <attr name="description" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="MuunIconButton">
+    <declare-styleable name="MeenIconButton">
         <attr name="label" format="string" />
         <attr name="labelSize" format="dimension" />
         <attr name="icon" format="reference" />
@@ -16,11 +16,11 @@
         <attr name="color" format="color" />
     </declare-styleable>
 
-    <declare-styleable name="MuunEmptyScreen">
+    <declare-styleable name="MeenEmptyScreen">
         <attr name="action" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="MuunTextInput">
+    <declare-styleable name="MeenTextInput">
         <attr name="helperText" format="string" />
 
         <attr name="helperTextVisibility" format="enum">
@@ -41,20 +41,20 @@
         <attr name="digit_vertical_padding" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="MuunAmountInput">
+    <declare-styleable name="MeenAmountInput">
         <!-- from 0.0f to 1.0f -->
         <attr name="textMaxWidthPercent" format="float"/>
     </declare-styleable>
 
-    <declare-styleable name="MuunSwitchSettingItem">
+    <declare-styleable name="MeenSwitchSettingItem">
         <attr name="checked" format="boolean"/>
     </declare-styleable>
 
-    <declare-styleable name="MuunPinInput">
+    <declare-styleable name="MeenPinInput">
         <attr name="pinLength" format="integer"/>
     </declare-styleable>
 
-    <declare-styleable name="MuunPinIndicator">
+    <declare-styleable name="MeenPinIndicator">
         <attr name="length" format="integer"/>
     </declare-styleable>
 

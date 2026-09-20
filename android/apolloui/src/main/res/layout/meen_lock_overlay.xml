@@ -9,7 +9,7 @@
             android:background="@color/background"
             android:fillViewport="true">
 
-    <io.meen.apollo.presentation.ui.view.MuunPinInput
+    <io.meen.apollo.presentation.ui.view.MeenPinInput
             android:id="@+id/unlock_pin_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

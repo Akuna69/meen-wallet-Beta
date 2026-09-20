@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <io.meen.apollo.presentation.ui.view.MuunHeader
+    <io.meen.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
