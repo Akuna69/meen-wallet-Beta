@@ -6,9 +6,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.android.material.chip.Chip
 import io.meen.apollo.R
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
-fun MuunHeader.addWebsitePill(
+fun MeenHeader.addWebsitePill(
     siteUrl: String,
     id: Int = View.generateViewId(),
     onClick: View.OnClickListener? = null,

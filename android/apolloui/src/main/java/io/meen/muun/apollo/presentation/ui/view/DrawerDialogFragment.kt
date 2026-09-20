@@ -4,10 +4,10 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.annotation.DrawableRes
 import io.meen.apollo.presentation.ui.base.BaseActivity
-import io.meen.apollo.presentation.ui.view.MuunActionDrawer.OnActionClickListener
+import io.meen.apollo.presentation.ui.view.MeenActionDrawer.OnActionClickListener
 import java.util.*
 
-open class DrawerDialogFragment : MuunBottomSheetDialogFragment(), OnActionClickListener {
+open class DrawerDialogFragment : MeenBottomSheetDialogFragment(), OnActionClickListener {
 
     var titleResId = 0
 
@@ -64,8 +64,8 @@ open class DrawerDialogFragment : MuunBottomSheetDialogFragment(), OnActionClick
         return actionDrawer
     }
 
-    protected open fun createActionDrawer(): MuunActionDrawer {
-        return MuunActionDrawer(requireContext())
+    protected open fun createActionDrawer(): MeenActionDrawer {
+        return MeenActionDrawer(requireContext())
     }
 
     override fun onActionClick(actionId: Int) {

@@ -102,7 +102,7 @@ open class FulfillIncomingSwapAction @Inject constructor(
                     op.incomingSwap.fulfill(
                         data,
                         fetchUserPrivateKey(),
-                        keysRepository.baseMuunPublicKey,
+                        keysRepository.baseMeenPublicKey,
                         network
                     )
                 }

@@ -8,22 +8,22 @@ import io.meen.apollo.R
 import io.meen.apollo.databinding.FragmentCreatePasswordBinding
 import io.meen.apollo.domain.errors.UserFacingError
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunTextInput
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenTextInput
 
 class CreatePasswordFragment : SingleFragment<CreatePasswordPresenter>(), CreatePasswordView {
 
     private val binding: FragmentCreatePasswordBinding
         get() = getBinding() as FragmentCreatePasswordBinding
 
-    private val passwordInput: MuunTextInput
+    private val passwordInput: MeenTextInput
         get() = binding.createPasswordInput
 
-    private val passwordConfirmInput: MuunTextInput
+    private val passwordConfirmInput: MeenTextInput
         get() = binding.createPasswordConfirmInput
 
-    private val confirmButton: MuunButton
+    private val confirmButton: MeenButton
         get() = binding.createPasswordConfirm
 
     override fun inject() {
@@ -59,7 +59,7 @@ class CreatePasswordFragment : SingleFragment<CreatePasswordPresenter>(), Create
 
     override fun setUpHeader() {
         // Parent Activity has already taken care of the rest
-        parentActivity.header.setNavigation(MuunHeader.Navigation.EXIT)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.EXIT)
     }
 
     override fun onBackPressed(): Boolean {

@@ -23,7 +23,7 @@ import icepick.State;
 import javax.annotation.Nullable;
 import javax.money.MonetaryAmount;
 
-public class FeeOptionItem extends MuunView {
+public class FeeOptionItem extends MeenView {
 
     @BindView(R.id.fee_option_item)
     View layout;

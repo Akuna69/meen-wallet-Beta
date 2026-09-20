@@ -3,8 +3,8 @@ package io.meen.apollo.presentation.ui.settings;
 import io.meen.apollo.R;
 import io.meen.apollo.domain.errors.UserFacingError;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunTextInput;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenTextInput;
 
 import android.text.TextUtils;
 import android.view.View;
@@ -14,13 +14,13 @@ public class OldPasswordFragment extends SingleFragment<OldPasswordPresenter>
         implements OldPasswordView {
 
     @BindView(R.id.enter_old_password_input)
-    MuunTextInput password;
+    MeenTextInput password;
 
     @BindView(R.id.use_recovery_code)
-    MuunButton useRecoveryCodeButton;
+    MeenButton useRecoveryCodeButton;
 
     @BindView(R.id.change_password_continue)
-    MuunButton continueButton;
+    MeenButton continueButton;
 
     @Override
     protected void inject() {

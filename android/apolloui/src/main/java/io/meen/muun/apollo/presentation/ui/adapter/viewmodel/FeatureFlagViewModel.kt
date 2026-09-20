@@ -1,10 +1,10 @@
 package io.meen.apollo.presentation.ui.adapter.viewmodel
 
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.presentation.ui.adapter.holder.ViewHolderFactory
 
 class FeatureFlagViewModel(
-    val overridableFeature: MuunFeature.OverridableFeature.Overridable,
+    val overridableFeature: MeenFeature.OverridableFeature.Overridable,
     val state: State,
 ) : ItemViewModel {
 

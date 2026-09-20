@@ -10,14 +10,14 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.view.HtmlTextView
 import io.meen.apollo.presentation.ui.view.LoadingView
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class RcLoginEmailAuthorizeFragment : SingleFragment<RcLoginEmailAuthorizePresenter>(),
     RcLoginEmailAuthorizeView {
 
     @BindView(R.id.open_email_client)
-    lateinit var openEmailAppButton: MuunButton
+    lateinit var openEmailAppButton: MeenButton
 
     @BindView(R.id.rc_login_email_auth_title)
     lateinit var titleView: TextView
@@ -46,7 +46,7 @@ class RcLoginEmailAuthorizeFragment : SingleFragment<RcLoginEmailAuthorizePresen
 
     override fun setUpHeader() {
         val header = parentActivity.header
-        header.setNavigation(MuunHeader.Navigation.BACK)
+        header.setNavigation(MeenHeader.Navigation.BACK)
         header.setElevated(true)
         header.showTitle(R.string.login_title)
     }

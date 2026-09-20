@@ -1,11 +1,11 @@
 package io.meen.apollo.domain.model
 
-import io.meen.common.crypto.hd.MuunAddress
+import io.meen.common.crypto.hd.MeenAddress
 
-class MuunAddressGroup(
-    val legacy: MuunAddress,
-    val segwit: MuunAddress,
-    val taproot: MuunAddress,
+class MeenAddressGroup(
+    val legacy: MeenAddress,
+    val segwit: MeenAddress,
+    val taproot: MeenAddress,
 ) {
 
     fun toAddressGroup() =

@@ -2,7 +2,7 @@ package io.meen.apollo.presentation.ui.fragments.login_authorize;
 
 import io.meen.apollo.data.external.Globals;
 import io.meen.apollo.domain.action.base.ActionState;
-import io.meen.apollo.domain.action.session.UseMuunLinkAction;
+import io.meen.apollo.domain.action.session.UseMeenLinkAction;
 import io.meen.apollo.domain.action.user.EmailLinkAction;
 import io.meen.apollo.domain.analytics.AnalyticsEvent;
 import io.meen.apollo.domain.errors.ExpiredActionLinkError;
@@ -28,7 +28,7 @@ public class LoginAuthorizePresenter extends
 
     private final UiNotificationPoller notificationPoller;
     private final LoginAuthorizedSelector loginAuthorizedSel;
-    private final UseMuunLinkAction useMuunLinkAction;
+    private final UseMeenLinkAction useMeenLinkAction;
     private final EmailLinkAction emailLinkAction;
 
     /**
@@ -37,12 +37,12 @@ public class LoginAuthorizePresenter extends
     @Inject
     public LoginAuthorizePresenter(UiNotificationPoller notificationPoller,
                                    LoginAuthorizedSelector loginAuthorizedSel,
-                                   UseMuunLinkAction useMuunLinkAction,
+                                   UseMeenLinkAction useMeenLinkAction,
                                    EmailLinkAction emailLinkAction) {
 
         this.notificationPoller = notificationPoller;
         this.loginAuthorizedSel = loginAuthorizedSel;
-        this.useMuunLinkAction = useMuunLinkAction;
+        this.useMeenLinkAction = useMeenLinkAction;
         this.emailLinkAction = emailLinkAction;
     }
 
@@ -66,7 +66,7 @@ public class LoginAuthorizePresenter extends
     }
 
     private void watchForEmailLinkErrors() {
-        final Observable<?> observable = useMuunLinkAction
+        final Observable<?> observable = useMeenLinkAction
                 .getState()
                 .compose(handleStates(view::setLoading, this::handleError))
                 .doOnNext(ignored -> {

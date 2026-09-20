@@ -2,7 +2,7 @@ package io.meen.apollo.domain.errors
 
 const val UNKNOWN_ERROR = "UNKNOWN_ERROR"
 
-open class PlayIntegrityError : MuunError {
+open class PlayIntegrityError : MeenError {
 
     override val classification = ErrorClassification.UNEXPECTED
 

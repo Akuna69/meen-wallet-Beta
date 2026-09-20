@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.meen.apollo.R
 import io.meen.apollo.data.external.Gen
-import io.meen.apollo.utils.WithMuunInstrumentationHelpers
+import io.meen.apollo.utils.WithMeenInstrumentationHelpers
 
 class SignInScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun waitForLanding(): Boolean {
         return normalizedLabel(R.string.signup_start).waitForExists(2500)
@@ -58,11 +58,11 @@ class SignInScreen(
     }
 
     fun recoverWithRecoveryCode() {
-        pressMuunButton(R.id.enter_email_use_rc_only)
+        pressMeenButton(R.id.enter_email_use_rc_only)
     }
 
     fun confirmRecoveryCodeOnlyLogin() {
-        pressMuunButton(R.id.rc_only_login_continue)
+        pressMeenButton(R.id.rc_only_login_continue)
     }
 
     fun startSignup() {
@@ -83,7 +83,7 @@ class SignInScreen(
     }
 
     fun confirmEmail() {
-        pressMuunButton(R.id.enter_email_action)
+        pressMeenButton(R.id.enter_email_action)
     }
 
     fun checkEmailVerificationScreenDisplayed(email: String) {
@@ -116,11 +116,11 @@ class SignInScreen(
     }
 
     fun confirmPassword() {
-        pressMuunButton(R.id.signup_continue)
+        pressMeenButton(R.id.signup_continue)
     }
 
     fun useRecoveryCode() {
-        pressMuunButtonAndWaitForNewWindow(R.id.signup_forgot_password)
+        pressMeenButtonAndWaitForNewWindow(R.id.signup_forgot_password)
     }
 
     fun checkEmailConfirmEnabled(enabled: Boolean) {
@@ -175,6 +175,6 @@ class SignInScreen(
     }
 
     fun confirmRecoveryCode() {
-        pressMuunButton(R.id.signup_forgot_password_continue)
+        pressMeenButton(R.id.signup_forgot_password_continue)
     }
 }

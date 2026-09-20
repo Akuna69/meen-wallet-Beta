@@ -6,7 +6,7 @@ import androidx.annotation.StringRes
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.Until
 import io.meen.apollo.R
-import io.meen.apollo.utils.WithMuunInstrumentationHelpers
+import io.meen.apollo.utils.WithMeenInstrumentationHelpers
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.ComparisonFailure
 import javax.money.MonetaryAmount
@@ -14,7 +14,7 @@ import javax.money.MonetaryAmount
 class OperationDetailScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun waitForStatusChange(@StringRes stringResId: Int) {
         waitForStatusChange(context.getString(stringResId))

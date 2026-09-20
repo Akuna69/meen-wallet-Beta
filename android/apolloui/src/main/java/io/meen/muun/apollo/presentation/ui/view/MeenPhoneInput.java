@@ -14,22 +14,22 @@ import icepick.State;
 
 import javax.annotation.Nullable;
 
-public class MuunPhoneInput extends MuunTextInput {
+public class MeenPhoneInput extends MeenTextInput {
 
     @State
     protected String countryCode;
 
     private TextWatcher formatter;
 
-    public MuunPhoneInput(Context context) {
+    public MeenPhoneInput(Context context) {
         super(context);
     }
 
-    public MuunPhoneInput(Context context, AttributeSet attrs) {
+    public MeenPhoneInput(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MuunPhoneInput(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MeenPhoneInput(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 

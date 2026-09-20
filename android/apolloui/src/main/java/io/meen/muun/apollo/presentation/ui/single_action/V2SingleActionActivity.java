@@ -6,7 +6,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity;
 import io.meen.apollo.presentation.ui.fragments.need_recovery_code.NeedRecoveryCodeFragment;
 import io.meen.apollo.presentation.ui.fragments.new_op_error.NewOperationErrorFragment;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 import io.meen.common.exception.MissingCaseError;
 import io.meen.common.utils.Preconditions;
 
@@ -62,7 +62,7 @@ public class V2SingleActionActivity extends SingleFragmentActivity<V2SingleActio
     }
 
     @Override
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         // this activity has no header/toolbar. Should it?
         // TODO add a toolbar (and hide it) or handle it better
         return null;

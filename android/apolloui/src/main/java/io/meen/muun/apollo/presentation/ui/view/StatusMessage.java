@@ -20,7 +20,7 @@ import kotlin.jvm.functions.Function1;
 
 import javax.annotation.Nullable;
 
-public class StatusMessage extends MuunView {
+public class StatusMessage extends MeenView {
 
     static final ViewProps<StatusMessage> viewProps = new ViewProps.Builder<StatusMessage>()
             .addSizeJava(android.R.attr.textSize, StatusMessage::setTextSize)

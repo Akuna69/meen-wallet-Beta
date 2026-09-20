@@ -5,7 +5,7 @@ import app_provided_data.BackendActivatedFeatureStatusProvider
 import io.meen.apollo.data.preferences.adapter.JsonPreferenceAdapter
 import io.meen.apollo.data.preferences.rx.Preference
 import io.meen.apollo.data.preferences.stored.StoredBackendFeatures
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import rx.Observable
 import timber.log.Timber
 import javax.inject.Inject
@@ -32,15 +32,15 @@ open class FeaturesRepository @Inject constructor(
     /**
      * Fetch an observable instance of the currently supported backend features.
      */
-    fun fetch(): Observable<List<MuunFeature>> {
+    fun fetch(): Observable<List<MeenFeature>> {
         return backendFeaturesPref.asObservable()
-            .map { it.features.map(MuunFeature.Companion::fromLibwalletModel) }
+            .map { it.features.map(MeenFeature.Companion::fromLibwalletModel) }
     }
 
     /**
      * Store a new set of backend features.
      */
-    open fun store(newFeatures: List<MuunFeature>) {
+    open fun store(newFeatures: List<MeenFeature>) {
         val storedBackendFeatures = backendFeaturesPref.get()!! // Has default value
         storedBackendFeatures.features = newFeatures.map { it.toLibwalletModel() }
         backendFeaturesPref.set(storedBackendFeatures)

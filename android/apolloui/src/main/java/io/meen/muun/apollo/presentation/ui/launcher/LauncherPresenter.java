@@ -4,7 +4,7 @@ import io.meen.apollo.data.external.Globals;
 import io.meen.apollo.data.preferences.ClientVersionRepository;
 import io.meen.apollo.domain.ApiMigrationsManager;
 import io.meen.apollo.domain.action.UserActions;
-import io.meen.apollo.domain.action.session.UseMuunLinkAction;
+import io.meen.apollo.domain.action.session.UseMeenLinkAction;
 import io.meen.apollo.domain.errors.DeprecatedClientVersionError;
 import io.meen.apollo.presentation.ui.base.BasePresenter;
 import io.meen.apollo.presentation.ui.base.BaseView;
@@ -21,7 +21,7 @@ public class LauncherPresenter extends BasePresenter<BaseView> {
 
     private final UserActions userActions;
 
-    private final UseMuunLinkAction useMuunLinkAction;
+    private final UseMeenLinkAction useMeenLinkAction;
 
     private final ClientVersionRepository clientVersionRepository;
 
@@ -32,12 +32,12 @@ public class LauncherPresenter extends BasePresenter<BaseView> {
      */
     @Inject
     public LauncherPresenter(UserActions userActions,
-                             UseMuunLinkAction useMuunLinkAction,
+                             UseMeenLinkAction useMeenLinkAction,
                              ClientVersionRepository clientVersionRepository,
                              ApiMigrationsManager apiMigrationsManager) {
 
         this.userActions = userActions;
-        this.useMuunLinkAction = useMuunLinkAction;
+        this.useMeenLinkAction = useMeenLinkAction;
         this.clientVersionRepository = clientVersionRepository;
         this.apiMigrationsManager = apiMigrationsManager;
     }
@@ -54,9 +54,9 @@ public class LauncherPresenter extends BasePresenter<BaseView> {
             final String maybeUri = uri != null ? uri.toString() : "null";
             Timber.i("HandleLaunch(isTaskRoot: %s, uri: %s)", isTaskRoot, maybeUri);
 
-            // If we caught an Intent with an URI (from an external Muun link), handle it:
+            // If we caught an Intent with an URI (from an external Meen link), handle it:
             if (uri != null) {
-                useMuunLinkAction.run(uri.toString());
+                useMeenLinkAction.run(uri.toString());
             }
 
             // If this activity is the task root, then this is a "fresh start" and we need to

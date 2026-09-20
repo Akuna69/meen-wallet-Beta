@@ -13,7 +13,7 @@ import io.meen.apollo.presentation.app.ApolloApplication
 import io.meen.apollo.presentation.app.Navigator
 import io.meen.apollo.presentation.ui.base.di.ActivityComponent
 import io.meen.apollo.presentation.ui.utils.setWindowInsetsCompat
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import javax.inject.Inject
 
 class DebugSecureKeyValueStorageActivity : AppCompatActivity() {
@@ -57,7 +57,7 @@ class DebugSecureKeyValueStorageActivity : AppCompatActivity() {
 
     private fun setUpHeader() {
         binding.header.attachToActivity(this)
-        binding.header.setNavigation(MuunHeader.Navigation.BACK)
+        binding.header.setNavigation(MeenHeader.Navigation.BACK)
         binding.header.showTitle("SecureKeyValueStorage debug")
     }
 

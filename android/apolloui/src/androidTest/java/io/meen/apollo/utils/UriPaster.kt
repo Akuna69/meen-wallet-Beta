@@ -8,7 +8,7 @@ import io.meen.apollo.R
 class UriPaster(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun waitForExists(): UiObject {
         val uriPaster = id(R.id.uri_paster)

@@ -2,7 +2,7 @@ package io.meen.apollo.domain.model;
 
 
 import io.meen.apollo.domain.model.tx.PartiallySignedTransaction;
-import io.meen.common.crypto.hd.MuunAddress;
+import io.meen.common.crypto.hd.MeenAddress;
 
 import java.util.List;
 import javax.annotation.Nullable;
@@ -20,7 +20,7 @@ public class OperationCreated {
     public final NextTransactionSize nextTransactionSize;
 
     @Nullable // null if the Operation has no change
-    public final MuunAddress changeAddress;
+    public final MeenAddress changeAddress;
 
     public final List<PartiallySignedTransaction> alternativeTransactions;
 
@@ -30,7 +30,7 @@ public class OperationCreated {
     public OperationCreated(OperationWithMetadata operation,
                             PartiallySignedTransaction partiallySignedTransaction,
                             NextTransactionSize nextTransactionSize,
-                            @Nullable MuunAddress changeAddress,
+                            @Nullable MeenAddress changeAddress,
                             List<PartiallySignedTransaction> alternativeTransactions
     ) {
 

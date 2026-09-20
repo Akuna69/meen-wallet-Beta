@@ -3,7 +3,7 @@ package io.meen.apollo.domain.action.address
 import io.meen.apollo.data.preferences.KeysRepository
 import io.meen.apollo.domain.action.base.BaseAsyncAction0
 import io.meen.apollo.domain.libwallet.LibwalletBridge
-import io.meen.apollo.domain.model.MuunAddressGroup
+import io.meen.apollo.domain.model.MeenAddressGroup
 import io.meen.common.Rules
 import io.meen.common.crypto.hd.Schema
 import io.meen.common.utils.Preconditions
@@ -17,20 +17,20 @@ class CreateAddressAction @Inject constructor(
     private val keysRepository: KeysRepository,
     private val networkParameters: NetworkParameters,
     private val syncExternalAddressIndexes: SyncExternalAddressIndexesAction,
-) : BaseAsyncAction0<MuunAddressGroup>() {
+) : BaseAsyncAction0<MeenAddressGroup>() {
 
     /**
      * Sync the external address indexes with Houston.
      */
-    override fun action(): Observable<MuunAddressGroup> =
+    override fun action(): Observable<MeenAddressGroup> =
         Observable.defer {
-            val addresses = createMuunAddressGroup()
+            val addresses = createMeenAddressGroup()
             syncExternalAddressIndexes.run() // we don't wait
 
             Observable.just(addresses)
         }
 
-    private fun createMuunAddressGroup(): MuunAddressGroup {
+    private fun createMeenAddressGroup(): MeenAddressGroup {
         val maxUsedIndex = keysRepository.maxUsedExternalAddressIndex
         val maxWatchingIndex = keysRepository.maxWatchingExternalAddressIndex
 
@@ -59,7 +59,7 @@ class CreateAddressAction @Inject constructor(
             keysRepository.maxUsedExternalAddressIndex = derivedPublicKeyPair.lastLevelIndex
         }
 
-        return MuunAddressGroup(
+        return MeenAddressGroup(
             LibwalletBridge.createAddressV3(derivedPublicKeyPair, networkParameters),
             LibwalletBridge.createAddressV4(derivedPublicKeyPair, networkParameters),
             LibwalletBridge.createAddressV5(derivedPublicKeyPair, networkParameters)

@@ -13,9 +13,9 @@ import io.meen.apollo.presentation.ui.base.BaseActivity
 import io.meen.apollo.presentation.ui.utils.OS
 import io.meen.apollo.presentation.ui.utils.UiUtils
 import io.meen.apollo.presentation.ui.utils.isInNightMode
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
-import io.meen.apollo.presentation.ui.view.MuunSettingItem
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenSettingItem
 
 class SelectNightModeActivity : BaseActivity<SelectNightModePresenter>(), SelectNightModeView {
 
@@ -27,18 +27,18 @@ class SelectNightModeActivity : BaseActivity<SelectNightModePresenter>(), Select
     private val binding: ActivitySelectNightModeBinding
         get() = getBinding() as ActivitySelectNightModeBinding
 
-    private val header: MuunHeader
+    private val header: MeenHeader
         get() = binding.selectDarkModeHeader
 
 
-    private val darkModeItem: MuunSettingItem
+    private val darkModeItem: MeenSettingItem
         get() = binding.nightModeDark
 
 
-    private val lightModeItem: MuunSettingItem
+    private val lightModeItem: MeenSettingItem
         get() = binding.nightModeLight
 
-    private val followSystemItem: MuunSettingItem
+    private val followSystemItem: MeenSettingItem
         get() = binding.nightModeFollowSystem
 
     override fun inject() =

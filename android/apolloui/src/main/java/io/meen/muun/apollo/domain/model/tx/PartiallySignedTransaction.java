@@ -1,8 +1,8 @@
 package io.meen.apollo.domain.model.tx;
 
-import io.meen.common.api.MuunInputJson;
+import io.meen.common.api.MeenInputJson;
 import io.meen.common.api.PartiallySignedTransactionJson;
-import io.meen.common.crypto.hd.MuunInput;
+import io.meen.common.crypto.hd.MeenInput;
 import io.meen.common.utils.Encodings;
 
 import org.bitcoinj.core.NetworkParameters;
@@ -24,7 +24,7 @@ public class PartiallySignedTransaction {
     private final Transaction transaction;
 
     @NotNull
-    private final List<MuunInput> inputs;
+    private final List<MeenInput> inputs;
 
     /**
      * Build from a json-serializable representation.
@@ -38,9 +38,9 @@ public class PartiallySignedTransaction {
             return null;
         }
 
-        final ArrayList<MuunInput> inputs = new ArrayList<>();
-        for (MuunInputJson input : json.inputs) {
-            inputs.add(MuunInput.fromJson(input));
+        final ArrayList<MeenInput> inputs = new ArrayList<>();
+        for (MeenInputJson input : json.inputs) {
+            inputs.add(MeenInput.fromJson(input));
         }
 
         return new PartiallySignedTransaction(
@@ -52,7 +52,7 @@ public class PartiallySignedTransaction {
     /**
      * Constructor.
      */
-    public PartiallySignedTransaction(Transaction transaction, List<MuunInput> inputs) {
+    public PartiallySignedTransaction(Transaction transaction, List<MeenInput> inputs) {
         this.transaction = transaction;
         this.inputs = inputs;
     }
@@ -61,7 +61,7 @@ public class PartiallySignedTransaction {
         return transaction;
     }
 
-    public List<MuunInput> getInputs() {
+    public List<MeenInput> getInputs() {
         return inputs;
     }
 

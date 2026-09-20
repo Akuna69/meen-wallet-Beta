@@ -14,7 +14,7 @@ import kotlin.jvm.functions.Function1;
 
 import javax.annotation.Nullable;
 
-public class SimpleMessageView extends MuunView {
+public class SimpleMessageView extends MeenView {
 
     private SimpleMessageViewBinding binding;
 
@@ -75,7 +75,7 @@ public class SimpleMessageView extends MuunView {
      * Set the (optional) action text content.
      */
     public void setAction(@StringRes int resId) {
-        final MuunButton action = binding.simpleMessageButton;
+        final MeenButton action = binding.simpleMessageButton;
         if (resId != 0) {
             action.setText(resId);
             action.setVisibility(View.VISIBLE);

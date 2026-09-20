@@ -1,10 +1,10 @@
 package io.meen.apollo.domain.errors.data
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.common.exception.PotentialBug
 
-class MuunDeserializationError(cause: Exception, json: String?) : MuunError(cause), PotentialBug {
+class MeenDeserializationError(cause: Exception, json: String?) : MeenError(cause), PotentialBug {
 
     override val classification = ErrorClassification.UNEXPECTED
 

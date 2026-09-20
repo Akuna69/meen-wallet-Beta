@@ -13,7 +13,7 @@ import io.meen.apollo.presentation.biometrics.BiometricsController;
 import io.meen.apollo.presentation.ui.base.ActivityExtension;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.base.di.PerActivity;
-import io.meen.apollo.presentation.ui.view.MuunLockOverlay;
+import io.meen.apollo.presentation.ui.view.MeenLockOverlay;
 import io.meen.common.exception.MissingCaseError;
 
 import android.content.Context;
@@ -52,7 +52,7 @@ public class ApplicationLockExtension extends ActivityExtension {
 
     private final BiometricsController biometricsController;
 
-    private MuunLockOverlay lockOverlay;
+    private MeenLockOverlay lockOverlay;
 
     @State
     boolean requireUnlock = true;
@@ -99,7 +99,7 @@ public class ApplicationLockExtension extends ActivityExtension {
         Timber.d("Lifecycle: " + getClass().getSimpleName() + "#showLockOverlay");
 
         if (lockOverlay == null) {
-            lockOverlay = new MuunLockOverlay(getActivity());
+            lockOverlay = new MeenLockOverlay(getActivity());
 
             lockOverlay.setPinLength(lockManager.getPinLength());
             lockOverlay.setListener(new BoundLockOverlayListener());
@@ -139,7 +139,7 @@ public class ApplicationLockExtension extends ActivityExtension {
         final View currentFocus = getActivity().getCurrentFocus();
 
         if (currentFocus instanceof EditText) {
-            // EditText also covers TextInputEditText, used by MuunTextInput. Is this enough?
+            // EditText also covers TextInputEditText, used by MeenTextInput. Is this enough?
             showSoftInput(currentFocus);
         }
     }
@@ -194,7 +194,7 @@ public class ApplicationLockExtension extends ActivityExtension {
         }
     }
 
-    private class BoundLockOverlayListener implements MuunLockOverlay.LockOverlayListener {
+    private class BoundLockOverlayListener implements MeenLockOverlay.LockOverlayListener {
 
         @Override
         public void onPinEntered(String pin) {

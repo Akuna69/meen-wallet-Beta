@@ -1,12 +1,12 @@
 package io.meen.apollo.domain.errors.notifications
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.common.api.messages.MessageOrigin
 import io.meen.common.api.messages.MessageSpec
 
 class MessageOriginError(sessionId: String, msgId: Long, origin: MessageOrigin, spec: MessageSpec) :
-    MuunError("Received a message from an unexpected origin") {
+    MeenError("Received a message from an unexpected origin") {
 
     override val classification = ErrorClassification.UNEXPECTED
 

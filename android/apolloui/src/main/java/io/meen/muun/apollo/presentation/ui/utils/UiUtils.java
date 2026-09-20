@@ -331,7 +331,7 @@ public class UiUtils {
 
     /**
      * Programatically get value from custom style attribute (e.g actionMenuTextColor from
-     * MuunActionBarStyle in styles.xml).
+     * MeenActionBarStyle in styles.xml).
      */
     public static int getColorAttrValueFromStyle(@NonNull Context context, @StyleRes int resid,
                                                  int attrId) {

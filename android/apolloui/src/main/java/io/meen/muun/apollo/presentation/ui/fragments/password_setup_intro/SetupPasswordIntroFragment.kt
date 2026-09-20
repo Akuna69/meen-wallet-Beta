@@ -8,7 +8,7 @@ import io.meen.apollo.R
 import io.meen.apollo.databinding.FragmentSetupPasswordIntroBinding
 import io.meen.apollo.domain.model.SecurityLevel
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class SetupPasswordIntroFragment : SingleFragment<SetupPasswordIntroPresenter>(),
     SetupPasswordIntroView {
@@ -33,7 +33,7 @@ class SetupPasswordIntroFragment : SingleFragment<SetupPasswordIntroPresenter>()
 
     override fun setUpHeader() {
         parentActivity.header.let {
-            it.setNavigation(MuunHeader.Navigation.BACK)
+            it.setNavigation(MeenHeader.Navigation.BACK)
             it.hideTitle()
             it.setIndicatorText(null)
             it.setElevated(false)

@@ -10,7 +10,7 @@ import io.meen.apollo.databinding.FragmentChangePasswordBinding
 import io.meen.apollo.domain.model.user.User
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.recovery_code.SetupRecoveryCodeActivity
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 internal class AcceptRecoveryCodeFragment : SingleFragment<AcceptRecoveryCodePresenter>(),
     AcceptRecoveryCodeView {
@@ -63,7 +63,7 @@ internal class AcceptRecoveryCodeFragment : SingleFragment<AcceptRecoveryCodePre
         parentActivity.header.apply {
             setIndicatorText(indicatorText)
             setElevated(true)
-            setNavigation(MuunHeader.Navigation.EXIT)
+            setNavigation(MeenHeader.Navigation.EXIT)
         }
     }
 

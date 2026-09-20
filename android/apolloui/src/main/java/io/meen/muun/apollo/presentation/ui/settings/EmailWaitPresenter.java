@@ -3,7 +3,7 @@ package io.meen.apollo.presentation.ui.settings;
 import io.meen.apollo.data.external.Globals;
 import io.meen.apollo.domain.action.UserActions;
 import io.meen.apollo.domain.action.base.ActionState;
-import io.meen.apollo.domain.action.session.UseMuunLinkAction;
+import io.meen.apollo.domain.action.session.UseMeenLinkAction;
 import io.meen.apollo.domain.action.user.EmailLinkAction;
 import io.meen.apollo.domain.errors.ExpiredActionLinkError;
 import io.meen.apollo.domain.errors.InvalidActionLinkError;
@@ -27,7 +27,7 @@ public class EmailWaitPresenter extends BaseEditPasswordPresenter<VerifyEmailVie
 
     private final UserActions userActions;
     private final UiNotificationPoller notificationPoller;
-    private final UseMuunLinkAction useMuunLinkAction;
+    private final UseMeenLinkAction useMeenLinkAction;
     private final EmailLinkAction emailLinkAction;
 
     /**
@@ -36,12 +36,12 @@ public class EmailWaitPresenter extends BaseEditPasswordPresenter<VerifyEmailVie
     @Inject
     public EmailWaitPresenter(UserActions userActions,
                               UiNotificationPoller notificationPoller,
-                              UseMuunLinkAction useMuunLinkAction,
+                              UseMeenLinkAction useMeenLinkAction,
                               EmailLinkAction emailLinkAction) {
 
         this.userActions = userActions;
         this.notificationPoller = notificationPoller;
-        this.useMuunLinkAction = useMuunLinkAction;
+        this.useMeenLinkAction = useMeenLinkAction;
         this.emailLinkAction = emailLinkAction;
     }
 
@@ -68,7 +68,7 @@ public class EmailWaitPresenter extends BaseEditPasswordPresenter<VerifyEmailVie
     }
 
     private void watchForEmailLinkErrors() {
-        final Observable<?> observable = useMuunLinkAction
+        final Observable<?> observable = useMeenLinkAction
                 .getState()
                 .compose(handleStates(view::setLoading, this::handleError))
                 .doOnNext(ignored -> {

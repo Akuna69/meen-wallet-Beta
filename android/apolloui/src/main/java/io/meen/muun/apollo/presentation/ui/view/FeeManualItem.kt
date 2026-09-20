@@ -14,7 +14,7 @@ class FeeManualItem @JvmOverloads constructor(
     context: Context,
     a: AttributeSet? = null,
     s: Int = 0
-) : MuunView(context, a, s) {
+) : MeenView(context, a, s) {
 
     @BindView(R.id.title)
     lateinit var titleView: TextView

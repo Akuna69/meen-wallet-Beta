@@ -4,17 +4,17 @@ import android.view.View
 import butterknife.BindView
 import io.meen.apollo.R
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 
 
 class EmergencyKitCloudVerifyFragment : SingleFragment<EmergencyKitCloudVerifyPresenter>(),
     EmergencyKitCloudVerifyView {
 
     @BindView(R.id.open_cloud_file)
-    lateinit var openCloudFileButton: MuunButton
+    lateinit var openCloudFileButton: MeenButton
 
     @BindView(R.id.confirm)
-    lateinit var confirmButton: MuunButton
+    lateinit var confirmButton: MeenButton
 
     override fun inject() =
         component.inject(this)

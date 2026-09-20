@@ -7,13 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.FragmentDisableFeatureFlagsBinding
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.presentation.ui.adapter.ItemAdapter
 import io.meen.apollo.presentation.ui.adapter.holder.ViewHolderFactory
 import io.meen.apollo.presentation.ui.adapter.viewmodel.FeatureFlagViewModel
 import io.meen.apollo.presentation.ui.adapter.viewmodel.ItemViewModel
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class DisableFeatureFlagsFragment : SingleFragment<DisableFeatureFlagsPresenter>(),
     DisableFeatureFlagsView {
@@ -37,7 +37,7 @@ class DisableFeatureFlagsFragment : SingleFragment<DisableFeatureFlagsPresenter>
     override fun setUpHeader() {
         parentActivity.header.apply {
             showTitle(R.string.settings_disable_feature_flags)
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
         }
     }
 
@@ -56,8 +56,8 @@ class DisableFeatureFlagsFragment : SingleFragment<DisableFeatureFlagsPresenter>
     }
 
     override fun setState(
-        features: List<MuunFeature.OverridableFeature.Overridable>,
-        featureOverrides: List<MuunFeature.OverridableFeature.Overridable>
+        features: List<MeenFeature.OverridableFeature.Overridable>,
+        featureOverrides: List<MeenFeature.OverridableFeature.Overridable>
     ) {
 
         val featureFlagViewModels = features

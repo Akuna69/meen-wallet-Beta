@@ -3,7 +3,7 @@ package io.meen.apollo.data.net.base.interceptor
 import io.meen.apollo.data.afs.BackgroundExecutionMetricsProvider
 import io.meen.apollo.data.net.base.BaseInterceptor
 import io.meen.apollo.data.toSafeAscii
-import io.meen.apollo.domain.errors.data.MuunSerializationError
+import io.meen.apollo.domain.errors.data.MeenSerializationError
 import io.meen.apollo.domain.model.user.User
 import io.meen.apollo.domain.selector.UserSelector
 import io.meen.common.net.HeaderUtils
@@ -52,6 +52,6 @@ class BackgroundExecutionMetricsInterceptor @Inject constructor(
         val supportId = userSel.getOptional()
             .flatMap { obj: User -> obj.supportId }
             .orElse("Not logged in")
-        Timber.e(MuunSerializationError(supportId, originalRequest, e))
+        Timber.e(MeenSerializationError(supportId, originalRequest, e))
     }
 }

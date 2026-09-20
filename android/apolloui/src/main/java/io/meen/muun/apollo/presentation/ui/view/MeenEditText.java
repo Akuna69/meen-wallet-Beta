@@ -6,17 +6,17 @@ import android.content.Context;
 import android.util.AttributeSet;
 import androidx.appcompat.widget.AppCompatEditText;
 
-public class MuunEditText extends AppCompatEditText implements DecorationHandler {
+public class MeenEditText extends AppCompatEditText implements DecorationHandler {
 
-    public MuunEditText(Context context) {
+    public MeenEditText(Context context) {
         super(context);
     }
 
-    public MuunEditText(Context context, AttributeSet attrs) {
+    public MeenEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public MuunEditText(Context context, AttributeSet attrs, int defStyleAttr) {
+    public MeenEditText(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 }

@@ -13,7 +13,7 @@ import io.meen.apollo.domain.action.user.UpdateUserPreferencesAction
 import io.meen.apollo.domain.errors.debug.DebugExecutableError
 import io.meen.apollo.domain.libwallet.LibwalletClient
 import io.meen.apollo.domain.selector.UserPreferencesSelector
-import io.meen.common.crypto.hd.MuunAddress
+import io.meen.common.crypto.hd.MeenAddress
 import rx.Observable
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -38,7 +38,7 @@ class DebugExecutable @Inject constructor(
     private val lapp = LappClient()
 
     fun fundWalletOnChain(): Observable<Void> = Observable.defer {
-        val segwitAddress: MuunAddress = createAddress.actionNow().segwit
+        val segwitAddress: MeenAddress = createAddress.actionNow().segwit
         lapp.receiveBtc(0.4, segwitAddress.address)
 
         Observable.just<Void?>(null)

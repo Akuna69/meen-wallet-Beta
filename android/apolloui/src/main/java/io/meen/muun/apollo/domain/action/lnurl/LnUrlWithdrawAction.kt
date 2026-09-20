@@ -203,7 +203,7 @@ class LnUrlWithdrawAction @Inject constructor(
 
                 // TODO: we may want to log only specific errors or add some to our crashlytics
                 //  noise reducing blacklist
-                Timber.e(error.toMuunError())
+                Timber.e(error.toMeenError())
                 subject.onNext(LnUrlState.Failed(error = error))
             }
         }

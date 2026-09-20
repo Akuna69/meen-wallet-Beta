@@ -4,7 +4,7 @@ import androidx.annotation.VisibleForTesting
 import io.meen.apollo.domain.model.base.HoustonIdModel
 import io.meen.apollo.domain.utils.DateUtils
 import io.meen.common.api.OperationMetadataJson
-import io.meen.common.crypto.hd.MuunAddress
+import io.meen.common.crypto.hd.MeenAddress
 import io.meen.common.model.OperationDirection
 import io.meen.common.model.OperationStatus
 import io.meen.common.utils.Preconditions
@@ -120,7 +120,7 @@ class Operation(
     }
 
     @JvmField
-    var changeAddress: MuunAddress? = null
+    var changeAddress: MeenAddress? = null
 
     /**
      * Whether this operation was sent and received by the same User.

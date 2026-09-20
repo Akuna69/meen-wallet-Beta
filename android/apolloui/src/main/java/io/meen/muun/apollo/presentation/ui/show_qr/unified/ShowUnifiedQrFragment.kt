@@ -12,7 +12,7 @@ import io.meen.apollo.domain.libwallet.DecodedBitcoinUri
 import io.meen.apollo.domain.model.AddressType
 import io.meen.apollo.domain.model.BitcoinUnit
 import io.meen.apollo.domain.model.UserActivatedFeatureStatus
-import io.meen.apollo.presentation.ui.MuunCountdownTimer
+import io.meen.apollo.presentation.ui.MeenCountdownTimer
 import io.meen.apollo.presentation.ui.select_amount.SelectAmountActivity
 import io.meen.apollo.presentation.ui.show_qr.NotificationsPrimingView
 import io.meen.apollo.presentation.ui.show_qr.QrFragment
@@ -28,7 +28,7 @@ import javax.money.MonetaryAmount
 class ShowUnifiedQrFragment : QrFragment<ShowUnifiedQrPresenter>(),
     ShowUnifiedQrView,
     AddressTypeItem.AddressTypeChangedListener,
-    MuunCountdownTimer.CountDownTimerListener {
+    MeenCountdownTimer.CountDownTimerListener {
 
     companion object {
         private const val REQUEST_AMOUNT = 3
@@ -78,7 +78,7 @@ class ShowUnifiedQrFragment : QrFragment<ShowUnifiedQrPresenter>(),
     @JvmField
     var highFees = false
 
-    private var countdownTimer: MuunCountdownTimer? = null
+    private var countdownTimer: MeenCountdownTimer? = null
 
     override fun inject() {
         component.inject(this)
@@ -142,7 +142,7 @@ class ShowUnifiedQrFragment : QrFragment<ShowUnifiedQrPresenter>(),
         addressTypeItem.show(addressType)
 
         stopTimer()
-        countdownTimer = MuunCountdownTimer(bitcoinUri.invoice.remainingMillis(), this)
+        countdownTimer = MeenCountdownTimer(bitcoinUri.invoice.remainingMillis(), this)
 
         countdownTimer!!.start()
 

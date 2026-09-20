@@ -21,7 +21,7 @@ import javax.inject.Inject
  * instantiated and injected on mainThread. For more info:
  * https://developer.android.com/topic/libraries/architecture/workmanager/advanced/custom-configuration
  */
-class MuunWorkerFactory(provider: DataComponentProvider) : WorkerFactory() {
+class MeenWorkerFactory(provider: DataComponentProvider) : WorkerFactory() {
 
     @Inject
     lateinit var taskDispatcher: TaskDispatcher
@@ -42,7 +42,7 @@ class MuunWorkerFactory(provider: DataComponentProvider) : WorkerFactory() {
     lateinit var analytics: Analytics
 
     init {
-        Timber.d("[MuunWorkerFactory] Execute Dependency Injection")
+        Timber.d("[MeenWorkerFactory] Execute Dependency Injection")
         provider.dataComponent.inject(this)
     }
 
@@ -52,7 +52,7 @@ class MuunWorkerFactory(provider: DataComponentProvider) : WorkerFactory() {
         workerParameters: WorkerParameters,
     ): ListenableWorker? {
 
-        Timber.d("[MuunWorkerFactory] Create worker for $workerClassName")
+        Timber.d("[MeenWorkerFactory] Create worker for $workerClassName")
         val workerClass = Class.forName(workerClassName)
 
         // Should be enforce by WorkManager API but still (why don't they use Class param?!)

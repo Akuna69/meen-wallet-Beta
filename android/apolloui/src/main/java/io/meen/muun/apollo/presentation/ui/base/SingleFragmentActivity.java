@@ -5,7 +5,7 @@ import io.meen.apollo.presentation.ui.bundler.StringListBundler;
 import io.meen.apollo.presentation.ui.fragments.error.ErrorViewModel;
 import io.meen.apollo.presentation.ui.listener.OnBackPressedListener;
 import io.meen.apollo.presentation.ui.utils.ExtensionsKt;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 import io.meen.common.utils.Preconditions;
 
 import android.annotation.SuppressLint;
@@ -44,9 +44,9 @@ public abstract class SingleFragmentActivity<PresenterT extends Presenter>
     }
 
     /**
-     * Get Muun header (action/toolbar wrapper).
+     * Get Meen header (action/toolbar wrapper).
      */
-    public abstract MuunHeader getHeader();
+    public abstract MeenHeader getHeader();
 
     @Override
     protected void setUpExtensions() {
@@ -88,8 +88,8 @@ public abstract class SingleFragmentActivity<PresenterT extends Presenter>
      * - Fragment#onAttach (so fragment is attached to activity, getActivity returns non null).
      */
     final void attachHeader() {
-        final MuunHeader header = getHeader();
-        if (header != null) { // MuunHeader's optional for SingleFragment (see SingleActionFragment)
+        final MeenHeader header = getHeader();
+        if (header != null) { // MeenHeader's optional for SingleFragment (see SingleActionFragment)
             header.attachToActivity(this);
         }
     }
@@ -193,7 +193,7 @@ public abstract class SingleFragmentActivity<PresenterT extends Presenter>
         // that makes sense in some universe. Nobody ever removes C. The result: both A and C end up
         // on screen, comically overlapped. This is actually pretty funny. Here's a screenshot:
 
-        // https://drive.google.com/open?id=19kHSOZyCmjXpOWg0puyPpANuNWaVx8yv (needs Muun account)
+        // https://drive.google.com/open?id=19kHSOZyCmjXpOWg0puyPpANuNWaVx8yv (needs Meen account)
 
         // Now, as to the solution. We push *all* transitions to the back-stack, but we tag
         // them with the the value of `canGoBackToCurrent`, as seen above this comment.

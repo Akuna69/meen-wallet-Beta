@@ -32,7 +32,7 @@ class SelectAmountPresenter @Inject constructor(
         private val DUST_AMOUNT = BitcoinUtils.satoshisToBitcoins(BitcoinUtils.DUST_IN_SATOSHIS)
     }
 
-    // State: presenter has to be marked as persistent (has a MuunAmountInput, which,
+    // State: presenter has to be marked as persistent (has a MeenAmountInput, which,
     // after a currency change can wreak havoc if all this state isn't persisted, in particular
     // rateProvider).
 

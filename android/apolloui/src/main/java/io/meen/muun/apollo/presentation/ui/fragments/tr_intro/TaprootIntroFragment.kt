@@ -1,7 +1,7 @@
 package io.meen.apollo.presentation.ui.fragments.tr_intro
 
 import io.meen.apollo.R
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.fragments.flow_intro.FlowIntroFragment
 import io.meen.apollo.presentation.ui.fragments.flow_intro.FlowIntroView
 import rx.functions.Action0
@@ -32,7 +32,7 @@ class TaprootIntroFragment : FlowIntroFragment<
         }
 
     private fun showAbortDialog() {
-        val dialog = MuunDialog.Builder()
+        val dialog = MeenDialog.Builder()
             .title(R.string.tr_setup_intro_abort_title)
             .message(R.string.tr_setup_intro_abort_desc)
             .positiveButton(R.string.leave) { presenter.abortIntroduction() }

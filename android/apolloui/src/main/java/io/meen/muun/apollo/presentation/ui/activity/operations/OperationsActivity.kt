@@ -14,7 +14,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragmentActivity
 import io.meen.apollo.presentation.ui.base.SingleFragmentPresenter
 import io.meen.apollo.presentation.ui.base.SingleFragmentView
 import io.meen.apollo.presentation.ui.fragments.operations.OperationsFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 
 class OperationsActivity
@@ -28,7 +28,7 @@ class OperationsActivity
     private val binding: ActivityOperationsBinding
         get() = getBinding() as ActivityOperationsBinding
 
-    private val headerView: MuunHeader
+    private val headerView: MeenHeader
         get() = binding.header
 
     override fun inject() {
@@ -45,7 +45,7 @@ class OperationsActivity
     override fun getFragmentsContainer() =
         R.id.container
 
-    override fun getHeader(): MuunHeader =
+    override fun getHeader(): MeenHeader =
         headerView
 
     override fun getInitialFragment() =

@@ -16,7 +16,7 @@ class MoneyDecorationError(
     selectionStart: Int,
     start: Int,
     after: Int,
-) : MuunError(message), PotentialBug {
+) : MeenError(message), PotentialBug {
 
     override val classification = ErrorClassification.UNEXPECTED
 

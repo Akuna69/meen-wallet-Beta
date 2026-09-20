@@ -24,7 +24,7 @@ import io.meen.apollo.presentation.ui.utils.getComponent
 import io.meen.apollo.presentation.ui.utils.hideSoftInputMethod
 import io.meen.apollo.presentation.ui.utils.setTextIfChanged
 import io.meen.apollo.presentation.ui.utils.setWindowInsetsCompat
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -123,7 +123,7 @@ class ShippingAddressActivity : AppCompatActivity() {
     private fun configureHeader() {
         binding.header.attachToActivity(this)
         binding.header.setBackgroundColor(getColorCompat(R.color.surface_background))
-        binding.header.setNavigation(MuunHeader.Navigation.BACK)
+        binding.header.setNavigation(MeenHeader.Navigation.BACK)
         binding.header.hideTitle()
 
         binding.header.addWebsitePill(

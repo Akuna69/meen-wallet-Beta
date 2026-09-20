@@ -2,7 +2,7 @@ package io.meen.apollo.domain.analytics
 
 import android.app.Activity
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.model.BitcoinUnit
 import io.meen.apollo.domain.model.NightMode
 import io.meen.apollo.domain.model.Operation
@@ -24,7 +24,7 @@ sealed class AnalyticsEvent(metadataKeyValues: List<Pair<String, Any>> = listOf(
 
         private fun getClassification(error: Throwable?): String =
             when (error) {
-                is MuunError -> error.classification.trackingValue
+                is MeenError -> error.classification.trackingValue
                 else -> ErrorClassification.UNEXPECTED.trackingValue
             }
 
@@ -404,7 +404,7 @@ sealed class AnalyticsEvent(metadataKeyValues: List<Pair<String, Any>> = listOf(
 
     // Note:
     // - Only to be used with operation.direction == OperationDirection.INCOMING
-    // - We want to know that "user used Muun to receive a payment”, this doesn't account for
+    // - We want to know that "user used Meen to receive a payment”, this doesn't account for
     // payments dropped/cancelled. But it's a good proxy.
     class E_PAYMENT_RECEIVED(val operation: Operation) : AnalyticsEvent(
         listOf(

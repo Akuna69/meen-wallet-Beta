@@ -4,7 +4,7 @@ package io.meen.apollo.domain.errors
  * Generic error for cases where a specific error class doesn't exist.
  * Defaults to UNEXPECTED classification as a safe default.
  */
-class UnclassifiedError : MuunError {
+class UnclassifiedError : MeenError {
 
     constructor() : super()
     constructor(message: String) : super(message)

@@ -15,7 +15,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
     c: Context,
     a: AttributeSet? = null,
     s: Int = 0,
-) : MuunView(c, a, s) {
+) : MeenView(c, a, s) {
 
     companion object {
         const val REQUEST_RECEIVE_PREFERENCE = 1
@@ -60,7 +60,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         val dialog = PickerDialogFragment()
 
         dialog.setPickerFactory {
-            MuunPicker(context)
+            MeenPicker(context)
                 .also { options.forEach(it::addOption) }
                 .also { it.setTitle(context.getString(R.string.receive_preference_picker_title)) }
         }
@@ -92,7 +92,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         editReceivePreferenceButton.setText(buttonText)
     }
 
-    private fun getBitcoinOption(): MuunPicker.Option {
+    private fun getBitcoinOption(): MeenPicker.Option {
         val title = getStyledString(R.string.receive_preference_bitcoin_title)
         val description = getStyledString(R.string.receive_preference_bitcoin_desc)
 
@@ -101,7 +101,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         else
             Status.NORMAL
 
-        return MuunPicker.Option(
+        return MeenPicker.Option(
             ReceiveFormatPreference.ONCHAIN.ordinal,
             title,
             description,
@@ -109,7 +109,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         )
     }
 
-    private fun getLightningOption(): MuunPicker.Option {
+    private fun getLightningOption(): MeenPicker.Option {
         val title = getStyledString(R.string.receive_preference_lightning_title)
         val description = getStyledString(R.string.receive_preference_lightning_desc)
 
@@ -118,7 +118,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         else
             Status.NORMAL
 
-        return MuunPicker.Option(
+        return MeenPicker.Option(
             ReceiveFormatPreference.LIGHTNING.ordinal,
             title,
             description,
@@ -126,7 +126,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         )
     }
 
-    private fun getUnifiedQrOption(): MuunPicker.Option {
+    private fun getUnifiedQrOption(): MeenPicker.Option {
         val title = getStyledString(R.string.receive_preference_unified)
         val description = getStyledString(R.string.receive_preference_unified_desc)
 
@@ -135,7 +135,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
         else
             Status.NORMAL
 
-        return MuunPicker.Option(
+        return MeenPicker.Option(
             ReceiveFormatPreference.UNIFIED.ordinal,
             title,
             description,

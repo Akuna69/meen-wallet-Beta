@@ -4,7 +4,7 @@ import io.meen.apollo.R;
 import io.meen.apollo.presentation.ui.base.BaseView;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ public class SetupP2PActivity extends SingleFragmentActivity<SetupP2PPresenter>
     }
 
     @BindView(R.id.setup_p2p_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @Override
     protected void inject() {
@@ -41,7 +41,7 @@ public class SetupP2PActivity extends SingleFragmentActivity<SetupP2PPresenter>
     }
 
     @Override
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         return header;
     }
 

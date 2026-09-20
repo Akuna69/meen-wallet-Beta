@@ -1,6 +1,6 @@
 package io.meen.apollo.data.serialization.dates;
 
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.ObjectCodec;
@@ -9,10 +9,10 @@ import com.fasterxml.jackson.databind.JsonDeserializer;
 
 import java.io.IOException;
 
-public class MuunZonedDateTimeDeserializer extends JsonDeserializer<MuunZonedDateTime> {
+public class MeenZonedDateTimeDeserializer extends JsonDeserializer<MeenZonedDateTime> {
 
     @Override
-    public MuunZonedDateTime deserialize(JsonParser parser, DeserializationContext context)
+    public MeenZonedDateTime deserialize(JsonParser parser, DeserializationContext context)
             throws IOException {
 
         final ObjectCodec codec = parser.getCodec();

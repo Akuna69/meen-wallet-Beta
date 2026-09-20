@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.model.lnurl
 
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.errors.lnurl.AlreadyUsedError
 import io.meen.apollo.domain.errors.lnurl.CountryNotSupportedError
 import io.meen.apollo.domain.errors.lnurl.ExpiredLnUrlError
@@ -29,7 +29,7 @@ sealed class LnUrlError {
     @Serializable data class CountryNotSupported(val msg: String, val domain: String) : LnUrlError()
     @Serializable data class AlreadyUsed(val msg: String, val domain: String) : LnUrlError()
 
-    fun toMuunError(): MuunError {
+    fun toMeenError(): MeenError {
         return when (this) {
             is InvalidCode -> InvalidLnUrlError(lnUrl)
             is InvalidLnUrlTag -> InvalidLnUrlTagError(lnUrl)

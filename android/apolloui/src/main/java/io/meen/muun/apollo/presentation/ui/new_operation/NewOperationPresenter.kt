@@ -367,7 +367,7 @@ class NewOperationPresenter @Inject constructor(
     ) {
 
         // This is our way of detecting a currency change. Since the feature is abstracted into
-        // MuunAmountInput and the exposed API reports the new amount.
+        // MeenAmountInput and the exposed API reports the new amount.
         if (newAmount.currency.currencyCode != state.amount.inInputCurrency.currency) {
             state.changeCurrencyWithAmount(newAmount.currency.currencyCode, oldAmount.toLibwallet())
         }
@@ -592,7 +592,7 @@ class NewOperationPresenter @Inject constructor(
         if (!isActivityRecreation) {
             // This is still needed because we need to:
             // - resolveLnInvoice for submarine swaps TODO mv this to libwallet
-            // - resolveMuunUri for P2P/Contacts legacy feature TODO refactor this?
+            // - resolveMeenUri for P2P/Contacts legacy feature TODO refactor this?
             resolveOperationUri.run(OperationUri.fromString(uri), origin)
         }
 

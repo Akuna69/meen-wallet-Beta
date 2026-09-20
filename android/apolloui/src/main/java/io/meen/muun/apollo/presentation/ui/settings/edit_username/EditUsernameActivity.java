@@ -6,9 +6,9 @@ import io.meen.apollo.domain.model.user.User;
 import io.meen.apollo.domain.model.user.UserProfile;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.utils.UiUtils;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
-import io.meen.apollo.presentation.ui.view.MuunTextInput;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenTextInput;
 
 import android.content.Context;
 import android.content.Intent;
@@ -27,13 +27,13 @@ public class EditUsernameActivity extends BaseActivity<EditUsernamePresenter>
         implements EditUsernameView {
 
     @BindView(R.id.edit_username_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @BindView(R.id.settings_edit_first_name)
-    MuunTextInput firstName;
+    MeenTextInput firstName;
 
     @BindView(R.id.settings_edit_last_name)
-    MuunTextInput lastName;
+    MeenTextInput lastName;
 
     @BindColor(R.color.disabled_color)
     int disabledColor;
@@ -173,7 +173,7 @@ public class EditUsernameActivity extends BaseActivity<EditUsernamePresenter>
     private int getMenuItemEnabledColor() {
         return UiUtils.getColorAttrValueFromStyle(
                 this,
-                R.style.MuunActionBarStyle,
+                R.style.MeenActionBarStyle,
                 android.R.attr.actionMenuTextColor
         );
     }

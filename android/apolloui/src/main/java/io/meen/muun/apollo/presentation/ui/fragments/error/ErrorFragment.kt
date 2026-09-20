@@ -8,7 +8,7 @@ import io.meen.apollo.domain.analytics.AnalyticsEvent
 import io.meen.apollo.domain.utils.applyArgs
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.fragments.error.ErrorViewModel.*
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 import io.meen.common.utils.Preconditions
 
 class ErrorFragment : SingleFragment<ErrorFragmentPresenter>(), ErrorView {
@@ -32,10 +32,10 @@ class ErrorFragment : SingleFragment<ErrorFragmentPresenter>(), ErrorView {
     lateinit var descriptionView: TextView
 
     @BindView(R.id.primary_button)
-    lateinit var primaryButton: MuunButton
+    lateinit var primaryButton: MeenButton
 
     @BindView(R.id.secondary_button)
-    lateinit var secondaryButton: MuunButton
+    lateinit var secondaryButton: MeenButton
 
     private lateinit var viewModel: ErrorViewModel
     private lateinit var delegate: ErrorFragmentDelegate

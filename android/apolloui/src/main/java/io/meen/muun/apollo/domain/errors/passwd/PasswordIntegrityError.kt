@@ -1,13 +1,13 @@
 package io.meen.apollo.domain.errors.passwd
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 
 /**
  * We couldn't use the given password to decrypt the base private key, this may happen if the user
  * didn't have a password challenge (only affects users created before Feb 2018, and that didn't
  * have a successful login since), otherwise is pretty major error.
  */
-class PasswordIntegrityError : MuunError("The password could not decrypt the base private key") {
+class PasswordIntegrityError : MeenError("The password could not decrypt the base private key") {
     override val classification = ErrorClassification.UNEXPECTED
 }

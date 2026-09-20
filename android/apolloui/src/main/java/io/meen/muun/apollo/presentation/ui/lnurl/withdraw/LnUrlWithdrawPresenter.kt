@@ -140,7 +140,7 @@ class LnUrlWithdrawPresenter @Inject constructor(
     }
 
     fun handleSendReport() {
-        sendErrorReport(error!!.toMuunError())
+        sendErrorReport(error!!.toMeenError())
     }
 
     fun handleErrorDescriptionClicked() {

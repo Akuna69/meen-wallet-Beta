@@ -5,7 +5,7 @@ import icepick.State
 import io.meen.apollo.domain.action.user.UpdateUserPreferencesAction
 import io.meen.apollo.domain.analytics.AnalyticsEvent
 import io.meen.apollo.domain.model.BitcoinUnit
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.PaymentContext
 import io.meen.apollo.domain.model.SecurityCenter
 import io.meen.apollo.domain.model.SecurityLevel
@@ -77,7 +77,7 @@ class HomeFragmentPresenter @Inject constructor(
                 userSel.watch(),
                 userActivatedFeatureStatusSel.watchTaproot(),
                 blockchainHeightSel.watchBlocksToTaproot(),
-                featureSelector.fetch(MuunFeature.HIGH_FEES_HOME_BANNER),
+                featureSelector.fetch(MeenFeature.HIGH_FEES_HOME_BANNER),
                 ::HomeState
             )
             .compose(getAsyncExecutor())

@@ -4,12 +4,12 @@ import android.view.View
 import butterknife.BindView
 import io.meen.apollo.R
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 
 class UnverifiedRcWarningFragment : SingleFragment<UnverifiedRcWarningPresenter>() {
 
     @BindView(R.id.rc_unverified_warning_button)
-    lateinit var continueButton: MuunButton
+    lateinit var continueButton: MeenButton
 
     override fun inject() {
         component.inject(this)

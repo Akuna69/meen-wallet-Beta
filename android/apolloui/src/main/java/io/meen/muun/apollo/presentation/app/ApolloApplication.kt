@@ -16,7 +16,7 @@ import androidx.work.Configuration
 import app_provided_data.Config
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.jakewharton.threetenabp.AndroidThreeTen
-import io.meen.apollo.data.async.tasks.MuunWorkerFactory
+import io.meen.apollo.data.async.tasks.MeenWorkerFactory
 import io.meen.apollo.data.debug.HeapDumper
 import io.meen.apollo.data.di.DaggerDataComponent
 import io.meen.apollo.data.di.DataComponent
@@ -26,7 +26,7 @@ import io.meen.apollo.data.external.Globals
 import io.meen.apollo.data.external.UserFacingErrorMessages
 import io.meen.apollo.data.logging.Crashlytics
 import io.meen.apollo.data.logging.LoggingContext
-import io.meen.apollo.data.logging.MuunTree
+import io.meen.apollo.data.logging.MeenTree
 import io.meen.apollo.data.nfc.NfcEmpiricalCache
 import io.meen.apollo.data.preferences.migration.PreferencesMigrationManager
 import io.meen.apollo.domain.ApplicationLockManager
@@ -180,10 +180,10 @@ open class ApolloApplication : Application(), DataComponentProvider, Configurati
      * Shortened URL: [...](https://shorturl.at/aflsA)
      */
     override val workManagerConfiguration: Configuration by lazy {
-        Timber.d("[MuunWorkerFactory] Application#getWorkManagerConfiguration()")
+        Timber.d("[MeenWorkerFactory] Application#getWorkManagerConfiguration()")
         val loggingLevel = if (Globals.INSTANCE.isRelease) Log.ERROR else Log.VERBOSE
         Configuration.Builder()
-            .setWorkerFactory(MuunWorkerFactory(this))
+            .setWorkerFactory(MeenWorkerFactory(this))
             .setMinimumLoggingLevel(loggingLevel)
             .build()
     }
@@ -205,7 +205,7 @@ open class ApolloApplication : Application(), DataComponentProvider, Configurati
      */
     @CallSuper
     protected open fun setupDebugTools() {
-        Timber.plant(MuunTree())
+        Timber.plant(MeenTree())
 
         val isDebug = Globals.INSTANCE.isDebug
         val isDogfood = Globals.INSTANCE.isDogfood

@@ -9,7 +9,7 @@ import io.meen.apollo.R
 import io.meen.apollo.databinding.FragmentCreateEmailHelpBinding
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class CreateEmailHelpFragment : SingleFragment<CreateEmailHelpPresenter>() {
 
@@ -41,7 +41,7 @@ class CreateEmailHelpFragment : SingleFragment<CreateEmailHelpPresenter>() {
 
     override fun setUpHeader() {
         parentActivity.header.let {
-            it.setNavigation(MuunHeader.Navigation.BACK)
+            it.setNavigation(MeenHeader.Navigation.BACK)
             it.hideTitle()
             it.setIndicatorText(null)
             it.setElevated(false)

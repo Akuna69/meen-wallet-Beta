@@ -4,7 +4,7 @@ import android.util.Log
 import io.meen.apollo.domain.model.report.ErrorReportBuilder
 import timber.log.Timber
 
-class MuunTree : Timber.DebugTree() {
+class MeenTree : Timber.DebugTree() {
 
     /**
      * Log a message, taking steps to enrich and report errors.

@@ -12,7 +12,7 @@ import java.util.Locale;
 
 /**
  * Welcome to the jungle! Though we've no fun and games here, sorry. This class serves as the
- * editor and/or input pre-processor for our MuunAmountInput. There's several tasks it accomplishes
+ * editor and/or input pre-processor for our MeenAmountInput. There's several tasks it accomplishes
  * but the main reason for its existence is to handle grouping separator display correctly (e.g
  * auto input/display grouping separators as a user types in, auto remove them as they delete),
  * taking into account the locale (grouping and decimal separator may differ according to the

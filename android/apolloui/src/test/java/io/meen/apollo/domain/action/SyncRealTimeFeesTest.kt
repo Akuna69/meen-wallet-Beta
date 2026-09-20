@@ -12,7 +12,7 @@ import io.meen.apollo.data.preferences.MinFeeRateRepository
 import io.meen.apollo.data.preferences.TransactionSizeRepository
 import io.meen.apollo.domain.action.realtime.SyncRealTimeFees
 import io.meen.apollo.domain.libwallet.FeeBumpFunctionsProvider
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.RealTimeFees
 import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy
 import io.meen.apollo.domain.selector.FeatureSelector
@@ -78,7 +78,7 @@ class SyncRealTimeFeesTest: BaseTest() {
             .returns(Observable.just(realTimeFees))
         every { transactionSizeRepository.nextTransactionSize }
             .returns(Gen.nextTransactionSize(sizeProgressionWithUnconfirmedUtxos))
-        every { featureSelector.get(MuunFeature.EFFECTIVE_FEES_CALCULATION) }
+        every { featureSelector.get(MeenFeature.EFFECTIVE_FEES_CALCULATION) }
             .returns(true)
 
         TestUtils.fetchItemFromObservable(syncRealTimeFees.sync(FeeBumpRefreshPolicy.PERIODIC))
@@ -97,7 +97,7 @@ class SyncRealTimeFeesTest: BaseTest() {
             .returns(Observable.just(realTimeFees))
         every { transactionSizeRepository.nextTransactionSize }
             .returns(Gen.nextTransactionSize(sizeProgressionWithUnconfirmedUtxos))
-        every { featureSelector.get(MuunFeature.EFFECTIVE_FEES_CALCULATION) }
+        every { featureSelector.get(MeenFeature.EFFECTIVE_FEES_CALCULATION) }
             .returns(true)
 
         assertTrue(syncRealTimeFees.shouldUpdateData())

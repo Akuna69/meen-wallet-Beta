@@ -15,7 +15,7 @@ import io.meen.apollo.domain.action.NotificationActions
 import io.meen.apollo.domain.action.NotificationProcessingState
 import io.meen.apollo.domain.action.realtime.PreloadFeeDataAction
 import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.common.model.SizeForAmount
 import io.meen.common.model.UtxoStatus
@@ -66,7 +66,7 @@ class FeeDataSyncerTest: BaseTest() {
 
     @Before
     fun setUp() {
-        every { featureSelector.get(MuunFeature.EFFECTIVE_FEES_CALCULATION) }.returns(true)
+        every { featureSelector.get(MeenFeature.EFFECTIVE_FEES_CALCULATION) }.returns(true)
         every { notificationActions.getNotificationProcessingState() }.returns(processingObservable)
 
         mockkStatic(Looper::class)

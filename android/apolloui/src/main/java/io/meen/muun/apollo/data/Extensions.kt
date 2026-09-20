@@ -2,14 +2,14 @@ package io.meen.apollo.data
 
 import io.meen.apollo.data.serialization.dates.ApolloZonedDateTime
 import io.meen.apollo.domain.model.ExchangeRateWindow
-import io.meen.common.dates.MuunZonedDateTime
+import io.meen.common.dates.MeenZonedDateTime
 import io.meen.common.model.ExchangeRateProvider
 import org.threeten.bp.ZonedDateTime
 
 fun ExchangeRateProvider.getRateWindow(): ExchangeRateWindow =
     ExchangeRateWindow.fromJson(this.rateWindow)
 
-fun MuunZonedDateTime?.toApolloModel(): ZonedDateTime? {
+fun MeenZonedDateTime?.toApolloModel(): ZonedDateTime? {
     return if (this == null) {
         null
     } else {

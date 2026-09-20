@@ -4,7 +4,7 @@ package io.meen.apollo.presentation.ui.single_action;
 import io.meen.apollo.R;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.base.BaseView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
+import io.meen.apollo.presentation.ui.view.MeenButton;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +47,7 @@ public class SingleActionActivity extends BaseActivity<SingleActionPresenter>
     TextView body;
 
     @BindView(R.id.action_button)
-    MuunButton actionButton;
+    MeenButton actionButton;
 
     Action0 action;
 

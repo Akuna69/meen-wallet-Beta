@@ -18,7 +18,7 @@ import io.meen.apollo.domain.errors.delete_wallet.NonEmptyWalletDeleteException
 import io.meen.apollo.domain.errors.delete_wallet.UnsettledOperationsWalletDeleteException
 import io.meen.apollo.domain.model.BitcoinUnit
 import io.meen.apollo.domain.model.ExchangeRateWindow
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.UserActivatedFeatureStatus
 import io.meen.apollo.domain.model.report.EmailReport
 import io.meen.apollo.domain.model.user.User
@@ -29,7 +29,7 @@ import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.domain.selector.UserActivatedFeatureStatusSelector
 import io.meen.apollo.presentation.app.Email
 import io.meen.apollo.presentation.biometrics.BiometricsController
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.base.ParentPresenter
 import io.meen.apollo.presentation.ui.base.SingleFragmentPresenter
 import io.meen.apollo.presentation.ui.base.di.PerFragment
@@ -63,8 +63,8 @@ class SettingsPresenter @Inject constructor(
         val bitcoinUnit: BitcoinUnit,
         val exchangeRateWindow: ExchangeRateWindow,
         val taprootFeatureStatus: UserActivatedFeatureStatus,
-        val features: List<MuunFeature>,
-        val overridableFeatures: List<MuunFeature.OverridableFeature.Overridable>,
+        val features: List<MeenFeature>,
+        val overridableFeatures: List<MeenFeature.OverridableFeature.Overridable>,
     )
 
     override fun setUp(arguments: Bundle) {
@@ -310,7 +310,7 @@ class SettingsPresenter @Inject constructor(
         if (Email.hasEmailAppInstalled(context)) {
             context.startActivity(emailIntent)
         } else {
-            val dialog = MuunDialog.Builder()
+            val dialog = MeenDialog.Builder()
                 .message(R.string.error_copy_report_dialog_title)
                 .build()
             view.showDialog(dialog)

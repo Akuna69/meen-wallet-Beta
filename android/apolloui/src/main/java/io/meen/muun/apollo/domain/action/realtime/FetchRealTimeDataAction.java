@@ -8,7 +8,7 @@ import io.meen.apollo.data.preferences.FeeWindowRepository;
 import io.meen.apollo.data.preferences.ForwardingPoliciesRepository;
 import io.meen.apollo.data.preferences.MinFeeRateRepository;
 import io.meen.apollo.domain.action.base.BaseAsyncAction0;
-import io.meen.apollo.domain.model.MuunFeature;
+import io.meen.apollo.domain.model.MeenFeature;
 import io.meen.common.rx.RxHelper;
 
 import rx.Observable;
@@ -88,7 +88,7 @@ public class FetchRealTimeDataAction extends BaseAsyncAction0<Void> {
                     featuresRepository.store(realTimeData.features);
 
                     // When the FF is ON, this data will be stored by FetchRealTimeFeesAction
-                    if (!realTimeData.features.contains(MuunFeature.EFFECTIVE_FEES_CALCULATION)) {
+                    if (!realTimeData.features.contains(MeenFeature.EFFECTIVE_FEES_CALCULATION)) {
                         feeWindowRepository.store(realTimeData.feeWindow);
                         minFeeRateRepository.store(realTimeData.minFeeRateInWeightUnits);
                     }

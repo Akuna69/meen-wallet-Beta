@@ -16,7 +16,7 @@ import io.meen.apollo.data.nfc.api.NfcSession
 import io.meen.apollo.databinding.NfcReaderActivityBinding
 import io.meen.apollo.domain.analytics.AnalyticsEvent
 import io.meen.apollo.domain.model.FeasibleZone
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.activity.extension.NfcReaderModeExtension
 import io.meen.apollo.presentation.ui.base.BasePresenter
 import io.meen.apollo.presentation.ui.base.BaseView
@@ -26,7 +26,7 @@ import io.meen.apollo.presentation.ui.fragments.error.ErrorViewModel
 import io.meen.apollo.presentation.ui.nfc.NfcReaderViewModel.ViewCommand
 import io.meen.apollo.presentation.ui.utils.attachChildAtMm
 import io.meen.apollo.presentation.ui.utils.vibrateShort
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -131,7 +131,7 @@ class NfcReaderActivity : SingleFragmentActivity<BasePresenter<BaseView>>(), Err
     }
 
     private fun handleDisableSecurityCardFlag() {
-        MuunDialog.Builder()
+        MeenDialog.Builder()
             .title(R.string.nfc_reader_screen_disable_ff_title)
             .message(R.string.nfc_reader_screen_disable_ff_desc)
             .positiveButton(R.string.nfc_reader_screen_disable_ff_yes) {
@@ -152,7 +152,7 @@ class NfcReaderActivity : SingleFragmentActivity<BasePresenter<BaseView>>(), Err
 
         if (!isNfcEnabled()) {
             generateAppEvent("nfc_disabled_dialog")
-            MuunDialog.Builder()
+            MeenDialog.Builder()
                 .title(R.string.nfc_reader_screen_title)
                 .message(R.string.nfc_reader_screen_enable_nfc)
                 .positiveButton(R.string.nfc_reader_screen_go_to_configs) {
@@ -179,7 +179,7 @@ class NfcReaderActivity : SingleFragmentActivity<BasePresenter<BaseView>>(), Err
     override fun initializeUi() {
         with(binding.header) {
             attachToActivity(this@NfcReaderActivity)
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
             // TODO: define this title or if we're going to need a screen title here
             showTitle(R.string.nfc_reader_screen_title)
             setElevated(false)
@@ -207,7 +207,7 @@ class NfcReaderActivity : SingleFragmentActivity<BasePresenter<BaseView>>(), Err
         }
     }
 
-    override fun getHeader(): MuunHeader {
+    override fun getHeader(): MeenHeader {
         return binding.header
     }
 

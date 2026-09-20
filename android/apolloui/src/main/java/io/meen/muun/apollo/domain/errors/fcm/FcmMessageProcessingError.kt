@@ -2,9 +2,9 @@ package io.meen.apollo.domain.errors.fcm
 
 import com.google.firebase.messaging.RemoteMessage
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 
-class FcmMessageProcessingError(message: RemoteMessage, cause: Throwable) : MuunError(cause) {
+class FcmMessageProcessingError(message: RemoteMessage, cause: Throwable) : MeenError(cause) {
 
     override val classification = ErrorClassification.UNEXPECTED
 

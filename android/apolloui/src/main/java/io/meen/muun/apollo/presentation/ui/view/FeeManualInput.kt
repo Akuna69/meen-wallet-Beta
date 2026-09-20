@@ -33,7 +33,7 @@ class FeeManualInput @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0,
-) : MuunView(context, attrs, defStyleAttr) {
+) : MeenView(context, attrs, defStyleAttr) {
 
     private val binding: ManualFeeInputBinding
         get() = getBinding() as ManualFeeInputBinding

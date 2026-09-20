@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.errors
 
-class InvalidActionLinkError : MuunError {
+class InvalidActionLinkError : MeenError {
 
     override val classification = ErrorClassification.EXPECTED
 

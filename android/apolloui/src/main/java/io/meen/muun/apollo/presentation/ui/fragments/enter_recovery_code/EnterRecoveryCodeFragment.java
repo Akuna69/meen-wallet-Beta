@@ -5,7 +5,7 @@ import io.meen.apollo.databinding.SignupForgotPasswordFragmentBinding;
 import io.meen.apollo.domain.errors.UserFacingError;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.settings.RecoveryCodeView;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,8 +58,8 @@ public class EnterRecoveryCodeFragment extends SingleFragment<EnterRecoveryCodeP
 
     @Override
     protected void setUpHeader() {
-        final MuunHeader header = getParentActivity().getHeader();
-        header.setNavigation(MuunHeader.Navigation.BACK);
+        final MeenHeader header = getParentActivity().getHeader();
+        header.setNavigation(MeenHeader.Navigation.BACK);
         header.showTitle(R.string.login_title);
         header.setElevated(true);
     }

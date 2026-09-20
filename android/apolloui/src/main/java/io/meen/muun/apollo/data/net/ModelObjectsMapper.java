@@ -15,7 +15,7 @@ import io.meen.apollo.domain.model.ForwardingPolicy;
 import io.meen.apollo.domain.model.FulfillmentPushedResult;
 import io.meen.apollo.domain.model.IncomingSwap;
 import io.meen.apollo.domain.model.IncomingSwapHtlc;
-import io.meen.apollo.domain.model.MuunFeature;
+import io.meen.apollo.domain.model.MeenFeature;
 import io.meen.apollo.domain.model.NextTransactionSize;
 import io.meen.apollo.domain.model.NotificationReport;
 import io.meen.apollo.domain.model.OperationCreated;
@@ -49,7 +49,7 @@ import io.meen.common.api.ForwardingPolicyJson;
 import io.meen.common.api.FulfillmentPushedJson;
 import io.meen.common.api.IncomingSwapHtlcJson;
 import io.meen.common.api.IncomingSwapJson;
-import io.meen.common.api.MuunFeatureJson;
+import io.meen.common.api.MeenFeatureJson;
 import io.meen.common.api.NextTransactionSizeJson;
 import io.meen.common.api.OperationCreatedJson;
 import io.meen.common.api.OperationJson;
@@ -64,9 +64,9 @@ import io.meen.common.api.SubmarineSwapJson;
 import io.meen.common.api.TransactionPushedJson;
 import io.meen.common.api.UserJson;
 import io.meen.common.api.beam.notification.NotificationReportJson;
-import io.meen.common.crypto.hd.MuunAddress;
+import io.meen.common.crypto.hd.MeenAddress;
 import io.meen.common.crypto.hd.PublicKeyTriple;
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.exception.MissingCaseError;
 import io.meen.common.model.SizeForAmount;
 import io.meen.common.model.UtxoStatus;
@@ -122,7 +122,7 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
      * Create a nullable date time.
      */
     @Nullable
-    private ZonedDateTime mapZonedDateTime(@Nullable MuunZonedDateTime dateTime) {
+    private ZonedDateTime mapZonedDateTime(@Nullable MeenZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }
@@ -134,7 +134,7 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
      * Create a date time.
      */
     @NotNull
-    private ZonedDateTime mapNonNullableZonedDateTime(@NotNull MuunZonedDateTime dateTime) {
+    private ZonedDateTime mapNonNullableZonedDateTime(@NotNull MeenZonedDateTime dateTime) {
         return ((ApolloZonedDateTime) dateTime).dateTime;
     }
 
@@ -378,7 +378,7 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
                         networkParameters
                 ),
                 mapNextTransactionSize(operationCreated.nextTransactionSize),
-                MuunAddress.fromJson(operationCreated.changeAddress),
+                MeenAddress.fromJson(operationCreated.changeAddress),
                 mapAlternativeTransactions(operationCreated.alternativeTransactions)
         );
     }
@@ -467,7 +467,7 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
                 realTimeData.currentBlockchainHeight,
                 mapForwadingPolicies(realTimeData.forwardingPolicies),
                 realTimeData.minFeeRateInWeightUnits,
-                mapMuunFeatures(realTimeData.features)
+                mapMeenFeatures(realTimeData.features)
         );
     }
 
@@ -536,10 +536,10 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
         return result;
     }
 
-    private List<MuunFeature> mapMuunFeatures(List<MuunFeatureJson> features) {
-        final List<MuunFeature> mappedFeatures =
-                CollectionUtils.mapList(features, MuunFeature.Companion::fromJson);
-        mappedFeatures.removeAll(Collections.singletonList(MuunFeature.UNSUPPORTED_FEATURE));
+    private List<MeenFeature> mapMeenFeatures(List<MeenFeatureJson> features) {
+        final List<MeenFeature> mappedFeatures =
+                CollectionUtils.mapList(features, MeenFeature.Companion::fromJson);
+        mappedFeatures.removeAll(Collections.singletonList(MeenFeature.UNSUPPORTED_FEATURE));
         return mappedFeatures;
     }
 
@@ -651,7 +651,7 @@ public class ModelObjectsMapper extends CommonModelObjectsMapper {
         return new ChallengeKeyUpdateMigration(
                 passwordKeySalt,
                 recoveryCodeKeySalt,
-                json.newEncrytpedMuunKey
+                json.newEncrytpedMeenKey
         );
     }
 

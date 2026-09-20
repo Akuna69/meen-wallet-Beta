@@ -3,7 +3,7 @@ package io.meen.apollo.domain.errors
 import io.meen.common.exception.HttpException
 
 
-class ApiError(cause: HttpException) : MuunError(cause) {
+class ApiError(cause: HttpException) : MeenError(cause) {
 
     override val classification = ErrorClassification.UNEXPECTED
 

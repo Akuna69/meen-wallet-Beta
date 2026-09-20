@@ -12,7 +12,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer
 import io.meen.apollo.presentation.ui.new_operation.estimateTimeInMs
 import io.meen.apollo.presentation.ui.utils.UiUtils
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import io.meen.apollo.presentation.ui.view.RichText
 import io.meen.common.Rules
 import newop.EditFeeState
@@ -54,7 +54,7 @@ class ManualFeeFragment : SingleFragment<ManualFeePresenter>(), ManualFeeView {
     }
 
     override fun setUpHeader() {
-        parentActivity.header.setNavigation(MuunHeader.Navigation.BACK)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.BACK)
         parentActivity.header.showTitle(R.string.edit_fee_title)
     }
 

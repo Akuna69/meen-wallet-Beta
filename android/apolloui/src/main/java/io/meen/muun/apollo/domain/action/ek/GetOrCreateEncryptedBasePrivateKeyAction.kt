@@ -24,10 +24,10 @@ class GetOrCreateEncryptedBasePrivateKeyAction @Inject constructor(
         }
 
         Preconditions.checkState(keysRepository.hasChallengePublicKey(ChallengeType.RECOVERY_CODE))
-        Preconditions.checkState(keysRepository.hasEncryptedMuunPrivateKey)
+        Preconditions.checkState(keysRepository.hasEncryptedMeenPrivateKey)
         Preconditions.checkState(keysRepository.hasBasePrivateKey)
 
-        val encryptedMuunPrivateKey = keysRepository.encryptedMuunPrivateKey.toBlocking().first()
+        val encryptedMeenPrivateKey = keysRepository.encryptedMeenPrivateKey.toBlocking().first()
         val basePrivateKey = keysRepository.basePrivateKey.toBlocking().first()
 
         return keysRepository.getChallengePublicKey(ChallengeType.RECOVERY_CODE)
@@ -35,7 +35,7 @@ class GetOrCreateEncryptedBasePrivateKeyAction @Inject constructor(
                 val birthday: Long = 0
 
                 challengePublicKey.encryptPrivateKey(
-                    encryptedMuunPrivateKey,
+                    encryptedMeenPrivateKey,
                     basePrivateKey,
                     birthday
                 )

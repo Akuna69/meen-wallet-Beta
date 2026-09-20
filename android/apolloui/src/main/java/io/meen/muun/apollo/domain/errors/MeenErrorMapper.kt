@@ -20,9 +20,9 @@ import io.meen.apollo.domain.errors.rc.InvalidRecoveryCodeV2Error
 import io.meen.apollo.domain.errors.rc.StaleChallengeKeyError
 import io.meen.common.api.error.ErrorCode
 
-object MuunErrorMapper {
+object MeenErrorMapper {
 
-    private val newMuunErrorByErrorCode: Map<ErrorCode, () -> MuunError> = mapOf(
+    private val newMeenErrorByErrorCode: Map<ErrorCode, () -> MeenError> = mapOf(
         ErrorCode.DEPRECATED_CLIENT_VERSION to { DeprecatedClientVersionError() },
         ErrorCode.EXPIRED_SESSION to { ExpiredSessionError() },
         ErrorCode.INVALID_PHONE_NUMBER to { InvalidPhoneNumberError() },
@@ -54,13 +54,13 @@ object MuunErrorMapper {
         ErrorCode.values().associateBy { it.code.toLong() }
 
     /**
-     * Returns a MuunError given a houston error code,
+     * Returns a MeenError given a houston error code,
      * or null if no mapping exists.
      */
     @JvmStatic
-    fun map(numericCode: Long): MuunError? =
+    fun map(numericCode: Long): MeenError? =
         errorCodeByNumericCode[numericCode]?.let { errorCode ->
-            return newMuunErrorByErrorCode[errorCode]?.invoke()
+            return newMeenErrorByErrorCode[errorCode]?.invoke()
         }
 
 }

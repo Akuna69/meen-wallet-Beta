@@ -15,15 +15,15 @@ import javax.inject.Singleton
 @Singleton
 class ResolveOperationUriAction @Inject constructor(
     private val resolveBitcoinUri: ResolveBitcoinUriAction,
-    private val resolveMuunUri: ResolveMuunUriAction,
+    private val resolveMeenUri: ResolveMeenUriAction,
     private val resolveLnInvoice: ResolveLnInvoiceAction,
 ) : BaseAsyncAction2<OperationUri, NewOperationOrigin, PaymentRequest>() {
 
     override fun action(uri: OperationUri, origin: NewOperationOrigin): Observable<PaymentRequest> {
         return Observable.defer {
             when {
-                // First, check if this is an internal Muun URI (contact or hardware wallet):
-                uri.isMuun -> resolveMuunUri.action(uri)
+                // First, check if this is an internal Meen URI (contact or hardware wallet):
+                uri.isMeen -> resolveMeenUri.action(uri)
 
                 // Second, if the URI has a LN invoice, prioritize it:
                 uri.lnInvoice.isPresent -> resolveLnInvoice.action(uri.lnInvoice.get(), origin)

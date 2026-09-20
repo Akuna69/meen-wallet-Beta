@@ -11,7 +11,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.hasAppInstalled
 import io.meen.apollo.presentation.ui.utils.setStyledText
 import io.meen.apollo.presentation.ui.view.BlockClock
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import timber.log.Timber
 
 
@@ -43,7 +43,7 @@ class TaprootClockDetailFragment : SingleFragment<TaprootClockDetailPresenter>()
     }
 
     override fun setUpHeader() {
-        parentActivity.header.setNavigation(MuunHeader.Navigation.BACK)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.BACK)
         parentActivity.header.hideTitle()
         parentActivity.header.setElevated(false)
     }

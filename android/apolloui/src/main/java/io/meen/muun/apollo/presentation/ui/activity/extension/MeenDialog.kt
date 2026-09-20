@@ -17,12 +17,12 @@ import io.meen.common.utils.Preconditions
 import rx.functions.Action0
 import javax.annotation.CheckReturnValue
 
-typealias MuunDialogInitializer = (View, AlertDialog) -> Unit
+typealias MeenDialogInitializer = (View, AlertDialog) -> Unit
 
-class MuunDialog private constructor(
+class MeenDialog private constructor(
     private val layout: Int = 0,    // By default, we'll use AlertDialog default layout
-    private val dialogInit: MuunDialogInitializer? = null,
-    private val style: Int = R.style.MuunAlertDialog,
+    private val dialogInit: MeenDialogInitializer? = null,
+    private val style: Int = R.style.MeenAlertDialog,
     private val fixedWidthInDp: Int = 0,
     private val titleResId: Int = 0,
     private val title: CharSequence? = null,
@@ -42,8 +42,8 @@ class MuunDialog private constructor(
 
     class Builder {
         private var layout: Int = 0    // By default, we'll use AlertDialog default layout
-        private var dialogInit: MuunDialogInitializer? = null
-        private var style: Int = R.style.MuunAlertDialog
+        private var dialogInit: MeenDialogInitializer? = null
+        private var style: Int = R.style.MeenAlertDialog
         private var fixedWidthInDp: Int = 0
         private var titleResId: Int = 0
         private var title: CharSequence? = null
@@ -67,7 +67,7 @@ class MuunDialog private constructor(
         }
 
         @CheckReturnValue
-        fun layout(@LayoutRes layout: Int, dialogInit: MuunDialogInitializer) = apply {
+        fun layout(@LayoutRes layout: Int, dialogInit: MeenDialogInitializer) = apply {
             this.layout = layout
             this.dialogInit = dialogInit
         }
@@ -135,7 +135,7 @@ class MuunDialog private constructor(
             }
 
         @CheckReturnValue
-        fun build() = MuunDialog(
+        fun build() = MeenDialog(
             layout,
             dialogInit,
             style,
@@ -183,7 +183,7 @@ class MuunDialog private constructor(
         alertDialog.show()
 
         // Workaround for nasty dialog width bug in foldable devices and tablets regarding
-        // welcome to Muun dialog (Relative layout is causing trouble? ConstraintLayout has same
+        // welcome to Meen dialog (Relative layout is causing trouble? ConstraintLayout has same
         // issue.)
         if (fixedWidthInDp != 0) {
             alertDialog.window!!.setLayout(

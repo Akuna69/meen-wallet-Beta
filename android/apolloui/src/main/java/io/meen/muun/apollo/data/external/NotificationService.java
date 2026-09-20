@@ -48,7 +48,7 @@ public interface NotificationService {
     void showIncomingLightningPaymentPending();
 
     /**
-     * Show a notification when Muun sends information about important events.
+     * Show a notification when Meen sends information about important events.
      */
     void showEventCommunication(@NotNull EventCommunicationMessage.Event event);
 

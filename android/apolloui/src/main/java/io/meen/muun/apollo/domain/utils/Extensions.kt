@@ -6,7 +6,7 @@ import android.text.TextUtils
 import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
 import io.meen.apollo.data.net.base.NetworkException
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.errors.SecureStorageError
 import io.meen.apollo.domain.model.report.ErrorReport
 import io.meen.common.Optional
@@ -108,7 +108,7 @@ inline fun <reified T> Throwable.getTypedClause(): Optional<T> =
 fun getUnsupportedCurrencies(report: ErrorReport): Array<String> =
     getUnsupportedCurrencies(report.metadata)
 
-fun getUnsupportedCurrencies(error: MuunError): Array<String> =
+fun getUnsupportedCurrencies(error: MeenError): Array<String> =
     getUnsupportedCurrencies(error.metadata)
 
 /**

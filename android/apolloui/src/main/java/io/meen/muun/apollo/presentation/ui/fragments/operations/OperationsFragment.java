@@ -7,8 +7,8 @@ import io.meen.apollo.presentation.ui.adapter.viewmodel.ItemViewModel;
 import io.meen.apollo.presentation.ui.adapter.viewmodel.OperationViewModel;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.view.DividerItemDecoration;
-import io.meen.apollo.presentation.ui.view.MuunEmptyScreen;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenEmptyScreen;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 
 import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,7 +29,7 @@ public class OperationsFragment extends SingleFragment<OperationsPresenter>
     }
 
     @BindView(R.id.empty_screen)
-    MuunEmptyScreen emptyScreen;
+    MeenEmptyScreen emptyScreen;
 
     @BindView(R.id.home_operations_recycler_operation_list)
     RecyclerView recyclerView;
@@ -63,9 +63,9 @@ public class OperationsFragment extends SingleFragment<OperationsPresenter>
 
     @Override
     protected void setUpHeader() {
-        final MuunHeader header = getParentActivity().getHeader();
+        final MeenHeader header = getParentActivity().getHeader();
         header.clear();
-        header.setNavigation(MuunHeader.Navigation.EXIT);
+        header.setNavigation(MeenHeader.Navigation.EXIT);
         header.showTitle(R.string.home_operations_list_title);
         header.setElevated(true);
     }

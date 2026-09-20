@@ -4,7 +4,7 @@ import io.meen.apollo.R;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.base.SingleFragmentPresenter;
 import io.meen.apollo.presentation.ui.utils.UiUtils;
-import io.meen.apollo.presentation.ui.view.MuunButton;
+import io.meen.apollo.presentation.ui.view.MeenButton;
 
 import android.os.Bundle;
 import android.view.View;
@@ -31,7 +31,7 @@ public abstract class SingleActionFragment<PresenterT extends SingleFragmentPres
     protected TextView description;
 
     @BindView(R.id.single_action_action)
-    MuunButton actionButton;
+    MeenButton actionButton;
 
     @Override
     protected int getLayoutResource() {

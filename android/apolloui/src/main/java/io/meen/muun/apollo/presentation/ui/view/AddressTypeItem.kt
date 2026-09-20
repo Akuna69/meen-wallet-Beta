@@ -14,7 +14,7 @@ import io.meen.apollo.presentation.ui.utils.getStyledString
 import io.meen.apollo.presentation.ui.view.PickerCard.Status
 
 class AddressTypeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0):
-    MuunView(c, a, s) {
+    MeenView(c, a, s) {
 
     companion object {
         const val REQUEST_ADDRESS_TYPE = 1
@@ -74,7 +74,7 @@ class AddressTypeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = n
         val dialog = PickerDialogFragment()
 
         dialog.setPickerFactory {
-            MuunPicker(context)
+            MeenPicker(context)
                 .also { options.forEach(it::addOption) }
                 .also { it.setTitle(context.getString(R.string.address_picker_title)) }
         }
@@ -105,25 +105,25 @@ class AddressTypeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = n
         binding.editAddressType.setText(buttonText)
     }
 
-    private fun getLegacyOption(): MuunPicker.Option {
+    private fun getLegacyOption(): MeenPicker.Option {
         val title = getStyledString(R.string.address_picker_legacy_title)
         val description = getStyledString(R.string.address_picker_legacy_desc)
 
         val status = if (addressType == AddressType.LEGACY) Status.SELECTED else Status.NORMAL
 
-        return MuunPicker.Option(AddressType.LEGACY.ordinal, title, description, status)
+        return MeenPicker.Option(AddressType.LEGACY.ordinal, title, description, status)
     }
 
-    private fun getSegwitOption(): MuunPicker.Option {
+    private fun getSegwitOption(): MeenPicker.Option {
         val title = getStyledString(R.string.address_picker_segwit_title)
         val description = getStyledString(R.string.address_picker_segwit_desc)
 
         val status = if (addressType == AddressType.SEGWIT) Status.SELECTED else Status.NORMAL
 
-        return MuunPicker.Option(AddressType.SEGWIT.ordinal, title, description, status)
+        return MeenPicker.Option(AddressType.SEGWIT.ordinal, title, description, status)
     }
 
-    private fun getTaprootOption(): MuunPicker.Option {
+    private fun getTaprootOption(): MeenPicker.Option {
         val title = getStyledString(R.string.address_picker_taproot_title)
 
         val description = when {
@@ -139,7 +139,7 @@ class AddressTypeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = n
             else -> Status.NORMAL
         }
 
-        return MuunPicker.Option(AddressType.TAPROOT.ordinal, title, description, status)
+        return MeenPicker.Option(AddressType.TAPROOT.ordinal, title, description, status)
     }
 
     private fun isTaprootOptionIncluded() =

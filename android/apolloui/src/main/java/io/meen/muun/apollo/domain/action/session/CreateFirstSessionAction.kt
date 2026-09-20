@@ -58,7 +58,7 @@ class CreateFirstSessionAction @Inject constructor(
             }
             .doOnNext {
                 userRepo.store(it.user)
-                keysRepo.storeBaseMuunPublicKey(it.cosigningPublicKey)
+                keysRepo.storeBaseMeenPublicKey(it.cosigningPublicKey)
                 keysRepo.storeSwapServerPublicKey(it.swapServerPublicKey)
 
                 Crashlytics.configure(it.user.hid.toString())

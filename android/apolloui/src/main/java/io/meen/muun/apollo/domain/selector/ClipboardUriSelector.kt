@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 /**
  * This component CAN'T be injected into any component that can be initialized in background
- * (e.g MuunWorkerFactory, NotificationProcessor, etc...), as it depends ClipboardProvider which
+ * (e.g MeenWorkerFactory, NotificationProcessor, etc...), as it depends ClipboardProvider which
  * depends on a system call that can only be made from the Main thread.
  */
 class ClipboardUriSelector @Inject constructor(

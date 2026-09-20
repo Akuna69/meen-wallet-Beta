@@ -8,10 +8,10 @@ import io.meen.apollo.presentation.ui.fragments.error.ErrorViewModel;
 import io.meen.apollo.presentation.ui.utils.ExtensionsKt;
 import io.meen.apollo.presentation.ui.utils.OS;
 import io.meen.apollo.presentation.ui.utils.UiUtils;
-import io.meen.apollo.presentation.ui.view.MuunEmptyScreen;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
-import io.meen.apollo.presentation.ui.view.MuunUriPaster;
+import io.meen.apollo.presentation.ui.view.MeenEmptyScreen;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenUriPaster;
 
 import android.Manifest;
 import android.content.Context;
@@ -52,10 +52,10 @@ public class ScanQrActivity extends SingleFragmentActivity<ScanQrPresenter>
     }
 
     @BindView(R.id.empty_screen)
-    MuunEmptyScreen emptyScreen;
+    MeenEmptyScreen emptyScreen;
 
     @BindView(R.id.scan_qr_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @BindView(R.id.scan_qr_scanner)
     ZXingScannerView camera;
@@ -69,7 +69,7 @@ public class ScanQrActivity extends SingleFragmentActivity<ScanQrPresenter>
     FrameLayout background;
 
     @BindView(R.id.uri_paster)
-    MuunUriPaster uriPaster;
+    MeenUriPaster uriPaster;
 
     @BindView(R.id.paste_from_clipboard)
     View pasteFromClipboard;
@@ -87,7 +87,7 @@ public class ScanQrActivity extends SingleFragmentActivity<ScanQrPresenter>
     }
 
     @Override
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         return header;
     }
 

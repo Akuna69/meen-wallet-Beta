@@ -12,7 +12,7 @@ public interface HomeView extends BaseView {
     /**
      * Takes user to SecurityCenter screen.
      */
-    void showWelcomeToMuunDialog();
+    void showWelcomeToMeenDialog();
 
     /**
      * Show Taproot celebration.

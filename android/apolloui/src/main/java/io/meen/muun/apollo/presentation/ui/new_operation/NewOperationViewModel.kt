@@ -6,7 +6,7 @@ import android.view.MotionEvent
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import io.meen.apollo.domain.action.sensor.StoreSensorsDataAction
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.presentation.ui.nfc.SensorUtils
 import io.meen.apollo.presentation.ui.nfc.events.GestureEvent
@@ -40,7 +40,7 @@ class NewOperationViewModel @Inject constructor(
      */
     internal fun subscribeToAllSensors(context: Context, lifecycleOwner: LifecycleOwner) {
 
-        if (!featureSelector.get(MuunFeature.NFC_SENSORS)) {
+        if (!featureSelector.get(MeenFeature.NFC_SENSORS)) {
             return
         }
 

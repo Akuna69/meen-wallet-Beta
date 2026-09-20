@@ -6,8 +6,8 @@ import butterknife.BindView
 import io.meen.apollo.R
 import io.meen.apollo.domain.model.user.User
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 internal class PrimingRecoveryCodeFragment : SingleFragment<PrimingRecoveryCodePresenter>(),
     PrimingRecoveryCodeView {
@@ -19,7 +19,7 @@ internal class PrimingRecoveryCodeFragment : SingleFragment<PrimingRecoveryCodeP
     lateinit var description: TextView
 
     @BindView(R.id.priming_recovery_code_start)
-    lateinit var startButton: MuunButton
+    lateinit var startButton: MeenButton
 
     override fun inject() {
         component.inject(this)
@@ -35,7 +35,7 @@ internal class PrimingRecoveryCodeFragment : SingleFragment<PrimingRecoveryCodeP
     override fun setUpHeader() {
         parentActivity.header.apply {
             setElevated(true)
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
         }
     }
 

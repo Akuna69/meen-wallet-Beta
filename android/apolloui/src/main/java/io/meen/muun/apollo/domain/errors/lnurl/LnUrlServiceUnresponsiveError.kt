@@ -1,9 +1,9 @@
 package io.meen.apollo.domain.errors.lnurl
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 
-class LnUrlServiceUnresponsiveError(domain: String): MuunError() {
+class LnUrlServiceUnresponsiveError(domain: String): MeenError() {
 
     override val classification = ErrorClassification.UNEXPECTED
 

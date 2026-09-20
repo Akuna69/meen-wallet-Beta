@@ -8,7 +8,7 @@ import io.meen.apollo.domain.action.address.CreateAddressAction
 import io.meen.apollo.domain.analytics.AnalyticsEvent
 import io.meen.apollo.domain.model.AddressType
 import io.meen.apollo.domain.model.BitcoinAmount
-import io.meen.apollo.domain.model.MuunAddressGroup
+import io.meen.apollo.domain.model.MeenAddressGroup
 import io.meen.apollo.domain.selector.BlockchainHeightSelector
 import io.meen.apollo.domain.selector.UserActivatedFeatureStatusSelector
 import io.meen.apollo.domain.selector.UserPreferencesSelector
@@ -88,7 +88,7 @@ open class BitcoinAddressQrPresenter @Inject constructor(
         view.showFullAddress(getAddress(), addressType)
     }
 
-    private fun onAddressesReady(newAddresses: MuunAddressGroup) {
+    private fun onAddressesReady(newAddresses: MeenAddressGroup) {
         if (!::legacyAddress.isInitialized) {
             legacyAddress = newAddresses.legacy.address
         }

@@ -14,8 +14,8 @@ import io.meen.apollo.presentation.ui.new_operation.estimateTimeInMs
 import io.meen.apollo.presentation.ui.view.FeeManualItem
 import io.meen.apollo.presentation.ui.view.FeeOptionItem
 import io.meen.apollo.presentation.ui.view.HtmlTextView
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import io.meen.apollo.presentation.ui.view.RichText
 import io.meen.apollo.presentation.ui.view.StatusMessage
 import io.meen.common.Rules
@@ -43,7 +43,7 @@ class RecommendedFeeFragment : SingleFragment<RecommendedFeePresenter>(), Recomm
     lateinit var statusMessage: StatusMessage
 
     @BindView(R.id.confirm_fee)
-    lateinit var confirmButton: MuunButton
+    lateinit var confirmButton: MeenButton
 
     @BindString(R.string.fee_options_message)
     lateinit var messageText: String
@@ -85,7 +85,7 @@ class RecommendedFeeFragment : SingleFragment<RecommendedFeePresenter>(), Recomm
     }
 
     override fun setUpHeader() {
-        parentActivity.header.setNavigation(MuunHeader.Navigation.EXIT)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.EXIT)
         parentActivity.header.showTitle(R.string.edit_fee_title)
     }
 

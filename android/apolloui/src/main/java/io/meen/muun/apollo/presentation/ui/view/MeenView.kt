@@ -28,7 +28,7 @@ import timber.log.Timber
 import java.util.LinkedList
 import java.util.Locale
 
-abstract class MuunView : FrameLayout,
+abstract class MeenView : FrameLayout,
     ExternalResultExtension.Caller,
     PermissionManagerExtension.PermissionRequester {
 
@@ -96,7 +96,7 @@ abstract class MuunView : FrameLayout,
             }
 
             val error = BugDetected(
-                "MuunView's context is not a BaseActivity in ${this.javaClass.simpleName}"
+                "MeenView's context is not a BaseActivity in ${this.javaClass.simpleName}"
             )
             Timber.e(error)
             throw error // throw to avoid return null, all users assume this isn't null
@@ -141,7 +141,7 @@ abstract class MuunView : FrameLayout,
         // WAIT: when did we change the code to add this `innerView` nonsense, instead of using
         // ourselves as the root layout like in the good old times?
 
-        // Well, glad you asked. As you know, one of the guarantees of MuunView is that internal IDs
+        // Well, glad you asked. As you know, one of the guarantees of MeenView is that internal IDs
         // will never cause problems if the same IDs are assigned to our ancestors or siblings in
         // the view tree (which may be other instances of this class, with every ID shared).
 
@@ -164,10 +164,10 @@ abstract class MuunView : FrameLayout,
     }
 
     override fun onSaveInstanceState(): Parcelable {
-        // Our children may have XML IDs that MuunView subclasses might want to pick up. Two
+        // Our children may have XML IDs that MeenView subclasses might want to pick up. Two
         // instances of the same subclass will thus share their internal IDs. For example:
 
-        // <MuunViewSubclass>
+        // <MeenViewSubclass>
         //   <EditText android:id="foo" />
         // </>
 
@@ -177,8 +177,8 @@ abstract class MuunView : FrameLayout,
         // of the two). This is not theoretical, it happens on recreation and config changes,
         // systematically.
 
-        // What we need to do is save the state of MuunView children manually, without resorting
-        // to the "global" (per-layout) ID-to-state map. As long as the MuunView itself has a
+        // What we need to do is save the state of MeenView children manually, without resorting
+        // to the "global" (per-layout) ID-to-state map. As long as the MeenView itself has a
         // unique ID, nothing will clash.
 
         val state = Bundle()

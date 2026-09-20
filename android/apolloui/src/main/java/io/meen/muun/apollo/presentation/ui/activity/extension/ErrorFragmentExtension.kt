@@ -21,7 +21,7 @@ import javax.inject.Inject
 class ErrorFragmentExtension @Inject constructor() : ActivityExtension() {
 
     companion object {
-        private const val TAG: String = "Muun Error Fragment"
+        private const val TAG: String = "Meen Error Fragment"
     }
 
     override fun setActivity(activity: ExtensibleActivity) {

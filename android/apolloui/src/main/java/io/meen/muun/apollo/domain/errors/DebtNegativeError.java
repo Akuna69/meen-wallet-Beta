@@ -2,7 +2,7 @@ package io.meen.apollo.domain.errors;
 
 import org.jetbrains.annotations.NotNull;
 
-public class DebtNegativeError extends MuunError {
+public class DebtNegativeError extends MeenError {
 
     @NotNull
     @Override

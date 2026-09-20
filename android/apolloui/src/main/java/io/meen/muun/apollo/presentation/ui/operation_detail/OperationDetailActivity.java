@@ -6,9 +6,9 @@ import io.meen.apollo.presentation.model.UiOperation;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer;
 import io.meen.apollo.presentation.ui.utils.StyledStringRes;
-import io.meen.apollo.presentation.ui.view.MuunDetailItem;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenDetailItem;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 import io.meen.apollo.presentation.ui.view.NoticeBanner;
 import io.meen.apollo.presentation.ui.view.ProfilePictureView;
 
@@ -40,7 +40,7 @@ public class OperationDetailActivity extends BaseActivity<OperationDetailPresent
     }
 
     @BindView(R.id.operation_detail_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @BindView(R.id.operation_detail_profile_picture)
     ProfilePictureView picture;
@@ -52,49 +52,49 @@ public class OperationDetailActivity extends BaseActivity<OperationDetailPresent
     TextView subtitle;
 
     @BindView(R.id.operation_detail_description)
-    MuunDetailItem descriptionItem;
+    MeenDetailItem descriptionItem;
 
     @BindView(R.id.operation_detail_status)
-    MuunDetailItem statusItem;
+    MeenDetailItem statusItem;
 
     @BindView(R.id.operation_detail_notice_banner)
     NoticeBanner noticeBanner;
 
     @BindView(R.id.operation_detail_date)
-    MuunDetailItem dateItem;
+    MeenDetailItem dateItem;
 
     @BindView(R.id.operation_detail_amount)
-    MuunDetailItem amountItem;
+    MeenDetailItem amountItem;
 
     @BindView(R.id.operation_detail_normal_section)
     ViewGroup normalSection;
 
     @BindView(R.id.operation_detail_confirmations)
-    MuunDetailItem confirmationsItem;
+    MeenDetailItem confirmationsItem;
 
     @BindView(R.id.operation_detail_fee)
-    MuunDetailItem feeItem;
+    MeenDetailItem feeItem;
 
     @BindView(R.id.operation_detail_address)
-    MuunDetailItem addressItem;
+    MeenDetailItem addressItem;
 
     @BindView(R.id.operation_detail_txid)
-    MuunDetailItem transactionIdItem;
+    MeenDetailItem transactionIdItem;
 
     @BindView(R.id.operation_detail_swap_section)
     ViewGroup swapSection;
 
     @BindView(R.id.operation_detail_swap_invoice)
-    MuunDetailItem swapInvoiceItem;
+    MeenDetailItem swapInvoiceItem;
 
     @BindView(R.id.operation_detail_swap_hash)
-    MuunDetailItem swapPaymentHashItem;
+    MeenDetailItem swapPaymentHashItem;
 
     @BindView(R.id.operation_detail_swap_preimage)
-    MuunDetailItem swapPreimageItem;
+    MeenDetailItem swapPreimageItem;
 
     @BindView(R.id.operation_detail_swap_receiver_pubkey)
-    MuunDetailItem swapReceiverPubkeyItem;
+    MeenDetailItem swapReceiverPubkeyItem;
 
     @Override
     protected void inject() {

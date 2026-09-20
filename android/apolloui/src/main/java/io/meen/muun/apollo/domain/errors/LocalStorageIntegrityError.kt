@@ -8,7 +8,7 @@ class LocalStorageIntegrityError(
     validSessionButNoJwt: Boolean,
     jwtButInvalidSession: Boolean,
     newFcmToken: String,
-) : MuunError("Integrity error! Probably something went wrong with a logout") {
+) : MeenError("Integrity error! Probably something went wrong with a logout") {
 
     override val classification = ErrorClassification.UNEXPECTED
 

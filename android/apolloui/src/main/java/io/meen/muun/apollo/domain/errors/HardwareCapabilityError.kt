@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.errors
 
-open class HardwareCapabilityError(capability: String, cause: Throwable) : MuunError(
+open class HardwareCapabilityError(capability: String, cause: Throwable) : MeenError(
     "Error reading hardware capability",
     cause
 ) {

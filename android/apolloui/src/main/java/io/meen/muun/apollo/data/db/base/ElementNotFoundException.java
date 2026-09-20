@@ -1,13 +1,13 @@
 package io.meen.apollo.data.db.base;
 
 import io.meen.apollo.domain.errors.ErrorClassification;
-import io.meen.apollo.domain.errors.MuunError;
+import io.meen.apollo.domain.errors.MeenError;
 
 import android.text.TextUtils;
 import com.squareup.sqldelight.Query;
 import org.jetbrains.annotations.NotNull;
 
-public class ElementNotFoundException extends MuunError {
+public class ElementNotFoundException extends MeenError {
 
     @NotNull
     @Override

@@ -67,7 +67,7 @@ class FileSharer(val context: Context) {
         val pendingIntent = PendingIntent.getBroadcast(context, 0, resultIntent, resultFlags)
 
         // Return the actual Intent that connects everything with a Chooser dialog:
-        val chooserIntent = Intent.createChooser(shareIntent, "Muun", pendingIntent.intentSender)
+        val chooserIntent = Intent.createChooser(shareIntent, "Meen", pendingIntent.intentSender)
 
         // Add file system app to chooser dialog, for save to disk option
         val openDocumentTreeIntent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)

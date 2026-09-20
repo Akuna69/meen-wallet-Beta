@@ -18,7 +18,7 @@ import io.meen.apollo.domain.model.LoginWithRc;
 import io.meen.apollo.domain.model.SignupDraft;
 import io.meen.apollo.domain.model.SignupStep;
 import io.meen.apollo.domain.model.auth.LoginOk;
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog;
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog;
 import io.meen.apollo.presentation.ui.base.BasePresenter;
 import io.meen.apollo.presentation.ui.base.di.PerActivity;
 import io.meen.apollo.presentation.ui.fragments.enter_password.EnterPasswordParentPresenter;
@@ -340,7 +340,7 @@ public class SignupPresenter extends BasePresenter<SignupView> implements
 
         } else if (error instanceof StaleChallengeKeyError) {
             analytics.report(new AnalyticsEvent.E_ERROR(AnalyticsEvent.ERROR_TYPE.RC_STALE_ERROR));
-            final MuunDialog errorDialog = new MuunDialog.Builder()
+            final MeenDialog errorDialog = new MeenDialog.Builder()
                     .layout(R.layout.dialog_custom_layout)
                     .title(R.string.rc_error_stale_rc_title)
                     .message(R.string.rc_error_stale_rc_desc)
@@ -360,7 +360,7 @@ public class SignupPresenter extends BasePresenter<SignupView> implements
                     R.string.rc_error_credentials_dont_match_desc
             );
 
-            final MuunDialog errorDialog = new MuunDialog.Builder()
+            final MeenDialog errorDialog = new MeenDialog.Builder()
                     .layout(R.layout.dialog_custom_layout)
                     .title(R.string.rc_error_credentials_dont_match_title)
                     .message(styledDesc.toCharSequence(getSignupDraft().getEmail()))

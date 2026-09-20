@@ -10,7 +10,7 @@ import com.google.android.material.tabs.TabLayout
 import icepick.State
 import io.meen.apollo.R
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 
 abstract class FlowIntroFragment<V, P, PP> : SingleFragment<P>(), FlowIntroView
     where V : FlowIntroView,
@@ -27,7 +27,7 @@ abstract class FlowIntroFragment<V, P, PP> : SingleFragment<P>(), FlowIntroView
     lateinit var footnoteView: TextView
 
     @BindView(R.id.accept)
-    lateinit var acceptButton: MuunButton
+    lateinit var acceptButton: MeenButton
 
     @State
     @JvmField

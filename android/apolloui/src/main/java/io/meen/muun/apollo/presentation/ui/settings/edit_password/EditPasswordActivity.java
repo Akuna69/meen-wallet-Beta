@@ -3,7 +3,7 @@ package io.meen.apollo.presentation.ui.settings.edit_password;
 import io.meen.apollo.R;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +23,7 @@ public class EditPasswordActivity extends SingleFragmentActivity<EditPasswordPre
     }
 
     @BindView(R.id.edit_password_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @Override protected void inject() {
         getComponent().inject(this);
@@ -39,7 +39,7 @@ public class EditPasswordActivity extends SingleFragmentActivity<EditPasswordPre
 
         header.attachToActivity(this);
         header.setBackgroundColor(Color.TRANSPARENT);
-        header.setNavigation(MuunHeader.Navigation.BACK);
+        header.setNavigation(MeenHeader.Navigation.BACK);
         header.showTitle(R.string.settings_password);
         header.setElevated(true);
     }
@@ -54,7 +54,7 @@ public class EditPasswordActivity extends SingleFragmentActivity<EditPasswordPre
         return new StartPasswordChangeFragment();
     }
 
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         return header;
     }
 }

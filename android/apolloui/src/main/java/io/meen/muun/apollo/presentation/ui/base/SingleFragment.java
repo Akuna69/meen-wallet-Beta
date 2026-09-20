@@ -52,7 +52,7 @@ public abstract class SingleFragment<PresenterT extends SingleFragmentPresenter>
     }
 
     /**
-     * Implement this method to perform initial visual setup of our MuunHeader (toolbar) component.
+     * Implement this method to perform initial visual setup of our MeenHeader (toolbar) component.
      *
      * <p>This is guaranteed to run AFTER:
      * - Activity#onCreate

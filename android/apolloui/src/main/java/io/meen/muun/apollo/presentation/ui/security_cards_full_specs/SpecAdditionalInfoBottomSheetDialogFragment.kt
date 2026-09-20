@@ -6,9 +6,9 @@ import android.view.View
 import androidx.core.text.HtmlCompat
 import io.meen.apollo.databinding.BottomSheetSpecAdditionalInfoBinding
 import io.meen.apollo.presentation.ui.security_cards_marketplace.models.AdditionalInfo
-import io.meen.apollo.presentation.ui.view.MuunBottomSheetDialogFragment
+import io.meen.apollo.presentation.ui.view.MeenBottomSheetDialogFragment
 
-class SpecAdditionalInfoBottomSheetDialogFragment : MuunBottomSheetDialogFragment() {
+class SpecAdditionalInfoBottomSheetDialogFragment : MeenBottomSheetDialogFragment() {
 
     companion object {
         private const val ARG_INFO = "info"

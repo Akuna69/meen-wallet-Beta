@@ -6,8 +6,8 @@ import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.fragments.verify_email.VerifyEmailView;
 import io.meen.apollo.presentation.ui.utils.StyledStringRes;
 import io.meen.apollo.presentation.ui.view.LoadingView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -20,7 +20,7 @@ public class LoginAuthorizeFragment
         implements VerifyEmailView {
 
     @BindView(R.id.signup_waiting_for_email_open_email_client)
-    MuunButton openEmailAppButton;
+    MeenButton openEmailAppButton;
 
     @BindView(R.id.signup_waiting_for_email_verification_title)
     TextView titleView;
@@ -54,8 +54,8 @@ public class LoginAuthorizeFragment
 
     @Override
     protected void setUpHeader() {
-        final MuunHeader header = getParentActivity().getHeader();
-        header.setNavigation(MuunHeader.Navigation.BACK);
+        final MeenHeader header = getParentActivity().getHeader();
+        header.setNavigation(MeenHeader.Navigation.BACK);
         header.setElevated(true);
         header.showTitle(R.string.login_title);
     }

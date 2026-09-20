@@ -8,7 +8,7 @@ import io.meen.apollo.R
 import io.meen.apollo.databinding.LoginEmailBinding
 import io.meen.apollo.domain.errors.UserFacingError
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import io.meen.common.bitcoinj.ValidationHelpers
 
 class LoginEmailFragment : SingleFragment<LoginEmailPresenter>(), LoginEmailView {
@@ -46,7 +46,7 @@ class LoginEmailFragment : SingleFragment<LoginEmailPresenter>(), LoginEmailView
 
     override fun setUpHeader() {
         parentActivity.header.apply {
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
             showTitle(R.string.login_title)
             setElevated(true)
         }

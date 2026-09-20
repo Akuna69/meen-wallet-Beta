@@ -32,7 +32,7 @@ public class PeriodicTaskWorker extends Worker {
 
     /**
      * Constructor. This is now called from background (WorkManager handles it) so dependency
-     * injection is handled by a WorkFactory. See MuunWorkerFactory.
+     * injection is handled by a WorkFactory. See MeenWorkerFactory.
      */
     public PeriodicTaskWorker(
             @NonNull Context context,

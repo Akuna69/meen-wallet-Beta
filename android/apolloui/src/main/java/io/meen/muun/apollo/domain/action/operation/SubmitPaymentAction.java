@@ -21,7 +21,7 @@ import io.meen.apollo.domain.model.SubmarineSwap;
 import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy;
 import io.meen.apollo.domain.model.tx.PartiallySignedTransaction;
 import io.meen.apollo.domain.utils.ExtensionsKt;
-import io.meen.common.crypto.hd.MuunAddress;
+import io.meen.common.crypto.hd.MeenAddress;
 import io.meen.common.crypto.hd.PrivateKey;
 import io.meen.common.crypto.hd.PublicKey;
 import io.meen.common.exception.MissingCaseError;
@@ -219,12 +219,12 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
             final PartiallySignedTransaction partiallySignedTransaction
     ) {
 
-        final PublicKey baseMuunPublicKey = keysRepository
-                .getBaseMuunPublicKey();
+        final PublicKey baseMeenPublicKey = keysRepository
+                .getBaseMeenPublicKey();
 
         final Transaction txInfo = LibwalletBridge.sign(
                 baseUserPrivateKey,
-                baseMuunPublicKey,
+                baseMeenPublicKey,
                 partiallySignedTransaction,
                 Globals.INSTANCE.getNetwork(),
                 musigNonces,
@@ -278,7 +278,7 @@ public class SubmitPaymentAction extends BaseAsyncAction1<
 
     private Operation buildOperationToContact(Contact contact, PreparedPayment prepPayment) {
 
-        final MuunAddress receiverAddress = contactActions.getAddressForContact(contact);
+        final MeenAddress receiverAddress = contactActions.getAddressForContact(contact);
 
         return Operation.createOutgoing(
                 userRepository.fetchOne().getCompatPublicProfile(),

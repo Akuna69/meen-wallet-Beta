@@ -10,9 +10,9 @@ import io.meen.apollo.databinding.ActivitySelectBitcoinUnitBinding
 import io.meen.apollo.domain.model.BitcoinUnit
 import io.meen.apollo.presentation.ui.base.BaseActivity
 import io.meen.apollo.presentation.ui.utils.UiUtils
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
-import io.meen.apollo.presentation.ui.view.MuunSettingItem
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenSettingItem
 
 class SelectBitcoinUnitActivity: BaseActivity<SelectBitcoinUnitPresenter>(), SelectBitcoinUnitView {
 
@@ -24,13 +24,13 @@ class SelectBitcoinUnitActivity: BaseActivity<SelectBitcoinUnitPresenter>(), Sel
     private val binding: ActivitySelectBitcoinUnitBinding
         get() = getBinding() as ActivitySelectBitcoinUnitBinding
 
-    private val header: MuunHeader
+    private val header: MeenHeader
         get() = binding.selectCurrencyHeader
 
-    private val bitcoinUnitItem: MuunSettingItem
+    private val bitcoinUnitItem: MeenSettingItem
         get() = binding.bitcoinUnitBtc
 
-    private val satoshisUnitItem: MuunSettingItem
+    private val satoshisUnitItem: MeenSettingItem
         get() = binding.bitcoinUnitSat
 
     @State

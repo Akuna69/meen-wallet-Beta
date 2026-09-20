@@ -35,7 +35,7 @@ import io.meen.apollo.domain.errors.ek.SaveEkToDiskError
 import io.meen.apollo.domain.model.FeedbackCategory
 import io.meen.apollo.domain.model.GeneratedEmergencyKitHTML
 import io.meen.apollo.domain.model.GeneratedEmergencyKitInfo
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.domain.utils.Trace
 import io.meen.apollo.domain.utils.TraceLabel
@@ -73,7 +73,7 @@ class EmergencyKitSavePresenter @Inject constructor(
     override fun setUp(arguments: Bundle) {
         super.setUp(arguments)
 
-        if (featureSelector.get(MuunFeature.EK_GO_RENDERING)) {
+        if (featureSelector.get(MeenFeature.EK_GO_RENDERING)) {
             generateEmergencyKitPdf.state
                 .compose(handleStates(null, this::handleError))
                 .doOnNext(this::onPDFGenerationFinished)
@@ -107,7 +107,7 @@ class EmergencyKitSavePresenter @Inject constructor(
         }
         isExportingPdf = true
 
-        if (featureSelector.get(MuunFeature.EK_GO_RENDERING)) {
+        if (featureSelector.get(MeenFeature.EK_GO_RENDERING)) {
             try {
                 generateEmergencyKitPdf.run()
             } catch (e: Exception) {

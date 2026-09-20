@@ -2,7 +2,7 @@ package io.meen.apollo.presentation.ui.settings.flags
 
 import android.os.Bundle
 import io.meen.apollo.domain.FeatureOverrideStore
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.presentation.ui.adapter.viewmodel.FeatureFlagViewModel
 import io.meen.apollo.presentation.ui.base.ParentPresenter
@@ -24,7 +24,7 @@ class DisableFeatureFlagsPresenter @Inject constructor(
     }
 
     fun toggleFeatureFlag(
-        overridableFeature: MuunFeature.OverridableFeature.Overridable,
+        overridableFeature: MeenFeature.OverridableFeature.Overridable,
         state: FeatureFlagViewModel.State,
     ) {
         // If state was ENABLED -> disable, if state was DISABLED -> enable

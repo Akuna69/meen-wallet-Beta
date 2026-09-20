@@ -4,22 +4,22 @@ import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject
 
-class MuunButton(
+class MeenButton(
     override val device: UiDevice,
     override val context: Context,
     private val button: UiObject,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun doesntExist() {
         button.assertDoesntExist()
     }
 
-    fun waitForExists(): MuunButton {
+    fun waitForExists(): MeenButton {
         button.assertExists()
         return this
     }
 
-    fun textEquals(expectedText: String): MuunButton {
+    fun textEquals(expectedText: String): MeenButton {
         button.assertTextEquals(expectedText)
         return this
     }

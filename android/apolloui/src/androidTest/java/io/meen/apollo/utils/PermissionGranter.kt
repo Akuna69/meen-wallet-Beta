@@ -15,7 +15,7 @@ import timber.log.Timber
 class PermissionGranter(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     private val PERMISSIONS_DIALOG_DELAY = 3 //Seconds
 

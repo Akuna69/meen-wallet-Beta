@@ -33,7 +33,7 @@ class BalanceView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     style: Int = 0
-) : MuunView(context, attrs, style) {
+) : MeenView(context, attrs, style) {
 
     // Components:
     @BindView(R.id.balance_main_currency_amount)

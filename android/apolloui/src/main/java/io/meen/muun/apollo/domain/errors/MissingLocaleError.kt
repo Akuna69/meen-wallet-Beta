@@ -5,7 +5,7 @@ import java.util.*
 
 class MissingLocaleError(
     countryCode: String,
-) : MuunError("No locales found for country:$countryCode"), PotentialBug {
+) : MeenError("No locales found for country:$countryCode"), PotentialBug {
 
     override val classification = ErrorClassification.UNEXPECTED
 

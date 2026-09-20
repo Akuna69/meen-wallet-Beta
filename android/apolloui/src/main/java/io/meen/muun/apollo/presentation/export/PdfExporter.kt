@@ -3,8 +3,8 @@ package io.meen.apollo.presentation.export
 import android.os.CancellationSignal
 import android.os.Handler
 import android.os.ParcelFileDescriptor
-import android.print.MuunLayoutResultCallback
-import android.print.MuunWriteResultCallback
+import android.print.MeenLayoutResultCallback
+import android.print.MeenWriteResultCallback
 import android.print.PageRange
 import android.print.PrintAttributes
 import android.print.PrintDocumentAdapter
@@ -192,7 +192,7 @@ class PdfExporter(
 
     }
 
-    private inner class OwnLayoutCallback : MuunLayoutResultCallback() {
+    private inner class OwnLayoutCallback : MeenLayoutResultCallback() {
 
         override fun onLayoutFinished(info: PrintDocumentInfo, changed: Boolean) =
             this@PdfExporter.onLayoutFinished()
@@ -206,7 +206,7 @@ class PdfExporter(
         }
     }
 
-    private inner class OwnResultCallback : MuunWriteResultCallback() {
+    private inner class OwnResultCallback : MeenWriteResultCallback() {
 
         override fun onWriteCancelled() =
             this@PdfExporter.onWriteCancelled()

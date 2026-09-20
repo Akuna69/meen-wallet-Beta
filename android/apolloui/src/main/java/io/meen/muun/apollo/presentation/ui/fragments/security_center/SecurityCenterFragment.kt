@@ -15,8 +15,8 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.fragments.security_center.SecurityCenterView.TaskStatus
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.utils.getDrawable
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
-import io.meen.apollo.presentation.ui.view.MuunTaskCard
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenTaskCard
 
 class SecurityCenterFragment : SingleFragment<SecurityCenterPresenter>(), SecurityCenterView {
 
@@ -117,7 +117,7 @@ class SecurityCenterFragment : SingleFragment<SecurityCenterPresenter>(), Securi
         setRecoveryCodeSetupStatus(recoveryCodeStatus, securityCenter)
         setExportKeysStatus(exportKeysStatus, hasOldExportKeysOnly)
 
-        if (binding.taskExportKeys.status == MuunTaskCard.Status.DONE && hasOldExportKeysOnly) {
+        if (binding.taskExportKeys.status == MeenTaskCard.Status.DONE && hasOldExportKeysOnly) {
             binding.taskExportKeys.setOnClickListener { presenter.goToRecoveryTool() }
         }
     }
@@ -125,7 +125,7 @@ class SecurityCenterFragment : SingleFragment<SecurityCenterPresenter>(), Securi
     private fun setEmailSetupStatus(status: TaskStatus, sc: SecurityCenter) {
 
         if (sc.emailSetupSkipped()) {
-            binding.taskEmail.status = MuunTaskCard.Status.SKIPPED
+            binding.taskEmail.status = MeenTaskCard.Status.SKIPPED
             binding.tagEmailSkipped.visibility = View.VISIBLE
             binding.tagEmailSkipped.bringToFront()
             (binding.tagEmailSkipped.parent as View).invalidate()
@@ -136,16 +136,16 @@ class SecurityCenterFragment : SingleFragment<SecurityCenterPresenter>(), Securi
         }
 
         binding.taskEmail.title = when (binding.taskEmail.status) {
-            MuunTaskCard.Status.DONE -> getString(R.string.task_email_done_title)
-            MuunTaskCard.Status.ACTIVE -> getString(R.string.task_email_pending_title)
-            MuunTaskCard.Status.SKIPPED -> getString(R.string.task_email_pending_title)
+            MeenTaskCard.Status.DONE -> getString(R.string.task_email_done_title)
+            MeenTaskCard.Status.ACTIVE -> getString(R.string.task_email_pending_title)
+            MeenTaskCard.Status.SKIPPED -> getString(R.string.task_email_pending_title)
             else -> throw IllegalStateException("This should never happen!")
         }
 
         binding.taskEmail.body = when (binding.taskEmail.status) {
-            MuunTaskCard.Status.DONE -> stringWithEmail(R.string.task_email_done_body, sc.email()!!)
-            MuunTaskCard.Status.ACTIVE -> getString(R.string.task_email_pending_body)
-            MuunTaskCard.Status.SKIPPED -> getString(R.string.task_email_skipped_body)
+            MeenTaskCard.Status.DONE -> stringWithEmail(R.string.task_email_done_body, sc.email()!!)
+            MeenTaskCard.Status.ACTIVE -> getString(R.string.task_email_pending_body)
+            MeenTaskCard.Status.SKIPPED -> getString(R.string.task_email_skipped_body)
             else -> throw IllegalStateException("This should never happen!")
         }
 
@@ -232,9 +232,9 @@ class SecurityCenterFragment : SingleFragment<SecurityCenterPresenter>(), Securi
 
     private fun toCardStatus(status: TaskStatus) =
         when (status) {
-            TaskStatus.BLOCKED -> MuunTaskCard.Status.INACTIVE
-            TaskStatus.PENDING -> MuunTaskCard.Status.ACTIVE
-            TaskStatus.DONE -> MuunTaskCard.Status.DONE
+            TaskStatus.BLOCKED -> MeenTaskCard.Status.INACTIVE
+            TaskStatus.PENDING -> MeenTaskCard.Status.ACTIVE
+            TaskStatus.DONE -> MeenTaskCard.Status.DONE
         }
 
     private fun stringWithEmail(@StringRes resId: Int, email: String) =

@@ -4,7 +4,7 @@ import android.os.AsyncTask
 import com.google.android.gms.tasks.Task
 import com.google.firebase.messaging.FirebaseMessaging
 import io.meen.apollo.domain.action.fcm.UpdateFcmTokenAction
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.errors.fcm.FcmTokenCanceledError
 import io.meen.apollo.domain.errors.fcm.FcmTokenError
 import rx.Observable
@@ -46,7 +46,7 @@ class FirebaseManager @Inject constructor(private val updateFcmTokenAction: Upda
         return subject
     }
 
-    private fun getError(task: Task<String>): MuunError {
+    private fun getError(task: Task<String>): MeenError {
         return if (task.isCanceled) {
             FcmTokenCanceledError()
 

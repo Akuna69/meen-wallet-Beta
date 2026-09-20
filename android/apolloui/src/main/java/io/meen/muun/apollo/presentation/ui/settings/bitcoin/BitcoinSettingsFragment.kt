@@ -8,11 +8,11 @@ import com.google.android.material.switchmaterial.SwitchMaterial
 import icepick.State
 import io.meen.apollo.R
 import io.meen.apollo.domain.model.UserActivatedFeatureStatus
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.getStyledString
 import io.meen.apollo.presentation.ui.view.LoadingView
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class BitcoinSettingsFragment : SingleFragment<BitcoinSettingsPresenter>(), BitcoinSettingsView {
 
@@ -52,7 +52,7 @@ class BitcoinSettingsFragment : SingleFragment<BitcoinSettingsPresenter>(), Bitc
     override fun setUpHeader() {
         parentActivity.header.apply {
             showTitle(R.string.settings_bitcoin)
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
         }
     }
 
@@ -80,7 +80,7 @@ class BitcoinSettingsFragment : SingleFragment<BitcoinSettingsPresenter>(), Bitc
         }
 
         if (newTaprootByDefault) {
-            val dialog = MuunDialog.Builder()
+            val dialog = MeenDialog.Builder()
                 .title(R.string.tr_setting_confirm_title)
                 .message(R.string.tr_setting_confirm_desc)
                 .positiveButton(R.string.tr_setting_confirm) {

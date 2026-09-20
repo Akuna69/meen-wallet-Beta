@@ -2,11 +2,11 @@ package io.meen.apollo.domain.errors.notifications
 
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.common.api.beam.notification.NotificationJson
 import io.meen.common.exception.PotentialBug
 
-class NotificationProcessingError : MuunError, PotentialBug {
+class NotificationProcessingError : MeenError, PotentialBug {
 
     override val classification = ErrorClassification.UNEXPECTED
 

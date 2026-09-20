@@ -14,7 +14,7 @@ import io.meen.apollo.domain.model.LnUrlWithdraw
 
 /**
  * Constructor. This is now called from background (WorkManager handles it) so dependency
- * injection is handled by a WorkFactory. See MuunWorkerFactory.
+ * injection is handled by a WorkFactory. See MeenWorkerFactory.
  */
 class LnPaymentFailedNotificationWorker(
     val context: Context,

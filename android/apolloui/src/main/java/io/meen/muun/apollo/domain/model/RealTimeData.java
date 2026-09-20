@@ -21,7 +21,7 @@ public class RealTimeData {
     public final double minFeeRateInWeightUnits;
 
     @NotNull
-    public final List<MuunFeature> features;
+    public final List<MeenFeature> features;
 
     /**
      * Constructor.
@@ -32,7 +32,7 @@ public class RealTimeData {
             final int currentBlockchainHeight,
             final List<ForwardingPolicy> forwardingPolicies,
             final double minFeeRateInWeightUnits,
-            final List<MuunFeature> features
+            final List<MeenFeature> features
     ) {
         this.feeWindow = feeWindow;
         this.exchangeRateWindow = exchangeRateWindow;

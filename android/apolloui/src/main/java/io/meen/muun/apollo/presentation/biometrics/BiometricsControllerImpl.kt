@@ -16,7 +16,7 @@ import io.meen.apollo.domain.analytics.AnalyticsEvent.E_BIOMETRICS_AUTH_SUCCESS
 import io.meen.apollo.domain.analytics.AnalyticsEvent.S_BIOMETRICS_AUTH
 import io.meen.apollo.domain.errors.BiometricAuthenticationError
 import io.meen.apollo.domain.model.BiometricAuthenticationErrorReason
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import javax.inject.Inject
 
@@ -49,7 +49,7 @@ class BiometricsControllerImpl @Inject constructor(
             }
         }
 
-        if (!featureSel.get(MuunFeature.APOLLO_BIOMETRICS)) {
+        if (!featureSel.get(MeenFeature.APOLLO_BIOMETRICS)) {
             return BiometricsAuthenticationStatus.disabled("FEATURE_FLAG")
         }
 

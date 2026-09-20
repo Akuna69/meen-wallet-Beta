@@ -5,19 +5,19 @@ import butterknife.BindView
 import io.meen.apollo.R
 import io.meen.apollo.domain.errors.UserFacingError
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunRecoveryCodeBox
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenRecoveryCodeBox
 
 class RecoveryCodeFragment : SingleFragment<RecoveryCodePresenter>(), RecoveryCodeView {
 
     @BindView(R.id.enter_recovery_code_box)
-    lateinit var recoveryCodeBox: MuunRecoveryCodeBox
+    lateinit var recoveryCodeBox: MeenRecoveryCodeBox
 
     @BindView(R.id.use_password)
-    lateinit var usePasswordButton: MuunButton
+    lateinit var usePasswordButton: MeenButton
 
     @BindView(R.id.enter_recovery_code_continue)
-    lateinit var continueButton: MuunButton
+    lateinit var continueButton: MeenButton
 
     override fun inject() {
         component.inject(this)

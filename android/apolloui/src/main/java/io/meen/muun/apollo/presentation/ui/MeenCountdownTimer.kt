@@ -13,7 +13,7 @@ import java.lang.ref.WeakReference
  * references to inner anonymous objects, but it's weird that proper disposal of the timer (e.g call
  * cancel + set reference to null in onStop/Destroy) doesn't prevent the mem leak. So, here we are.
  */
-class MuunCountdownTimer(durationInMillis: Long, listener: CountDownTimerListener) : CountDownTimer(
+class MeenCountdownTimer(durationInMillis: Long, listener: CountDownTimerListener) : CountDownTimer(
     durationInMillis,
     DEFAULT_COUNT_DOWN_INTERVAL_IN_MILLIS
 ) {

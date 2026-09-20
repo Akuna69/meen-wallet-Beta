@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.ActivitySingleFragmentBinding
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import timber.log.Timber
 
 class SingleFragmentActivityImpl :
@@ -31,7 +31,7 @@ class SingleFragmentActivityImpl :
     private val binding: ActivitySingleFragmentBinding
         get() = getBinding() as ActivitySingleFragmentBinding
 
-    private val headerView: MuunHeader
+    private val headerView: MeenHeader
         get() = binding.header
 
     override fun inject() {
@@ -48,7 +48,7 @@ class SingleFragmentActivityImpl :
     override fun getFragmentsContainer() =
         R.id.container
 
-    override fun getHeader(): MuunHeader =
+    override fun getHeader(): MeenHeader =
         headerView
 
     override fun getInitialFragment(): SingleFragment<out SingleFragmentPresenter<*, *>> {

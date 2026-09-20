@@ -7,10 +7,10 @@ import io.meen.apollo.domain.model.CountryInfo;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer;
 import io.meen.apollo.presentation.ui.view.HtmlTextView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunCountryInput;
-import io.meen.apollo.presentation.ui.view.MuunPhoneInput;
-import io.meen.apollo.presentation.ui.view.MuunTextInput;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenCountryInput;
+import io.meen.apollo.presentation.ui.view.MeenPhoneInput;
+import io.meen.apollo.presentation.ui.view.MeenTextInput;
 import io.meen.apollo.presentation.ui.view.RichText;
 import io.meen.common.Optional;
 
@@ -28,16 +28,16 @@ public class PhoneNumberFragment extends SingleFragment<PhoneNumberPresenter>
     HtmlTextView explanation;
 
     @BindView(R.id.signup_phone_number_edit_local_number)
-    MuunPhoneInput nationalNumber;
+    MeenPhoneInput nationalNumber;
 
     @BindView(R.id.signup_phone_number_edit_country_prefix)
-    MuunTextInput countryPrefix;
+    MeenTextInput countryPrefix;
 
     @BindView(R.id.signup_phone_number_country_picker)
-    MuunCountryInput countryPicker;
+    MeenCountryInput countryPicker;
 
     @BindView(R.id.signup_continue)
-    MuunButton continueButton;
+    MeenButton continueButton;
 
     @Inject
     InternalMetricsProvider internalMetricsProvider;

@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.model
 
-import io.meen.common.crypto.hd.MuunAddress
+import io.meen.common.crypto.hd.MeenAddress
 import io.meen.common.model.OperationDirection
 import io.meen.common.model.OperationStatus
 import org.threeten.bp.ZonedDateTime
@@ -15,7 +15,7 @@ data class OperationWithMetadata(
     val receiverIsExternal: Boolean,
     val receiverAddress: String?,
     val receiverAddressDerivationPath: String?,
-    val changeAddress: MuunAddress?,
+    val changeAddress: MeenAddress?,
     val amount: BitcoinAmount,
     val fee: BitcoinAmount,
     val confirmations: Long,

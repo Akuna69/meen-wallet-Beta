@@ -1,13 +1,13 @@
 package io.meen.apollo.presentation.ui.fragments.verification_code;
 
 import io.meen.apollo.R;
-import io.meen.apollo.presentation.ui.MuunCountdownTimer;
+import io.meen.apollo.presentation.ui.MeenCountdownTimer;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.utils.UiUtils;
 import io.meen.apollo.presentation.ui.view.DrawerDialogFragment;
 import io.meen.apollo.presentation.ui.view.HtmlTextView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunTextInput;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenTextInput;
 import io.meen.apollo.presentation.ui.view.RichText;
 import io.meen.common.exception.MissingCaseError;
 import io.meen.common.model.VerificationType;
@@ -27,7 +27,7 @@ import icepick.State;
 import static io.meen.common.utils.Dates.MINUTE_IN_SECONDS;
 
 public class VerificationCodeFragment extends SingleFragment<VerificationCodePresenter>
-        implements VerificationCodeView, MuunCountdownTimer.CountDownTimerListener {
+        implements VerificationCodeView, MeenCountdownTimer.CountDownTimerListener {
 
     private static final int DRAWER_REQUEST = 1;
     private static final int SEND_SMS_ACTION = 2;
@@ -39,10 +39,10 @@ public class VerificationCodeFragment extends SingleFragment<VerificationCodePre
     HtmlTextView explanation;
 
     @BindView(R.id.signup_verification_text_code)
-    MuunTextInput verificationCode;
+    MeenTextInput verificationCode;
 
     @BindView(R.id.signup_continue)
-    MuunButton continueButton;
+    MeenButton continueButton;
 
     @BindView(R.id.signup_verification_resend)
     TextView resendButton;
@@ -204,7 +204,7 @@ public class VerificationCodeFragment extends SingleFragment<VerificationCodePre
         resendButton.setVisibility(View.GONE);
         countdownText.setVisibility(View.VISIBLE);
 
-        countdownTimer = new MuunCountdownTimer(remainingMs, this);
+        countdownTimer = new MeenCountdownTimer(remainingMs, this);
         countdownTimer.start();
     }
 

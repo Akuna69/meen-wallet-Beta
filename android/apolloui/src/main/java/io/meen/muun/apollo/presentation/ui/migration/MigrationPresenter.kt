@@ -5,7 +5,7 @@ import io.meen.apollo.R
 import io.meen.apollo.domain.ApiMigrationsManager
 import io.meen.apollo.presentation.ui.base.BasePresenter
 import io.meen.apollo.presentation.ui.base.BaseView
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import javax.inject.Inject
 
 class MigrationPresenter @Inject constructor(
@@ -26,7 +26,7 @@ class MigrationPresenter @Inject constructor(
     }
 
     override fun handleNonFatalError(error: Throwable): Boolean {
-        val errorDialog = MuunDialog.Builder()
+        val errorDialog = MeenDialog.Builder()
             .layout(R.layout.dialog_custom_layout)
             .message(R.string.migration_error_message)
             .positiveButton(resId = R.string.migration_error_retry, action = this::runMigrations)

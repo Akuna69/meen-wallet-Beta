@@ -11,7 +11,7 @@ import io.meen.apollo.domain.libwallet.Invoice
 import io.meen.apollo.domain.model.AddressGroup
 import io.meen.apollo.domain.model.AddressType
 import io.meen.apollo.domain.model.BitcoinAmount
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.domain.selector.UserActivatedFeatureStatusSelector
 import io.meen.apollo.domain.selector.UserPreferencesSelector
@@ -57,7 +57,7 @@ class ShowUnifiedQrPresenter @Inject constructor(
     override fun setUp(arguments: Bundle) {
         super.setUp(arguments)
 
-        if (featureSelector.get(MuunFeature.HIGH_FEES_RECEIVE_FLOW)) {
+        if (featureSelector.get(MeenFeature.HIGH_FEES_RECEIVE_FLOW)) {
             view.setShowHighFeesWarning()
         }
 

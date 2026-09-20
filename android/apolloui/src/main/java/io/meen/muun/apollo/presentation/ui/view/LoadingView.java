@@ -16,7 +16,7 @@ import kotlin.jvm.functions.Function1;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
-public class LoadingView extends MuunView {
+public class LoadingView extends MeenView {
 
     static final ViewProps<LoadingView> viewProps = new ViewProps.Builder<LoadingView>()
             .addStringJava(R.attr.title, LoadingView::setTitle)

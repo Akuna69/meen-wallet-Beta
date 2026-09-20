@@ -6,7 +6,7 @@ import io.meen.apollo.R
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.view.HtmlTextView
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class EmergencyKitVerifyHelpFragment : SingleFragment<EmergencyKitVerifyHelpPresenter>() {
 
@@ -27,7 +27,7 @@ class EmergencyKitVerifyHelpFragment : SingleFragment<EmergencyKitVerifyHelpPres
 
     override fun setUpHeader() {
         parentActivity.header.let {
-            it.setNavigation(MuunHeader.Navigation.EXIT)
+            it.setNavigation(MeenHeader.Navigation.EXIT)
             it.hideTitle()
             it.setIndicatorText(null)
             it.setElevated(false)

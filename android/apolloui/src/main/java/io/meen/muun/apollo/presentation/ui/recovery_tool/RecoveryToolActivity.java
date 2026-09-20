@@ -6,8 +6,8 @@ import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity;
 import io.meen.apollo.presentation.ui.fragments.recovery_tool.RecoveryToolFragment;
 import io.meen.apollo.presentation.ui.fragments.recovery_tool.RecoveryToolPresenter;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,7 +20,7 @@ public class RecoveryToolActivity extends SingleFragmentActivity<RecoveryToolAct
         implements BaseView {
 
     @BindView(R.id.header)
-    MuunHeader header;
+    MeenHeader header;
 
     /**
      * Creates an intent to launch this activity.
@@ -55,7 +55,7 @@ public class RecoveryToolActivity extends SingleFragmentActivity<RecoveryToolAct
     }
 
     @Override
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         return header;
     }
 

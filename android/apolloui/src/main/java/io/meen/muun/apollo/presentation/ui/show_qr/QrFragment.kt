@@ -21,7 +21,7 @@ import io.meen.apollo.domain.analytics.AnalyticsEvent.ADDRESS_ORIGIN
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.isInNightMode
 import io.meen.apollo.presentation.ui.view.EditAmountItem
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 import timber.log.Timber
 
 
@@ -34,10 +34,10 @@ abstract class QrFragment<PresenterT : QrPresenter<*>> : SingleFragment<Presente
     lateinit var qrContent: TextView
 
     @BindView(R.id.show_qr_copy)
-    lateinit var copyButton: MuunButton
+    lateinit var copyButton: MeenButton
 
     @BindView(R.id.show_qr_share)
-    lateinit var shareButton: MuunButton
+    lateinit var shareButton: MeenButton
 
     @BindView(R.id.edit_amount_item)
     lateinit var editAmountItem: EditAmountItem

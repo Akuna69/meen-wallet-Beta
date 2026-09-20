@@ -20,7 +20,7 @@ enum class ErrorClassification(val trackingValue: String) {
 /**
  * Interface for error types that provide their own classification.
  *
- * MuunError implements this interface as abstract, forcing every concrete
+ * MeenError implements this interface as abstract, forcing every concrete
  * error subclass to explicitly declare its classification.
  */
 interface ClassifiedError {

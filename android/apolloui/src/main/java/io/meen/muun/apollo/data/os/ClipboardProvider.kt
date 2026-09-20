@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 /**
  * This component CAN'T be injected into any component that can be initialized in background
- * (e.g MuunWorkerFactory, NotificationProcessor, etc...), as it constructor depends on a system
+ * (e.g MeenWorkerFactory, NotificationProcessor, etc...), as it constructor depends on a system
  * call that can only be made from the Main thread.
  */
 class ClipboardProvider @Inject constructor(context: Context) {

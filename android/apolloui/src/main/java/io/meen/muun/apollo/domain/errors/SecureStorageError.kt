@@ -2,7 +2,7 @@ package io.meen.apollo.domain.errors
 
 import io.meen.apollo.data.os.secure_storage.SecureStorageProvider
 
-open class SecureStorageError : MuunError {
+open class SecureStorageError : MeenError {
 
     override val classification = ErrorClassification.UNEXPECTED
 

@@ -4,9 +4,9 @@ import io.meen.apollo.R;
 import io.meen.apollo.domain.model.CountryInfo;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.base.BaseView;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
-import io.meen.apollo.presentation.ui.view.MuunViewHolder;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenViewHolder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -35,7 +35,7 @@ public class SelectCountryActivity extends BaseActivity<SelectCountryPresenter>
     }
 
     @BindView(R.id.header)
-    MuunHeader header;
+    MeenHeader header;
 
     @BindView(R.id.list)
     RecyclerView recyclerView;
@@ -79,20 +79,20 @@ public class SelectCountryActivity extends BaseActivity<SelectCountryPresenter>
         finishActivity();
     }
 
-    private class CountryAdapter extends RecyclerView.Adapter<MuunViewHolder<TextView>> {
+    private class CountryAdapter extends RecyclerView.Adapter<MeenViewHolder<TextView>> {
 
         @NonNull
         @Override
-        public MuunViewHolder<TextView> onCreateViewHolder(ViewGroup root, int viewType) {
+        public MeenViewHolder<TextView> onCreateViewHolder(ViewGroup root, int viewType) {
             final TextView view = (TextView) LayoutInflater
                     .from(root.getContext())
                     .inflate(R.layout.country_info_item, root, false);
 
-            return new MuunViewHolder<>(view);
+            return new MeenViewHolder<>(view);
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MuunViewHolder<TextView> holder, int pos) {
+        public void onBindViewHolder(@NonNull MeenViewHolder<TextView> holder, int pos) {
             final TextView textView = holder.getView();
             final CountryInfo countryInfo = countryInfoList.get(pos);
 

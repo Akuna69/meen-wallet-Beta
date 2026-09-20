@@ -1,8 +1,8 @@
 package io.meen.apollo.domain.libwallet.model
 
-import io.meen.common.crypto.hd.MuunAddress
+import io.meen.common.crypto.hd.MeenAddress
 
-class Address(val address: MuunAddress) : libwallet.MuunAddress {
+class Address(val address: MeenAddress) : libwallet.MeenAddress {
 
     override fun derivationPath(): String =
         address.derivationPath

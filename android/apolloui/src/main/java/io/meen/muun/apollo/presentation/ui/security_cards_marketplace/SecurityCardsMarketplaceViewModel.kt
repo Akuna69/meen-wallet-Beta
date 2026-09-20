@@ -165,9 +165,9 @@ private fun mockConstellationsCard(@DrawableRes imageRes: Int) = SecurityCard(
                     + "EAL 5+ is a high level of security certification.",
             ),
             CardSpec(
-                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Muun",
+                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Meen",
                 additionalData = "The firmware is the core software that governs your card's behavior. "
-                    + "Built and maintained by Muun.<br><br>"
+                    + "Built and maintained by Meen.<br><br>"
                     + "It's open source, publicly available for review. Find it and more "
                     + "information on <a href=\"https://github.com/Satochip/SatochipApplet\">GitHub</a>.",
             ),
@@ -209,9 +209,9 @@ private fun mockNumbersCard(@DrawableRes imageRes: Int) = SecurityCard(
                     + "EAL 5+ is a high level of security certification.",
             ),
             CardSpec(
-                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Muun",
+                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Meen",
                 additionalData = "The firmware is the core software that governs your card's behavior. "
-                    + "Built and maintained by Muun.<br><br>"
+                    + "Built and maintained by Meen.<br><br>"
                     + "It's open source, publicly available for review. Find it and more "
                     + "information on <a href=\"https://github.com/Satochip/SatochipApplet\">GitHub</a>.",
             ),
@@ -254,9 +254,9 @@ private fun mockPlanetsCard(@DrawableRes imageRes: Int) = SecurityCard(
                     + "EAL 6+ is a high level of security certification.",
             ),
             CardSpec(
-                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Muun",
+                iconRes = R.drawable.ic_code_24px, label = "Firmware", value = "Designed by Meen",
                 additionalData = "The firmware is the core software that governs your card's behavior. "
-                    + "Built and maintained by Muun.<br><br>"
+                    + "Built and maintained by Meen.<br><br>"
                     + "It's open source, publicly available for review. Find it and more "
                     + "information on <a href=\"https://github.com/Satochip/SatochipApplet\">GitHub</a>.",
             ),

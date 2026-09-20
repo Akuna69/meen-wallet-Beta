@@ -4,6 +4,6 @@ class InvalidExchangeRateWindow(
     windowId: Long,
     latestWindowId: Long,
     fixedWindowId: Long?
-) : MuunError("Unknown rate window id $windowId. Latest: $latestWindowId, Fixed: $fixedWindowId") {
+) : MeenError("Unknown rate window id $windowId. Latest: $latestWindowId, Fixed: $fixedWindowId") {
     override val classification = ErrorClassification.UNEXPECTED
 }

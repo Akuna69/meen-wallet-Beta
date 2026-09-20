@@ -15,8 +15,8 @@ import io.meen.apollo.presentation.ui.fragments.rc_only_login.RcOnlyLoginFragmen
 import io.meen.apollo.presentation.ui.fragments.rc_only_login_auth.RcLoginEmailAuthorizeFragment;
 import io.meen.apollo.presentation.ui.fragments.sync.SyncFragment;
 import io.meen.apollo.presentation.ui.signup.unverified_rc.UnverifiedRcWarningFragment;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 import io.meen.common.exception.MissingCaseError;
 
 import android.content.Context;
@@ -38,7 +38,7 @@ public class SignupActivity extends SingleFragmentActivity<SignupPresenter>
     }
 
     @BindView(R.id.signup_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @Override
     protected void setUpExtensions() {
@@ -79,7 +79,7 @@ public class SignupActivity extends SingleFragmentActivity<SignupPresenter>
         replaceFragment(createStepFragment(step), false);
     }
 
-    public MuunHeader getHeader() {
+    public MeenHeader getHeader() {
         return header;
     }
 

@@ -15,7 +15,7 @@ import io.meen.apollo.presentation.ui.security_cards_marketplace.models.Security
 import io.meen.apollo.presentation.ui.security_cards_marketplace.models.SecurityCardProvider
 import io.meen.apollo.presentation.ui.utils.getComponent
 import io.meen.apollo.presentation.ui.utils.setWindowInsetsCompat
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -74,7 +74,7 @@ class SecurityCardsFullSpecsActivity : AppCompatActivity() {
 
     private fun setupHeader() {
         binding.header.attachToActivity(this)
-        binding.header.setNavigation(MuunHeader.Navigation.BACK)
+        binding.header.setNavigation(MeenHeader.Navigation.BACK)
     }
 
     private fun setupRecyclerView() {

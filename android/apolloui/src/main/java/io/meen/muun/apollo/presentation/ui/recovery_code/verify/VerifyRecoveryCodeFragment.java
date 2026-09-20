@@ -5,9 +5,9 @@ import io.meen.apollo.domain.errors.UserFacingError;
 import io.meen.apollo.domain.libwallet.RecoveryCodeV2;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.recovery_code.SetupRecoveryCodeActivity;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunRecoveryCodeBox;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenRecoveryCodeBox;
 
 import android.view.View;
 import butterknife.BindView;
@@ -18,10 +18,10 @@ public class VerifyRecoveryCodeFragment extends SingleFragment<VerifyRecoveryCod
         implements VerifyRecoveryCodeView {
 
     @BindView(R.id.recovery_code_box)
-    MuunRecoveryCodeBox recoveryCodeBox;
+    MeenRecoveryCodeBox recoveryCodeBox;
 
     @BindView(R.id.accept)
-    MuunButton acceptButton;
+    MeenButton acceptButton;
 
     @Override
     protected void inject() {
@@ -47,10 +47,10 @@ public class VerifyRecoveryCodeFragment extends SingleFragment<VerifyRecoveryCod
                 SetupRecoveryCodeActivity.SET_UP_RC_STEP_COUNT
         );
 
-        final MuunHeader header = getParentActivity().getHeader();
+        final MeenHeader header = getParentActivity().getHeader();
         header.setIndicatorText(indicatorText);
         header.setElevated(true);
-        header.setNavigation(MuunHeader.Navigation.BACK);
+        header.setNavigation(MeenHeader.Navigation.BACK);
     }
 
     @Override

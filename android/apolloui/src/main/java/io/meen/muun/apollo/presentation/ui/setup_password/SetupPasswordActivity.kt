@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.ActivitySetupPasswordBinding
 import io.meen.apollo.domain.model.user.User
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity
 import io.meen.apollo.presentation.ui.fragments.create_password.CreatePasswordFragment
 import io.meen.apollo.presentation.ui.fragments.enter_email.CreateEmailFragment
@@ -16,8 +16,8 @@ import io.meen.apollo.presentation.ui.fragments.password_setup_intro.SetupPasswo
 import io.meen.apollo.presentation.ui.fragments.setup_password_accept.SetupPasswordAcceptFragment
 import io.meen.apollo.presentation.ui.fragments.setup_password_success.SetupPasswordSuccessFragment
 import io.meen.apollo.presentation.ui.fragments.verify_email.VerifyEmailFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
 
 class SetupPasswordActivity : SingleFragmentActivity<SetupPasswordActivityPresenter>(),
     SetupPasswordActivityView {
@@ -30,7 +30,7 @@ class SetupPasswordActivity : SingleFragmentActivity<SetupPasswordActivityPresen
     private val binding: ActivitySetupPasswordBinding
         get() = getBinding() as ActivitySetupPasswordBinding
 
-    private val headerView: MuunHeader
+    private val headerView: MeenHeader
         get() = binding.header
 
     override fun inject() {
@@ -77,7 +77,7 @@ class SetupPasswordActivity : SingleFragmentActivity<SetupPasswordActivityPresen
     }
 
     override fun showAbortDialog() {
-        MuunDialog.Builder()
+        MeenDialog.Builder()
             .title(R.string.setup_password_abort_title)
             .message(R.string.setup_password_abort_body)
             .positiveButton(R.string.abort) { presenter.abortPasswordSetup() }
@@ -87,7 +87,7 @@ class SetupPasswordActivity : SingleFragmentActivity<SetupPasswordActivityPresen
     }
 
     override fun showSkipDialog() {
-        MuunDialog.Builder()
+        MeenDialog.Builder()
             .layout(R.layout.dialog_custom_layout)
             .title(R.string.setup_password_skip_title)
             .message(R.string.setup_password_skip_body)

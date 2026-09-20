@@ -12,24 +12,24 @@ import javax.inject.Inject;
 import javax.inject.Singleton;
 
 @Singleton
-public class ResolveMuunUriAction extends BaseAsyncAction1<OperationUri, PaymentRequest> {
+public class ResolveMeenUriAction extends BaseAsyncAction1<OperationUri, PaymentRequest> {
 
     private final ContactDao contactDao;
 
     /**
-     * Resolves a Muun URI, fetching User and/or Contact as needed.
+     * Resolves a Meen URI, fetching User and/or Contact as needed.
      */
     @Inject
-    public ResolveMuunUriAction(ContactDao contactDao) {
+    public ResolveMeenUriAction(ContactDao contactDao) {
         this.contactDao = contactDao;
     }
 
     @Override
     public Observable<PaymentRequest> action(OperationUri operationUri) {
-        return Observable.fromCallable(() -> resolveMuunUri(operationUri));
+        return Observable.fromCallable(() -> resolveMeenUri(operationUri));
     }
 
-    private PaymentRequest resolveMuunUri(OperationUri uri) {
+    private PaymentRequest resolveMeenUri(OperationUri uri) {
         switch (uri.getHost()) {
             case OperationUri.MUUN_HOST_CONTACT:
                 final Contact contact = contactDao

@@ -11,7 +11,7 @@ import javax.money.spi.CurrencyProviderSpi
 class MissingCurrencyError(
     cause: UnknownCurrencyException,
     regionLocales: List<Locale> = listOf(),
-) : MuunError(cause), PotentialBug {
+) : MeenError(cause), PotentialBug {
 
     override val classification = ErrorClassification.UNEXPECTED
 

@@ -45,7 +45,7 @@ class NotificationActions @Inject constructor(
         // If too many NotificationReports accumulate, we'll save them into a buffer with the following
         // capacity. Dropping reports is not ideal, since Apollo will need to query Houston for missing
         // notifications, but it's not serious either. This can happen after regaining connectivity,
-        // or after Muun services recover from a temporary failure.
+        // or after Meen services recover from a temporary failure.
         private const val MAX_PENDING_REPORTS_BEFORE_DROP_OLDEST = 32
     }
 

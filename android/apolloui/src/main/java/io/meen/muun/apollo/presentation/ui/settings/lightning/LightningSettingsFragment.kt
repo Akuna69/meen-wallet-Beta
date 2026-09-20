@@ -6,13 +6,13 @@ import butterknife.BindView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import icepick.State
 import io.meen.apollo.R
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.utils.openInBrowser
 import io.meen.apollo.presentation.ui.view.HtmlTextView
 import io.meen.apollo.presentation.ui.view.LoadingView
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import io.meen.apollo.presentation.ui.view.ReceivePreferenceItem
 import io.meen.apollo.presentation.ui.view.ReceivePreferenceItem.ReceivePreferenceChangedListener
 import io.meen.common.model.ReceiveFormatPreference
@@ -86,7 +86,7 @@ class LightningSettingsFragment : SingleFragment<LightningSettingsPresenter>(),
     override fun setUpHeader() {
         parentActivity.header.apply {
             showTitle(R.string.settings_lightning)
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
         }
     }
 
@@ -97,7 +97,7 @@ class LightningSettingsFragment : SingleFragment<LightningSettingsPresenter>(),
         }
 
         if (!toState) {
-            val dialog = MuunDialog.Builder()
+            val dialog = MeenDialog.Builder()
                 .title(R.string.turbo_channels_disable_title)
                 .message(R.string.turbo_channels_disable_message)
                 .negativeButton(R.string.turbo_channels_disable) {

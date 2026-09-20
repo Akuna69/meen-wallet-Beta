@@ -8,7 +8,7 @@ import butterknife.BindView
 import io.meen.apollo.R
 
 class ExpirationTimeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0):
-    MuunView(c, a, s) {
+    MeenView(c, a, s) {
 
     companion object {
 

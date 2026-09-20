@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.BottomSheetCallback
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-abstract class MuunBottomSheetDialogFragment : BottomSheetDialogFragment() {
+abstract class MeenBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     private val bottomSheetCallback: BottomSheetCallback = object : BottomSheetCallback() {
         override fun onStateChanged(bottomSheet: View, newState: Int) {

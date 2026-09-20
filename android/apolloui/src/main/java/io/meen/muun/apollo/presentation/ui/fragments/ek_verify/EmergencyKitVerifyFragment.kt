@@ -7,18 +7,18 @@ import io.meen.apollo.domain.errors.UserFacingError
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.view.HtmlTextView
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunTextInput
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenTextInput
 
 
 class EmergencyKitVerifyFragment : SingleFragment<EmergencyKitVerifyPresenter>(),
     EmergencyKitVerifyView {
 
     @BindView(R.id.code_input)
-    lateinit var verificationCodeInput: MuunTextInput
+    lateinit var verificationCodeInput: MeenTextInput
 
     @BindView(R.id.ek_verify_action)
-    lateinit var verifyButton: MuunButton
+    lateinit var verifyButton: MeenButton
 
     @BindView(R.id.need_help)
     lateinit var needHelpView: HtmlTextView

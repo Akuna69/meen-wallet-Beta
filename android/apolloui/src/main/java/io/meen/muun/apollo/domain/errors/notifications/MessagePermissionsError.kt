@@ -1,7 +1,7 @@
 package io.meen.apollo.domain.errors.notifications
 
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.common.api.messages.MessageSpec
 import io.meen.common.model.SessionStatus
 
@@ -10,7 +10,7 @@ class MessagePermissionsError(
     messageId: Long,
     currentStatus: SessionStatus?,
     spec: MessageSpec,
-) : MuunError("Received a message without the right permissions") {
+) : MeenError("Received a message without the right permissions") {
 
     override val classification = ErrorClassification.UNEXPECTED
 

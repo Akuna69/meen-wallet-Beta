@@ -89,7 +89,7 @@ public class SelectCurrencyPresenter extends BasePresenter<SelectCurrencyView> {
         final Set<CurrencyUnit> topCurrencies = new TreeSet<>(buildTopCurrenciesOrder());
         final Bundle bundle = view.getArgumentsBundle();
 
-        // 1. Add Muun pre-determined top currencies
+        // 1. Add Meen pre-determined top currencies
         for (String code : TOP_CURRENCY_CODES) {
 
             if ("SAT".equals(code) && SelectCurrencyActivity.applySatAsACurrencyHack(bundle)) {

@@ -6,10 +6,10 @@ import android.view.View
 import android.widget.TextView
 import butterknife.BindView
 import io.meen.apollo.R
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunView
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenView
 
-class NotificationsPrimingView : MuunView {
+class NotificationsPrimingView : MeenView {
 
     @BindView(R.id.priming_notifications_title)
     lateinit var title: TextView
@@ -18,10 +18,10 @@ class NotificationsPrimingView : MuunView {
     lateinit var description: TextView
 
     @BindView(R.id.priming_notifications_enable)
-    lateinit var enableButton: MuunButton
+    lateinit var enableButton: MeenButton
 
     @BindView(R.id.priming_notifications_skip)
-    lateinit var skipButton: MuunButton
+    lateinit var skipButton: MeenButton
 
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)

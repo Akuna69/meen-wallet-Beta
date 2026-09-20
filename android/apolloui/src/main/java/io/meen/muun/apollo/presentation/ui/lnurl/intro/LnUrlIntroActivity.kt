@@ -7,7 +7,7 @@ import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.ActivityLnurlIntroBinding
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class LnUrlIntroActivity : SingleFragmentActivity<LnUrlIntroPresenter>() {
 
@@ -30,14 +30,14 @@ class LnUrlIntroActivity : SingleFragmentActivity<LnUrlIntroPresenter>() {
     private val binding: ActivityLnurlIntroBinding
         get() = getBinding() as ActivityLnurlIntroBinding
 
-    override fun getHeader(): MuunHeader = binding.lnurlIntroHeader
+    override fun getHeader(): MeenHeader = binding.lnurlIntroHeader
 
     override fun initializeUi() {
         super.initializeUi()
 
         header.attachToActivity(this)
         header.showTitle(R.string.home_footer_action_receive)
-        header.setNavigation(MuunHeader.Navigation.BACK)
+        header.setNavigation(MeenHeader.Navigation.BACK)
         header.setElevated(true)
 
         binding.lnurlIntroAction.setOnClickListener {

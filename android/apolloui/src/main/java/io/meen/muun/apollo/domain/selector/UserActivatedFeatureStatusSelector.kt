@@ -4,7 +4,7 @@ import io.meen.apollo.data.external.Globals
 import io.meen.apollo.data.preferences.BlockchainHeightRepository
 import io.meen.apollo.data.preferences.UserRepository
 import io.meen.apollo.domain.libwallet.toLibwallet
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.UserActivatedFeatureStatus
 import io.meen.apollo.domain.model.user.User
 import io.meen.apollo.domain.utils.toLibwalletIntList
@@ -41,7 +41,7 @@ class UserActivatedFeatureStatusSelector @Inject constructor(
     private fun combineState(
         user: User,
         blockHeight: Int,
-        backendFeatures: List<MuunFeature>,
+        backendFeatures: List<MeenFeature>,
         wantedFeature: UserActivatedFeature,
     ): UserActivatedFeatureStatus {
 

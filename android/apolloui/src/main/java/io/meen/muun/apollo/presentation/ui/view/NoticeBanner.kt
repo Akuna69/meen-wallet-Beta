@@ -14,7 +14,7 @@ import io.meen.apollo.databinding.ViewNoticeBannerBinding
 import io.meen.apollo.presentation.ui.utils.UiUtils
 
 class NoticeBanner @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0) :
-    MuunView(c, a, s) {
+    MeenView(c, a, s) {
 
     companion object {
         val viewProps: ViewProps<NoticeBanner> = ViewProps.Builder<NoticeBanner>().run {

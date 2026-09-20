@@ -29,7 +29,7 @@ import io.meen.apollo.domain.libwallet.LibwalletClient
 import io.meen.apollo.domain.libwallet.errors.ErrorDetailCode
 import io.meen.apollo.domain.libwallet.errors.LibwalletGrpcError
 import io.meen.apollo.domain.model.FeasibleZone
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.apollo.presentation.ui.nfc.events.GestureEvent
 import io.meen.apollo.presentation.ui.nfc.events.ISensorEvent
@@ -147,7 +147,7 @@ class NfcReaderViewModel @Inject constructor(
             nfcSession.connect()
             val nfcBridger = nfcBridgerFactory.forSession(nfcSession)
 
-            if (featureSelector.get(MuunFeature.NFC_CARD_V2)) {
+            if (featureSelector.get(MeenFeature.NFC_CARD_V2)) {
                 libwalletClient.securityCardV2SignMessage(nfcBridger)
             } else {
                 // this shouldn't happen
@@ -193,7 +193,7 @@ class NfcReaderViewModel @Inject constructor(
      */
     internal fun subscribeToAllSensors(context: Context, lifecycleOwner: LifecycleOwner) {
 
-        if (!featureSelector.get(MuunFeature.NFC_SENSORS)) {
+        if (!featureSelector.get(MeenFeature.NFC_SENSORS)) {
             return
         }
 
@@ -268,7 +268,7 @@ class NfcReaderViewModel @Inject constructor(
     }
 
     internal fun disableSecurityCardFF() {
-        featureOverrideStore.disableFeatureFlag(MuunFeature.NFC_CARD_V2)
+        featureOverrideStore.disableFeatureFlag(MeenFeature.NFC_CARD_V2)
         analytics.report(AnalyticsEvent.E_NEW_OP_ACTION(E_NEW_OP_ACTION_TYPE.DISABLE_FLAG))
     }
 

@@ -9,7 +9,7 @@ import icepick.State
 import io.meen.apollo.R
 
 class HiddenSection @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0) :
-    MuunView(c, a, s) {
+    MeenView(c, a, s) {
 
     companion object {
         val viewProps: ViewProps<HiddenSection> = ViewProps.Builder<HiddenSection>()

@@ -7,7 +7,7 @@ import io.meen.apollo.data.afs.MetricsProvider
 import io.meen.apollo.data.apis.DriveAuthenticator
 import io.meen.apollo.data.apis.DriveUploader
 import io.meen.apollo.data.async.gcm.GcmMessageListenerService
-import io.meen.apollo.data.async.tasks.MuunWorkerFactory
+import io.meen.apollo.data.async.tasks.MeenWorkerFactory
 import io.meen.apollo.data.async.tasks.TaskScheduler
 import io.meen.apollo.data.db.DaoManager
 import io.meen.apollo.data.db.contact.ContactDao
@@ -55,7 +55,7 @@ interface DataComponent : ActionComponent {
 
     fun inject(service: GcmMessageListenerService)
 
-    fun inject(workerFactory: MuunWorkerFactory)
+    fun inject(workerFactory: MeenWorkerFactory)
 
     // Exposed to dependent components
 

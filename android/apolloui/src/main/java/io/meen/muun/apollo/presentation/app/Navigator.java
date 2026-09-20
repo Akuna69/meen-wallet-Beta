@@ -274,11 +274,11 @@ public class Navigator {
     }
 
     /**
-     * Open app chooser to send an email to Muun support.
+     * Open app chooser to send an email to Meen support.
      */
     public void sendSupportEmail(@NotNull Context context) {
         final Intent emailIntent = Email.INSTANCE.composeSupportEmail();
-        context.startActivity(Intent.createChooser(emailIntent, "Muun"));
+        context.startActivity(Intent.createChooser(emailIntent, "Meen"));
     }
 
     /**
@@ -581,7 +581,7 @@ public class Navigator {
     }
 
     /**
-     * Takes the user to Muun page in the PlayStore, in a new Task.
+     * Takes the user to Meen page in the PlayStore, in a new Task.
      */
     public void openPlayStore(Context context) {
         final String pkgName = PLAY_STORE_PACKAGE_NAME; // hard-coded to work in debug mode
@@ -614,7 +614,7 @@ public class Navigator {
     }
 
     /**
-     * Takes the user to system's Muun settings menu. Useful for re-enabling permissions that were
+     * Takes the user to system's Meen settings menu. Useful for re-enabling permissions that were
      * permanently denied.
      */
     public void navigateToSystemSettings(Context context) {

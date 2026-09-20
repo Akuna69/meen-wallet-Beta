@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.ActivityLnurlWithdrawConfirmBinding
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class LnUrlWithdrawConfirmActivity : SingleFragmentActivity<LnUrlWithdrawConfirmPresenter>() {
 
@@ -37,7 +37,7 @@ class LnUrlWithdrawConfirmActivity : SingleFragmentActivity<LnUrlWithdrawConfirm
     private val binding: ActivityLnurlWithdrawConfirmBinding
         get() = getBinding() as ActivityLnurlWithdrawConfirmBinding
 
-    override fun getHeader(): MuunHeader =
+    override fun getHeader(): MeenHeader =
         binding.lnurlWithdrawConfirmHeader
 
     private fun getBackButton() =
@@ -52,7 +52,7 @@ class LnUrlWithdrawConfirmActivity : SingleFragmentActivity<LnUrlWithdrawConfirm
 
         header.attachToActivity(this)
         header.showTitle(R.string.showqr_title)
-        header.setNavigation(MuunHeader.Navigation.BACK)
+        header.setNavigation(MeenHeader.Navigation.BACK)
         header.setElevated(true)
 
         getConfirmButton().setOnClickListener {

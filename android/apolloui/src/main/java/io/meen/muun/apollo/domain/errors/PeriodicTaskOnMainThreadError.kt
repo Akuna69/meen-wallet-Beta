@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.errors
 
-class PeriodicTaskOnMainThreadError(taskName: String) : MuunError() {
+class PeriodicTaskOnMainThreadError(taskName: String) : MeenError() {
 
     override val classification = ErrorClassification.UNEXPECTED
 

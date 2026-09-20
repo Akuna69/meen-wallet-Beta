@@ -3,11 +3,11 @@ package io.meen.apollo.presentation.ui.view;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MuunViewHolder<T extends View> extends RecyclerView.ViewHolder {
+public class MeenViewHolder<T extends View> extends RecyclerView.ViewHolder {
 
     private final T view;
 
-    public MuunViewHolder(T view) {
+    public MeenViewHolder(T view) {
         super(view);
         this.view = view;
     }

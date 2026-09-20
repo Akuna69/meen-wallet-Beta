@@ -24,7 +24,7 @@ import io.meen.apollo.domain.selector.UtxoSetStateSelector
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.utils.getDrawable
-import io.meen.apollo.presentation.ui.view.MuunHomeCard
+import io.meen.apollo.presentation.ui.view.MeenHomeCard
 import io.meen.common.utils.BitcoinUtils
 import org.threeten.bp.ZonedDateTime
 import kotlin.math.abs
@@ -221,14 +221,14 @@ class HomeFragment : SingleFragment<HomeFragmentPresenter>(), HomeFragmentView {
         setChevronAnimation(homeState.utxoSetState)
 
         // Due to (complex) business logic reasons, only 1 of these cards is currently displayed
-        var displayedMuunHomeCard: MuunHomeCard? = null
+        var displayedMeenHomeCard: MeenHomeCard? = null
         if (!homeState.user.isRecoverable) {
-            displayedMuunHomeCard = binding.homeSecurityCenterCard
+            displayedMeenHomeCard = binding.homeSecurityCenterCard
 
         } else when (homeState.taprootFeatureStatus) {
             UserActivatedFeatureStatus.OFF -> {} // Do nothing
-            UserActivatedFeatureStatus.CAN_PREACTIVATE -> displayedMuunHomeCard = binding.homeTaprootCard
-            UserActivatedFeatureStatus.CAN_ACTIVATE -> displayedMuunHomeCard = binding.homeTaprootCard
+            UserActivatedFeatureStatus.CAN_PREACTIVATE -> displayedMeenHomeCard = binding.homeTaprootCard
+            UserActivatedFeatureStatus.CAN_ACTIVATE -> displayedMeenHomeCard = binding.homeTaprootCard
             UserActivatedFeatureStatus.PREACTIVATED -> binding.homeBlockClock.visibility = View.VISIBLE
             UserActivatedFeatureStatus.SCHEDULED_ACTIVATION -> {} // Do nothing
             UserActivatedFeatureStatus.ACTIVE -> {} // Do nothing
@@ -236,9 +236,9 @@ class HomeFragment : SingleFragment<HomeFragmentPresenter>(), HomeFragmentView {
 
         binding.homeBlockClock.value = homeState.blocksToTaproot
 
-        if (displayedMuunHomeCard != null) {
-            displayedMuunHomeCard.visibility = View.VISIBLE
-            if (displayedMuunHomeCard == binding.homeTaprootCard) {
+        if (displayedMeenHomeCard != null) {
+            displayedMeenHomeCard.visibility = View.VISIBLE
+            if (displayedMeenHomeCard == binding.homeTaprootCard) {
                 binding.homeSecurityCenterCard.visibility = View.GONE
                 binding.homeHighFeesCard.visibility = View.GONE
             } else {

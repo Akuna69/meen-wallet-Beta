@@ -7,7 +7,7 @@ import io.meen.apollo.data.preferences.TransactionSizeRepository
 import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy
 import io.meen.apollo.domain.libwallet.FeeBumpFunctionsProvider
 import io.meen.apollo.domain.model.feebump.FeeBumpFunctions
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.RealTimeFees
 import io.meen.apollo.domain.selector.FeatureSelector
 import io.meen.common.Rules
@@ -35,7 +35,7 @@ class SyncRealTimeFees @Inject constructor(
     private var lastSyncTime: Date = Date(0) // Init with distant past
 
     fun sync(refreshPolicy: FeeBumpRefreshPolicy): Observable<Void> {
-        if (!featureSelector.get(MuunFeature.EFFECTIVE_FEES_CALCULATION)) {
+        if (!featureSelector.get(MeenFeature.EFFECTIVE_FEES_CALCULATION)) {
             return Observable.just(null)
         }
 

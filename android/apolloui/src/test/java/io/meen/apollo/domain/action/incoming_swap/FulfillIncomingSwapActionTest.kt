@@ -65,7 +65,7 @@ class FulfillIncomingSwapActionTest : BaseTest() {
             Observable.just(PrivateKey.getNewRootPrivateKey(params))
 
         every {
-            keysRepository.baseMuunPublicKey
+            keysRepository.baseMeenPublicKey
         } returns
             PrivateKey.getNewRootPrivateKey(params).publicKey
 

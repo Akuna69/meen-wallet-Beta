@@ -5,7 +5,7 @@ import io.meen.apollo.databinding.AnonFeedbackActivityBinding;
 import io.meen.apollo.presentation.app.Email;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.utils.StyledStringRes;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 import io.meen.common.Optional;
 
 import android.content.Context;

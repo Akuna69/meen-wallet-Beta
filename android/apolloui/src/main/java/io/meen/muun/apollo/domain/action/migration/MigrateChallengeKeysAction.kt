@@ -38,8 +38,8 @@ class MigrateChallengeKeysAction @Inject constructor(
                     )
                 }
 
-                data.newEncryptedMuunKey?.let {
-                    keysRepository.storeEncryptedMuunPrivateKey(it)
+                data.newEncryptedMeenKey?.let {
+                    keysRepository.storeEncryptedMeenPrivateKey(it)
                 }
             }
             .replaceTypedError(Throwable::class.java) { ChallengeKeyMigrationError(it) }

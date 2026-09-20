@@ -1,9 +1,9 @@
 package io.meen.apollo.domain.model
 
-import io.meen.common.api.MuunFeatureJson
+import io.meen.common.api.MeenFeatureJson
 import libwallet.Libwallet
 
-enum class MuunFeature {
+enum class MeenFeature {
     TAPROOT,
     TAPROOT_PREACTIVATION,
     APOLLO_BIOMETRICS,
@@ -23,26 +23,26 @@ enum class MuunFeature {
 
     companion object {
 
-        fun fromJson(json: MuunFeatureJson): MuunFeature =
+        fun fromJson(json: MeenFeatureJson): MeenFeature =
             when (json) {
-                MuunFeatureJson.TAPROOT -> TAPROOT
-                MuunFeatureJson.TAPROOT_PREACTIVATION -> TAPROOT_PREACTIVATION
-                MuunFeatureJson.APOLLO_BIOMETRICS -> APOLLO_BIOMETRICS
-                MuunFeatureJson.HIGH_FEES_HOME_BANNER -> HIGH_FEES_HOME_BANNER
-                MuunFeatureJson.HIGH_FEES_RECEIVE_FLOW -> HIGH_FEES_RECEIVE_FLOW
-                MuunFeatureJson.EFFECTIVE_FEES_CALCULATION -> EFFECTIVE_FEES_CALCULATION
-                MuunFeatureJson.OS_VERSION_DEPRECATED_FLOW -> OS_VERSION_DEPRECATED_FLOW
-                MuunFeatureJson.NFC_CARD -> NFC_CARD
-                MuunFeatureJson.NFC_CARD_V2 -> NFC_CARD_V2
-                MuunFeatureJson.NFC_SENSORS -> NFC_SENSORS
-                MuunFeatureJson.DIAGNOSTIC_MODE -> DIAGNOSTIC_MODE
-                MuunFeatureJson.SECURITY_CARDS_MARKETPLACE -> SECURITY_CARDS_MARKETPLACE
-                MuunFeatureJson.EK_GO_RENDERING -> EK_GO_RENDERING
+                MeenFeatureJson.TAPROOT -> TAPROOT
+                MeenFeatureJson.TAPROOT_PREACTIVATION -> TAPROOT_PREACTIVATION
+                MeenFeatureJson.APOLLO_BIOMETRICS -> APOLLO_BIOMETRICS
+                MeenFeatureJson.HIGH_FEES_HOME_BANNER -> HIGH_FEES_HOME_BANNER
+                MeenFeatureJson.HIGH_FEES_RECEIVE_FLOW -> HIGH_FEES_RECEIVE_FLOW
+                MeenFeatureJson.EFFECTIVE_FEES_CALCULATION -> EFFECTIVE_FEES_CALCULATION
+                MeenFeatureJson.OS_VERSION_DEPRECATED_FLOW -> OS_VERSION_DEPRECATED_FLOW
+                MeenFeatureJson.NFC_CARD -> NFC_CARD
+                MeenFeatureJson.NFC_CARD_V2 -> NFC_CARD_V2
+                MeenFeatureJson.NFC_SENSORS -> NFC_SENSORS
+                MeenFeatureJson.DIAGNOSTIC_MODE -> DIAGNOSTIC_MODE
+                MeenFeatureJson.SECURITY_CARDS_MARKETPLACE -> SECURITY_CARDS_MARKETPLACE
+                MeenFeatureJson.EK_GO_RENDERING -> EK_GO_RENDERING
 
                 else -> UNSUPPORTED_FEATURE
             }
 
-        fun fromLibwalletModel(name: String): MuunFeature =
+        fun fromLibwalletModel(name: String): MeenFeature =
             when (name) {
                 Libwallet.BackendFeatureTaproot -> TAPROOT
                 Libwallet.BackendFeatureTaprootPreactivation -> TAPROOT_PREACTIVATION
@@ -64,21 +64,21 @@ enum class MuunFeature {
 
     fun toJson() =
         when (this) {
-            TAPROOT -> MuunFeatureJson.TAPROOT
-            TAPROOT_PREACTIVATION -> MuunFeatureJson.TAPROOT_PREACTIVATION
-            APOLLO_BIOMETRICS -> MuunFeatureJson.APOLLO_BIOMETRICS
-            HIGH_FEES_HOME_BANNER -> MuunFeatureJson.HIGH_FEES_HOME_BANNER
-            HIGH_FEES_RECEIVE_FLOW -> MuunFeatureJson.HIGH_FEES_RECEIVE_FLOW
-            EFFECTIVE_FEES_CALCULATION -> MuunFeatureJson.EFFECTIVE_FEES_CALCULATION
-            OS_VERSION_DEPRECATED_FLOW -> MuunFeatureJson.OS_VERSION_DEPRECATED_FLOW
-            NFC_CARD -> MuunFeatureJson.NFC_CARD
-            NFC_CARD_V2 -> MuunFeatureJson.NFC_CARD_V2
-            NFC_SENSORS -> MuunFeatureJson.NFC_SENSORS
-            DIAGNOSTIC_MODE -> MuunFeatureJson.DIAGNOSTIC_MODE
-            SECURITY_CARDS_MARKETPLACE -> MuunFeatureJson.SECURITY_CARDS_MARKETPLACE
-            EK_GO_RENDERING -> MuunFeatureJson.EK_GO_RENDERING
+            TAPROOT -> MeenFeatureJson.TAPROOT
+            TAPROOT_PREACTIVATION -> MeenFeatureJson.TAPROOT_PREACTIVATION
+            APOLLO_BIOMETRICS -> MeenFeatureJson.APOLLO_BIOMETRICS
+            HIGH_FEES_HOME_BANNER -> MeenFeatureJson.HIGH_FEES_HOME_BANNER
+            HIGH_FEES_RECEIVE_FLOW -> MeenFeatureJson.HIGH_FEES_RECEIVE_FLOW
+            EFFECTIVE_FEES_CALCULATION -> MeenFeatureJson.EFFECTIVE_FEES_CALCULATION
+            OS_VERSION_DEPRECATED_FLOW -> MeenFeatureJson.OS_VERSION_DEPRECATED_FLOW
+            NFC_CARD -> MeenFeatureJson.NFC_CARD
+            NFC_CARD_V2 -> MeenFeatureJson.NFC_CARD_V2
+            NFC_SENSORS -> MeenFeatureJson.NFC_SENSORS
+            DIAGNOSTIC_MODE -> MeenFeatureJson.DIAGNOSTIC_MODE
+            SECURITY_CARDS_MARKETPLACE -> MeenFeatureJson.SECURITY_CARDS_MARKETPLACE
+            EK_GO_RENDERING -> MeenFeatureJson.EK_GO_RENDERING
 
-            UNSUPPORTED_FEATURE -> MuunFeatureJson.UNSUPPORTED_FEATURE
+            UNSUPPORTED_FEATURE -> MeenFeatureJson.UNSUPPORTED_FEATURE
         }
 
     fun toLibwalletModel(): String =
@@ -149,7 +149,7 @@ enum class MuunFeature {
         // Otherwise, the Disable Feature Flags screen will crash.
 
         data class Overridable(
-            val feature: MuunFeature,
+            val feature: MeenFeature,
             val humanReadableDesc: String,
             val libwalletKeySuffix: String,
         ) : OverridableFeature()

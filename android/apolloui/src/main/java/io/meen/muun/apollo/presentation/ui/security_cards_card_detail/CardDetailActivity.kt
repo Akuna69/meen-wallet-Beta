@@ -28,7 +28,7 @@ import io.meen.apollo.presentation.ui.security_cards_marketplace.models.Marketpl
 import io.meen.apollo.presentation.ui.security_cards_marketplace.models.SecurityCard
 import io.meen.apollo.presentation.ui.security_cards_marketplace.models.SecurityCardProvider
 import io.meen.apollo.presentation.ui.utils.setWindowInsetsCompat
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -125,7 +125,7 @@ class CardDetailActivity : AppCompatActivity() {
 
     private fun setupHeader() {
         binding.header.attachToActivity(this)
-        binding.header.setNavigation(MuunHeader.Navigation.BACK)
+        binding.header.setNavigation(MeenHeader.Navigation.BACK)
     }
 
     private fun setupFullSpecs() {

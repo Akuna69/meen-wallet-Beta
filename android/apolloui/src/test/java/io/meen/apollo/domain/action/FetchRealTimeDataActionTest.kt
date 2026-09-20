@@ -15,7 +15,7 @@ import io.meen.apollo.data.preferences.FeeWindowRepository
 import io.meen.apollo.data.preferences.ForwardingPoliciesRepository
 import io.meen.apollo.data.preferences.MinFeeRateRepository
 import io.meen.apollo.domain.action.realtime.FetchRealTimeDataAction
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.RealTimeData
 import org.junit.Before
 import org.junit.Test
@@ -61,7 +61,7 @@ class FetchRealTimeDataActionTest : BaseTest() {
         val blockchainHeight = 590000
         val forwardingPolicies = listOf(Gen.forwardingPolicy())
         val minFeeRateInWeightUnits = 0.25
-        val listOfFeatures = listOf(MuunFeature.TAPROOT)
+        val listOfFeatures = listOf(MeenFeature.TAPROOT)
 
         val realTimeData = RealTimeData(
             feeWindow,

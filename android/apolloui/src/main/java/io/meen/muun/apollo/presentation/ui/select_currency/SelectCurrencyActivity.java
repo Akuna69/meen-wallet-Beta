@@ -10,8 +10,8 @@ import io.meen.apollo.presentation.ui.adapter.viewmodel.ItemViewModel;
 import io.meen.apollo.presentation.ui.adapter.viewmodel.SectionHeaderViewModel;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
 import io.meen.apollo.presentation.ui.utils.UiUtils;
-import io.meen.apollo.presentation.ui.view.MuunHeader;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenHeader;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 import io.meen.common.Optional;
 import io.meen.common.model.Currency;
 
@@ -48,7 +48,7 @@ public class SelectCurrencyActivity extends BaseActivity<SelectCurrencyPresenter
     private static final String HEADER_TITLE = "HEADER_TITLE";
 
     @BindView(R.id.select_currency_header)
-    MuunHeader header;
+    MeenHeader header;
 
     @BindView(R.id.select_currency_list)
     RecyclerView recyclerView;

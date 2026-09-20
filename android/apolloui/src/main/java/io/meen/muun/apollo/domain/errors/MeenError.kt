@@ -2,7 +2,7 @@ package io.meen.apollo.domain.errors
 
 import java.io.Serializable
 
-abstract class MuunError : RuntimeException, ClassifiedError {
+abstract class MeenError : RuntimeException, ClassifiedError {
 
     constructor()
     constructor(message: String) : super(message)
@@ -15,8 +15,8 @@ abstract class MuunError : RuntimeException, ClassifiedError {
 
     /**
      * Extract metadata for error report crafting. We prefix metadata keys with the error name
-     * to clear differentiate with metadata coming from other errors (e.g. the cause of a MuunError
-     * could be another MuunError with its own metadata).
+     * to clear differentiate with metadata coming from other errors (e.g. the cause of a MeenError
+     * could be another MeenError with its own metadata).
      */
     fun extractMetadata(): MutableMap<String, Serializable> {
         val mapKeys = metadata.mapKeys { entry -> "${javaClass.simpleName}.${entry.key}" }

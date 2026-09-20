@@ -5,12 +5,12 @@ import butterknife.BindView
 import io.meen.apollo.R
 import io.meen.apollo.presentation.ui.base.BaseView
 import io.meen.apollo.presentation.ui.base.SingleFragment
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 
 class SetupPasswordSuccessFragment : SingleFragment<SetupPasswordSuccessPresenter>(), BaseView {
 
     @BindView(R.id.setup_password_success_action)
-    lateinit var actionButton: MuunButton
+    lateinit var actionButton: MeenButton
 
     override fun inject() =
         component.inject(this)

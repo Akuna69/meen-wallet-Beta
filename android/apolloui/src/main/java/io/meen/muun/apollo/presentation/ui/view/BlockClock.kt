@@ -9,7 +9,7 @@ import io.meen.apollo.R
 
 
 class BlockClock @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0):
-    MuunView(c, a, s) {
+    MeenView(c, a, s) {
 
     override val layoutResource: Int
         get() = R.layout.view_block_clock

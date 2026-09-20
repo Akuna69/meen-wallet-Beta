@@ -14,7 +14,7 @@ import io.meen.apollo.R
 import io.meen.apollo.data.external.HoustonConfig
 import io.meen.apollo.data.nfc.api.NfcSession
 import io.meen.apollo.databinding.DebugActivityBinding
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.activity.extension.NfcReaderModeExtension
 import io.meen.apollo.presentation.ui.base.BaseActivity
 import io.meen.apollo.presentation.ui.base.BaseView
@@ -94,7 +94,7 @@ class DebugPanelActivity : BaseActivity<DebugPanelPresenter>(), BaseView {
                 enableReaderMode()
 
                 // Show Simple Message Dialog - prompt card tap
-                MuunDialog.Builder()
+                MeenDialog.Builder()
                     .title("Pair Security Card")
                     .message("Please tap your device with the security card to confirm Pairing.")
                     .onDismiss {
@@ -199,7 +199,7 @@ class DebugPanelActivity : BaseActivity<DebugPanelPresenter>(), BaseView {
                             .setForegroundColor(ContextCompat.getColor(this, R.color.green_dark))
                             .setBold()
 
-                        MuunDialog.Builder()
+                        MeenDialog.Builder()
                             .title("Pair Security Card")
                             .message("Success!")
                             .build()
@@ -208,7 +208,7 @@ class DebugPanelActivity : BaseActivity<DebugPanelPresenter>(), BaseView {
 
                 } else {
                     runOnUiThread {
-                        MuunDialog.Builder()
+                        MeenDialog.Builder()
                             .title("Pair Security Card")
                             .message("Error! See Debug logs or dismiss and try again")
                             .build()

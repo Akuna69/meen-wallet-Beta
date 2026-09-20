@@ -8,7 +8,7 @@ import androidx.viewbinding.ViewBinding
 import io.meen.apollo.R
 import io.meen.apollo.databinding.ExportKeysActivityBinding
 import io.meen.apollo.domain.analytics.AnalyticsEvent
-import io.meen.apollo.presentation.ui.activity.extension.MuunDialog
+import io.meen.apollo.presentation.ui.activity.extension.MeenDialog
 import io.meen.apollo.presentation.ui.base.SingleFragmentActivity
 import io.meen.apollo.presentation.ui.fragments.ek_intro.EmergencyKitIntroFragment
 import io.meen.apollo.presentation.ui.fragments.ek_save.EmergencyKitSaveFragment
@@ -19,8 +19,8 @@ import io.meen.apollo.presentation.ui.fragments.ek_verify_help.EmergencyKitVerif
 import io.meen.apollo.presentation.ui.fragments.error.ErrorFragment
 import io.meen.apollo.presentation.ui.fragments.error.ErrorViewModel
 import io.meen.apollo.presentation.ui.fragments.loading.LoadingFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
 
 class EmergencyKitActivity : SingleFragmentActivity<EmergencyKitPresenter>(), EmergencyKitView {
 
@@ -33,7 +33,7 @@ class EmergencyKitActivity : SingleFragmentActivity<EmergencyKitPresenter>(), Em
     private val binding: ExportKeysActivityBinding
         get() = getBinding() as ExportKeysActivityBinding
 
-    private val headerView: MuunHeader
+    private val headerView: MeenHeader
         get() = binding.exportKeysHeader
 
     override fun inject() {
@@ -74,7 +74,7 @@ class EmergencyKitActivity : SingleFragmentActivity<EmergencyKitPresenter>(), Em
     }
 
     override fun showSaveAbortDialog() {
-        MuunDialog.Builder()
+        MeenDialog.Builder()
             .title(R.string.ek_abort_title)
             .message(R.string.ek_abort_body)
             .positiveButton(R.string.abort) { presenter.abortEmergencyKitFlow() }

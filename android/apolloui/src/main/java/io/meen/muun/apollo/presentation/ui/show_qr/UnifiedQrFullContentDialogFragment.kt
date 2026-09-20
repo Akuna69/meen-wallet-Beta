@@ -10,7 +10,7 @@ import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.utils.openInBrowser
 import io.meen.apollo.presentation.ui.view.DrawerDialogFragment
 import io.meen.apollo.presentation.ui.view.HtmlTextView
-import io.meen.apollo.presentation.ui.view.MuunActionDrawer
+import io.meen.apollo.presentation.ui.view.MeenActionDrawer
 
 class UnifiedQrFullContentDialogFragment : DrawerDialogFragment() {
 
@@ -36,7 +36,7 @@ class UnifiedQrFullContentDialogFragment : DrawerDialogFragment() {
         this.invoiceCopyListener = listener
     }
 
-    override fun createActionDrawer(): MuunActionDrawer {
+    override fun createActionDrawer(): MeenActionDrawer {
         val context = requireContext()
         val drawer = UnifiedQrFullContentDrawer(context)
 
@@ -49,7 +49,7 @@ class UnifiedQrFullContentDialogFragment : DrawerDialogFragment() {
         return drawer
     }
 
-    class UnifiedQrFullContentDrawer : MuunActionDrawer {
+    class UnifiedQrFullContentDrawer : MeenActionDrawer {
 
         @BindView(R.id.drawer_unified_qr_header)
         lateinit var headerTextView: HtmlTextView

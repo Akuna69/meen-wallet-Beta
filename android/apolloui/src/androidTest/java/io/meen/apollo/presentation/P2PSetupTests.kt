@@ -48,7 +48,7 @@ open class P2PSetupTests : BaseInstrumentationTest() {
 
         homeScreen.goToSend()
 
-        // Expect the Muun contact to appear:
+        // Expect the Meen contact to appear:
         label(contact.fullName).await(15000)
 
         id(R.id.header)         // Check toolbar is showed, but...

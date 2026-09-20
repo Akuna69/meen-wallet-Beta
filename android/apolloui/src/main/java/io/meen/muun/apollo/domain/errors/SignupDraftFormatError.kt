@@ -1,6 +1,6 @@
 package io.meen.apollo.domain.errors
 
-class SignupDraftFormatError(draftString: String?) : MuunError() {
+class SignupDraftFormatError(draftString: String?) : MeenError() {
 
     override val classification = ErrorClassification.UNEXPECTED
 

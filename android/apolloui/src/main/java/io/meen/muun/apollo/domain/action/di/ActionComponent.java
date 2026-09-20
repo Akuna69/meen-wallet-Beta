@@ -35,7 +35,7 @@ import io.meen.apollo.domain.action.realtime.PreloadFeeDataAction;
 import io.meen.apollo.domain.action.session.CreateLoginSessionAction;
 import io.meen.apollo.domain.action.session.LogInAction;
 import io.meen.apollo.domain.action.session.SyncApplicationDataAction;
-import io.meen.apollo.domain.action.session.UseMuunLinkAction;
+import io.meen.apollo.domain.action.session.UseMeenLinkAction;
 import io.meen.apollo.domain.action.session.rc_only.LogInWithRcAction;
 import io.meen.apollo.domain.action.user.DeleteWalletAction;
 import io.meen.apollo.domain.action.user.EmailLinkAction;
@@ -121,7 +121,7 @@ public interface ActionComponent {
 
     VerifyEmergencyKitAction verifyEmergencyKitAction();
 
-    UseMuunLinkAction useMuunLinkAction();
+    UseMeenLinkAction useMeenLinkAction();
 
     EmailLinkAction emailLinkAction();
 

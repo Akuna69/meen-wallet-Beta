@@ -5,9 +5,9 @@ import io.meen.apollo.domain.errors.UserFacingError;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer;
 import io.meen.apollo.presentation.ui.view.HtmlTextView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
-import io.meen.apollo.presentation.ui.view.MuunPictureInput;
-import io.meen.apollo.presentation.ui.view.MuunTextInput;
+import io.meen.apollo.presentation.ui.view.MeenButton;
+import io.meen.apollo.presentation.ui.view.MeenPictureInput;
+import io.meen.apollo.presentation.ui.view.MeenTextInput;
 import io.meen.apollo.presentation.ui.view.RichText;
 
 import android.net.Uri;
@@ -22,16 +22,16 @@ public class ProfileFragment extends SingleFragment<ProfilePresenter> implements
     HtmlTextView explanation;
 
     @BindView(R.id.signup_profile_picture)
-    MuunPictureInput profilePicture;
+    MeenPictureInput profilePicture;
 
     @BindView(R.id.signup_profile_edit_first_name)
-    MuunTextInput firstName;
+    MeenTextInput firstName;
 
     @BindView(R.id.signup_profile_edit_last_name)
-    MuunTextInput lastName;
+    MeenTextInput lastName;
 
     @BindView(R.id.signup_continue)
-    MuunButton continueButton;
+    MeenButton continueButton;
 
     @Override
     protected int getLayoutResource() {

@@ -1,7 +1,7 @@
 package io.meen.apollo.data.serialization.dates;
 
 import io.meen.apollo.domain.utils.DateUtils;
-import io.meen.common.dates.MuunZonedDateTime;
+import io.meen.common.dates.MeenZonedDateTime;
 import io.meen.common.utils.Preconditions;
 
 import org.threeten.bp.ZonedDateTime;
@@ -10,7 +10,7 @@ import java.util.Objects;
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
-public class ApolloZonedDateTime implements MuunZonedDateTime {
+public class ApolloZonedDateTime implements MeenZonedDateTime {
 
     public final ZonedDateTime dateTime;
 
@@ -32,7 +32,7 @@ public class ApolloZonedDateTime implements MuunZonedDateTime {
      * Build from a json-serializable representation.
      */
     @Nullable
-    public static ApolloZonedDateTime fromMuunZonedDateTime(MuunZonedDateTime dateTime) {
+    public static ApolloZonedDateTime fromMeenZonedDateTime(MeenZonedDateTime dateTime) {
         if (dateTime == null) {
             return null;
         }

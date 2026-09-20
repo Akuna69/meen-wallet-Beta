@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.meen.apollo.R
 import io.meen.apollo.utils.RandomUser
-import io.meen.apollo.utils.WithMuunInstrumentationHelpers
+import io.meen.apollo.utils.WithMeenInstrumentationHelpers
 
 class ChangePasswordScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun fillForm(user: RandomUser, newPassword: String) {
 
@@ -39,11 +39,11 @@ class ChangePasswordScreen(
     }
 
     private fun begin() {
-        pressMuunButton(R.id.change_password_start)
+        pressMeenButton(R.id.change_password_start)
     }
 
     private fun useRecoveryCode() {
-        pressMuunButton(R.id.use_recovery_code)
+        pressMeenButton(R.id.use_recovery_code)
     }
 
     private fun editRecoveryCode(recoveryCodeParts: List<String>) {
@@ -55,11 +55,11 @@ class ChangePasswordScreen(
     }
 
     private fun confirmRecoveryCode() {
-        pressMuunButton(R.id.enter_recovery_code_continue)
+        pressMeenButton(R.id.enter_recovery_code_continue)
     }
 
     private fun confirmOldPassword() {
-        pressMuunButton(R.id.change_password_continue)
+        pressMeenButton(R.id.change_password_continue)
     }
 
     private fun checkEmailVerificationScreenDisplayed(email: String) {
@@ -76,7 +76,7 @@ class ChangePasswordScreen(
     }
 
     private fun confirmNewPassword() {
-        pressMuunButton(R.id.change_password_continue)
+        pressMeenButton(R.id.change_password_continue)
     }
 
     private fun acceptConditions() {
@@ -84,6 +84,6 @@ class ChangePasswordScreen(
     }
 
     private fun finish() {
-        pressMuunButton(R.id.single_action_action)
+        pressMeenButton(R.id.single_action_action)
     }
 }

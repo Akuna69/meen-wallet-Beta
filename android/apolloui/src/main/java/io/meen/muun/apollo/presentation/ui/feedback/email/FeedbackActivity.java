@@ -4,7 +4,7 @@ import io.meen.apollo.R;
 import io.meen.apollo.databinding.FeedbackActivityBinding;
 import io.meen.apollo.domain.model.FeedbackCategory;
 import io.meen.apollo.presentation.ui.base.BaseActivity;
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation;
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation;
 
 import android.content.Context;
 import android.content.Intent;

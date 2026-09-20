@@ -18,7 +18,7 @@ import io.meen.apollo.databinding.ActivityCountryPickerBinding
 import io.meen.apollo.presentation.ui.security_cards_country_picker.models.CountryInfo
 import io.meen.apollo.presentation.ui.utils.getComponent
 import io.meen.apollo.presentation.ui.utils.setWindowInsetsCompat
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -106,7 +106,7 @@ class CountryPickerActivity : AppCompatActivity() {
     private fun setupHeader() {
         binding.header.attachToActivity(this)
         binding.header.showTitle(R.string.security_cards_country_picker_title)
-        binding.header.setNavigation(MuunHeader.Navigation.BACK)
+        binding.header.setNavigation(MeenHeader.Navigation.BACK)
     }
 
     private fun setupRecyclerView() {

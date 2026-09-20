@@ -92,7 +92,7 @@ object Crashlytics {
      * https://firebase.google.com/docs/crashlytics/customize-crash-reports?platform=android#add-logs
      */
     @JvmStatic
-    @Deprecated("Not really but you shouldn't use this directly. Use Timber.i(). See MuunTree.")
+    @Deprecated("Not really but you shouldn't use this directly. Use Timber.i(). See MeenTree.")
     fun logBreadcrumb(breadcrumb: String) {
         crashlytics?.log(breadcrumb)
         analyticsProvider?.report(

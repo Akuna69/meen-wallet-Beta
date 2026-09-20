@@ -15,8 +15,8 @@ import io.meen.apollo.presentation.ui.fragments.ek_verify_cloud.EmergencyKitClou
 import io.meen.apollo.presentation.ui.fragments.ek_verify_help.EmergencyKitVerifyHelpFragment
 import io.meen.apollo.presentation.ui.fragments.tr_intro.TaprootIntroFragment
 import io.meen.apollo.presentation.ui.fragments.tr_success.TaprootSuccessFragment
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunHeader.Navigation
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader.Navigation
 
 class TaprootSetupActivity : SingleFragmentActivity<TaprootSetupPresenter>(), TaprootSetupView {
 
@@ -29,7 +29,7 @@ class TaprootSetupActivity : SingleFragmentActivity<TaprootSetupPresenter>(), Ta
     private val binding: TaprootSetupActivityBinding
         get() = getBinding() as TaprootSetupActivityBinding
 
-    private val headerView: MuunHeader
+    private val headerView: MeenHeader
         get() = binding.header
 
     override fun inject() {

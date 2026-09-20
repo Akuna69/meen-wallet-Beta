@@ -4,7 +4,7 @@ import io.meen.apollo.R;
 import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer;
 import io.meen.apollo.presentation.ui.view.HtmlTextView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
+import io.meen.apollo.presentation.ui.view.MeenButton;
 import io.meen.apollo.presentation.ui.view.RichText;
 
 import android.Manifest;
@@ -20,7 +20,7 @@ public class SyncContactsFragment extends SingleFragment<SyncContactsPresenter>
     HtmlTextView explanation;
 
     @BindView(R.id.sync_contacts_button)
-    MuunButton button;
+    MeenButton button;
 
     @Override
     protected void inject() {

@@ -6,7 +6,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragment;
 import io.meen.apollo.presentation.ui.fragments.verify_email.VerifyEmailView;
 import io.meen.apollo.presentation.ui.utils.StyledStringRes;
 import io.meen.apollo.presentation.ui.view.LoadingView;
-import io.meen.apollo.presentation.ui.view.MuunButton;
+import io.meen.apollo.presentation.ui.view.MeenButton;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +19,7 @@ public class EmailWaitFragment extends SingleFragment<EmailWaitPresenter>
         implements VerifyEmailView {
 
     @BindView(R.id.signup_waiting_for_email_open_email_client)
-    MuunButton openEmailAppButton;
+    MeenButton openEmailAppButton;
 
     @BindView(R.id.signup_waiting_for_email_verification_title)
     TextView titleView;

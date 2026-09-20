@@ -2,7 +2,7 @@ package io.meen.apollo.domain.selector
 
 import io.meen.apollo.data.preferences.FeaturesRepository
 import io.meen.apollo.domain.FeatureOverrideStore
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import rx.Observable
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,7 +12,7 @@ class FeatureSelector @Inject constructor(
     private val featureOverrideStore: FeatureOverrideStore,
 ) {
 
-    fun fetch(): Observable<List<MuunFeature>> {
+    fun fetch(): Observable<List<MeenFeature>> {
         return fetchWithoutOverrides()
             .map { list ->
                 val newList = list.toMutableList()
@@ -25,35 +25,35 @@ class FeatureSelector @Inject constructor(
             }
     }
 
-    fun fetch(feature: MuunFeature): Observable<Boolean> {
+    fun fetch(feature: MeenFeature): Observable<Boolean> {
         return fetch()
             .map { features -> features.contains(feature) }
     }
 
-    fun get(feature: MuunFeature): Boolean =
+    fun get(feature: MeenFeature): Boolean =
         fetch().toBlocking().first().contains(feature)
 
     fun hasSecurityCardEnabled(): Boolean {
-        return get(MuunFeature.NFC_CARD_V2)
+        return get(MeenFeature.NFC_CARD_V2)
     }
 
     /**
      * Avoid using unless you REALLY know what you're doing. You probably just want to use the
      * fetch with overrides.
      */
-    private fun fetchWithoutOverrides(): Observable<List<MuunFeature>> {
+    private fun fetchWithoutOverrides(): Observable<List<MeenFeature>> {
         return featuresRepository.fetch()
             .doOnNext { features ->
                 Timber.d("ALL Feature Flags: ${features.joinToString { it.name }}")
             }
     }
 
-    fun fetchOverridableFlags(): Observable<List<MuunFeature.OverridableFeature.Overridable>> {
+    fun fetchOverridableFlags(): Observable<List<MeenFeature.OverridableFeature.Overridable>> {
         return fetchWithoutOverrides()
             .map { list ->
                 list.filter { feature -> feature.isOverridable() }
                     .map { feature ->
-                        feature.toOverridableFeature() as MuunFeature.OverridableFeature.Overridable
+                        feature.toOverridableFeature() as MeenFeature.OverridableFeature.Overridable
                     }
             }
             .doOnNext { features ->

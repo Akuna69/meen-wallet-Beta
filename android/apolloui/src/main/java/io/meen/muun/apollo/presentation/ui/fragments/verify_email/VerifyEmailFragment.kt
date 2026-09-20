@@ -10,13 +10,13 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.view.HtmlTextView
 import io.meen.apollo.presentation.ui.view.LoadingView
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class VerifyEmailFragment : SingleFragment<VerifyEmailPresenter>(), VerifyEmailView {
 
     @BindView(R.id.open_email_client)
-    lateinit var openEmailClientButton: MuunButton
+    lateinit var openEmailClientButton: MeenButton
 
     @BindView(R.id.verify_email_title)
     lateinit var titleView: TextView
@@ -54,7 +54,7 @@ class VerifyEmailFragment : SingleFragment<VerifyEmailPresenter>(), VerifyEmailV
     }
 
     override fun setUpHeader() {
-        parentActivity.header.setNavigation(MuunHeader.Navigation.BACK)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.BACK)
     }
 
     override fun setLoading(loading: Boolean) {

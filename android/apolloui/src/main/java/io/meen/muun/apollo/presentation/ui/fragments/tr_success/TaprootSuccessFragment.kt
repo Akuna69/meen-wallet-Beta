@@ -9,7 +9,7 @@ import io.meen.apollo.domain.model.UserActivatedFeatureStatus
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.utils.setStyledText
 import io.meen.apollo.presentation.ui.view.BlockClock
-import io.meen.apollo.presentation.ui.view.MuunButton
+import io.meen.apollo.presentation.ui.view.MeenButton
 
 class TaprootSuccessFragment : SingleFragment<TaprootSuccessPresenter>(), TaprootSuccessView {
 
@@ -26,7 +26,7 @@ class TaprootSuccessFragment : SingleFragment<TaprootSuccessPresenter>(), Taproo
     lateinit var descriptionView: TextView
 
     @BindView(R.id.confirm)
-    lateinit var confirmButton: MuunButton
+    lateinit var confirmButton: MeenButton
 
     override fun inject() {
         component.inject(this)

@@ -4,7 +4,7 @@ package io.meen.apollo.domain.errors
  * An Exception that will be reported to the user. The message parameter is mandatory to construct
  * one of these, and it will be used by the presentation layer.
  */
-abstract class UserFacingError : MuunError {
+abstract class UserFacingError : MeenError {
 
     constructor()
     constructor(message: String) : super(message)

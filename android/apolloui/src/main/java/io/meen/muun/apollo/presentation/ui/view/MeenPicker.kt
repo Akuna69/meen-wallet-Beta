@@ -7,8 +7,8 @@ import android.widget.TextView
 import butterknife.BindView
 import io.meen.apollo.R
 
-class MuunPicker @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0) :
-    Picker<MuunPicker.Option>(c, a, s) {
+class MeenPicker @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0) :
+    Picker<MeenPicker.Option>(c, a, s) {
 
     class Option(
         id: Int,

@@ -3,7 +3,7 @@ package io.meen.apollo.presentation.ui.fragments.verify_email
 import android.os.Bundle
 import io.meen.apollo.data.external.Globals
 import io.meen.apollo.domain.action.base.ActionState
-import io.meen.apollo.domain.action.session.UseMuunLinkAction
+import io.meen.apollo.domain.action.session.UseMeenLinkAction
 import io.meen.apollo.domain.action.user.EmailLinkAction
 import io.meen.apollo.domain.analytics.AnalyticsEvent
 import io.meen.apollo.domain.errors.ExpiredActionLinkError
@@ -19,7 +19,7 @@ import javax.inject.Inject
 @PerFragment
 open class VerifyEmailPresenter @Inject constructor(
     private val notificationPoller: UiNotificationPoller,
-    private val useMuunLinkAction: UseMuunLinkAction,
+    private val useMeenLinkAction: UseMeenLinkAction,
     private val emailLinkAction: EmailLinkAction
 ) : SingleFragmentPresenter<VerifyEmailView, VerifyEmailParentPresenter>() {
 
@@ -43,7 +43,7 @@ open class VerifyEmailPresenter @Inject constructor(
     }
 
     private fun watchForEmailLinkErrors() {
-        val observable = useMuunLinkAction.state
+        val observable = useMeenLinkAction.state
             .compose(handleStates(view::setLoading, this::handleError))
             .doOnNext {
                 // This is a hackish attempt to handle Houston's ActionLinkAlreadyUsedException

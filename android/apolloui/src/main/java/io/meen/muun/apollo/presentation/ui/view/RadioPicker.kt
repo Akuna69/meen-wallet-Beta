@@ -47,7 +47,7 @@ class RadioPicker @JvmOverloads constructor(c: Context, a: AttributeSet? = null,
 
         if (option.isChecked) {
             radioButton.isChecked = true
-            radioButton.setTextAppearanceCompat(R.style.MuunRadioButtonTextAppearanceSelected)
+            radioButton.setTextAppearanceCompat(R.style.MeenRadioButtonTextAppearanceSelected)
         }
 
         radioGroup.addView(radioButton)

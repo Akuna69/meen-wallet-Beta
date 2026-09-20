@@ -6,7 +6,7 @@ import io.meen.apollo.data.logging.TraceParser
 import io.meen.apollo.data.logging.TraceTransformer
 import io.meen.apollo.domain.errors.ApiError
 import io.meen.apollo.domain.errors.MissingCurrencyError
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.errors.WrappedErrorMessage
 import io.meen.common.exception.HttpException
 import java.io.PrintWriter
@@ -98,10 +98,10 @@ object ErrorReportBuilder {
 
     /**
      * Extract a metadata map from the error (or an empty map for unknown error classes).
-     * Search up the "cause" hierarchy and attach the metadata from every MuunError we find.
+     * Search up the "cause" hierarchy and attach the metadata from every MeenError we find.
      */
     private fun extractMetadata(error: Throwable?): MutableMap<String, Serializable> {
-        val metadata = if (error is MuunError) error.extractMetadata() else mutableMapOf()
+        val metadata = if (error is MeenError) error.extractMetadata() else mutableMapOf()
 
         if (error?.cause != null) {
             metadata.putAll(extractMetadata(error.cause))

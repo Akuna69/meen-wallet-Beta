@@ -1,9 +1,9 @@
 package io.meen.apollo.domain.libwallet.model
 
-import io.meen.common.crypto.hd.MuunInputIncomingSwap
+import io.meen.common.crypto.hd.MeenInputIncomingSwap
 import io.meen.common.utils.Encodings
 
-class InputIncomingSwap(val swap: MuunInputIncomingSwap) : libwallet.InputIncomingSwap {
+class InputIncomingSwap(val swap: MeenInputIncomingSwap) : libwallet.InputIncomingSwap {
 
     override fun htlcTx(): ByteArray =
         swap.htlcTx

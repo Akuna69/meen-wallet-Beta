@@ -8,9 +8,9 @@ import io.meen.apollo.domain.errors.UserFacingError
 import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
-import io.meen.apollo.presentation.ui.view.MuunButton
-import io.meen.apollo.presentation.ui.view.MuunHeader
-import io.meen.apollo.presentation.ui.view.MuunRecoveryCodeBox
+import io.meen.apollo.presentation.ui.view.MeenButton
+import io.meen.apollo.presentation.ui.view.MeenHeader
+import io.meen.apollo.presentation.ui.view.MeenRecoveryCodeBox
 
 class RcOnlyLoginFragment : SingleFragment<RcOnlyLoginPresenter>(), RcOnlyLoginView {
 
@@ -18,10 +18,10 @@ class RcOnlyLoginFragment : SingleFragment<RcOnlyLoginPresenter>(), RcOnlyLoginV
     lateinit var whatsThis: TextView
 
     @BindView(R.id.rc_only_login_recovery_code_box)
-    lateinit var recoveryCodeBox: MuunRecoveryCodeBox
+    lateinit var recoveryCodeBox: MeenRecoveryCodeBox
 
     @BindView(R.id.rc_only_login_continue)
-    lateinit var submitButton: MuunButton
+    lateinit var submitButton: MeenButton
 
     override fun inject() {
         component.inject(this)
@@ -47,7 +47,7 @@ class RcOnlyLoginFragment : SingleFragment<RcOnlyLoginPresenter>(), RcOnlyLoginV
 
     override fun setUpHeader() {
         parentActivity.header.apply {
-            setNavigation(MuunHeader.Navigation.BACK)
+            setNavigation(MeenHeader.Navigation.BACK)
             showTitle(R.string.login_title)
             setElevated(true)
         }

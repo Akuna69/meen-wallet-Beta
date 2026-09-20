@@ -66,7 +66,7 @@ class DisplayAmount(
 
     /**
      * Part of our (ugly) hack to allow SATs as an input currency option. Which should now be
-     * contained just here and inside MuunAmountInput.
+     * contained just here and inside MeenAmountInput.
      * This method answers the question of which BitcoinUnit should be used to format/display btc
      * amounts in a flow where SAT can be chosen as a currency. Usually we would just use the
      * BitcoinUnit User preference, but when on a flowgit  where SAT is chosen as a currency (e.g new

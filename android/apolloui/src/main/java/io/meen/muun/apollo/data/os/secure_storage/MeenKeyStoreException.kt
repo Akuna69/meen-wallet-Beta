@@ -3,10 +3,10 @@ package io.meen.apollo.data.os.secure_storage
 import android.security.KeyStoreException
 import io.meen.apollo.data.os.OS
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import io.meen.apollo.domain.utils.getTypedClause
 
-class MuunKeyStoreException(cause: Throwable) : MuunError(cause) {
+class MeenKeyStoreException(cause: Throwable) : MeenError(cause) {
 
     override val classification = ErrorClassification.UNEXPECTED
 

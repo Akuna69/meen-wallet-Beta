@@ -5,10 +5,10 @@ import androidx.annotation.StringRes
 import androidx.test.uiautomator.UiDevice
 import io.meen.apollo.R
 
-class MuunDialog(
+class MeenDialog(
     override val device: UiDevice,
     override val context: Context,
-) : WithMuunInstrumentationHelpers {
+) : WithMeenInstrumentationHelpers {
 
     fun checkDisplayed(@StringRes stringResId: Int) {
         label(stringResId).await(1000)

@@ -7,7 +7,7 @@ import io.meen.apollo.domain.action.NotificationActions
 import io.meen.apollo.domain.action.NotificationProcessingState
 import io.meen.apollo.domain.action.realtime.PreloadFeeDataAction
 import io.meen.apollo.domain.model.feebump.FeeBumpRefreshPolicy
-import io.meen.apollo.domain.model.MuunFeature
+import io.meen.apollo.domain.model.MeenFeature
 import io.meen.apollo.domain.model.NextTransactionSize
 import io.meen.apollo.domain.selector.FeatureSelector
 import rx.subscriptions.CompositeSubscription
@@ -51,7 +51,7 @@ class FeeDataSyncer @Inject constructor(
     }
 
     fun enterForeground() {
-        if (!featureSelector.get(MuunFeature.EFFECTIVE_FEES_CALCULATION)) {
+        if (!featureSelector.get(MeenFeature.EFFECTIVE_FEES_CALCULATION)) {
             return
         }
 

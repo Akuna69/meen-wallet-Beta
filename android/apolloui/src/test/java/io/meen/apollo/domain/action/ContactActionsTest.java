@@ -14,7 +14,7 @@ import io.meen.apollo.domain.action.base.AsyncActionStore;
 import io.meen.apollo.domain.model.Contact;
 import io.meen.apollo.domain.model.PublicProfile;
 import io.meen.apollo.template.TemplateHelpers;
-import io.meen.common.crypto.hd.MuunAddress;
+import io.meen.common.crypto.hd.MeenAddress;
 import io.meen.common.crypto.hd.PublicKey;
 import io.meen.common.crypto.hd.exception.KeyDerivationException;
 
@@ -128,7 +128,7 @@ public class ContactActionsTest extends BaseTest {
         final long hid = contact.getHid();
         doReturn(Observable.just(contact)).when(contactDao).fetchByHid(hid);
 
-        final MuunAddress address =
+        final MeenAddress address =
                 fetchItemFromObservable(contactActions.fetchContactAddress(hid));
 
         final PublicKey derivedKey =

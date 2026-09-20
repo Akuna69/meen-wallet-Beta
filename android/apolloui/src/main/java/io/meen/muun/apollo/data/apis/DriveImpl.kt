@@ -42,7 +42,7 @@ class DriveImpl @Inject constructor(
 
     companion object {
         const val DRIVE_FOLDER_TYPE = "application/vnd.google-apps.folder"
-        const val DRIVE_FOLDER_NAME = "Muun"
+        const val DRIVE_FOLDER_NAME = "Meen"
         const val DRIVE_FOLDER_PARENT = "root"
     }
 
@@ -113,7 +113,7 @@ class DriveImpl @Inject constructor(
         credential.selectedAccount = GoogleSignIn.getLastSignedInAccount(context)!!.account
 
         return Drive.Builder(NetHttpTransport(), GsonFactory(), credential)
-            .setApplicationName("Muun")
+            .setApplicationName("Meen")
             .build()
     }
 
@@ -136,7 +136,7 @@ class DriveImpl @Inject constructor(
         Preconditions.checkArgument(props.containsKey(uniqueProp))
 
         val driveService = createDriveService()
-        val folder = getExistingMuunFolder(driveService) ?: createNewMuunFolder(driveService)
+        val folder = getExistingMeenFolder(driveService) ?: createNewMeenFolder(driveService)
 
         // We want to either update an existing file or create a new one. This depends on whether
         // we're reasonably sure that an existing entry is conceptually the same file as the one
@@ -207,7 +207,7 @@ class DriveImpl @Inject constructor(
             .execute()
     }
 
-    private fun createNewMuunFolder(driveService: Drive): DriveFile {
+    private fun createNewMeenFolder(driveService: Drive): DriveFile {
         val metadata = FileMetadata()
             .setParents(listOf(DRIVE_FOLDER_PARENT))
             .setMimeType(DRIVE_FOLDER_TYPE)
@@ -220,7 +220,7 @@ class DriveImpl @Inject constructor(
             .let { toDriveFile(it) }
     }
 
-    private fun getExistingMuunFolder(driveService: Drive): DriveFile? {
+    private fun getExistingMeenFolder(driveService: Drive): DriveFile? {
         val query = sanitizeDriveQuery(
             """
             mimeType='$DRIVE_FOLDER_TYPE' and 
@@ -236,7 +236,7 @@ class DriveImpl @Inject constructor(
             .setFields("*") // populate all response fields (eg permalink, by default some are null)
             .execute()
             .files
-            .getOrNull(0) // note: there could be multiple "/Muun" folders (yes), we'll pick 1st
+            .getOrNull(0) // note: there could be multiple "/Meen" folders (yes), we'll pick 1st
             ?.let { toDriveFile(it) }
     }
 

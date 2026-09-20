@@ -2,7 +2,7 @@ package io.meen.apollo.presentation.ui.home;
 
 import io.meen.apollo.data.async.tasks.TaskScheduler;
 import io.meen.apollo.domain.LoggingContextManager;
-import io.meen.apollo.domain.ShowWelcomeToMuunManager;
+import io.meen.apollo.domain.ShowWelcomeToMeenManager;
 import io.meen.apollo.domain.SignupDraftManager;
 import io.meen.apollo.domain.action.ContactActions;
 import io.meen.apollo.domain.action.NotificationActions;
@@ -37,7 +37,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
     private final NotificationActions notificationActions;
     private final UserSelector userSel;
     private final UserActivatedFeatureStatusSelector userActivatedFeatureStatusSel;
-    private final ShowWelcomeToMuunManager showWelcomeToMuun;
+    private final ShowWelcomeToMeenManager showWelcomeToMeen;
     private final SignupDraftManager signupDraftManager;
 
     private final TaskScheduler taskScheduler;
@@ -60,7 +60,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
                          NotificationActions notificationActions,
                          UserSelector userSel,
                          UserActivatedFeatureStatusSelector userActivatedFeatureStatusSel,
-                         ShowWelcomeToMuunManager showWelcomeToMuunManager,
+                         ShowWelcomeToMeenManager showWelcomeToMeenManager,
                          SignupDraftManager signupDraftManager,
                          TaskScheduler taskScheduler,
                          FetchRealTimeDataAction fetchRealTimeData,
@@ -70,7 +70,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
         this.contactActions = contactActions;
         this.userSel = userSel;
         this.userActivatedFeatureStatusSel = userActivatedFeatureStatusSel;
-        this.showWelcomeToMuun = showWelcomeToMuunManager;
+        this.showWelcomeToMeen = showWelcomeToMeenManager;
         this.signupDraftManager = signupDraftManager;
         this.fetchRealTimeData = fetchRealTimeData;
         this.notificationActions = notificationActions;
@@ -93,9 +93,9 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
 
         fetchRealTimeData.runForced();
 
-        if (shouldShowWelcomeToMuun()) {
-            showWelcomeToMuun.setSeen();
-            view.showWelcomeToMuunDialog();
+        if (shouldShowWelcomeToMeen()) {
+            showWelcomeToMeen.setSeen();
+            view.showWelcomeToMeenDialog();
         }
 
         new PdfFontIssueTracker(getContext(), analytics)
@@ -184,7 +184,7 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
         userSel.setPendingTaprootCelebration(false);
     }
 
-    private boolean shouldShowWelcomeToMuun() {
+    private boolean shouldShowWelcomeToMeen() {
         // We use SHOW_WELCOME_TO_MUUN Intent extra to mark the HomeActivity opening when we've just
         // created a new wallet but we also need the help of a user preference because even though
         // it's possible to remove extras from an Intent there are on some scenarios like activity
@@ -193,8 +193,8 @@ public class HomePresenter extends BasePresenter<HomeView> implements HomeFragme
         // the original Intent is actually immutable and its stored somewhere in Android's
         // ActivityManager.
         // For more info check out: https://stackoverflow.com/a/41574485/901465
-        final boolean hasSeenWelcomeToMuun = showWelcomeToMuun.getSeen();
+        final boolean hasSeenWelcomeToMeen = showWelcomeToMeen.getSeen();
         final Bundle argsBundle = view.getArgumentsBundle();
-        return argsBundle.getBoolean(HomeActivity.SHOW_WELCOME_TO_MUUN) && !hasSeenWelcomeToMuun;
+        return argsBundle.getBoolean(HomeActivity.SHOW_WELCOME_TO_MUUN) && !hasSeenWelcomeToMeen;
     }
 }

@@ -10,7 +10,7 @@ import icepick.State
 import io.meen.apollo.R
 import io.meen.apollo.domain.libwallet.DecodedInvoice
 import io.meen.apollo.domain.model.BitcoinUnit
-import io.meen.apollo.presentation.ui.MuunCountdownTimer
+import io.meen.apollo.presentation.ui.MeenCountdownTimer
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer
 import io.meen.apollo.presentation.ui.select_amount.SelectAmountActivity
 import io.meen.apollo.presentation.ui.show_qr.NotificationsPrimingView
@@ -26,7 +26,7 @@ import javax.money.MonetaryAmount
 
 class LnInvoiceQrFragment : QrFragment<LnInvoiceQrPresenter>(),
     LnInvoiceView,
-    MuunCountdownTimer.CountDownTimerListener {
+    MeenCountdownTimer.CountDownTimerListener {
 
     companion object {
         private const val REQUEST_AMOUNT = 2
@@ -73,7 +73,7 @@ class LnInvoiceQrFragment : QrFragment<LnInvoiceQrPresenter>(),
     @JvmField
     var highFees = false
 
-    private var countdownTimer: MuunCountdownTimer? = null
+    private var countdownTimer: MeenCountdownTimer? = null
 
     override fun inject() {
         component.inject(this)
@@ -124,7 +124,7 @@ class LnInvoiceQrFragment : QrFragment<LnInvoiceQrPresenter>(),
         super.setQrContent(invoice.original, invoice.original.uppercase(Locale.getDefault()))
 
         stopTimer()
-        countdownTimer = MuunCountdownTimer(invoice.remainingMillis(), this)
+        countdownTimer = MeenCountdownTimer(invoice.remainingMillis(), this)
         countdownTimer!!.start()
 
         if (amount != null) {

@@ -5,12 +5,12 @@ import io.grpc.Metadata
 import io.grpc.StatusRuntimeException
 import io.grpc.protobuf.lite.ProtoLiteUtils
 import io.meen.apollo.domain.errors.ErrorClassification
-import io.meen.apollo.domain.errors.MuunError
+import io.meen.apollo.domain.errors.MeenError
 import rpc.WalletServiceOuterClass
 import rpc.WalletServiceOuterClass.ErrorType
 import timber.log.Timber
 
-class LibwalletGrpcError(cause: StatusRuntimeException) : MuunError(cause) {
+class LibwalletGrpcError(cause: StatusRuntimeException) : MeenError(cause) {
 
     override val classification = ErrorClassification.UNEXPECTED
 

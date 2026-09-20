@@ -10,7 +10,7 @@ import io.meen.apollo.presentation.ui.base.SingleFragment
 import io.meen.apollo.presentation.ui.new_operation.TitleAndDescriptionDrawer
 import io.meen.apollo.presentation.ui.utils.StyledStringRes
 import io.meen.apollo.presentation.ui.utils.getStyledString
-import io.meen.apollo.presentation.ui.view.MuunHeader
+import io.meen.apollo.presentation.ui.view.MeenHeader
 
 class SetupPasswordAcceptFragment : SingleFragment<SetupPasswordAcceptPresenter>(),
     SetupPasswordAcceptView {
@@ -46,7 +46,7 @@ class SetupPasswordAcceptFragment : SingleFragment<SetupPasswordAcceptPresenter>
     }
 
     override fun setUpHeader() {
-        parentActivity.header.setNavigation(MuunHeader.Navigation.EXIT)
+        parentActivity.header.setNavigation(MeenHeader.Navigation.EXIT)
     }
 
     override fun onResume() {

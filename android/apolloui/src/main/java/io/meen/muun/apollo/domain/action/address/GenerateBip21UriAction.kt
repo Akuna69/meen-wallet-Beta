@@ -5,7 +5,7 @@ import io.meen.apollo.domain.action.incoming_swap.GenerateInvoiceAction
 import io.meen.apollo.domain.libwallet.DecodedBitcoinUri
 import io.meen.apollo.domain.libwallet.Invoice
 import io.meen.apollo.domain.model.BitcoinAmount
-import io.meen.apollo.domain.model.MuunAddressGroup
+import io.meen.apollo.domain.model.MeenAddressGroup
 import org.bitcoinj.core.NetworkParameters
 import rx.Observable
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class GenerateBip21UriAction @Inject constructor(
 
     override fun action(amount: BitcoinAmount?): Observable<DecodedBitcoinUri> {
         return Observable.zip(
-            createAddress.action().map(MuunAddressGroup::toAddressGroup),
+            createAddress.action().map(MeenAddressGroup::toAddressGroup),
             generateInvoice.action(amount?.inSatoshis)
         ) { addressGroup, invoice ->
             DecodedBitcoinUri(
