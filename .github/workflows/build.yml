@@ -21,15 +21,28 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    # 3. Dar permisos de ejecución a Gradle Wrapper
+    # 3. Configurar Go (necesario para compilar las librerías nativas)
+    - name: Configurar Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+
+    # 4. Instalar e inicializar gomobile para evitar el error de gobind
+    - name: Instalar e inicializar gomobile
+      run: |
+        go install golang.org/x/mobile/cmd/goimports@latest
+        go install golang.org/x/mobile/cmd/gomobile@latest
+        gomobile init
+
+    # 5. Dar permisos de ejecución a Gradle Wrapper
     - name: Dar permisos a gradlew
       run: chmod +x gradlew
 
-    # 4. Compilar la aplicación apuntando al módulo correcto
+    # 6. Compilar la aplicación apuntando al módulo correcto
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
 
-    # 5. Subir la APK generada para que puedas descargarla
+    # 7. Subir la APK generada para que puedas descargarla
     - name: Subir archivo APK
       uses: actions/upload-artifact@v4
       with:
