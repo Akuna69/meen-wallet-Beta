@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      ANDROID_COMPILE_SDK: '35'
+      ANDROID_BUILD_TOOLS: '35.0.0'
+      ANDROID_NDK_VERSION: '26.3.11579264'
 
     steps:
       - name: Checkout
@@ -22,37 +26,74 @@ jobs:
           java-version: '17'
           cache: gradle
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Install Android SDK packages
+        shell: bash
+        run: |
+          set -euxo pipefail
+          yes | sdkmanager --licenses >/dev/null
+          sdkmanager \
+            "platform-tools" \
+            "platforms;android-${ANDROID_COMPILE_SDK}" \
+            "build-tools;${ANDROID_BUILD_TOOLS}" \
+            "ndk;${ANDROID_NDK_VERSION}"
+
+          echo "ANDROID_HOME=$ANDROID_HOME" >> "$GITHUB_ENV"
+          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT" >> "$GITHUB_ENV"
+          echo "ANDROID_NDK_HOME=$ANDROID_SDK_ROOT/ndk/${ANDROID_NDK_VERSION}" >> "$GITHUB_ENV"
+
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.22'
 
       - name: Install gomobile
+        shell: bash
         run: |
-          go install golang.org/x/mobile/cmd/gomobile@latest
-          go install golang.org/x/mobile/cmd/gobind@latest
-          echo "${HOME}/go/bin" >> $GITHUB_PATH
+          set -euxo pipefail
           export PATH="$PATH:$HOME/go/bin"
-          export ANDROID_NDK_HOME="${ANDROID_NDK_LATEST_HOME:-$ANDROID_SDK_ROOT}"
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export ANDROID_SDK_ROOT="$ANDROID_SDK_ROOT"
+          export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/${ANDROID_NDK_VERSION}"
+
+          GOBIN="$HOME/go/bin" go install golang.org/x/mobile/cmd/gomobile@latest
+          GOBIN="$HOME/go/bin" go install golang.org/x/mobile/cmd/gobind@latest
+          echo "$HOME/go/bin" >> "$GITHUB_PATH"
           gomobile init
 
       - name: Build Rust Libraries for Android
+        shell: bash
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+          ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
         run: |
+          set -euxo pipefail
           cd libwallet/librs
           chmod +x makelibs.sh
           ./makelibs.sh
 
       - name: Build Go Wallet Libraries for Android
+        shell: bash
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+          ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
         run: |
-          export ANDROID_HOME=$ANDROID_SDK_ROOT
-          export ANDROID_NDK_HOME="${ANDROID_NDK_LATEST_HOME:-$ANDROID_SDK_ROOT}"
+          set -euxo pipefail
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/${ANDROID_NDK_VERSION}"
           chmod +x tools/*.sh
           tools/bootstrap-gomobile.sh
           ./tools/libwallet-android.sh android/apolloui/libs/libwallet.aar
 
       - name: Crear google-services.json de prueba
+        shell: bash
         run: |
-          python3 - << 'EOF'
+          set -euxo pipefail
+          python3 - <<'EOF'
           import json
           pkgs = [
               "io.muun.apollo",
@@ -67,9 +108,15 @@ jobs:
               clients.append({
                   "client_info": {
                       "mobilesdk_app_id": f"1:123456789012:android:0123456789abcdef{i:02x}",
-                      "android_client_info": { "package_name": p }
+                      "android_client_info": {"package_name": p}
                   },
-                  "api_key": [{ "current_key": "AIzaSyDummyKeyForBuildOnly0000000000" }]
+                  "api_key": [{"current_key": "AIzaSyDummyKeyForBuildOnly0000000000"}],
+                  "services": {
+                      "analytics_service": {"status": 1},
+                      "appinvite_service": {"status": 1},
+                      "ads_service": {"status": 2},
+                      "google_signin_service": {"status": 2},
+                  },
               })
           data = {
               "project_info": {
@@ -80,13 +127,21 @@ jobs:
               "client": clients,
               "configuration_version": "1"
           }
-          json.dump(data, open("android/apolloui/google-services.json", "w"), indent=2)
+          with open("android/apolloui/google-services.json", "w", encoding="utf-8") as f:
+              json.dump(data, f, indent=2)
           EOF
 
       - name: Build Debug APK
+        shell: bash
+        env:
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+          ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
         run: |
-          export ANDROID_NDK_HOME="${ANDROID_NDK_LATEST_HOME:-$ANDROID_NDK_HOME}"
-          chmod +x tools/*.sh
+          set -euxo pipefail
+          export ANDROID_HOME="$ANDROID_SDK_ROOT"
+          export ANDROID_NDK_HOME="$ANDROID_SDK_ROOT/ndk/${ANDROID_NDK_VERSION}"
+          chmod +x ./gradlew tools/*.sh
           ./gradlew :android:apolloui:assembleProdDebug --console=plain
 
       - name: Upload APK
