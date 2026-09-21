@@ -1,4 +1,4 @@
-name: Compilar APK Meen
+name: Compilar APK Muun
 
 on:
   push:
@@ -27,7 +27,7 @@ jobs:
 
     # 4. Compilar la aplicación apuntando al módulo correcto
     - name: Compilar APK con Gradle
-      run: ./gradlew :android:apollo:assembleDebug --warning-mode all
+      run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
 
     # 5. Subir la APK generada para que puedas descargarla
     - name: Subir archivo APK
@@ -35,4 +35,4 @@ jobs:
       with:
         name: app-debug
         path: |
-          android/apollo/build/outputs/apk/debug/*.apk
+          android/apolloui/build/outputs/apk/debug/*.apk
