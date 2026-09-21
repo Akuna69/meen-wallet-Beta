@@ -21,16 +21,16 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    # 3. Configurar Go (necesario para compilar las librerías nativas)
+    # 3. Configurar Go actualizado (versión 1.26 o superior requerida)
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.22'
+        go-version: '1.26.x'
 
-    # 4. Instalar e inicializar gomobile para evitar el error de gobind
+    # 4. Instalar e inicializar gomobile correctamente
     - name: Instalar e inicializar gomobile
       run: |
-        go install golang.org/x/mobile/cmd/goimports@latest
+        go install golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
