@@ -31,7 +31,7 @@ const (
 	WalletService_SignAndBroadcastSweepTx_FullMethodName       = "/rpc.WalletService/SignAndBroadcastSweepTx"
 	WalletService_StartChallengeSetup_FullMethodName           = "/rpc.WalletService/StartChallengeSetup"
 	WalletService_FinishRecoveryCodeSetup_FullMethodName       = "/rpc.WalletService/FinishRecoveryCodeSetup"
-	WalletService_PopulateEncryptedMuunKey_FullMethodName      = "/rpc.WalletService/PopulateEncryptedMuunKey"
+	WalletService_PopulateEncryptedMeenKey_FullMethodName      = "/rpc.WalletService/PopulateEncryptedMeenKey"
 	WalletService_Save_FullMethodName                          = "/rpc.WalletService/Save"
 	WalletService_Get_FullMethodName                           = "/rpc.WalletService/Get"
 	WalletService_Delete_FullMethodName                        = "/rpc.WalletService/Delete"
@@ -65,7 +65,7 @@ type WalletServiceClient interface {
 	SignAndBroadcastSweepTx(ctx context.Context, in *SignAndBroadcastSweepTxRequest, opts ...grpc.CallOption) (*SignAndBroadcastSweepTxResponse, error)
 	StartChallengeSetup(ctx context.Context, in *ChallengeSetupRequest, opts ...grpc.CallOption) (*SetupChallengeResponse, error)
 	FinishRecoveryCodeSetup(ctx context.Context, in *FinishRecoveryCodeSetupRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	PopulateEncryptedMuunKey(ctx context.Context, in *PopulateEncryptedMuunKeyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	PopulateEncryptedMeenKey(ctx context.Context, in *PopulateEncryptedMeenKeyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Key-Value Storage
 	Save(ctx context.Context, in *SaveRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
@@ -224,10 +224,10 @@ func (c *walletServiceClient) FinishRecoveryCodeSetup(ctx context.Context, in *F
 	return out, nil
 }
 
-func (c *walletServiceClient) PopulateEncryptedMuunKey(ctx context.Context, in *PopulateEncryptedMuunKeyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *walletServiceClient) PopulateEncryptedMeenKey(ctx context.Context, in *PopulateEncryptedMeenKeyRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, WalletService_PopulateEncryptedMuunKey_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, WalletService_PopulateEncryptedMeenKey_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -391,7 +391,7 @@ type WalletServiceServer interface {
 	SignAndBroadcastSweepTx(context.Context, *SignAndBroadcastSweepTxRequest) (*SignAndBroadcastSweepTxResponse, error)
 	StartChallengeSetup(context.Context, *ChallengeSetupRequest) (*SetupChallengeResponse, error)
 	FinishRecoveryCodeSetup(context.Context, *FinishRecoveryCodeSetupRequest) (*emptypb.Empty, error)
-	PopulateEncryptedMuunKey(context.Context, *PopulateEncryptedMuunKeyRequest) (*emptypb.Empty, error)
+	PopulateEncryptedMeenKey(context.Context, *PopulateEncryptedMeenKeyRequest) (*emptypb.Empty, error)
 	// Key-Value Storage
 	Save(context.Context, *SaveRequest) (*emptypb.Empty, error)
 	Get(context.Context, *GetRequest) (*GetResponse, error)
@@ -455,8 +455,8 @@ func (UnimplementedWalletServiceServer) StartChallengeSetup(context.Context, *Ch
 func (UnimplementedWalletServiceServer) FinishRecoveryCodeSetup(context.Context, *FinishRecoveryCodeSetupRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FinishRecoveryCodeSetup not implemented")
 }
-func (UnimplementedWalletServiceServer) PopulateEncryptedMuunKey(context.Context, *PopulateEncryptedMuunKeyRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method PopulateEncryptedMuunKey not implemented")
+func (UnimplementedWalletServiceServer) PopulateEncryptedMeenKey(context.Context, *PopulateEncryptedMeenKeyRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PopulateEncryptedMeenKey not implemented")
 }
 func (UnimplementedWalletServiceServer) Save(context.Context, *SaveRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Save not implemented")
@@ -705,20 +705,20 @@ func _WalletService_FinishRecoveryCodeSetup_Handler(srv interface{}, ctx context
 	return interceptor(ctx, in, info, handler)
 }
 
-func _WalletService_PopulateEncryptedMuunKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(PopulateEncryptedMuunKeyRequest)
+func _WalletService_PopulateEncryptedMeenKey_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PopulateEncryptedMeenKeyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(WalletServiceServer).PopulateEncryptedMuunKey(ctx, in)
+		return srv.(WalletServiceServer).PopulateEncryptedMeenKey(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: WalletService_PopulateEncryptedMuunKey_FullMethodName,
+		FullMethod: WalletService_PopulateEncryptedMeenKey_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(WalletServiceServer).PopulateEncryptedMuunKey(ctx, req.(*PopulateEncryptedMuunKeyRequest))
+		return srv.(WalletServiceServer).PopulateEncryptedMeenKey(ctx, req.(*PopulateEncryptedMeenKeyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1019,8 +1019,8 @@ var WalletService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _WalletService_FinishRecoveryCodeSetup_Handler,
 		},
 		{
-			MethodName: "PopulateEncryptedMuunKey",
-			Handler:    _WalletService_PopulateEncryptedMuunKey_Handler,
+			MethodName: "PopulateEncryptedMeenKey",
+			Handler:    _WalletService_PopulateEncryptedMeenKey_Handler,
 		},
 		{
 			MethodName: "Save",
