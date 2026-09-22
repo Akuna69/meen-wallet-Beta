@@ -72,7 +72,7 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar todos los Stubs unificados (Libwallet, Estados y newop)
+    - name: Inyectar Stubs corregidos con clases de estado independientes
       run: |
         # Directorios necesarios
         mkdir -p android/apollo/src/main/java/libwallet/
@@ -107,7 +107,7 @@ jobs:
         }
         EOF_FEATURE
 
-        # 3. Estados de New Operation y NewOp
+        # 3. Clases de estado sueltas para evitar errores de resolución
         cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
 
@@ -136,11 +136,11 @@ jobs:
         open class ConfirmState
         open class ConfirmLightningState
         open class ValidateLightningState {
-            open fun onValidateLightning() {}
+            fun onValidateLightning() {}
         }
         EOF_STUBS
 
-        # 4. Objeto newop en minúsculas
+        # 4. Objeto newop en minúsculas idéntico
         cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
         package io.muun.apollo.presentation.ui.new_operation
 
