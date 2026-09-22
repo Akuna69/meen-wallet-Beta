@@ -72,63 +72,38 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs y archivo newop.kt independiente
+    - name: Inyectar Stubs de Libwallet y Features en el dominio
       run: |
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
+        mkdir -p android/apollo/src/main/java/libwallet/
+        mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
         
-        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
-        package io.muun.apollo.presentation.ui.new_operation
+        # 1. Stub principal de Libwallet
+        cat << 'EOF_LIBWALLET' > android/apollo/src/main/java/libwallet/Libwallet.kt
+        package libwallet
 
-        object NewOp {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
+        object Libwallet {
+            fun initialize() {}
         }
-        
-        open class EnterAmountState
-        open class EnterDescriptionState
-        open class StartState
-        open class ValidateState
-        open class BalanceErrorState
-        open class AbortState
-        open class ConfirmState
-        open class ConfirmLightningState
-        open class ValidateLightningState {
+
+        open class Wallet {
+            open fun balance(): Long = 0L
+        }
+        EOF_LIBWALLET
+
+        # 2. Stub para UserActivatedFeature y estados de features
+        cat << 'EOF_FEATURE' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
+        package io.muun.apollo.domain.model
+
+        enum class UserActivatedFeature {
+            LIGHTNING_NODE_MANAGEMENT,
+            SWAP_FEATURE,
+            FEE_BUMPING;
+
             companion object {
-                fun onValidateLightning(): Any = Any()
+                val values = entries.toTypedArray()
             }
         }
-        EOF_STUBS
-
-        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
-        package io.muun.apollo.presentation.ui.new_operation
-
-        object newop {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
-        }
-        EOF_NEWOP
+        EOF_FEATURE
 
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
