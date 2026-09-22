@@ -49,12 +49,12 @@ fi
 
 # Pre generate the proof/verifier data for faster runtime verification
 mkdir -p bindings/src/bin
-_cargo run --release -p generate
+_cargo run --release -p generate --locked
 
 # Build the verifier for each supported target (android, macOS, linux, iOS)
 mkdir -p libs
 for target in $TARGETS; do
-    _cargo build --release -p bindings --target $target --features precomputed_verifier_data
+    _cargo build --release -p bindings --target $target --features precomputed_verifier_data --locked
     cp target/$target/release/libbindings.a libs/$target-librs.a
 done
 
