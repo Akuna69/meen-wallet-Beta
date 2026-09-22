@@ -21,13 +21,13 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
-    # 3. Configurar Go actualizado (versión 1.26 o superior requerida)
+    # 3. Configurar una versión compatible y estable de Go (1.22)
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.26.x'
+        go-version: '1.22.x'
 
-    # 4. Instalar e inicializar gomobile correctamente
+    # 4. Instalar e inicializar gomobile con versiones compatibles
     - name: Instalar e inicializar gomobile
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
