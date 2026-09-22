@@ -9,7 +9,7 @@ public class IncomingSwapFulfillmentDataJson {
 
     public String fulfillmentTxHex;
 
-    public String meenSignatureHex;
+    public String muunSignatureHex;
 
     public String outputPath;
 
@@ -26,11 +26,11 @@ public class IncomingSwapFulfillmentDataJson {
      * Houston constructor.
      */
     public IncomingSwapFulfillmentDataJson(final String fulfillmentTxHex,
-                                           final String meenSignatureHex,
+                                           final String muunSignatureHex,
                                            final String outputPath,
                                            final int outputVersion) {
         this.fulfillmentTxHex = fulfillmentTxHex;
-        this.meenSignatureHex = meenSignatureHex;
+        this.muunSignatureHex = muunSignatureHex;
         this.outputPath = outputPath;
         this.outputVersion = outputVersion;
     }

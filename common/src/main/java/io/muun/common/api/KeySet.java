@@ -20,11 +20,11 @@ public class KeySet {
     public String encryptedPrivateKey;
 
     @Nullable // If user has not set up RC
-    public String meenKey; // This is the encryptedMeenKey
+    public String muunKey; // This is the encryptedMuunKey
 
     @Nullable
     @Since(apolloVersion = Supports.Fingerprint.APOLLO, falconVersion = Supports.Fingerprint.FALCON)
-    public String meenKeyFingerprint;
+    public String muunKeyFingerprint;
 
     @Nullable
     @Deprecated(atApolloVersion = 46)
@@ -44,14 +44,14 @@ public class KeySet {
      * Houston constructor.
      */
     public KeySet(String encryptedPrivateKey,
-                  @Nullable String meenKey,
-                  @Nullable String meenKeyFingerprint,
+                  @Nullable String muunKey,
+                  @Nullable String muunKeyFingerprint,
                   @Nullable Map<String, byte[]> challengePublicKeys,
                   @Nullable List<ChallengeKeyJson> challengeKeys) {
 
         this.encryptedPrivateKey = encryptedPrivateKey;
-        this.meenKey = meenKey;
-        this.meenKeyFingerprint = meenKeyFingerprint;
+        this.muunKey = muunKey;
+        this.muunKeyFingerprint = muunKeyFingerprint;
         this.challengePublicKeys = challengePublicKeys;
         this.challengeKeys = challengeKeys;
     }

@@ -3,7 +3,7 @@
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/meen_button_layout_anchor"
+        android:id="@+id/muun_button_layout_anchor"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:orientation="vertical" />

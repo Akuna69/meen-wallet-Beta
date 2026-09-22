@@ -3,20 +3,20 @@
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:meen="http://schemas.android.com/apk/res-auto"
+        xmlns:muun="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background">
     <!-- Need to set a non-transparent background to avoid glitch on enter transition -->
 
-    <io.muun.apollo.presentation.ui.view.MeenEmptyScreen
+    <io.muun.apollo.presentation.ui.view.MuunEmptyScreen
             android:id="@+id/empty_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            meen:icon="@drawable/tx_history"
-            meen:title="@string/home_operations_empty_title"
-            meen:subtitle="@string/home_operations_empty" />
+            muun:icon="@drawable/tx_history"
+            muun:title="@string/home_operations_empty_title"
+            muun:subtitle="@string/home_operations_empty" />
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/home_operations_recycler_operation_list"

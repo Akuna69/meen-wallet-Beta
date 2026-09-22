@@ -20,8 +20,8 @@ func TestInvoiceSecrets(t *testing.T) {
 
 	userKey, _ := NewHDPrivateKey(randomBytes(32), network)
 	userKey.Path = "m/schema:1'/recovery:1'"
-	meenKey, _ := NewHDPrivateKey(randomBytes(32), network)
-	meenKey.Path = "m/schema:1'/recovery:1'"
+	muunKey, _ := NewHDPrivateKey(randomBytes(32), network)
+	muunKey.Path = "m/schema:1'/recovery:1'"
 
 	routeHints := &RouteHints{
 		Pubkey:                    "03c48d1ff96fa32e2776f71bba02102ffc2a1b91e2136586418607d32e762869fd", //nolint:lll
@@ -30,7 +30,7 @@ func TestInvoiceSecrets(t *testing.T) {
 		CltvExpiryDelta:           8,
 	}
 
-	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -45,13 +45,13 @@ func TestInvoiceSecrets(t *testing.T) {
 
 	t.Run("generating more invoices", func(t *testing.T) {
 		// Make sure the secrets list is already topped up
-		_, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+		_, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		// try to generate more secrets
-		moreSecrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+		moreSecrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 		if err != nil {
 			t.Fatal(err)
 		}

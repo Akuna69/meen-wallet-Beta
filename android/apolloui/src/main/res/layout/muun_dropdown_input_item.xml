@@ -10,5 +10,5 @@
     android:minEms="2"
     android:maxLines="1"
     android:ellipsize="end"
-    android:textSize="@dimen/meen_input_text_size"
+    android:textSize="@dimen/muun_input_text_size"
 />

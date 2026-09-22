@@ -1,6 +1,6 @@
 package io.muun.apollo.template;
 
-import io.muun.common.crypto.hd.MeenAddress;
+import io.muun.common.crypto.hd.MuunAddress;
 import io.muun.common.crypto.hd.PrivateKey;
 import io.muun.common.crypto.hd.PublicKey;
 import io.muun.common.crypto.hd.PublicKeyTriple;
@@ -180,8 +180,8 @@ public class TemplateHelpers {
         return lambda(TemplateHelpers::getAddress);
     }
 
-    public static AtomicFunction meenAddress() {
-        return lambda(TemplateHelpers::getMeenAddress);
+    public static AtomicFunction muunAddress() {
+        return lambda(TemplateHelpers::getMuunAddress);
     }
 
     public static AtomicFunction lnInvoice() {
@@ -207,9 +207,9 @@ public class TemplateHelpers {
         return getPublicKey().toAddress();
     }
 
-    private static MeenAddress getMeenAddress() {
+    private static MuunAddress getMuunAddress() {
         final PublicKey pubKey = getPublicKey();
-        return new MeenAddress(pubKey.getAbsoluteDerivationPath(), pubKey.toAddress());
+        return new MuunAddress(pubKey.getAbsoluteDerivationPath(), pubKey.toAddress());
     }
 
     private static String getLnInvoice() {

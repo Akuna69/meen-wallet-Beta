@@ -47,7 +47,7 @@ import javax.money.MonetaryAmount
  * in the weird rivers of time. I can only offer you this:
  * https://stackoverflow.com/q/40881680/901465 (GREAT post on difference between these two)
  */
-interface WithMeenInstrumentationHelpers : WithMeenEspressoHelpers {
+interface WithMuunInstrumentationHelpers : WithMuunEspressoHelpers {
 
     companion object {
         val resourcePath = Globals.INSTANCE.applicationId + ":id"
@@ -68,11 +68,11 @@ interface WithMeenInstrumentationHelpers : WithMeenEspressoHelpers {
 
     val toolbar
         get() =
-            MeenToolbar(device, context)
+            MuunToolbar(device, context)
 
     val dialog
         get() =
-            MeenDialog(device, context)
+            MuunDialog(device, context)
 
     val uriPaster
         get() =
@@ -211,7 +211,7 @@ interface WithMeenInstrumentationHelpers : WithMeenEspressoHelpers {
      *  This introduces differences when flags like textAllCaps or ellipsize are used.
      */
     fun normalizedLabel(@StringRes stringResId: Int): UiObject =
-        label(MeenTexts.normalize(stringResId))
+        label(MuunTexts.normalize(stringResId))
 
     /** Obtain a view matching a string. */
     fun label(@StringRes stringResId: Int): UiObject = label(context.getString(stringResId))
@@ -251,55 +251,55 @@ interface WithMeenInstrumentationHelpers : WithMeenEspressoHelpers {
     /** Obtain a view (waiting for it to exist) matching by id resource name. */
     fun id(id: String): UiObject = device.findObject(idSelector(id))
 
-    /** Obtain a MeenButton, matching by id resource name. */
-    fun button(@IdRes id: Int): UiObject = id(id).getChild(idSelector(R.id.meen_button_button))
+    /** Obtain a MuunButton, matching by id resource name. */
+    fun button(@IdRes id: Int): UiObject = id(id).getChild(idSelector(R.id.muun_button_button))
 
-    /** Obtain a MeenButton as a domain object, matching by id resource name. */
-    fun meenButton(@IdRes id: Int): MeenButton =
-        MeenButton(device, context, button(id))
+    /** Obtain a MuunButton as a domain object, matching by id resource name. */
+    fun muunButton(@IdRes id: Int): MuunButton =
+        MuunButton(device, context, button(id))
 
-    /** Obtain a MeenDetailItem, matching by id resource name. */
+    /** Obtain a MuunDetailItem, matching by id resource name. */
     fun detailItem(@IdRes id: Int): UiObject = device.findObject(idSelector(id))
 
-    /** Obtain a MeenDetailItem's content, matching by id resource name. */
+    /** Obtain a MuunDetailItem's content, matching by id resource name. */
     fun detailItemContent(@IdRes id: Int): UiObject =
         detailItem(id).getChild(idSelector(R.id.operation_detail_item_text_content))
 
     fun maybeDetailItemTitle(@IdRes id: Int): UiObject2? =
         maybeViewId(id)?.findObject(By.res(resourceName(R.id.operation_detail_item_text_title)))
 
-    /** Obtain a MeenDetailItem's title, matching by id resource name. */
+    /** Obtain a MuunDetailItem's title, matching by id resource name. */
     fun detailItemTitle(@IdRes id: Int): UiObject =
         detailItem(id).getChild(idSelector(R.id.operation_detail_item_text_title))
 
-    /** Obtain a MeenDetailItem's image, matching by id resource name. */
+    /** Obtain a MuunDetailItem's image, matching by id resource name. */
     fun detailItemImage(@IdRes id: Int): UiObject =
         detailItem(id).getChild(idSelector(R.id.operation_detail_item_icon))
 
 
-    /** Obtain a MeenSettingsItem's title, matching by id resource name. */
+    /** Obtain a MuunSettingsItem's title, matching by id resource name. */
     fun settingsItemTitle(@IdRes id: Int): UiObject =
         detailItem(id).getChild(idSelector(R.id.setting_item_label))
 
-    /** Obtain a MeenDetailItem's content, matching by id resource name. */
+    /** Obtain a MuunDetailItem's content, matching by id resource name. */
     fun settingsItemContent(@IdRes id: Int): UiObject =
         detailItem(id).getChild(idSelector(R.id.setting_item_description))
 
-    /** Obtain a MeenUriInput, matching by id resource name. */
+    /** Obtain a MuunUriInput, matching by id resource name. */
     fun uriInput(@IdRes id: Int): UiObject =
         id(id).getChild(idSelector(R.id.text_input))
 
-    /** Obtain a MeenTextInput, matching by id resource name. */
+    /** Obtain a MuunTextInput, matching by id resource name. */
     fun input(@IdRes id: Int): UiObject =
-        id(id).getChild(idSelector(R.id.meen_text_input_edit_text))
+        id(id).getChild(idSelector(R.id.muun_text_input_edit_text))
 
     fun inputError(@IdRes id: Int): UiObject {
         return id(id).getChild(idSelector(R.id.textinput_error)).await(30000)
     }
 
-    /** Obtain a Meen's empty screen action button, matching by id resource name. */
+    /** Obtain a Muun's empty screen action button, matching by id resource name. */
     fun emptyScreenButton(@IdRes id: Int): UiObject =
-        id(id).getChild(idSelector(R.id.meen_button_button))
+        id(id).getChild(idSelector(R.id.muun_button_button))
 
     fun androidPackageInstaller(id: String): UiObject =
         device.findObject(fullId("com.android.packageinstaller:id/$id"))
@@ -373,15 +373,15 @@ interface WithMeenInstrumentationHelpers : WithMeenEspressoHelpers {
     }
 
     /**
-     * Check MeenButton is enabled and press/click it.
+     * Check MuunButton is enabled and press/click it.
      */
-    fun pressMeenButton(@IdRes id: Int) =
+    fun pressMuunButton(@IdRes id: Int) =
         button(id).assertEnabledAndClick()
 
     /**
-     * Check MeenButton is enabled and press/click it, waiting for next activity, dialog, etc..
+     * Check MuunButton is enabled and press/click it, waiting for next activity, dialog, etc..
      */
-    fun pressMeenButtonAndWaitForNewWindow(@IdRes id: Int) {
+    fun pressMuunButtonAndWaitForNewWindow(@IdRes id: Int) {
         val buttonObject = button(id)
 
         assertThat(buttonObject.isEnabled).isTrue

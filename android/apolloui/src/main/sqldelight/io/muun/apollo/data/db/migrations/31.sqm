@@ -34,8 +34,8 @@ CREATE TABLE submarine_swaps (
     funding_expiration_in_blocks INTEGER,
     funding_user_public_key TEXT,
     funding_user_public_key_path TEXT,
-    funding_meen_public_key TEXT,
-    funding_meen_public_key_path TEXT,
+    funding_muun_public_key TEXT,
+    funding_muun_public_key_path TEXT,
     funding_output_debt_type TEXT NOT NULL,
     funding_output_debt_amount_in_satoshis INTEGER NOT NULL
 );
@@ -65,8 +65,8 @@ INSERT INTO submarine_swaps SELECT
     funding_expiration_in_blocks,
     funding_user_public_key,
     funding_user_public_key_path,
-    funding_meen_public_key,
-    funding_meen_public_key_path,
+    funding_muun_public_key,
+    funding_muun_public_key_path,
     funding_output_debt_type,
     funding_output_debt_amount_in_satoshis
 FROM tmp_submarine_swaps;

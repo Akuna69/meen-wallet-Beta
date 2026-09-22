@@ -9,16 +9,16 @@
     <View style="@style/expander" />
 
     <TextView
-            style="@style/meen_text_h1"
+            style="@style/muun_text_h1"
             android:id="@+id/set_up_pin_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/meen_title_text_margin"
+            android:layout_margin="@dimen/muun_title_text_margin"
             android:gravity="center"
             tools:text="@string/choose_your_pin" />
 
     <TextView
-            style="@style/meen_text_body"
+            style="@style/muun_text_body"
             android:id="@+id/set_up_pin_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,9 +29,9 @@
             tools:visibility="visible"
             tools:text="@string/choose_your_pin" />
 
-    <io.muun.apollo.presentation.ui.view.MeenPinIndicator
+    <io.muun.apollo.presentation.ui.view.MuunPinIndicator
             android:id="@+id/pin_input_indicator"
-            android:layout_margin="@dimen/meen_title_text_margin"
+            android:layout_margin="@dimen/muun_title_text_margin"
             android:padding="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,7 +46,7 @@
 
     <View style="@style/expander" />
 
-    <io.muun.apollo.presentation.ui.view.MeenNumericKeyboard
+    <io.muun.apollo.presentation.ui.view.MuunNumericKeyboard
             android:id="@+id/pin_input_keyboard"
             android:layout_gravity="bottom|center_horizontal"
             android:layout_width="match_parent"

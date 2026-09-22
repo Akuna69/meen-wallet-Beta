@@ -39,7 +39,7 @@ func New(version int, derivationPath string, address string) *WalletAddress {
 
 func Create(
 	version int,
-	userKey, meenKey *hdkeychain.ExtendedKey,
+	userKey, muunKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
@@ -47,15 +47,15 @@ func Create(
 	case V1:
 		return CreateAddressV1(userKey, path, network)
 	case V2:
-		return CreateAddressV2(userKey, meenKey, path, network)
+		return CreateAddressV2(userKey, muunKey, path, network)
 	case V3:
-		return CreateAddressV3(userKey, meenKey, path, network)
+		return CreateAddressV3(userKey, muunKey, path, network)
 	case V4:
-		return CreateAddressV4(userKey, meenKey, path, network)
+		return CreateAddressV4(userKey, muunKey, path, network)
 	case V5:
-		return CreateAddressV5(userKey, meenKey, path, network)
+		return CreateAddressV5(userKey, muunKey, path, network)
 	case V6:
-		return CreateAddressV6(userKey, meenKey, path, network)
+		return CreateAddressV6(userKey, muunKey, path, network)
 	default:
 		return nil, errors.Errorf("unknown or unsupported version %v", version)
 	}
@@ -64,7 +64,7 @@ func Create(
 func MusigVersionForAddress(addressVersion int) musig.MusigVersion {
 	switch addressVersion {
 	case V1, V2, V3, V4, V5, SubmarineSwapV1, SubmarineSwapV2, IncomingSwap:
-		return musig.Musig2v040Meen
+		return musig.Musig2v040Muun
 	default:
 		return musig.Musig2v100
 	}

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:meen="http://schemas.android.com/apk/res-auto"
+    xmlns:muun="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/surface_background"
@@ -15,11 +15,11 @@
         android:layout_height="wrap_content"
         app:elevation="0dp">
 
-        <io.muun.apollo.presentation.ui.view.MeenHeader
+        <io.muun.apollo.presentation.ui.view.MuunHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            meen:elevated="false" />
+            muun:elevated="false" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -228,7 +228,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_continue"
-                style="@style/meen_button_primary"
+                style="@style/muun_button_primary"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="24dp"

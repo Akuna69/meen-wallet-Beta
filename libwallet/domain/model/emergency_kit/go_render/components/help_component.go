@@ -85,7 +85,7 @@ func (r *HelpComponent) Render() {
 
 	descY := textY + assets.SubtitleLineHeight + assets.IntraComponentSpacing
 
-	parts := r.pdf.ParseTextWithLinks(r.Description, []string{"support@meen.com"})
+	parts := r.pdf.ParseTextWithLinks(r.Description, []string{"support@muun.com"})
 	r.pdf.RenderMultiStyledText(
 		textX,
 		descY,

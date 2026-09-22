@@ -837,7 +837,7 @@ func TestFinishRecoveryCodeSetupEndpoint_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
@@ -845,15 +845,15 @@ func TestFinishRecoveryCodeSetupEndpoint_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
 
 	_, err = walletServer.StartChallengeSetup(
@@ -1052,18 +1052,18 @@ func buildTestMigrationPlan() []storage.Migration {
 
 type mockKeyProvider struct {
 	userPrivateKey  *libwallet.HDPrivateKey
-	meenPublicKey   *libwallet.HDPublicKey
+	muunPublicKey   *libwallet.HDPublicKey
 	maxDerivedIndex int
 }
 
 func NewMockKeyProvider(
 	userPrivateKey *libwallet.HDPrivateKey,
-	meenPublicKey *libwallet.HDPublicKey,
+	muunPublicKey *libwallet.HDPublicKey,
 	maxDerivedIndex int,
 ) keys.KeyProvider {
 	return &mockKeyProvider{
 		userPrivateKey:  userPrivateKey,
-		meenPublicKey:   meenPublicKey,
+		muunPublicKey:   muunPublicKey,
 		maxDerivedIndex: maxDerivedIndex,
 	}
 }
@@ -1076,15 +1076,15 @@ func (m *mockKeyProvider) UserPublicKey() (*libwallet.HDPublicKey, error) {
 	return m.userPrivateKey.PublicKey(), nil
 }
 
-func (m *mockKeyProvider) MeenPublicKey() (*libwallet.HDPublicKey, error) {
-	return m.meenPublicKey, nil
+func (m *mockKeyProvider) MuunPublicKey() (*libwallet.HDPublicKey, error) {
+	return m.muunPublicKey, nil
 }
 
 func (m *mockKeyProvider) MaxDerivedIndex() int {
 	return m.maxDerivedIndex
 }
 
-func (m *mockKeyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
+func (m *mockKeyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
 	return nil, goerr.New("not implemented")
 }
 

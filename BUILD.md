@@ -46,7 +46,7 @@ Note: This might take a while (from 20min up to 45-50min).
 
 1. Obtain the APK from your phone by connecting it to the computer and running:
     ```shell
-    adb pull $(adb shell pm path io.meen.apollo | grep "/base.apk" | sed 's/^package://') apollo-play.apk
+    adb pull $(adb shell pm path io.muun.apollo | grep "/base.apk" | sed 's/^package://') apollo-play.apk
     ```
 2. Checkout the commit that corresponds to the version of the app you want to verify.
 3. Ensure Docker has at least 16 GB of RAM, 60 GB of free space on disk and run:

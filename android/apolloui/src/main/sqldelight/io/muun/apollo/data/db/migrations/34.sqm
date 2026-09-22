@@ -35,8 +35,8 @@ CREATE TABLE tmp_submarine_swaps (
     funding_expiration_in_blocks INTEGER,
     funding_user_public_key TEXT,
     funding_user_public_key_path TEXT,
-    funding_meen_public_key TEXT,
-    funding_meen_public_key_path TEXT,
+    funding_muun_public_key TEXT,
+    funding_muun_public_key_path TEXT,
     funding_output_debt_type TEXT,
     funding_output_debt_amount_in_satoshis INTEGER
 );

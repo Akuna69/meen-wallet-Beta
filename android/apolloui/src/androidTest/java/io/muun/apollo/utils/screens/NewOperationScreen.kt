@@ -5,9 +5,9 @@ import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
 import io.muun.apollo.presentation.ui.helper.isBtc
 import io.muun.apollo.presentation.ui.new_operation.NewOperationStep
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers.Companion.moneyEqualsRoundingMarginBTC
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers.Companion.moneyEqualsRoundingMarginFiat
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers.Companion.moneyEqualsRoundingMarginBTC
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers.Companion.moneyEqualsRoundingMarginFiat
 import io.muun.apollo.utils.screens.RecommendedFeeScreen.OnScreenFeeOption
 import io.muun.common.model.DebtType
 import io.muun.common.utils.BitcoinUtils
@@ -19,7 +19,7 @@ import javax.money.MonetaryAmount
 class NewOperationScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     val destination: String
         get() = id(R.id.target_address).text
@@ -37,11 +37,11 @@ class NewOperationScreen(
         get() = id(R.id.total_amount).text.toMoney()
 
     fun waitUntilVisible() {
-        button(R.id.meen_next_step_button).await(15000)
+        button(R.id.muun_next_step_button).await(15000)
     }
 
     fun assertSubmitIsDisabled() =
-        button(R.id.meen_next_step_button).assertDisabled()
+        button(R.id.muun_next_step_button).assertDisabled()
 
     fun fillForm(amount: MonetaryAmount?, description: String?) {
 
@@ -115,13 +115,13 @@ class NewOperationScreen(
         id(R.id.currency_code).click()
         labelWith(amount.currency.currencyCode).click()
 
-        id(R.id.meen_amount).text = amount.number.toString()
+        id(R.id.muun_amount).text = amount.number.toString()
     }
 
     private fun editDescription(description: String) {
         checkStep(NewOperationStep.ENTER_DESCRIPTION)
 
-        id(R.id.meen_note_input).text = description
+        id(R.id.muun_note_input).text = description
     }
 
     private fun confirmUseAllFunds() {
@@ -129,7 +129,7 @@ class NewOperationScreen(
     }
 
     private fun goNext() {
-        pressMeenButton(R.id.meen_next_step_button)
+        pressMuunButton(R.id.muun_next_step_button)
     }
 
     fun checkConfirmedData(
@@ -243,8 +243,8 @@ class NewOperationScreen(
     private fun detectStep() =
         when {
             id(R.id.new_operation_resolving).exists() ->    NewOperationStep.RESOLVING
-            id(R.id.meen_amount).exists() ->                NewOperationStep.ENTER_AMOUNT
-            id(R.id.meen_note_input).exists() ->            NewOperationStep.ENTER_DESCRIPTION
+            id(R.id.muun_amount).exists() ->                NewOperationStep.ENTER_AMOUNT
+            id(R.id.muun_note_input).exists() ->            NewOperationStep.ENTER_DESCRIPTION
             id(R.id.total_amount).exists() ->               NewOperationStep.CONFIRM
 
             else ->

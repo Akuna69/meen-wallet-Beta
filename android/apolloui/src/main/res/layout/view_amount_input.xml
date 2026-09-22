@@ -13,8 +13,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <io.muun.apollo.presentation.ui.view.MeenEditText
-                android:id="@+id/meen_amount"
+        <io.muun.apollo.presentation.ui.view.MuunEditText
+                android:id="@+id/muun_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="40sp"

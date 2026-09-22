@@ -42,7 +42,7 @@ open class LoginAndSignUpTests : BaseInstrumentationTest() {
         signInScreen.enterEmail("not a valid email")
         signInScreen.checkEmailConfirmEnabled(false)
 
-        signInScreen.enterEmail("someNotRandomUnregisteredEmail@meen.com")
+        signInScreen.enterEmail("someNotRandomUnregisteredEmail@muun.com")
         signInScreen.checkEmailConfirmEnabled(true)
         signInScreen.confirmEmail()
         signInScreen.checkEmailError()

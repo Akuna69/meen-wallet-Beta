@@ -14,12 +14,12 @@ import javax.annotation.Nullable;
 public class SetupChallengeResponse {
 
     @Nullable
-    @JsonProperty("meenKey")
-    public String meenKey;
+    @JsonProperty("muunKey")
+    public String muunKey;
 
     @Nullable
     @Since(apolloVersion = Supports.Fingerprint.APOLLO, falconVersion = Supports.Fingerprint.FALCON)
-    public String meenKeyFingerprint;
+    public String muunKeyFingerprint;
 
     /**
      * Json constructor.

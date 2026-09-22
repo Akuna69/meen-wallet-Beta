@@ -10,7 +10,7 @@
         android:background="?selectableItemBackground">
 
     <ImageView
-            android:id="@+id/meen_action_drawer_item_icon"
+            android:id="@+id/muun_action_drawer_item_icon"
             android:contentDescription="@null"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -20,7 +20,7 @@
             tools:visibility="visible"/>
 
     <TextView
-            android:id="@+id/meen_action_drawer_item_label"
+            android:id="@+id/muun_action_drawer_item_label"
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"

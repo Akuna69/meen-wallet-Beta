@@ -1,9 +1,9 @@
 {
   "project_info": {
     "project_number": "880007565849",
-    "firebase_url": "https://meen-debug.firebaseio.com",
-    "project_id": "meen-debug",
-    "storage_bucket": "meen-debug.appspot.com"
+    "firebase_url": "https://muun-debug.firebaseio.com",
+    "project_id": "muun-debug",
+    "storage_bucket": "muun-debug.appspot.com"
   },
   "client": [
     {

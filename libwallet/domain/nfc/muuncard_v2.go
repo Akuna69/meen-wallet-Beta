@@ -12,24 +12,24 @@ import (
 
 // Implementation to interact with our reference security card firmware v2.
 
-const MeencardV2AppletId = "A00000015100133900" //nolint:staticcheck // TODO: const MeencardV2AppletId should be MeencardV2AppletID
+const MuuncardV2AppletId = "A00000015100133900" //nolint:staticcheck // TODO: const MuuncardV2AppletId should be MuuncardV2AppletID
 
-// Meencard V2 specific APDU bytes.
-const insMeencardV2Setup = 0x10
-const insMeencardV2SignChallenge = 0x20
-const insMeencardV2ContinueChallenge = 0x21
-const insMeencardV2GetVersion = 0x70
-const insMeencardV2GetMetadata = 0x80
+// Muuncard V2 specific APDU bytes.
+const insMuuncardV2Setup = 0x10
+const insMuuncardV2SignChallenge = 0x20
+const insMuuncardV2ContinueChallenge = 0x21
+const insMuuncardV2GetVersion = 0x70
+const insMuuncardV2GetMetadata = 0x80
 
-// MeencardV2 specific status words.
-const swMeencardV2WrongLength = 0x6700
-const swMeencardV2ResponseTooLarge = 0x6B11
-const swMeencardV2InvalidPubKey = 0x6B12
-const swMeencardV2CryptoError = 0x6B14
-const swMeencardV2NoSlotsAvailable = 0x6B16
-const swMeencardV2InvalidMac = 0x6B17
-const swMeencardV2InvalidCounter = 0x6B18
-const swMeencardV2SlotNotPaired = 0x6B19
+// MuuncardV2 specific status words.
+const swMuuncardV2WrongLength = 0x6700
+const swMuuncardV2ResponseTooLarge = 0x6B11
+const swMuuncardV2InvalidPubKey = 0x6B12
+const swMuuncardV2CryptoError = 0x6B14
+const swMuuncardV2NoSlotsAvailable = 0x6B16
+const swMuuncardV2InvalidMac = 0x6B17
+const swMuuncardV2InvalidCounter = 0x6B18
+const swMuuncardV2SlotNotPaired = 0x6B19
 
 const (
 	PairingSlotSize = 2
@@ -43,7 +43,7 @@ const (
 		MacSize
 )
 
-type MeenCardV2 struct {
+type MuunCardV2 struct {
 	rawCard *JavaCard
 }
 
@@ -77,38 +77,38 @@ type ChallengeResponse struct {
 	MAC           []byte // 32 bytes
 }
 
-func NewCardV2(nfcBridge app_provided_data.NfcBridge) *MeenCardV2 {
-	return &MeenCardV2{rawCard: newJavaCard(nfcBridge)}
+func NewCardV2(nfcBridge app_provided_data.NfcBridge) *MuunCardV2 {
+	return &MuunCardV2{rawCard: newJavaCard(nfcBridge)}
 }
 
 var cardV2StatusToError = map[uint16]*CardError{
-	swMeencardV2WrongLength: {Message: "card rejected input: wrong length", Code: ErrInternal},
-	swMeencardV2InvalidPubKey: {
+	swMuuncardV2WrongLength: {Message: "card rejected input: wrong length", Code: ErrInternal},
+	swMuuncardV2InvalidPubKey: {
 		Message: "card rejected public key: invalid format",
 		Code:    ErrInternal,
 	},
-	swMeencardV2ResponseTooLarge: {
+	swMuuncardV2ResponseTooLarge: {
 		Message: "response too large, exceeds APDU limit of 255 bytes",
 		Code:    ErrInternal,
 	},
-	swMeencardV2CryptoError: {
+	swMuuncardV2CryptoError: {
 		Message: "cryptographic error during pairing",
 		Code:    ErrInternal,
 	},
-	swMeencardV2NoSlotsAvailable: {
+	swMuuncardV2NoSlotsAvailable: {
 		Message: "no pairing slots available on card",
 		Code:    ErrSlotOccupied,
 	},
-	swMeencardV2InvalidMac:     {Message: "invalid MAC", Code: ErrInternal},
-	swMeencardV2InvalidCounter: {Message: "invalid counter", Code: ErrInternal},
-	swMeencardV2SlotNotPaired:  {Message: "slot not paired", Code: ErrSlotNotInitialized},
+	swMuuncardV2InvalidMac:     {Message: "invalid MAC", Code: ErrInternal},
+	swMuuncardV2InvalidCounter: {Message: "invalid counter", Code: ErrInternal},
+	swMuuncardV2SlotNotPaired:  {Message: "slot not paired", Code: ErrSlotNotInitialized},
 }
 
-func (c *MeenCardV2) GetVersion() (*AppletVersion, error) {
+func (c *MuunCardV2) GetVersion() (*AppletVersion, error) {
 
 	apdu := newAPDU(
 		claEdge,
-		insMeencardV2GetVersion,
+		insMuuncardV2GetVersion,
 		nullByte,
 		nullByte,
 		[]byte{},
@@ -117,7 +117,7 @@ func (c *MeenCardV2) GetVersion() (*AppletVersion, error) {
 	response, err := c.rawCard.transmit(apdu.serializeShort())
 	if err != nil {
 		return nil, errors.Errorf(
-			"failed to transmit insMeencardV2GetVersion: %w",
+			"failed to transmit insMuuncardV2GetVersion: %w",
 			err,
 		)
 	}
@@ -130,7 +130,7 @@ func (c *MeenCardV2) GetVersion() (*AppletVersion, error) {
 		return nil, errors.New("response too short")
 	}
 
-	vendor := string(response.Response[:6]) // "MeenV2"
+	vendor := string(response.Response[:6]) // "MuunV2"
 	major := response.Response[6]
 	minor := response.Response[7]
 
@@ -141,11 +141,11 @@ func (c *MeenCardV2) GetVersion() (*AppletVersion, error) {
 	}, nil
 }
 
-func (c *MeenCardV2) GetMetadata() (*CardMetadata, error) {
+func (c *MuunCardV2) GetMetadata() (*CardMetadata, error) {
 
 	apdu := newAPDU(
 		claEdge,
-		insMeencardV2GetMetadata,
+		insMuuncardV2GetMetadata,
 		nullByte,
 		nullByte,
 		[]byte{},
@@ -154,7 +154,7 @@ func (c *MeenCardV2) GetMetadata() (*CardMetadata, error) {
 	response, err := c.rawCard.transmit(apdu.serializeShort())
 	if err != nil {
 		return nil, errors.Errorf(
-			"failed to transmit insMeencardV2GetMetadata: %w",
+			"failed to transmit insMuuncardV2GetMetadata: %w",
 			err,
 		)
 	}
@@ -171,7 +171,7 @@ func (c *MeenCardV2) GetMetadata() (*CardMetadata, error) {
 	return metadata, nil
 }
 
-func (c *MeenCardV2) Pair(serverRandomPublicKey, clientPublicKey []byte) (*PairingResponse, error) {
+func (c *MuunCardV2) Pair(serverRandomPublicKey, clientPublicKey []byte) (*PairingResponse, error) {
 	// Validate server random public key format (C)
 	err := cryptography.ValidateSecp256r1PublicKey(serverRandomPublicKey)
 	if err != nil {
@@ -191,7 +191,7 @@ func (c *MeenCardV2) Pair(serverRandomPublicKey, clientPublicKey []byte) (*Pairi
 
 	apdu := newAPDU(
 		claEdge,
-		insMeencardV2Setup,
+		insMuuncardV2Setup,
 		nullByte,
 		nullByte,
 		input,
@@ -199,13 +199,13 @@ func (c *MeenCardV2) Pair(serverRandomPublicKey, clientPublicKey []byte) (*Pairi
 
 	response, err := c.transmit(apdu.serializeShort())
 	if err != nil {
-		return nil, errors.Errorf("failed to transmit insMeencardV2Setup: %w", err)
+		return nil, errors.Errorf("failed to transmit insMuuncardV2Setup: %w", err)
 	}
 
 	return parsePairingResponse(response.Response)
 }
 
-func (c *MeenCardV2) SignChallenge(
+func (c *MuunCardV2) SignChallenge(
 	challenge *security_card.SecurityCardSignChallenge,
 	reason []byte,
 ) (*ChallengeResponse, error) {
@@ -222,7 +222,7 @@ func (c *MeenCardV2) SignChallenge(
 	}
 }
 
-func (c *MeenCardV2) signChallengeSingle(
+func (c *MuunCardV2) signChallengeSingle(
 	challenge *security_card.SecurityCardSignChallenge,
 	reason []byte,
 ) (*ChallengeResponse, error) {
@@ -245,11 +245,11 @@ func (c *MeenCardV2) signChallengeSingle(
 	return parseSignChallengeResponse(response)
 }
 
-func (c *MeenCardV2) transmit(apdu []byte) (*CardResponse, error) {
+func (c *MuunCardV2) transmit(apdu []byte) (*CardResponse, error) {
 
-	err := c.rawCard.selectApplet(MeencardV2AppletId)
+	err := c.rawCard.selectApplet(MuuncardV2AppletId)
 	if err != nil {
-		return nil, newCardError(ErrAppletIdNotFound, "error selecting meencard applet")
+		return nil, newCardError(ErrAppletIdNotFound, "error selecting muuncard applet")
 	}
 
 	resp, err := c.rawCard.transmit(apdu)

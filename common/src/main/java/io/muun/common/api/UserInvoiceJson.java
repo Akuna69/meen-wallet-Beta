@@ -19,7 +19,7 @@ public class UserInvoiceJson {
     public PublicKeyJson userPublicKey;
 
     @NotNull
-    public PublicKeyJson meenPublicKey;
+    public PublicKeyJson muunPublicKey;
 
     @NotNull
     public PublicKeyJson identityPubKey;
@@ -36,12 +36,12 @@ public class UserInvoiceJson {
     public UserInvoiceJson(final String paymentHashHex,
                            final long shortChannelId,
                            final PublicKeyJson userPublicKey,
-                           final PublicKeyJson meenPublicKey,
+                           final PublicKeyJson muunPublicKey,
                            final PublicKeyJson identityPubKey) {
         this.paymentHashHex = paymentHashHex;
         this.shortChannelId = shortChannelId;
         this.userPublicKey = userPublicKey;
-        this.meenPublicKey = meenPublicKey;
+        this.muunPublicKey = muunPublicKey;
         this.identityPubKey = identityPubKey;
     }
 }

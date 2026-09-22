@@ -8,12 +8,12 @@
         android:orientation="vertical"
         android:paddingTop="24dp"
         android:paddingBottom="24dp"
-        android:paddingLeft="@dimen/meen_screen_margin"
-        android:paddingRight="@dimen/meen_screen_margin"
+        android:paddingLeft="@dimen/muun_screen_margin"
+        android:paddingRight="@dimen/muun_screen_margin"
         android:background="@color/dialog_background">
 
     <TextView
-            android:id="@+id/meen_action_drawer_title"
+            android:id="@+id/muun_action_drawer_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
@@ -26,7 +26,7 @@
             tools:visibility="visible" />
 
     <TextView
-            android:id="@+id/meen_action_drawer_description"
+            android:id="@+id/muun_action_drawer_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"

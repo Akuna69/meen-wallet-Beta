@@ -1,15 +1,15 @@
 package io.muun.common.crypto.hd;
 
-import io.muun.common.api.MeenInputSubmarineSwapV102Json;
+import io.muun.common.api.MuunInputSubmarineSwapV102Json;
 import io.muun.common.utils.Encodings;
 
 import javax.annotation.Nullable;
 import javax.validation.constraints.NotNull;
 
 /**
- * Additional details required to spend a MeenInput consuming a SubmarineSwap output V102.
+ * Additional details required to spend a MuunInput consuming a SubmarineSwap output V102.
  */
-public class MeenInputSubmarineSwapV102 {
+public class MuunInputSubmarineSwapV102 {
 
     @NotNull
     private byte[] swapPaymentHash256;
@@ -18,7 +18,7 @@ public class MeenInputSubmarineSwapV102 {
     private byte[] userPublicKey;
 
     @NotNull
-    private byte[] meenPublicKey;
+    private byte[] muunPublicKey;
 
     @NotNull
     private byte[] swapServerPublicKey;
@@ -34,12 +34,12 @@ public class MeenInputSubmarineSwapV102 {
     /**
      * Build from a json-serializable representation.
      */
-    public static MeenInputSubmarineSwapV102 fromJson(MeenInputSubmarineSwapV102Json json) {
+    public static MuunInputSubmarineSwapV102 fromJson(MuunInputSubmarineSwapV102Json json) {
 
-        return new MeenInputSubmarineSwapV102(
+        return new MuunInputSubmarineSwapV102(
                 Encodings.hexToBytes(json.swapPaymentHash256Hex),
                 Encodings.hexToBytes(json.userPublicKeyHex),
-                Encodings.hexToBytes(json.meenPublicKeyHex),
+                Encodings.hexToBytes(json.muunPublicKeyHex),
                 Encodings.hexToBytes(json.swapServerPublicKeyHex),
                 json.numBlocksForExpiration,
                 json.swapServerSignature == null
@@ -52,10 +52,10 @@ public class MeenInputSubmarineSwapV102 {
     /**
      * Constructor.
      */
-    public MeenInputSubmarineSwapV102(
+    public MuunInputSubmarineSwapV102(
             byte[] swapPaymentHash256,
             byte[] userPublicKey,
-            byte[] meenPublicKey,
+            byte[] muunPublicKey,
             byte[] swapServerPublicKey,
             int numBlocksForExpiration,
             @Nullable Signature swapServerSignature,
@@ -63,7 +63,7 @@ public class MeenInputSubmarineSwapV102 {
 
         this.swapPaymentHash256 = swapPaymentHash256;
         this.userPublicKey = userPublicKey;
-        this.meenPublicKey = meenPublicKey;
+        this.muunPublicKey = muunPublicKey;
         this.swapServerPublicKey = swapServerPublicKey;
         this.numBlocksForExpiration = numBlocksForExpiration;
         this.swapServerSignature = swapServerSignature;
@@ -87,12 +87,12 @@ public class MeenInputSubmarineSwapV102 {
     /**
      * Convert to a json-serializable representation.
      */
-    public MeenInputSubmarineSwapV102Json toJson() {
+    public MuunInputSubmarineSwapV102Json toJson() {
 
-        return new MeenInputSubmarineSwapV102Json(
+        return new MuunInputSubmarineSwapV102Json(
                 Encodings.bytesToHex(swapPaymentHash256),
                 Encodings.bytesToHex(userPublicKey),
-                Encodings.bytesToHex(meenPublicKey),
+                Encodings.bytesToHex(muunPublicKey),
                 Encodings.bytesToHex(swapServerPublicKey),
                 numBlocksForExpiration,
                 swapServerSignature == null ? null : swapServerSignature.toJson()
@@ -107,8 +107,8 @@ public class MeenInputSubmarineSwapV102 {
         return userPublicKey;
     }
 
-    public byte[] getMeenPublicKey() {
-        return meenPublicKey;
+    public byte[] getMuunPublicKey() {
+        return muunPublicKey;
     }
 
     public byte[] getSwapServerPublicKey() {

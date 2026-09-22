@@ -35,7 +35,7 @@ func TestKitToBtcCore_Integration(t *testing.T) {
 	const (
 		// Test keys and recovery data
 		encodedUserKey        = "Fw11jm3oFyL4EEo8tZHpvApSdQ9DkCspVuxG7ZmH9ziTkfFkfpBg9itmFwwmi5GTekvaEwyghJG2phyBJkW4DkqKNqdZx1DRDCmL3s2PuyhticTA8pgfraQo26kLW9zrKVES2pvfgygHms1y" //nolint:lll
-		encodedMeenKey        = "FvGKMF7cr7mTTF44ZHohs9M7Fh3L5LuUBnDjqJM8kBxuCnYz28i3cjKLEavim2wviGfH95LVBjuxwipbiTyBzDJWwMrQfTG8hq5X144rDeetHHAyGsXBDiyNFWxwN1u6qfQWH9bcC9TGNp6M" //nolint:lll
+		encodedMuunKey        = "FvGKMF7cr7mTTF44ZHohs9M7Fh3L5LuUBnDjqJM8kBxuCnYz28i3cjKLEavim2wviGfH95LVBjuxwipbiTyBzDJWwMrQfTG8hq5X144rDeetHHAyGsXBDiyNFWxwN1u6qfQWH9bcC9TGNp6M" //nolint:lll
 		recoveryCode          = "LAWN-AXNA-RQ8K-APEA-JKW5-BT2Y-QH75-DRQM"
 		inAppGeneratedAddress = "2N1PtMVLGB2cV3Afn4HwouPZJK1tkFE7GEi"
 
@@ -62,10 +62,10 @@ func TestKitToBtcCore_Integration(t *testing.T) {
 	// Convert encrypted keys to master keys using the recovery code and label the user key
 	// accordingly.
 	userPath := "m/1'/1'"
-	userKey, meenKey := decryptMeenKeys(
+	userKey, muunKey := decryptMuunKeys(
 		t,
 		encodedUserKey,
-		encodedMeenKey,
+		encodedMuunKey,
 		recoveryCode,
 		&userPath,
 	)
@@ -79,7 +79,7 @@ func TestKitToBtcCore_Integration(t *testing.T) {
 	userWalletRpc := loadUserWallet( //nolint:staticcheck // TODO: var userWalletRpc should be userWalletRPC
 		t,
 		userKey,
-		meenKey,
+		muunKey,
 		walletDescriptors,
 	)
 
@@ -92,7 +92,7 @@ func TestKitToBtcCore_Integration(t *testing.T) {
 	fundedAddresses := fundOneAddressPerVersion(
 		t,
 		userKey,
-		meenKey,
+		muunKey,
 		daemonRpc,
 		inAppGeneratedAddress,
 		userWalletRpc,
@@ -166,7 +166,7 @@ func checkUserBalanceIsZero(
 func loadUserWallet(
 	t *testing.T,
 	userKey,
-	meenKey *libwallet.HDPrivateKey,
+	muunKey *libwallet.HDPrivateKey,
 	walletDescriptors []struct {
 		template string
 		internal bool
@@ -182,7 +182,7 @@ func loadUserWallet(
 		descriptor := fmt.Sprintf(
 			desc.template,
 			userKey.String(),
-			meenKey.String(),
+			muunKey.String(),
 		)
 
 		// The btcCore protocol requires the checksum in the importDescriptor function to be already
@@ -268,12 +268,12 @@ func importDescriptor(
 func fundOneAddressPerVersion(
 	t *testing.T,
 	userKey *libwallet.HDPrivateKey,
-	meenKey *libwallet.HDPrivateKey,
+	muunKey *libwallet.HDPrivateKey,
 	daemonRpc *rpcclient.Client, //nolint:staticcheck // TODO: func parameter daemonRpc should be daemonRPC
 	inAppGeneratedAddress string,
 	userWalletRpc *rpcclient.Client, //nolint:staticcheck // TODO: func parameter userWalletRpc should be userWalletRPC
 ) []AddressWithBalance {
-	addressesByVersion := generateOneAddressPerVersion(t, userKey, meenKey)
+	addressesByVersion := generateOneAddressPerVersion(t, userKey, muunKey)
 	// Track what we're going to fund (only recoverable addresses)
 	var fundedAddresses []AddressWithBalance
 
@@ -290,7 +290,7 @@ func fundOneAddressPerVersion(
 
 	// Exclude versions that don't have descriptor support yet.
 	excludedVersions := map[int]bool{
-		5: true, // V5: MuSig with Meen-specific variant
+		5: true, // V5: MuSig with Muun-specific variant
 	}
 
 	for version, addr := range addressesByVersion {
@@ -320,10 +320,10 @@ func fundOneAddressPerVersion(
 func generateOneAddressPerVersion(
 	t *testing.T,
 	userKey *libwallet.HDPrivateKey,
-	meenKey *libwallet.HDPrivateKey,
-) map[int]libwallet.MeenAddress {
+	muunKey *libwallet.HDPrivateKey,
+) map[int]libwallet.MuunAddress {
 	// Address generator requires both addresses to be in the same path
-	derivedMeenKey, err := meenKey.DeriveTo("m/1'/1'")
+	derivedMuunKey, err := muunKey.DeriveTo("m/1'/1'")
 	if err != nil {
 		t.Fatalf("Failed to derive key2: %v", err)
 	}
@@ -331,10 +331,10 @@ func generateOneAddressPerVersion(
 	// Generate addresses
 	generator := NewAddressGenerator(
 		userKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
+		derivedMuunKey.PublicKey(),
 		false,
 	)
-	addressesByVersion := make(map[int]libwallet.MeenAddress)
+	addressesByVersion := make(map[int]libwallet.MuunAddress)
 
 	for addr := range generator.Stream(0) {
 		version := addr.Version()
@@ -346,10 +346,10 @@ func generateOneAddressPerVersion(
 	return addressesByVersion
 }
 
-func decryptMeenKeys(
+func decryptMuunKeys(
 	t *testing.T,
 	userKey string,
-	meenKey string,
+	muunKey string,
 	recoveryCode string,
 	userPath *string,
 ) (*libwallet.HDPrivateKey, *libwallet.HDPrivateKey) {
@@ -358,13 +358,13 @@ func decryptMeenKeys(
 	if err != nil {
 		t.Fatalf("Failed to decode user key: %v", err)
 	}
-	meenEncryptedKey, err := libwallet.DecodeEncryptedPrivateKey(meenKey)
+	muunEncryptedKey, err := libwallet.DecodeEncryptedPrivateKey(muunKey)
 	if err != nil {
-		t.Fatalf("Failed to decode meen key: %v", err)
+		t.Fatalf("Failed to decode muun key: %v", err)
 	}
 
 	// Create decryption key from recovery code
-	decryptionKey, err := libwallet.RecoveryCodeToKey(recoveryCode, meenEncryptedKey.Salt)
+	decryptionKey, err := libwallet.RecoveryCodeToKey(recoveryCode, muunEncryptedKey.Salt)
 	if err != nil {
 		t.Fatalf("Failed to process recovery code: %v", err)
 	}
@@ -374,14 +374,14 @@ func decryptMeenKeys(
 	if err != nil {
 		t.Fatalf("Failed to decrypt user key: %v", err)
 	}
-	decryptedMeenKey, err := decryptionKey.DecryptKey(meenEncryptedKey, libwallet.Regtest())
+	decryptedMuunKey, err := decryptionKey.DecryptKey(muunEncryptedKey, libwallet.Regtest())
 	if err != nil {
-		t.Fatalf("Failed to decrypt meen key: %v", err)
+		t.Fatalf("Failed to decrypt muun key: %v", err)
 	}
 
 	// Relabel the user key's path when the caller needs it.
 	if userPath != nil {
 		decryptedUserKey.Key.Path = *userPath
 	}
-	return decryptedUserKey.Key, decryptedMeenKey.Key
+	return decryptedUserKey.Key, decryptedMuunKey.Key
 }

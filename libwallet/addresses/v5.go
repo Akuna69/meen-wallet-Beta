@@ -9,14 +9,14 @@ import (
 	"github.com/muun/libwallet/musig"
 )
 
-// CreateAddressV5 returns a P2TR WalletAddress using Musig2v040Meen with the signing and cosigning
+// CreateAddressV5 returns a P2TR WalletAddress using Musig2v040Muun with the signing and cosigning
 // keys.
 func CreateAddressV5(
-	userKey, meenKey *hdkeychain.ExtendedKey,
+	userKey, muunKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
-	witnessProgram, err := CreateWitnessScriptV5(userKey, meenKey)
+	witnessProgram, err := CreateWitnessScriptV5(userKey, muunKey)
 	if err != nil {
 		return nil, errors.Errorf("failed to generate witness script v5: %w", err)
 	}
@@ -33,24 +33,24 @@ func CreateAddressV5(
 	}, nil
 }
 
-func CreateWitnessScriptV5(userKey, meenKey *hdkeychain.ExtendedKey) ([]byte, error) {
+func CreateWitnessScriptV5(userKey, muunKey *hdkeychain.ExtendedKey) ([]byte, error) {
 	userPublicKey, err := userKey.ECPubKey()
 	if err != nil {
 		return nil, errors.Errorf("error getting pub key: %w", err)
 	}
-	meenPublicKey, err := meenKey.ECPubKey()
+	muunPublicKey, err := muunKey.ECPubKey()
 	if err != nil {
 		return nil, errors.Errorf("error getting pub key: %w", err)
 	}
 
 	pubKeys := [][]byte{
 		userPublicKey.SerializeCompressed(),
-		meenPublicKey.SerializeCompressed(),
+		muunPublicKey.SerializeCompressed(),
 	}
 
 	tweak := musig.KeySpendOnlyTweak()
 
-	aggregateKey, err := musig.Musig2CombinePubKeysWithTweak(musig.Musig2v040Meen, pubKeys, tweak)
+	aggregateKey, err := musig.Musig2CombinePubKeysWithTweak(musig.Musig2v040Muun, pubKeys, tweak)
 	if err != nil {
 		return nil, errors.Errorf("error combining keys: %w", err)
 	}

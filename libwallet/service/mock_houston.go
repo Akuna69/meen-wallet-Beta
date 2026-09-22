@@ -73,14 +73,14 @@ func (m *MockHoustonService) ChallengeKeySetupFinish(req model.ChallengeSetupVer
 	panic("implement me")
 }
 
-func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMeenKey(
+func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMuunKey(
 	req model.ChallengeSetupVerifyJson,
-) (model.VerifiableMeenKeyJson, error) {
+) (model.VerifiableMuunKeyJson, error) {
 	//TODO implement me
 	panic("implement me")
 }
 
-func (m *MockHoustonService) VerifiableMeenKey() (model.VerifiableMeenKeyJson, error) {
+func (m *MockHoustonService) VerifiableMuunKey() (model.VerifiableMuunKeyJson, error) {
 	//TODO implement me
 	panic("implement me")
 }
@@ -325,7 +325,7 @@ func (m *MockHoustonService) PairSubmitSignedChallenge(
 		return model.PairSubmitSignedChallengeResponseJSON{}, houstonError
 	}
 
-	// Computes DH1 = c·attestationPubKey and DH2 = meenPriv·P, then
+	// Computes DH1 = c·attestationPubKey and DH2 = muunPriv·P, then
 	// derives secret_card = HMAC("pairing-secret", DH1||DH2).
 	serverPrivKeyBytes := m.lastRandomPrivateKeyMetadata.privateKey.Bytes()
 	dh1, err := cryptography.ECDH(serverPrivKeyBytes, metadata.AttestationPub[:])
@@ -333,7 +333,7 @@ func (m *MockHoustonService) PairSubmitSignedChallenge(
 		houstonError := mapToInternalServerHoustonError("DH1 error", err)
 		return model.PairSubmitSignedChallengeResponseJSON{}, houstonError
 	}
-	dh2, err := cryptography.ECDH(meenPrivDevBytes, cardPubKeyBytes)
+	dh2, err := cryptography.ECDH(muunPrivDevBytes, cardPubKeyBytes)
 	if err != nil {
 		houstonError := mapToInternalServerHoustonError("DH2 error", err)
 		return model.PairSubmitSignedChallengeResponseJSON{}, houstonError
@@ -902,7 +902,7 @@ func (m *MockHoustonService) FetchSecurityCardsMarketplace() (model.SecurityCard
 						{
 							IconUrl:        "https://placehold.co/16x16/FF0000/000000/png?text=ic",
 							Label:          "Firmware",
-							Value:          "Designed by Meen",
+							Value:          "Designed by Muun",
 							AdditionalData: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
 						},
 						{IconUrl: "https://placehold.co/16x16/FF0000/000000/png?text=ic", Label: "Packaging", Value: "Tamper resistant"},
@@ -943,7 +943,7 @@ func (m *MockHoustonService) FetchSecurityCardsMarketplace() (model.SecurityCard
 						{
 							IconUrl:        "https://placehold.co/16x16/FF0000/000000/png?text=ic",
 							Label:          "Firmware",
-							Value:          "Designed by Meen",
+							Value:          "Designed by Muun",
 							AdditionalData: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
 						},
 						{IconUrl: "https://placehold.co/16x16/FF0000/000000/png?text=ic", Label: "Packaging", Value: "Tamper resistant"},
@@ -984,7 +984,7 @@ func (m *MockHoustonService) FetchSecurityCardsMarketplace() (model.SecurityCard
 						{
 							IconUrl:        "https://placehold.co/16x16/FF0000/000000/png?text=ic",
 							Label:          "Firmware",
-							Value:          "Designed by Meen",
+							Value:          "Designed by Muun",
 							AdditionalData: "Lorem Ipsum Lorem Ipsum Lorem Ipsum",
 						},
 						{IconUrl: "https://placehold.co/16x16/FF0000/000000/png?text=ic", Label: "Packaging", Value: "Tamper resistant"},
@@ -1210,7 +1210,7 @@ func SecurityCardMetadataToBytes(m model.SecurityCardMetadataJson) ([]byte, erro
 	return buf, nil
 }
 
-// verifySignature verifies a signature from a meencard.
+// verifySignature verifies a signature from a muuncard.
 func (m *MockHoustonService) verifySignature(
 	publicKeyBytes, messageBytes, signedMessageBytes []byte,
 ) (bool, error) {

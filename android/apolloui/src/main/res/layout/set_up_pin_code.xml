@@ -17,12 +17,12 @@
                 android:contentDescription="@string/navigation_back"
                 android:src="@drawable/ic_arrow_back"
                 android:background="?android:attr/selectableItemBackground"
-                android:layout_margin="@dimen/meen_screen_margin"
+                android:layout_margin="@dimen/muun_screen_margin"
                 android:visibility="gone"
                 tools:visibility="visible"
                 app:tint="@color/icon_color" />
 
-        <io.muun.apollo.presentation.ui.view.MeenPinInput
+        <io.muun.apollo.presentation.ui.view.MuunPinInput
                 android:id="@+id/set_up_pin_input"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

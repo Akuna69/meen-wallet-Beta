@@ -9,8 +9,8 @@
         android:orientation="vertical"
         android:paddingTop="24dp"
         android:paddingBottom="24dp"
-        android:paddingLeft="@dimen/meen_screen_margin"
-        android:paddingRight="@dimen/meen_screen_margin"
+        android:paddingLeft="@dimen/muun_screen_margin"
+        android:paddingRight="@dimen/muun_screen_margin"
         android:background="@color/dialog_background">
 
     <io.muun.apollo.presentation.ui.view.HtmlTextView
@@ -27,7 +27,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/meen_screen_margin"
+            android:layout_marginTop="@dimen/muun_screen_margin"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:baselineAligned="false">
@@ -68,7 +68,7 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/meen_screen_margin"
+            android:layout_marginTop="@dimen/muun_screen_margin"
             android:orientation="horizontal"
             android:gravity="center_vertical"
             android:baselineAligned="false">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MuunButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -11,18 +11,18 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:padding="@dimen/meen_screen_margin">
+            android:padding="@dimen/muun_screen_margin">
 
         <TextView
                 android:id="@+id/verify_email_title"
-                style="@style/meen_text_h1"
+                style="@style/muun_text_h1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/verify_email_title" />
 
         <io.muun.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/verify_email_description"
-                style="@style/meen_text_body"
+                style="@style/muun_text_body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -48,11 +48,11 @@
         <View style="@style/expander" />
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MuunButton
             android:id="@+id/open_email_client"
-            style="@style/meen_button_secondary"
+            style="@style/muun_button_secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/verify_email_action" />
 
-</io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MuunButtonLayout>

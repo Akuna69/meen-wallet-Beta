@@ -1,6 +1,6 @@
 ## About
 
-This is the source code repository for meen's android wallet. Meen is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
+This is the source code repository for muun's android wallet. Muun is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
 
 ## Runtime requirements
 
@@ -19,7 +19,7 @@ There's also a pure java **common** module with code shared all over.
 
 ## Build
 
-For instructions on how to build Meen Wallet please refer to [BUILD.md](https://github.com/muun/apollo/blob/master/BUILD.md).
+For instructions on how to build Muun Wallet please refer to [BUILD.md](https://github.com/muun/apollo/blob/master/BUILD.md).
 
 ## Auditing
 
@@ -35,7 +35,7 @@ Having said that, we love to get feedback and suggestions for improvements. We h
 
 ## Responsible Disclosure
 
-Send us an email to report any security related bugs or vulnerabilities at [security@meen.com](mailto:security@meen.com).
+Send us an email to report any security related bugs or vulnerabilities at [security@muun.com](mailto:security@muun.com).
 
 You can encrypt your email message using our public PGP key.
 

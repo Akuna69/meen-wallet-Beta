@@ -23,8 +23,8 @@ CREATE TABLE submarine_swaps (
     funding_expiration_in_blocks INTEGER,
     funding_user_public_key TEXT,
     funding_user_public_key_path TEXT,
-    funding_meen_public_key TEXT,
-    funding_meen_public_key_path TEXT,
+    funding_muun_public_key TEXT,
+    funding_muun_public_key_path TEXT,
     funding_output_debt_type TEXT AS io.muun.common.model.DebtType,
     funding_output_debt_amount_in_satoshis INTEGER
 );

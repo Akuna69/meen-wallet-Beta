@@ -35,13 +35,13 @@ public class SubmarineSwapFundingOutputJson {
     // aren't different addresses for the same output depending on who spends it. However, we keep
     // this value since old swaps (version 101) use it to extract the user public key hash needed to
     // craft the funding output script.
-    public MeenAddressJson userRefundAddress;
+    public MuunAddressJson userRefundAddress;
 
     @Nullable // should always be present for swaps created after deployment of scheme v102
     public PublicKeyJson userPublicKey;
 
     @Nullable // should always be present for swaps created after deployment of scheme v102
-    public PublicKeyJson meenPublicKey;
+    public PublicKeyJson muunPublicKey;
 
     @NotNull
     public String serverPaymentHashInHex;
@@ -75,9 +75,9 @@ public class SubmarineSwapFundingOutputJson {
             @Nullable Integer confirmationsNeeded,
             @Nullable Integer userLockTime,
             @Nullable Integer expirationInBlocks,
-            MeenAddressJson userRefundAddress,
+            MuunAddressJson userRefundAddress,
             @Nullable PublicKeyJson userPublicKey,
-            @Nullable PublicKeyJson meenPublicKey,
+            @Nullable PublicKeyJson muunPublicKey,
             String serverPaymentHashInHex,
             String serverPublicKeyInHex,
             Integer scriptVersion,
@@ -91,7 +91,7 @@ public class SubmarineSwapFundingOutputJson {
         this.expirationInBlocks = expirationInBlocks;
         this.userRefundAddress = userRefundAddress;
         this.userPublicKey = userPublicKey;
-        this.meenPublicKey = meenPublicKey;
+        this.muunPublicKey = muunPublicKey;
         this.serverPaymentHashInHex = serverPaymentHashInHex;
         this.serverPublicKeyInHex = serverPublicKeyInHex;
         this.scriptVersion = scriptVersion;

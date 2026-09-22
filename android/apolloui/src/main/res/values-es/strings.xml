@@ -29,7 +29,7 @@
 
     <!-- FCM -->
     <string name="google_play_services_not_available">
-        Al parecer, Google Play Services no está disponible en este dispositivo móvil. Meen lo
+        Al parecer, Google Play Services no está disponible en este dispositivo móvil. Muun lo
         necesita para enviar notificaciones para pagos Lightning. Instala Google Play Services y
         vuelve a intentarlo.
     </string>
@@ -353,7 +353,7 @@
 
 
     <!-- Notifications -->
-    <string name="notifications_new_contact">¡%s ha llegado a Meen!</string>
+    <string name="notifications_new_contact">¡%s ha llegado a Muun!</string>
     <string name="notifications_amount_received">%s recibidos</string>
     <string name="notifications_amount_received_from">%s te ha enviado %s</string>
     <string name="notifications_op_failed_title">Tu pago falló</string>
@@ -366,7 +366,7 @@
     <string name="notification_ln_payment_failed_desc">
         Tu factura de lightning venció y %s no completó el pago.
     </string>
-    <string name="notification_incoming_ln_payment_pending">Abre Meen para recibir un pago</string>
+    <string name="notification_incoming_ln_payment_pending">Abre Muun para recibir un pago</string>
     <string name="notification_incoming_ln_payment_pending_desc">
         Alguien te envío bitcoin via Lightning Network. Haz clic para recibirlo.
     </string>
@@ -376,7 +376,7 @@
 
     <string name="slogan">Monedero de custodia propia</string>
     <string name="slogan_second_line">para bitcoin y lightning</string>
-    <string name="network_error_message">No se puede conectar con el servidor de Meen. Esto es normalmente un problema temporario y que suele repararse sin ninguna intervención extra. Aguarda unos segundos, verifica tu conexión a Internet e intenta de nuevo. Si el problema persiste, escribinos a <annotation fontStyle="bold">support@meen.com</annotation> para que podamos ayudarte.</string>
+    <string name="network_error_message">No se puede conectar con el servidor de Muun. Esto es normalmente un problema temporario y que suele repararse sin ninguna intervención extra. Aguarda unos segundos, verifica tu conexión a Internet e intenta de nuevo. Si el problema persiste, escribinos a <annotation fontStyle="bold">support@muun.com</annotation> para que podamos ayudarte.</string>
 
     <!-- Landing -->
 
@@ -399,9 +399,9 @@
     <string name="signup_phone_number_why_this">¿Cómo funciona?</string>
     <string name="signup_phone_number_why_this_title">¿Cómo funciona?</string>
     <string name="signup_phone_number_why_this_description">
-        Meen te permite realizar pagos usando tu número de teléfono y lista de contactos. Las
+        Muun te permite realizar pagos usando tu número de teléfono y lista de contactos. Las
         personas que ya saben cómo contactarte por teléfono podrán enviarte bitcoins fácilmente
-        usando Meen.
+        usando Muun.
     </string>
     <string name="signup_phone_number_select_country">Selecciona tu país</string>
 
@@ -490,10 +490,10 @@
     <string name="home_footer_action_receive">Recibir</string>
     <string name="home_send_feedback_action_title">Ayuda y comentarios</string>
 
-    <!-- WelcomeToMeen -->
-    <string name="welcome_to_meen">Creaste tu monedero.</string>
-    <string name="welcome_to_meen_second_line">¡Bienvenido a Meen!</string>
-    <string name="welcome_to_meen_cta">Vamos</string>
+    <!-- WelcomeToMuun -->
+    <string name="welcome_to_muun">Creaste tu monedero.</string>
+    <string name="welcome_to_muun_second_line">¡Bienvenido a Muun!</string>
+    <string name="welcome_to_muun_cta">Vamos</string>
 
     <!-- Send screen -->
     <string name="send_header_title">Enviar bitcoin</string>
@@ -502,7 +502,7 @@
     <string name="send_uri_error_body">
         Ésta no es una dirección de BTC o factura de lightning.
     </string>
-    <string name="send_cyclic_payment_warning">Enviarás los fondos a tu monedero Meen</string>
+    <string name="send_cyclic_payment_warning">Enviarás los fondos a tu monedero Muun</string>
 
     <string name="paste_from_clipboard_button">Pegar del portapeles</string>
     <string name="no_lnurl_in_clipboard_error">El portapapeles no contiene una LNURL</string>
@@ -514,7 +514,7 @@
 
     <string name="request_update_title">Actualización requerida</string>
     <string name="request_update_subtitle">
-        Para continuar usando Meen, por favor actualiza la aplicación a la última versión.
+        Para continuar usando Muun, por favor actualiza la aplicación a la última versión.
     </string>
     <string name="request_update_body">Solo te llevará unos minutos.</string>
     <string name="request_update_action">Actualizar</string>
@@ -523,7 +523,7 @@
 
     <string name="request_restart_title">Reinicio necesario</string>
     <string name="request_restart_subtitle">
-        Para continuar usando Meen, por favor reinicia la aplicación y recupera tu monedero.
+        Para continuar usando Muun, por favor reinicia la aplicación y recupera tu monedero.
     </string>
     <string name="request_restart_body">¡Te esperan nuevas funcionalidades y mejoras!</string>
     <string name="request_restart_action">Reiniciar</string>
@@ -549,12 +549,12 @@
     <string name="setup_password_intro_title">Respalda tu monedero</string>
     <string name="setup_password_intro_body">
         Usa tu email y una contraseña para recuperar tu dinero de forma conveniente
-        si cambias tu teléfono o reinstalas Meen.
+        si cambias tu teléfono o reinstalas Muun.
     </string>
     <string name="setup_password_intro_title_has_rc">Respalda tu monedero con contraseña</string>
     <string name="setup_password_intro_body_has_rc">
         Usa tu email y una contraseña para recuperar tu dinero de forma conveniente
-        si cambias tu teléfono o reinstalas Meen.
+        si cambias tu teléfono o reinstalas Muun.
         \n\n
         Esto habilita la autenticación multi-factor, mejorando la seguridad cuando usas tu
         Código de Recuperación.
@@ -578,14 +578,14 @@
     <string name="create_email_title">Ingresa tu email</string>
     <string name="create_email_subtitle">
         Recibirás un correo de verificación en este email.
-        <annotation link="why">¿Como usará Meen mi email?</annotation>
+        <annotation link="why">¿Como usará Muun mi email?</annotation>
     </string>
     <string name="create_email_input_hint">Tu email</string>
     <string name="create_email_skip">No quiero usar mi email</string>
     <string name="create_email_action">CONFIRMAR email</string>
-    <string name="create_email_how_dialog_title">¿Como usará Meen mi email?</string>
+    <string name="create_email_how_dialog_title">¿Como usará Muun mi email?</string>
     <string name="create_email_how_dialog_desc">
-        Meen te enviará un correo electrónico cada vez que alguien intente acceder a tu
+        Muun te enviará un correo electrónico cada vez que alguien intente acceder a tu
         monedero, pidiendo tu autorización. Esto te protege de gente (o computadoras) que intenten
         adivinar tu contraseña, y te alerta si alguien lo intenta.
     </string>
@@ -629,7 +629,7 @@
         monedero.
     </string>
     <string name="setup_password_accept_condition_2">
-        Entiendo que Meen no puede restaurar mi contraseña si me la olvido.
+        Entiendo que Muun no puede restaurar mi contraseña si me la olvido.
     </string>
     <string name="setup_password_accept_action">FINALIZAR</string>
 
@@ -638,7 +638,7 @@
     </string>
     <string name="setup_password_why_cang_reset_desc">
         Tu contraseña se usa para encriptar tu respaldo, de manera que nadie puede acceder a el
-        sin la contraseña - ni siquiera Meen. Si pierdes tu contraseña original, el respaldo es
+        sin la contraseña - ni siquiera Muun. Si pierdes tu contraseña original, el respaldo es
         imposible de desencriptar y el monedero no se puede recuperar.
     </string>
 
@@ -660,7 +660,7 @@
     <string name="priming_recovery_code_email_skipped_title">Respalda tu monedero</string>
     <string name="priming_recovery_code_email_skipped_desc">
         Escribe un código en papel para recuperar tu monedero si cambias tu teléfono o reinstalas
-        Meen.
+        Muun.
     </string>
 
     <string name="recovery_code_explanation_title">Escribe tu Código de Recuperación</string>
@@ -684,7 +684,7 @@
         Entiendo que necesitaré este código para recuperar mi monedero.
     </string>
     <string name="recovery_code_verify_accept_condition_2">
-        Entiendo que Meen no guarda una copia de este código y no se puede cambiar.
+        Entiendo que Muun no guarda una copia de este código y no se puede cambiar.
     </string>
 
     <string name="recovery_code_success_message">¡Éxito!</string>
@@ -725,7 +725,7 @@
     <string name="feedback_success">Comentarios enviados</string>
     <string name="anon_feedback_explanation">
         Si tienes ideas, comentarios o problemas escribinos a
-        <annotation fontStyle="bold">support@meen.com</annotation>.
+        <annotation fontStyle="bold">support@muun.com</annotation>.
     </string>
     <string name="anon_feedback_explanation_support_id">
         Por favor, incluye éste código de soporte (<annotation arg="0">1111-1111</annotation>).
@@ -863,8 +863,8 @@
         Tus Claves Privadas fueron encriptadas para darte mayor seguridad. Esto evita que queden
         expuestas en un papel, y te permite guardarlas online de manera segura.
         \n
-        \nEn Meen, puedes recuperar el acceso a tu monedero haciendo clic en un correo y utilizando
-        tu contraseña. Tus Claves Privadas solo son necesarias en casos extremos donde Meen no está
+        \nEn Muun, puedes recuperar el acceso a tu monedero haciendo clic en un correo y utilizando
+        tu contraseña. Tus Claves Privadas solo son necesarias en casos extremos donde Muun no está
         disponible.
         \n
         \nPara ese caso, desarrollamos una herramienta de código abierto que te permite desencriptar
@@ -880,7 +880,7 @@
         Usa la Herramienta de Recuperación para extraer tu dinero.
     </string>
     <string name="recovery_tool_info_body">
-        En un escenario en el que Meen no se encuentra disponible, esta es la forma de recuperar tu
+        En un escenario en el que Muun no se encuentra disponible, esta es la forma de recuperar tu
         dinero sin la colaboración de nuestros servidores.
         \n\nUtiliza tus Claves Privadas, tu Código de Recuperación y la Herramienta de Recuperación
         para extraer tus fondos.
@@ -944,20 +944,20 @@
     <string name="sync_contacts_how_it_works_title">¿Cómo funciona?</string>
     <string name="sync_contacts_how_it_works_title_description">
         Únicamente los hashes de los números de teléfono son enviados al servidor.
-        Por coincidencia de hashes, tus amigos usando Meen aparecerán como contactos.
+        Por coincidencia de hashes, tus amigos usando Muun aparecerán como contactos.
     </string>
 
     <!-- Notifications -->
-    <string name="notification_channel_name">Meen</string>
+    <string name="notification_channel_name">Muun</string>
 
-    <string name="first_on_meen_image">First on meen image</string>
-    <string name="first_on_meen_description">
-        No tienes contactos usando Meen aún. Podrás pagarles fácilmente cuando ellos activen sus
+    <string name="first_on_muun_image">First on muun image</string>
+    <string name="first_on_muun_description">
+        No tienes contactos usando Muun aún. Podrás pagarles fácilmente cuando ellos activen sus
         contactos.
     </string>
     <string name="home_contacts_loading">Escanéando contactos</string>
     <string name="home_contacts_permission_denied_forever_text">
-        Meen requiere del permiso de Contactos para mostrar tus contactos, pero ha sido denegado
+        Muun requiere del permiso de Contactos para mostrar tus contactos, pero ha sido denegado
         permanentemente.
         \n\n
         Por favor, visita la sección de configuración de Apps, selecciona
@@ -970,16 +970,16 @@
     <!-- ERRORS -->
     <string name="error_amount_too_small">Este monto es demasiado pequeño</string>
     <string name="error_network_error">Error en la red, intenta nuevamente más tarde.</string>
-    <string name="error_country_not_supported">¡Perdón! Meen no está disponible en ese país</string>
+    <string name="error_country_not_supported">¡Perdón! Muun no está disponible en ese país</string>
     <string name="error_deprecated_client_version">
-        Esta versión ya no es soportada por Meen. Por favor, actualiza la aplicación
-        Esta versión es demasiado vieja. Necesitas actualizar tu aplicación Meen.
+        Esta versión ya no es soportada por Muun. Por favor, actualiza la aplicación
+        Esta versión es demasiado vieja. Necesitas actualizar tu aplicación Muun.
     </string>
     <string name="error_email_already_used">Otro monedero está usando éste email</string>
     <string name="error_email_not_registered">Éste email no está registrado</string>
     <string name="error_field_required">Falta completar %s</string>
     <string name="error_expired_session">
-        Tu sesión en Meen expiró. Por favor, inicia una nueva sesión o contacta a nuestro soporte
+        Tu sesión en Muun expiró. Por favor, inicia una nueva sesión o contacta a nuestro soporte
         técnico.
     </string>
     <string name="error_verification_code_expired">
@@ -1043,7 +1043,7 @@
         envíanoslo por email.
     </string>
     <string name="error_send_report_dialog_yes">Enviar reporte</string>
-    <string name="error_report_email_subject">Reporte de error de Meen</string>
+    <string name="error_report_email_subject">Reporte de error de Muun</string>
     <string name="error_copy_report_dialog_title">No se ha encontrado una app de email</string>
     <string name="error_copy_report_dialog_body">
         Puedes copiar el reporte de error y enviarnoslo de la manera que prefieras.
@@ -1066,7 +1066,7 @@
         Comisión de la red y tiempos de confirmación
     </string>
     <string name="fee_options_whats_this_explanation_desc">
-        Meen calcula y sugiere la comisión necesaria para que tu transacción sea confirmada en menos
+        Muun calcula y sugiere la comisión necesaria para que tu transacción sea confirmada en menos
         de 30 minutos.
         \n\n
         Una comisión alta le da mayor prioridad a tu transacción, mientras que una transacción con
@@ -1121,7 +1121,7 @@
     <string name="new_op_insufficient_funds_warn_message">Aviso</string>
     <string name="new_op_insufficient_funds_warn_desc">
         No tienes fondos suficientes para pagar la comisión óptima.
-        <annotation fontColor="meenBlue">Elige una comisión</annotation> para continuar.
+        <annotation fontColor="muunBlue">Elige una comisión</annotation> para continuar.
     </string>
     <string name="new_op_error_required_amount">Total (Monto + Comisión Mínima)</string>
     <string name="new_op_error_total_balance">Tu balance</string>
@@ -1143,7 +1143,7 @@
         Se requiere el permiso de Notificaciones
     </string>
     <string name="priming_notifications_permanently_denied_dialog_desc">
-        Meen requiere del permiso de Notificaciones para que tus pagos lleguen correctamente, pero
+        Muun requiere del permiso de Notificaciones para que tus pagos lleguen correctamente, pero
         ha sido denegado permanentemente.
         \n\nPor favor, visita la sección de configuración de Apps, selecciona
         <annotation fontStyle="bold">Permisos</annotation>, y habilita
@@ -1182,12 +1182,12 @@
     <string name="secure_storage_error">
         La unidad de almacenamiento seguro de tu teléfono se corrompió o fue comprometida. Por
         razones de seguridad, tu sesión expiró. Por favor, escribinos a
-        <annotation fontStyle="bold">support@meen.com</annotation> para que podamos ayudarte.
+        <annotation fontStyle="bold">support@muun.com</annotation> para que podamos ayudarte.
     </string>
     <string name="secure_storage_error_avoid_crash_non_logout">
-        La unidad de almacenamiento seguro de tu teléfono se corrompió o fue comprometida. Meen
+        La unidad de almacenamiento seguro de tu teléfono se corrompió o fue comprometida. Muun
         no puede continuar ejecutando en estas condiciones. Por favor, escribinos a
-        <annotation fontStyle="bold">support@meen.com</annotation> para que podamos ayudarte.
+        <annotation fontStyle="bold">support@muun.com</annotation> para que podamos ayudarte.
     </string>
 
     <string name="select_bitcoin_unit_title">Unidad de bitcoin</string>
@@ -1201,7 +1201,7 @@
     <string name="task_email_skipped">Omitido</string>
     <string name="task_email_pending_title">Respalda tu monedero</string>
     <string name="task_email_pending_body">
-        Crea un método de recuperación en caso de que cambies tu teléfono o reinstales Meen.
+        Crea un método de recuperación en caso de que cambies tu teléfono o reinstales Muun.
     </string>
 
     <string name="task_email_skipped_body">
@@ -1238,19 +1238,19 @@
 
     <string name="task_export_keys_pending_title">Crea un Kit de Emergencia</string>
     <string name="task_export_keys_pending_body">
-        Descarga la información necesaria para recuperar tu dinero sin usar Meen.
+        Descarga la información necesaria para recuperar tu dinero sin usar Muun.
     </string>
 
     <string name="task_export_keys_done_title">Creaste un Kit de Emergencia</string>
     <string name="task_export_keys_done_body">
-        Sigue las instrucciones en el kit que guardaste para recuperar tu dinero sin usar Meen.
+        Sigue las instrucciones en el kit que guardaste para recuperar tu dinero sin usar Muun.
     </string>
 
     <string name="task_export_keys_done_title_old">Exportaste tus claves</string>
     <string name="task_export_keys_done_body_old">
         Escribiste tus claves privadas. Úsalas con tu Código de Recuperación y nuestra
         <annotation link="recovery_tool">Herramienta de Recuperación</annotation> para recuperar
-        tu dinero sin usar Meen.
+        tu dinero sin usar Muun.
     </string>
 
     <string name="task_export_keys_again">Crear otro Kit de Emergencia</string>
@@ -1398,7 +1398,7 @@
     </string>
     <string name="ek_emergency_kit_save_failure">
         No se pudo guardar el kit de emergencia en el dispositivo. Por favor vuelve a intentarlo
-        o escribenos a support@meen.com.
+        o escribenos a support@muun.com.
     </string>
     <!--
     Note for future us: we put an arbitrary \n because of weird text wrapping problems in some
@@ -1445,7 +1445,7 @@
     <string name="title_settings">Configuración</string>
     <string name="home_balance_tap_to_reveal">Haz clic para ver el balance</string>
     <string name="home_security_center_card_body">
-        <annotation fontColor="meenBlue">Respalda tu monedero.</annotation> Crea un respaldo para
+        <annotation fontColor="muunBlue">Respalda tu monedero.</annotation> Crea un respaldo para
         no perder el acceso a tu monedero.
     </string>
     <string name="new_home_tx_list_tooltip">
@@ -1465,7 +1465,7 @@
 
     <string name="turbo_channels">Turbo channels</string>
     <string name="turbo_channels_learn_more">
-        <annotation link="https://blog.meen.com/turbo-channels-es/">Aprende más</annotation> sobre
+        <annotation link="https://blog.muun.com/turbo-channels-es/">Aprende más</annotation> sobre
         las implicancias de los turbo channels.
     </string>
     <string name="turbo_channels_disable_title">¿Apagar turbo channels?</string>
@@ -1613,7 +1613,7 @@
     </string>
     <string name="address_picker_taproot_title">Taproot</string>
     <string name="address_picker_taproot_desc_before_activation">
-        <annotation fontColor="meenBlack"><annotation fontStyle="bold">Se activa en
+        <annotation fontColor="muunBlack"><annotation fontStyle="bold">Se activa en
          ~<annotation arg="0">x</annotation> horas</annotation></annotation>. Es el tipo de
         dirección más nuevo y potente. Muchos servicios aún no son compatibles y pueden marcarlas
         como inválidas.
@@ -1623,7 +1623,7 @@
         y pueden marcarlas como inválidas.
     </string>
     <string name="taproot_card_body">
-        <annotation fontColor="meenBlue"><annotation fontStyle="bold">
+        <annotation fontColor="muunBlue"><annotation fontStyle="bold">
             Mejora tus pagos</annotation></annotation>. Ahorra con cada pago activando Taproot.
     </string>
     <string name="taproot_success_title">
@@ -1733,7 +1733,7 @@
     </string>
     <string name="receive_preference_unified">Unificado</string>
     <string name="receive_preference_unified_desc">
-        🧪 <annotation fontColor="meenBlack">Experimental.</annotation> Mostrar un código QR
+        🧪 <annotation fontColor="muunBlack">Experimental.</annotation> Mostrar un código QR
         unificado que codifica tanto una dirección de bitcoin como una factura de lightning. Muchos
         servicios no soportan este formato unificado aún.
     </string>
@@ -1746,12 +1746,12 @@
         \n\n
     </string>
     <string name="show_unified_qr_full_content_address">
-        <annotation fontColor="meenBlack"><annotation fontStyle="bold">Tu dirección de bitcoin
+        <annotation fontColor="muunBlack"><annotation fontStyle="bold">Tu dirección de bitcoin
         </annotation></annotation>\n<annotation arg="0">some_bitcoin_address</annotation>
         \n\n
     </string>
     <string name="show_unified_qr_full_content_invoice">
-        <annotation fontColor="meenBlack"><annotation fontStyle="bold">Tu factura de lightning
+        <annotation fontColor="muunBlack"><annotation fontStyle="bold">Tu factura de lightning
         </annotation></annotation>\n<annotation arg="0">some_lightning_invoice</annotation>
     </string>
 
@@ -1805,7 +1805,7 @@
     <string name="security_cards_marketplace_shipping_and_taxes_cost">%s shipping &amp; taxes</string>
     <string name="security_cards_marketplace_no_data_description">
         <annotation role="p">Unfortunately, no provider currently ships to <annotation arg="0">COUNTRY</annotation>.</annotation>
-        <annotation role="p"><annotation link="support"><annotation fontColor="meenTextSecondaryColor">Add your voice</annotation></annotation> to help us prioritize which country we should add next.</annotation>
+        <annotation role="p"><annotation link="support"><annotation fontColor="muunTextSecondaryColor">Add your voice</annotation></annotation> to help us prioritize which country we should add next.</annotation>
     </string>
     <string name="security_cards_marketplace_no_data_button">CHOOSE A DIFFERENT COUNTRY</string>
 
@@ -1863,6 +1863,6 @@
     <!-- SecurityCards - Connected to website dialog -->
     <!-- FIXME Missing copies yet -->
     <string name="security_cards_connected_to_website_title">Connected to %s</string>
-    <string name="security_cards_connected_to_website_description">No personal information is associated with your Meen wallet.</string>
+    <string name="security_cards_connected_to_website_description">No personal information is associated with your Muun wallet.</string>
 
 </resources>

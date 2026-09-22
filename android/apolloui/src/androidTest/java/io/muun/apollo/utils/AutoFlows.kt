@@ -13,7 +13,7 @@ import io.muun.apollo.domain.model.user.UserPhoneNumber
 import io.muun.apollo.presentation.ui.helper.isBtc
 import io.muun.apollo.presentation.ui.utils.OS
 import io.muun.apollo.presentation.ui.utils.UiUtils
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers.Companion.balanceNotEqualsErrorMessage
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers.Companion.balanceNotEqualsErrorMessage
 import io.muun.apollo.utils.screens.ReceiveScreen
 import io.muun.common.model.DebtType
 import io.muun.common.model.ReceiveFormatPreference
@@ -26,7 +26,7 @@ import javax.money.MonetaryAmount
 class AutoFlows(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun signUp(pin: List<Int> = Gen.pin()) {
 
@@ -396,7 +396,7 @@ class AutoFlows(
             labelWith(R.string.send_cyclic_payment_warning).assertDoesntExist()
         }
 
-        meenButton(R.id.confirm).press()
+        muunButton(R.id.confirm).press()
     }
 
     fun startOperationFromClipboardTo(destination: String) {
@@ -405,8 +405,8 @@ class AutoFlows(
         homeScreen.goToSend()
 
         if (OS.supportsClipboardAccessNotification()) {
-            meenButton(R.id.paste_button).press()
-            meenButton(R.id.confirm).press()
+            muunButton(R.id.paste_button).press()
+            muunButton(R.id.confirm).press()
 
         } else {
             uriPaster.waitForExists().click()
@@ -748,7 +748,7 @@ class AutoFlows(
         receiveScreen.goToScanLnUrl()
 
         if (!seenLnurlFirstTime) {
-            pressMeenButton(R.id.lnurl_intro_action)
+            pressMuunButton(R.id.lnurl_intro_action)
         }
 
         if (OS.supportsClipboardAccessNotification()) {
@@ -774,8 +774,8 @@ class AutoFlows(
             // Let's wait for taking too long state (+15 secs)
             SystemClock.sleep(16_000)
 
-            meenButton(R.id.lnurl_withdraw_action).waitForExists()
-                .textEquals(MeenTexts.normalize(R.string.error_op_action))
+            muunButton(R.id.lnurl_withdraw_action).waitForExists()
+                .textEquals(MuunTexts.normalize(R.string.error_op_action))
                 .press()
         } else {
             // Let's wait a sec until withdraw succeeds
@@ -792,7 +792,7 @@ class AutoFlows(
 
         submitLnurl(lnurl)
 
-        pressMeenButton(R.id.lnurl_withdraw_confirm_action)
+        pressMuunButton(R.id.lnurl_withdraw_confirm_action)
     }
 
     fun signUpUserWithExistingUserAsContact(contact: RandomUser) {

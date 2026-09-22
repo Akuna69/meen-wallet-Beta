@@ -18,11 +18,11 @@
                 android:layout_margin="15dp"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                android:text="Meen debug panel"
+                android:text="Muun debug panel"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_fetch_operations"
                 android:layout_width="match_parent"
@@ -30,8 +30,8 @@
                 android:text="Clear and fetch operations"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_fetch_contacts"
                 android:layout_width="match_parent"
@@ -39,8 +39,8 @@
                 android:text="Clear and fetch contacts"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_upload_phone_contacts"
                 android:layout_width="match_parent"
@@ -48,8 +48,8 @@
                 android:text="Clear and scan phone contacts"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_sync_real_time_data"
                 android:layout_width="match_parent"
@@ -57,8 +57,8 @@
                 android:text="Sync real-time data"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_sync_external_addresses_indexes"
                 android:layout_width="match_parent"
@@ -66,8 +66,8 @@
                 android:text="Sync external addresses indexes"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_integrity_check"
                 android:layout_width="match_parent"
@@ -75,8 +75,8 @@
                 android:text="Run integrity check"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_force_fcm_token_update"
                 android:layout_width="match_parent"
@@ -84,8 +84,8 @@
                 android:text="Update FCM token"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_fund_wallet_onchain"
                 android:layout_width="match_parent"
@@ -93,8 +93,8 @@
                 android:text="Fund Wallet Onchain"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_fund_wallet_offchain"
                 android:layout_width="match_parent"
@@ -103,8 +103,8 @@
                 tools:ignore="HardcodedText" />
 
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_generate_blocks"
                 android:layout_width="match_parent"
@@ -112,8 +112,8 @@
                 android:text="Generate Block"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_drop_last_tx"
                 android:layout_width="match_parent"
@@ -121,8 +121,8 @@
                 android:text="Drop Last Tx"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_drop_tx"
                 android:layout_width="match_parent"
@@ -130,8 +130,8 @@
                 android:text="Drop Tx"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_undrop_tx"
                 android:layout_width="match_parent"
@@ -139,8 +139,8 @@
                 android:text="Undrop Tx"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_pair_security_card"
                 android:layout_width="match_parent"
@@ -148,8 +148,8 @@
                 android:text="Pair Security Card"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_enter_diagnostic_mode"
                 android:layout_width="match_parent"
@@ -157,8 +157,8 @@
                 android:text="Enter diagnostic mode"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_secure_key_value_storage_debug"
                 android:layout_width="match_parent"
@@ -166,8 +166,8 @@
                 android:text="SecureKeyValueStorage debug"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_force_error_report"
                 android:layout_width="match_parent"
@@ -175,8 +175,8 @@
                 android:text="Force error report tracking"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_force_error_report_dialog"
                 android:layout_width="match_parent"
@@ -189,14 +189,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginStart="@dimen/meen_screen_margin"
-                android:layout_marginEnd="@dimen/meen_screen_margin"
-                android:textSize="@dimen/meen_text_size_body"
+                android:layout_marginStart="@dimen/muun_screen_margin"
+                android:layout_marginEnd="@dimen/muun_screen_margin"
+                android:textSize="@dimen/muun_text_size_body"
                 android:text="Allow Multiple Sessions"
                 tools:ignore="HardcodedText" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_expire_all_other_sessions"
                 android:layout_width="match_parent"

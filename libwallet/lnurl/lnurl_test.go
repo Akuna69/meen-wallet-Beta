@@ -890,16 +890,16 @@ func TestValidate(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "meen scheme",
+			name: "muun scheme",
 			args: args{
-				"meen:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
+				"muun:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
 			},
 			want: true,
 		},
 		{
-			name: "meen scheme with double slashes",
+			name: "muun scheme with double slashes",
 			args: args{
-				"meen://LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
+				"muun://LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
 			},
 			want: true,
 		},
@@ -911,16 +911,16 @@ func TestValidate(t *testing.T) {
 			want: true,
 		},
 		{
-			name: "meen + lightning schemes",
+			name: "muun + lightning schemes",
 			args: args{
-				"meen:lightning:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
+				"muun:lightning:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
 			},
 			want: true,
 		},
 		{
-			name: "meen + lightning schemes with double slashes",
+			name: "muun + lightning schemes with double slashes",
 			args: args{
-				"meen://lightning:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
+				"muun://lightning:LNURL1DP68GUP69UHKCMMRV9KXSMMNWSARWVPCXQHKCMN4WFKZ7AMFW35XGUNPWULHXETRWFJHG0F3XGENGDGK59DKV", //nolint:lll
 			},
 			want: true,
 		},

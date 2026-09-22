@@ -10,7 +10,7 @@ import io.muun.apollo.domain.model.AddressType
 import io.muun.apollo.presentation.ui.show_qr.ShowQrPage
 import io.muun.apollo.utils.Clipboard
 import io.muun.apollo.utils.PermissionGranter
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 import io.muun.common.bitcoinj.ValidationHelpers
 import io.muun.common.model.ReceiveFormatPreference
 import io.muun.common.utils.Bech32SegwitAddress
@@ -22,7 +22,7 @@ import javax.money.MonetaryAmount
 class ReceiveScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     companion object {
         var lastCopiedFromClipboard: String = ""
@@ -153,9 +153,9 @@ class ReceiveScreen(
         id(R.id.currency_code).click()
         labelWith(amount.currency.currencyCode).click()
 
-        id(R.id.meen_amount).text = amount.number.toString()
+        id(R.id.muun_amount).text = amount.number.toString()
 
-        pressMeenButton(R.id.confirm_amount_button)
+        pressMuunButton(R.id.confirm_amount_button)
     }
 
     fun checkReceivePreferenceIs(receiveFormatPreference: ReceiveFormatPreference) {

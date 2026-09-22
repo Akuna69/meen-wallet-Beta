@@ -42,7 +42,7 @@ type InvoiceSecrets struct {
 	PaymentHash   []byte
 	IdentityKey   *HDPublicKey
 	UserHtlcKey   *HDPublicKey
-	MeenHtlcKey   *HDPublicKey
+	MuunHtlcKey   *HDPublicKey
 	ShortChanId   int64 //nolint:staticcheck // TODO: struct field ShortChanId should be ShortChanID
 }
 
@@ -87,7 +87,7 @@ func (l *InvoiceSecretsList) Get(i int) *InvoiceSecrets {
 
 // GenerateInvoiceSecrets returns a slice of new secrets to register with the remote server. Once
 // registered, those invoices should be stored with the PersistInvoiceSecrets method.
-func GenerateInvoiceSecrets(userKey, meenKey *HDPublicKey) (*InvoiceSecretsList, error) {
+func GenerateInvoiceSecrets(userKey, muunKey *HDPublicKey) (*InvoiceSecretsList, error) {
 
 	var secrets []*InvoiceSecrets
 
@@ -131,7 +131,7 @@ func GenerateInvoiceSecrets(userKey, meenKey *HDPublicKey) (*InvoiceSecretsList,
 		if err != nil {
 			return nil, err
 		}
-		meenHtlcKey, err := meenKey.DeriveTo(htlcKeyPath.String())
+		muunHtlcKey, err := muunKey.DeriveTo(htlcKeyPath.String())
 		if err != nil {
 			return nil, err
 		}
@@ -147,7 +147,7 @@ func GenerateInvoiceSecrets(userKey, meenKey *HDPublicKey) (*InvoiceSecretsList,
 			PaymentHash:   paymentHash,
 			IdentityKey:   identityKey,
 			UserHtlcKey:   userHtlcKey,
-			MeenHtlcKey:   meenHtlcKey,
+			MuunHtlcKey:   muunHtlcKey,
 			ShortChanId:   int64(shortChanId),
 		})
 	}
@@ -263,7 +263,7 @@ func (i *InvoiceBuilder) Build() (string, error) {
 	// depends on it.
 	//
 	// Having the flag as optional was causing some strict services to block
-	// zero amount invoices from Meen. If the secret is optional, the last hop
+	// zero amount invoices from Muun. If the secret is optional, the last hop
 	// (us) can forward a fake sphinx without a payment secret and for 1 sat,
 	// the app will accept it since the secret is optional and the last hop
 	// keeps the rest of the payment.

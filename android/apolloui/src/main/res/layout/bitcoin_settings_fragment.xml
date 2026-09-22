@@ -28,12 +28,12 @@
                     android:id="@+id/taproot_switch"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/meen_screen_margin"
-                    android:layout_marginTop="@dimen/meen_screen_margin"
-                    android:layout_marginEnd="@dimen/meen_screen_margin"
-                    android:layout_marginBottom="@dimen/meen_screen_margin"
+                    android:layout_marginStart="@dimen/muun_screen_margin"
+                    android:layout_marginTop="@dimen/muun_screen_margin"
+                    android:layout_marginEnd="@dimen/muun_screen_margin"
+                    android:layout_marginBottom="@dimen/muun_screen_margin"
                     android:text="@string/tr_setting_title"
-                    android:textSize="@dimen/meen_text_size_body" />
+                    android:textSize="@dimen/muun_text_size_body" />
 
             </LinearLayout>
 

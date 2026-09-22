@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="@dimen/meen_screen_margin">
+        android:padding="@dimen/muun_screen_margin">
 
     <TextView
             android:id="@+id/picker_title"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:visibility="visible"
-                tools:textAppearance="@style/MeenRadioButtonTextAppearanceSelected"
+                tools:textAppearance="@style/MuunRadioButtonTextAppearanceSelected"
                 tools:checked="true"
                 tools:text="Option 2" />
 

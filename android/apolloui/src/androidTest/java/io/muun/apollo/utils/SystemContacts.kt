@@ -31,7 +31,7 @@ object SystemContacts {
      * Effectively creates a new contact. No Display name nor phone number data associated to it.
      */
     private fun createRawContact(accountName: String): String {
-        val accountType = "meenTest" // whatever
+        val accountType = "muunTest" // whatever
 
         adb(
             "content", "insert",
@@ -75,7 +75,7 @@ object SystemContacts {
      * Set phone number data to a raw contact.
      */
     private fun setPhoneNumberData(id: String, phone: String) {
-        val phoneType = "meenTest" // whatever
+        val phoneType = "muunTest" // whatever
         val phoneName = Gen.alpha(10)
 
         adb(

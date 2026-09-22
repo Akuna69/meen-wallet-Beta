@@ -19,7 +19,7 @@ import javax.crypto.SecretKey;
 
 public class ChallengePublicKey {
 
-    public static final int PUBLIC_KEY_LENGTH = MeenEncryptedPrivateKey.PUBLIC_KEY_SIZE;
+    public static final int PUBLIC_KEY_LENGTH = MuunEncryptedPrivateKey.PUBLIC_KEY_SIZE;
 
     private final byte[] key;
 
@@ -129,7 +129,7 @@ public class ChallengePublicKey {
      * @param walletBirthday the number of days since the timestamp in Bitcoin’s genesis block.
      */
     public String encryptPrivateKey(
-            MeenEncryptedPrivateKey.Version serializationVersion,
+            MuunEncryptedPrivateKey.Version serializationVersion,
             PrivateKey privateKey,
             long walletBirthday
     ) {
@@ -159,7 +159,7 @@ public class ChallengePublicKey {
                 true
         );
 
-        final MeenEncryptedPrivateKey encryptedPrivateKey = MeenEncryptedPrivateKey.create(
+        final MuunEncryptedPrivateKey encryptedPrivateKey = MuunEncryptedPrivateKey.create(
                 serializationVersion,
                 walletBirthday,
                 ephemeralPubkeyBytes,
@@ -179,17 +179,17 @@ public class ChallengePublicKey {
      * <p>Notice that the network parameters won't be included in the serialization, so they must be
      * provided when decrypting.
      *
-     * @param meenPrivateKey the encoded meenPrivateKey in base58.
+     * @param muunPrivateKey the encoded muunPrivateKey in base58.
      * @param privateKey the extended private key that will be encrypted.
      * @param walletBirthday the number of days since the timestamp in Bitcoin’s genesis block.
      */
     public String encryptPrivateKey(
-            String meenPrivateKey,
+            String muunPrivateKey,
             PrivateKey privateKey,
             long walletBirthday
     ) {
-        final MeenEncryptedPrivateKey.Version version = MeenEncryptedPrivateKey.Version
-                .fromEncryptedPrivateKey(meenPrivateKey);
+        final MuunEncryptedPrivateKey.Version version = MuunEncryptedPrivateKey.Version
+                .fromEncryptedPrivateKey(muunPrivateKey);
 
         return encryptPrivateKey(version, privateKey, walletBirthday);
     }

@@ -11,7 +11,7 @@ ALTER TABLE submarine_swaps
 ADD COLUMN funding_user_public_key_path TEXT DEFAULT NULL;
 
 ALTER TABLE submarine_swaps
-ADD COLUMN funding_meen_public_key TEXT DEFAULT NULL;
+ADD COLUMN funding_muun_public_key TEXT DEFAULT NULL;
 
 ALTER TABLE submarine_swaps
-ADD COLUMN funding_meen_public_key_path TEXT DEFAULT NULL;
+ADD COLUMN funding_muun_public_key_path TEXT DEFAULT NULL;

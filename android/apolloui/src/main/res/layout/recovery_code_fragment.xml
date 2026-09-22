@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MuunButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -13,8 +13,8 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/meen_screen_margin"
-                android:paddingRight="@dimen/meen_screen_margin"
+                android:paddingLeft="@dimen/muun_screen_margin"
+                android:paddingRight="@dimen/muun_screen_margin"
                 android:orientation="vertical">
 
             <TextView
@@ -28,15 +28,15 @@
                     android:textColor="@color/text_primary_color"
                     android:text="@string/enter_recovery_code_title" />
 
-            <io.muun.apollo.presentation.ui.view.MeenRecoveryCodeBox
+            <io.muun.apollo.presentation.ui.view.MuunRecoveryCodeBox
                     android:id="@+id/enter_recovery_code_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"/>
 
 
-            <io.muun.apollo.presentation.ui.view.MeenButton
-                    style="@style/meen_button_secondary"
+            <io.muun.apollo.presentation.ui.view.MuunButton
+                    style="@style/muun_button_secondary"
                     android:id="@+id/use_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -47,11 +47,11 @@
         </LinearLayout>
     </ScrollView>
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
-            style="@style/meen_button_primary"
+    <io.muun.apollo.presentation.ui.view.MuunButton
+            style="@style/muun_button_primary"
             android:id="@+id/enter_recovery_code_continue"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/enter_recovery_code_continue" />
 
-</io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MuunButtonLayout>

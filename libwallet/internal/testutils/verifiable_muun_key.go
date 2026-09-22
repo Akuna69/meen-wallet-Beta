@@ -10,29 +10,29 @@ import (
 	"github.com/muun/libwallet/service/model"
 )
 
-// BuildVerifiableMeenKeyJson creates a valid VerifiableMeenKeyJson for testing.
-// The meen key is split into two halves: firstHalf encrypted to the user's public key,
+// BuildVerifiableMuunKeyJson creates a valid VerifiableMuunKeyJson for testing.
+// The muun key is split into two halves: firstHalf encrypted to the user's public key,
 // secondHalf encrypted to the recovery code's public key. If withProof is true, includes
 // "mock_proof" which bypasses ZK verification in test mode.
-func BuildVerifiableMeenKeyJson( //nolint:staticcheck // TODO: func BuildVerifiableMeenKeyJson should be BuildVerifiableMeenKeyJSON
+func BuildVerifiableMuunKeyJson( //nolint:staticcheck // TODO: func BuildVerifiableMuunKeyJson should be BuildVerifiableMuunKeyJSON
 	testKeys *TestKeys,
 	withProof bool,
-) *model.VerifiableMeenKeyJson {
-	// Split the meen private key: meenPrivKey = firstHalf + secondHalf
+) *model.VerifiableMuunKeyJson {
+	// Split the muun private key: muunPrivKey = firstHalf + secondHalf
 	firstHalfKey, err := btcec.NewPrivateKey()
 	if err != nil {
 		panic("failed to generate first half key: " + err.Error())
 	}
 
-	meenECPrivateKey, err := testKeys.MeenKey.ECPrivateKey()
+	muunECPrivateKey, err := testKeys.MuunKey.ECPrivateKey()
 	if err != nil {
-		panic("failed to get meen EC private key: " + err.Error())
+		panic("failed to get muun EC private key: " + err.Error())
 	}
 
 	secondHalfKeyBytes := new(btcec.ModNScalar).
 		Set(&firstHalfKey.Key).
 		Negate().
-		Add(&meenECPrivateKey.Key).
+		Add(&muunECPrivateKey.Key).
 		Bytes()
 
 	// Encrypt first half to user's public key (this is what Verify() will decrypt)
@@ -44,7 +44,7 @@ func BuildVerifiableMeenKeyJson( //nolint:staticcheck // TODO: func BuildVerifia
 	firstHalfEncToClient, err := bitcoin_hpke.SingleShotEncrypt(
 		firstHalfKey.Serialize(),
 		userECPubKey,
-		[]byte(encrypted_key_v3.MeenFirstHalfToClient),
+		[]byte(encrypted_key_v3.MuunFirstHalfToClient),
 		[]byte(""),
 	)
 	if err != nil {
@@ -57,7 +57,7 @@ func BuildVerifiableMeenKeyJson( //nolint:staticcheck // TODO: func BuildVerifia
 	secondHalfEncToRC, err := bitcoin_hpke.SingleShotEncrypt(
 		secondHalfKeyBytes[:],
 		rcPubKey,
-		[]byte(encrypted_key_v3.MeenSecondHalfToRecoveryCode),
+		[]byte(encrypted_key_v3.MuunSecondHalfToRecoveryCode),
 		[]byte(""),
 	)
 	if err != nil {
@@ -70,17 +70,17 @@ func BuildVerifiableMeenKeyJson( //nolint:staticcheck // TODO: func BuildVerifia
 		proof = &p
 	}
 
-	return &model.VerifiableMeenKeyJson{
+	return &model.VerifiableMuunKeyJson{
 		FirstHalfKeyEncryptedToClient:        hex.EncodeToString(firstHalfEncToClient.Serialize()),
 		SecondHalfKeyEncryptedToRecoveryCode: hex.EncodeToString(secondHalfEncToRC.Serialize()),
 		Proof:                                proof,
 	}
 }
 
-// BuildInvalidVerifiableMeenKeyJson returns a VerifiableMeenKeyJson with invalid hex data
-// that will cause parsing to fail inside ComputeAndStoreEncryptedMeenKeyAction.
-func BuildInvalidVerifiableMeenKeyJson() model.VerifiableMeenKeyJson { //nolint:staticcheck // TODO: func BuildInvalidVerifiableMeenKeyJson should be BuildInvalidVerifiableMeenKeyJSON
-	return model.VerifiableMeenKeyJson{
+// BuildInvalidVerifiableMuunKeyJson returns a VerifiableMuunKeyJson with invalid hex data
+// that will cause parsing to fail inside ComputeAndStoreEncryptedMuunKeyAction.
+func BuildInvalidVerifiableMuunKeyJson() model.VerifiableMuunKeyJson { //nolint:staticcheck // TODO: func BuildInvalidVerifiableMuunKeyJson should be BuildInvalidVerifiableMuunKeyJSON
+	return model.VerifiableMuunKeyJson{
 		FirstHalfKeyEncryptedToClient:        "not-valid-hex",
 		SecondHalfKeyEncryptedToRecoveryCode: "not-valid-hex",
 		Proof:                                nil,

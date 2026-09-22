@@ -6,16 +6,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MuunHeader
             android:id="@+id/new_operation_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevated="true" />
 
-    <io.muun.apollo.presentation.ui.view.MeenButtonLayout
+    <io.muun.apollo.presentation.ui.view.MuunButtonLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/meen_header_plus_shadow_height">
+            android:layout_marginTop="@dimen/muun_header_plus_shadow_height">
 
         <androidx.core.widget.NestedScrollView
                 android:id="@+id/scrollable_layout"
@@ -30,14 +30,14 @@
 
                 <TextView
                         android:id="@+id/receiver_label"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/new_operation_to"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                <io.muun.apollo.presentation.ui.view.MeenPill
+                <io.muun.apollo.presentation.ui.view.MuunPill
                         android:id="@+id/new_operation_receiver"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
 
                 <TextView
                         android:id="@+id/target_address"
-                        style="@style/base_meen_text"
+                        style="@style/base_muun_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="8dp"
@@ -73,12 +73,12 @@
 
                 <View
                         android:id="@+id/separator_address"
-                        style="@style/meen_new_operation_separator"
+                        style="@style/muun_new_operation_separator"
                         app:layout_constraintBottom_toBottomOf="@+id/receiver_label" />
 
                 <TextView
                         android:id="@+id/amount_label"
-                        style="@style/meen_new_operation_label_text"
+                        style="@style/muun_new_operation_label_text"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:maxLines="1"
@@ -92,7 +92,7 @@
 
                 <TextView
                         android:id="@+id/selected_amount"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -126,7 +126,7 @@
 
                 <TextView
                         android:id="@+id/fee_label"
-                        style="@style/meen_new_operation_label_text"
+                        style="@style/muun_new_operation_label_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:drawablePadding="12dp"
@@ -142,7 +142,7 @@
 
                 <TextView
                         android:id="@+id/fee_amount"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -176,7 +176,7 @@
 
                 <TextView
                         android:id="@+id/total_label"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
@@ -191,7 +191,7 @@
 
                 <TextView
                         android:id="@+id/total_amount"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="end"
@@ -202,18 +202,18 @@
 
                 <View
                         android:id="@+id/separator_amount"
-                        style="@style/meen_new_operation_separator"
+                        style="@style/muun_new_operation_separator"
                         android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/total_label"
                         tools:visibility="visible" />
 
                 <TextView
                         android:id="@+id/notes_label"
-                        style="@style/meen_text_h2"
+                        style="@style/muun_text_h2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/meen_screen_margin"
-                        android:layout_marginEnd="@dimen/meen_screen_margin"
+                        android:layout_marginStart="@dimen/muun_screen_margin"
+                        android:layout_marginEnd="@dimen/muun_screen_margin"
                         android:fontFamily="sans-serif-medium"
                         android:paddingTop="16dp"
                         android:text="@string/new_operation_note"
@@ -226,7 +226,7 @@
 
                 <TextView
                         android:id="@+id/notes_content"
-                        style="@style/meen_new_operation_label_text_strong"
+                        style="@style/muun_new_operation_label_text_strong"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -239,8 +239,8 @@
                         tools:text="This is some note"
                         tools:visibility="visible" />
 
-                <io.muun.apollo.presentation.ui.view.MeenAmountInput
-                        android:id="@+id/meen_amount_input"
+                <io.muun.apollo.presentation.ui.view.MuunAmountInput
+                        android:id="@+id/muun_amount_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toTopOf="@id/use_all_funds"
@@ -263,11 +263,11 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/meen_amount_input" />
+                        app:layout_constraintTop_toBottomOf="@id/muun_amount_input" />
 
                 <io.muun.apollo.presentation.ui.view.TextInputWithBackHandling
-                        android:id="@+id/meen_note_input"
-                        style="@style/meen_text_h2"
+                        android:id="@+id/muun_note_input"
+                        style="@style/muun_text_h2"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:background="@android:color/transparent"
@@ -290,10 +290,10 @@
 
 
         <!--
-        GONE by default so MeenButtonLayout doesn't add its own margin/padding. When content
+        GONE by default so MuunButtonLayout doesn't add its own margin/padding. When content
         becomes visible, this also has to change visibility to VISIBLE.
         -->
-        <io.muun.apollo.presentation.ui.view.MeenButtonLayoutAnchor
+        <io.muun.apollo.presentation.ui.view.MuunButtonLayoutAnchor
                 android:id="@+id/button_layout_anchor"
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -328,22 +328,22 @@
                     tools:visibility="visible"
                     />
 
-        </io.muun.apollo.presentation.ui.view.MeenButtonLayoutAnchor>
+        </io.muun.apollo.presentation.ui.view.MuunButtonLayoutAnchor>
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                android:id="@+id/meen_next_step_button"
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                android:id="@+id/muun_next_step_button"
+                style="@style/muun_button_primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/confirm_amount" />
 
-    </io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+    </io.muun.apollo.presentation.ui.view.MuunButtonLayout>
 
     <LinearLayout
             android:id="@+id/new_operation_resolving"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/meen_header_plus_shadow_height"
+            android:layout_marginTop="@dimen/muun_header_plus_shadow_height"
             android:gravity="center"
             android:orientation="vertical"
             android:visibility="gone">
@@ -364,7 +364,7 @@
             android:id="@+id/overlay_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/meen_header_plus_shadow_height"
+            android:layout_marginTop="@dimen/muun_header_plus_shadow_height"
             android:background="@color/background"
             android:visibility="gone" />
 

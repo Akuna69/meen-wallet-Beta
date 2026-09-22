@@ -26,20 +26,20 @@ const (
 
 type input struct {
 	outpoint        outpoint
-	address         MeenAddress
+	address         MuunAddress
 	userSignature   []byte
-	meenSignature   []byte
+	muunSignature   []byte
 	submarineSwapV1 inputSubmarineSwapV1
 	submarineSwapV2 inputSubmarineSwapV2
 	incomingSwap    inputIncomingSwap
-	meenPublicNonce []byte
+	muunPublicNonce []byte
 }
 
 func (i *input) OutPoint() Outpoint {
 	return &i.outpoint
 }
 
-func (i *input) Address() MeenAddress {
+func (i *input) Address() MuunAddress {
 	return i.address
 }
 
@@ -47,8 +47,8 @@ func (i *input) UserSignature() []byte {
 	return i.userSignature
 }
 
-func (i *input) MeenSignature() []byte {
-	return i.meenSignature
+func (i *input) MuunSignature() []byte {
+	return i.muunSignature
 }
 
 func (i *input) SubmarineSwapV1() InputSubmarineSwapV1 {
@@ -63,8 +63,8 @@ func (i *input) IncomingSwap() InputIncomingSwap {
 	return &i.incomingSwap
 }
 
-func (i *input) MeenPublicNonce() []byte {
-	return i.meenPublicNonce
+func (i *input) MuunPublicNonce() []byte {
+	return i.muunPublicNonce
 }
 
 type outpoint struct {
@@ -112,7 +112,7 @@ type inputSubmarineSwapV2 struct {
 	paymentHash256      []byte
 	serverPublicKey     []byte
 	userPublicKey       []byte
-	meenPublicKey       []byte
+	muunPublicKey       []byte
 	blocksForExpiration int64
 	serverSignature     []byte
 }
@@ -129,8 +129,8 @@ func (i *inputSubmarineSwapV2) UserPublicKey() []byte {
 	return i.userPublicKey
 }
 
-func (i *inputSubmarineSwapV2) MeenPublicKey() []byte {
-	return i.meenPublicKey
+func (i *inputSubmarineSwapV2) MuunPublicKey() []byte {
+	return i.muunPublicKey
 }
 
 func (i *inputSubmarineSwapV2) BlocksForExpiration() int64 {
@@ -237,7 +237,7 @@ func TestPartiallySignedTransaction_SignV1(t *testing.T) {
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	// We dont need to use the meenKey in V1
+	// We dont need to use the muunKey in V1
 	signedRawTx, err := partial.Sign(userKey, userKey.PublicKey())
 
 	if err != nil {
@@ -258,61 +258,61 @@ func TestPartiallySignedTransaction_SignV2(t *testing.T) {
 		txIndex1    = 1
 		txAmount1   = 50000000
 		hexTxOut1   = "721b51af45201e2a288c05e09b958b11ec1034ba46035eef2b620a06235dc1f3"
-		hexMeenSig1 = "3045022100d07028674c49d8dabc536db47f1371c2f61fc578cb2c8797a570e3176f5e91c902206a83db8ad5b63e88c48d0ae4e67646fcf6e33d0177a88996c15b280494885e7b01"                                                                                                                                                                                                                                       //nolint:lll
+		hexMuunSig1 = "3045022100d07028674c49d8dabc536db47f1371c2f61fc578cb2c8797a570e3176f5e91c902206a83db8ad5b63e88c48d0ae4e67646fcf6e33d0177a88996c15b280494885e7b01"                                                                                                                                                                                                                                       //nolint:lll
 		hexTx1      = "0200000001020678c852c6d943cf0d3a9b5102b1a4e2ebccdb4ca2eaae7731c8f59b81172a000000004847304402204a3958c1bd6abcd7b5ec2291bd43391dcfe757068ff0e340dd8f502cb25435b0022076e865730e49e4d126b94675d276545e35afa84feea2873bb5f923b842d90f4801feffffff0224bf45220000000017a914cb81f4e1ff68249e6f4f17a7995007b5a478705b8780f0fa020000000017a914dfca2abd2bb72cf911940a9d16de126cc1cd60368794020000" //nolint:lll
 
 		txIndex2    = 1
 		txAmount2   = 50000000
 		hexTxOut2   = "4ab727263a5eb78c47e90833f26ab566fe484b16f64c16d0f7452e70a053acb8"
-		hexMeenSig2 = "304402201b0c35179a5fa8e6255115450979a77dbb97d89157e236783df0312a5d7bdb2c022064bae7ad0cdc72e4339421067cc65e0c3d03690a5c2d98c32a6ef67f883558a001"                                                                                                                                                                                                                                         //nolint:lll
+		hexMuunSig2 = "304402201b0c35179a5fa8e6255115450979a77dbb97d89157e236783df0312a5d7bdb2c022064bae7ad0cdc72e4339421067cc65e0c3d03690a5c2d98c32a6ef67f883558a001"                                                                                                                                                                                                                                         //nolint:lll
 		hexTx2      = "0200000001ff3f3b16506ef957b9ea80287f276ee415380597a4ede7ae45fff6e18d3e13d8000000004847304402204dbe876d7f0761a72ecc2d0e0e45c1ab32d6bd69d5062068984e26af02c4b27102202f2bd18a17821bdce155b13ea2c379bb78c9157f7f44e2e6a8cef1a154ec68ac01feffffff0224bf45220000000017a914684830d4ef58c54b6b3db6b4a3eb7818d418ae258780f0fa020000000017a914dfca2abd2bb72cf911940a9d16de126cc1cd60368794020000" //nolint:lll
 
 		txIndex3    = 0
 		txAmount3   = 50000000
 		hexTxOut3   = "9b6f09ce344f12c68e3cd7ca0ba2e6cdbd2ac17f00309c709fb27fb096dc544e"
-		hexMeenSig3 = "30440220076b14b1c906089546cb40ce05dab38f0388ca65d0bc5183d3c3f7dcb98be52c022001eea4635d56726d990daa92ac26c52c9030c96dddcc92e5d623546580aaaef401"                                                                                                                                                                                                                                         //nolint:lll
+		hexMuunSig3 = "30440220076b14b1c906089546cb40ce05dab38f0388ca65d0bc5183d3c3f7dcb98be52c022001eea4635d56726d990daa92ac26c52c9030c96dddcc92e5d623546580aaaef401"                                                                                                                                                                                                                                         //nolint:lll
 		hexTx3      = "02000000019fdde3b7eb40584d103a04dd253ffa0ceb458776db56fbee6489aee0d34402d6000000004847304402206abfb750561acac1be3d6ec3eabc1c88ac7ce11f28f5c8162428ce78dabb4d8e0220753c03bf8b9af9c9bf592f52586d39d8aa10c1111f105fea0ce0cf5c82a4574101feffffff0280f0fa020000000017a914dfca2abd2bb72cf911940a9d16de126cc1cd60368724bf45220000000017a9148d7814264268f1f0f98870f95dc69017bd0cce708794020000" //nolint:lll
 
 		txIndex4    = 0
 		txAmount4   = 50000000
 		hexTxOut4   = "a4d88169a7b548a2a22af9a7b3ff25da3d0c7d6ed27f52a4ba488e4a28c4114c"
-		hexMeenSig4 = "30440220145dcce0bf6cceda98b3a9635bd7611d92085ff3ad27690bcf471a6b39620e6c02205ca0a0bd93550e86468e236b291457a3ff84a3b5dedeb10067cc9d3233b5dafa01"                                                                                                                                                                                                                                         //nolint:lll
+		hexMuunSig4 = "30440220145dcce0bf6cceda98b3a9635bd7611d92085ff3ad27690bcf471a6b39620e6c02205ca0a0bd93550e86468e236b291457a3ff84a3b5dedeb10067cc9d3233b5dafa01"                                                                                                                                                                                                                                         //nolint:lll
 		hexTx4      = "02000000019d657207178c19bb4fd45de6a5f83caadf86bd7519e1569c8daf078a46e565310000000048473044022033c864f4a6ab42ba29d09bb2dd110e55a3c4118fd0a68cbe5c461926cc64d3e9022029a5b57a2a6e24e6f66f4354b74d7ffc7affa6d43843797faa70c84ec47b7b8501feffffff0280f0fa020000000017a914dfca2abd2bb72cf911940a9d16de126cc1cd60368724bf45220000000017a914b392913e36a7017404c60424da4ebb48a53b5bb18794020000" //nolint:lll
 
 		addressPath   = "m/schema:1'/recovery:1'/external:1/0"
 		originAddress = "2NDeWrsJEwvxwVnvtWzPjhDC5B2LYkFuX2s"
 
-		encodedMeenKey = "tpubDBYMnFoxYLdMBZThTk4uARTe4kGPeEYWdKcaEzaUxt1cesetnxtTqmAxVkzDRou51emWytommyLWcF91SdF5KecA6Ja8oHK1FF7d5U2hMxX" //nolint:lll
+		encodedMuunKey = "tpubDBYMnFoxYLdMBZThTk4uARTe4kGPeEYWdKcaEzaUxt1cesetnxtTqmAxVkzDRou51emWytommyLWcF91SdF5KecA6Ja8oHK1FF7d5U2hMxX" //nolint:lll
 		encodedUserKey = "tprv8dfM4H5fYJirMai5Er3LguicgUAyxmcSQbFub5ens16amX1e1HAFiW4SXnFVw9nu9FedFQqTPGTTjPEmgfvvXMKww3UcRpFbbC4DFjbCcTb" //nolint:lll
 		basePath       = "m/schema:1'/recovery:1'"
 	)
 
 	txOut1, _ := hex.DecodeString(hexTxOut1)
-	meenSig1, _ := hex.DecodeString(hexMeenSig1)
+	muunSig1, _ := hex.DecodeString(hexMuunSig1)
 	txOut2, _ := hex.DecodeString(hexTxOut2)
-	meenSig2, _ := hex.DecodeString(hexMeenSig2)
+	muunSig2, _ := hex.DecodeString(hexMuunSig2)
 	txOut3, _ := hex.DecodeString(hexTxOut3)
-	meenSig3, _ := hex.DecodeString(hexMeenSig3)
+	muunSig3, _ := hex.DecodeString(hexMuunSig3)
 	txOut4, _ := hex.DecodeString(hexTxOut4)
-	meenSig4, _ := hex.DecodeString(hexMeenSig4)
+	muunSig4, _ := hex.DecodeString(hexMuunSig4)
 
 	inputs := []Input{
 		&input{
 			outpoint:      outpoint{index: txIndex1, amount: txAmount1, txID: txOut1},
 			address:       addresses.New(addresses.V2, addressPath, originAddress),
-			meenSignature: meenSig1},
+			muunSignature: muunSig1},
 		&input{
 			outpoint:      outpoint{index: txIndex2, amount: txAmount2, txID: txOut2},
 			address:       addresses.New(addresses.V2, addressPath, originAddress),
-			meenSignature: meenSig2},
+			muunSignature: muunSig2},
 		&input{
 			outpoint:      outpoint{index: txIndex3, amount: txAmount3, txID: txOut3},
 			address:       addresses.New(addresses.V2, addressPath, originAddress),
-			meenSignature: meenSig3},
+			muunSignature: muunSig3},
 		&input{
 			outpoint:      outpoint{index: txIndex4, amount: txAmount4, txID: txOut4},
 			address:       addresses.New(addresses.V2, addressPath, originAddress),
-			meenSignature: meenSig4},
+			muunSignature: muunSig4},
 	}
 
 	inputList := &InputList{inputs: inputs}
@@ -320,9 +320,9 @@ func TestPartiallySignedTransaction_SignV2(t *testing.T) {
 	nonces := GenerateMusigNonces(len(inputList.inputs))
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -345,10 +345,10 @@ func TestPartiallySignedTransaction_SignV3(t *testing.T) {
 		txIndex1    = 1
 		txAmount1   = 1500000000
 		hexTxOut1   = "0497d07c263890163da26914c11255b6f6ef7d9fdc75b6bfe999994118a74c4a"
-		hexMeenSig1 = "3045022100d138caf8d3c19db84363b33e1ad002e1aee7907302ab5110edaf78d980c94e48022019e841da8759f63596fbcd81a3544219573288877206f8f651cae1023c397f0c01"                                                                                                                                     //nolint:lll
+		hexMuunSig1 = "3045022100d138caf8d3c19db84363b33e1ad002e1aee7907302ab5110edaf78d980c94e48022019e841da8759f63596fbcd81a3544219573288877206f8f651cae1023c397f0c01"                                                                                                                                     //nolint:lll
 		hexTx1      = "02000000014f1e7a952c72670bf03a040faa183687ec8c9e0fb7adf606d1ce13395fb663000000000017160014a89e2ded102b2dde96e8bc87219113c6d31a1fe4feffffff02240e5ea9cf00000017a9142773c1a1651ad774f4b867d955ae8b816ac806ad87002f68590000000017a9142b0cabe5d058bc3c58f8a656dec2601d117262538736010000" //nolint:lll
 
-		encodedMeenKey = "tpubDABPYHYrYQHXY2pYFdcsFd41aE2uZmMQZpRRGiKfgz7G7nU7PoSwrzMKeHHnoMjmn9woC87coUanF2T911R8X5HpUtZRJRf56u4r51gTrqD" //nolint:lll
+		encodedMuunKey = "tpubDABPYHYrYQHXY2pYFdcsFd41aE2uZmMQZpRRGiKfgz7G7nU7PoSwrzMKeHHnoMjmn9woC87coUanF2T911R8X5HpUtZRJRf56u4r51gTrqD" //nolint:lll
 		encodedUserKey = "tprv8ezdJAiJTZz4BJo1VysKviVqto1f8CAS3d2M9LWZ5oygiMrtb6NYcPnkWTcdP8b2AuKVVegnWe3Czzo7geDqH2MzXvzDu1SiKucVAG6KFvE" //nolint:lll
 
 		addressPath   = "m/schema:1'/recovery:1'/external:1/0"
@@ -356,13 +356,13 @@ func TestPartiallySignedTransaction_SignV3(t *testing.T) {
 	)
 
 	txOut1, _ := hex.DecodeString(hexTxOut1)
-	meenSig1, _ := hex.DecodeString(hexMeenSig1)
+	muunSig1, _ := hex.DecodeString(hexMuunSig1)
 
 	inputs := []Input{
 		&input{
 			outpoint:      outpoint{index: txIndex1, amount: txAmount1, txID: txOut1},
 			address:       addresses.New(addresses.V3, addressPath, originAddress),
-			meenSignature: meenSig1},
+			muunSignature: muunSig1},
 	}
 
 	inputList := &InputList{inputs: inputs}
@@ -370,9 +370,9 @@ func TestPartiallySignedTransaction_SignV3(t *testing.T) {
 	nonces := GenerateMusigNonces(1)
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -387,7 +387,7 @@ func TestPartiallySignedTransaction_SignV3(t *testing.T) {
 func TestPartiallySignedTransaction_SignV5(t *testing.T) {
 	var (
 		encodedUserKey = "tprv8e6WDju7yhq6vuL8raFiMpCMVYpNEpjggzqcX3qW4zsjNBVnwKgAUmQ7vs7bDeHu598aG9teh7or5H8ifLJ2qhZGocBnDEBqAsTs3Gd6wG6"                                                                              //nolint:lll
-		encodedMeenKey = "tpubDBS2rf9CeryjGstPrQVSzQhLGLqFVqEq78xtK26h9fsN7udiokAMuu6DbSzwhSzqCwszcfC2L2zMYoFm9uoiJpkEwyUCuNr3j1XswbHcgAB"                                                                              //nolint:lll
+		encodedMuunKey = "tpubDBS2rf9CeryjGstPrQVSzQhLGLqFVqEq78xtK26h9fsN7udiokAMuu6DbSzwhSzqCwszcfC2L2zMYoFm9uoiJpkEwyUCuNr3j1XswbHcgAB"                                                                              //nolint:lll
 		hexTx          = "0100000001239fc65d1212989754b0bb146ccc77db370de8db913a5bcbb1e5257ae75e03450100000000ffffffff0174850100000000002251203e3c9519c91c87e84de71a64f65fa481639c900da4e01ba4c23be539c9065ad400000000" //nolint:lll
 		userSessionIDs = []string{
 			"3afcd7f2cc568aa60552866f7ee8d1de6a6b18293ae9a4cda167434588267f73",
@@ -410,21 +410,21 @@ func TestPartiallySignedTransaction_SignV5(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/0",
 				"bcrt1pdq20qkqn6fg9lq8vtfcu5mammxwl82k9urkn55r2rsmkh66gf6gsumc8uw",
 			),
-			meenPublicNonce: hexToBytes(
+			muunPublicNonce: hexToBytes(
 				"02b44aef04d3ada7270e1304f4ba1fbf20cca0ca81a80e23be9bf8f3aea7c0a62103f6c8cd699fc2339a33df60f142bb89807c081632a2241bd4af583961a29da9a0", //nolint:lll
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"591f2e7afd46a8b234e94428e582f13324cd541d436bde62cef760354771a377",
 			),
 		},
 	}}
 
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 
 	nonces := createTestNonces(t, userKey, inputList, userSessionIDs)
 	partial, _ := NewPartiallySignedTransaction(inputList, hexToBytes(hexTx), nonces)
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -448,7 +448,7 @@ func TestPartiallySignedTransaction_SignV5(t *testing.T) {
 func TestPartiallySignedTransaction_SignV6(t *testing.T) {
 	var (
 		encodedUserKey = "tprv8dUpNFvQ6NpkxtuYDoDaibgQYbvUnHBqz8GM3zBL4DjNeh9uzhXC49xKx2VksbyxaW3dSFviExbUw4GmkEKJoiTx7UXXi6pPnXMWpB5Lmtf"                                                                              //nolint:lll
-		encodedMeenKey = "tpubDBmgp5wQ4SYkroyXQG3SxUXVZsdmJnL89exWksCAEq9xzujjCd6jpKbYQyyVXLiQk4gBq8AaUULZDbwxFF8DhcTEPzDFYY8g2dsJ1x3xPwN"                                                                              //nolint:lll
+		encodedMuunKey = "tpubDBmgp5wQ4SYkroyXQG3SxUXVZsdmJnL89exWksCAEq9xzujjCd6jpKbYQyyVXLiQk4gBq8AaUULZDbwxFF8DhcTEPzDFYY8g2dsJ1x3xPwN"                                                                              //nolint:lll
 		hexTx          = "01000000017e282eab04b710e5f149e6a3f7dfb8dcb5af006aefecc7e5d2ad1f4bbb4d78db0000000000ffffffff017485010000000000225120e67c60c89364bae43a399e6417a1cce9d2e0498e5eb0646f52d3f279833a2b6000000000" //nolint:lll
 		userSessionIDs = []string{
 			"98ca651de1178c9a656dfc51e00bb6ff3dd958922a15a84ef270a81c96bcf510",
@@ -471,21 +471,21 @@ func TestPartiallySignedTransaction_SignV6(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/0",
 				"bcrt1pcm4wx3q4mnq0feqrvu6g7jp7044rp7tf54zcd7mfndtgfxydmv0qnnmrdl",
 			),
-			meenPublicNonce: hexToBytes(
+			muunPublicNonce: hexToBytes(
 				"03722e555ae015f5e5b07ff8915fcf9a155ad74f77e27d5908b5a6c5ea313d71db0319258976bd5f967317c61ce634cf182ead2931fc54e31cc05729014b4d210f66", //nolint:lll
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"f4d1fee38aebb1d17c0dc85b7a0e48474c0b1de351dfc7f0baa6e9330765881b",
 			),
 		},
 	}}
 
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 
 	nonces := createTestNonces(t, userKey, inputList, userSessionIDs)
 	partial, _ := NewPartiallySignedTransaction(inputList, hexToBytes(hexTx), nonces)
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -543,17 +543,17 @@ func TestPartiallySignedTransaction_SignV7(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+			userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 			derivedUserKey, err := userKey.DeriveTo(keyPath)
 			require.NoError(t, err)
-			derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+			derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 			derivedLightningPeerKey, err := peerKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 
 			address, err := CreateAddressV7(
 				derivedUserKey.PublicKey(),
-				derivedMeenKey.PublicKey(),
+				derivedMuunKey.PublicKey(),
 				derivedLightningPeerKey.PublicKey(),
 				timelock,
 			)
@@ -572,25 +572,25 @@ func TestPartiallySignedTransaction_SignV7(t *testing.T) {
 			spendingTx := spendTimelockedOutput(prevTx, tt.sequence)
 
 			if tt.collaborative {
-				// The server signs for meen and the lightning peer; both signatures must be present
+				// The server signs for muun and the lightning peer; both signatures must be present
 				// before the user can complete the collaborative witness.
 				userPubKey, err := derivedUserKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
-				meenPubKey, err := derivedMeenKey.PublicKey().ECPubKey()
+				muunPubKey, err := derivedMuunKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
 				peerPubKey, err := derivedLightningPeerKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
 				witnessScript, err := addresses.CreateWitnessScriptV7(
 					userPubKey,
-					meenPubKey,
+					muunPubKey,
 					peerPubKey,
 					timelock,
 				)
 				require.NoError(t, err)
-				coin.MeenSignature, err = coin.signature(
+				coin.MuunSignature, err = coin.signature(
 					0,
 					spendingTx,
-					derivedMeenKey,
+					derivedMuunKey,
 					witnessScript,
 				)
 				require.NoError(t, err)
@@ -603,10 +603,10 @@ func TestPartiallySignedTransaction_SignV7(t *testing.T) {
 				require.NoError(t, err)
 
 				// The user adds the final signature locally.
-				require.NoError(t, coin.SignInput(0, spendingTx, userKey, meenKey.PublicKey()))
+				require.NoError(t, coin.SignInput(0, spendingTx, userKey, muunKey.PublicKey()))
 			} else {
-				// The user signs with user and meen key.
-				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, meenKey))
+				// The user signs with user and muun key.
+				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, muunKey))
 			}
 
 			var buf bytes.Buffer
@@ -638,17 +638,17 @@ func TestPartiallySignedTransaction_SignV7CollaborativeCrossCheck(t *testing.T) 
 		signedTxHex = "0200000000010190f96d6cbf7fc93904e73a1a01a60feab793caae7db1f8460c1f4ff75ef597c200000000232200206ffcafb6a4fe440dcc76bb01f5f64b75276a0c58ca12742642f58172d0c20affffffffff01b88201000000000017a914367d2a0402da95d81f2e9ad44ede070f89845226870447304402206ad2953c5c68f4cb31c688f7b5503dab22e79c09751ba7b41d454bebeeac86df02200ab890abb9decd9f6565231513c904207fae2459c835fa052a2caaff379d65af01483045022100bab3a54bf1b32f7aa0dade11da9db45e47040113b87efc71b1b9e7c343971b1b0220373f9572284c1caf7bfde856bafa7ef23f474770452feccffb1050017fbd975201483045022100c335345e3a0813209888bdbd11a0ba7a6e4002cb7977a9d6aa575d41bdb130690220518ac6b3b94e1389695da05822fcddfb6bef0c2d13f3344d829e617275942b1101702102ae989a18ed80e13b6e3a7388effdda52d970ade06e20a57f851d7cf60237339fad210299d23c84ce303c843f4a26f41b32f52d66cbe080482ba8d862d5eed8ae4bc1bcad2102b9fdc52d4ff72fd4514d1ad1dbabb527856c55097a47a29e881fb42a9b25e270ac7364029000b26800000000" //nolint:lll
 	)
 
-	userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+	userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 	derivedUserKey, err := userKey.DeriveTo(keyPath)
 	require.NoError(t, err)
-	derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 	derivedPeerKey, err := peerKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 
 	address, err := CreateAddressV7(
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
+		derivedMuunKey.PublicKey(),
 		derivedPeerKey.PublicKey(),
 		timelock,
 	)
@@ -667,23 +667,23 @@ func TestPartiallySignedTransaction_SignV7CollaborativeCrossCheck(t *testing.T) 
 
 	userPubKey, err := derivedUserKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
-	meenPubKey, err := derivedMeenKey.PublicKey().ECPubKey()
+	muunPubKey, err := derivedMuunKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
 	peerPubKey, err := derivedPeerKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
 	witnessScript, err := addresses.CreateWitnessScriptV7(
 		userPubKey,
-		meenPubKey,
+		muunPubKey,
 		peerPubKey,
 		timelock,
 	)
 	require.NoError(t, err)
 
-	coin.MeenSignature, err = coin.signature(0, spendingTx, derivedMeenKey, witnessScript)
+	coin.MuunSignature, err = coin.signature(0, spendingTx, derivedMuunKey, witnessScript)
 	require.NoError(t, err)
 	coin.PeerSignature, err = coin.signature(0, spendingTx, derivedPeerKey, witnessScript)
 	require.NoError(t, err)
-	require.NoError(t, coin.SignInput(0, spendingTx, userKey, meenKey.PublicKey()))
+	require.NoError(t, coin.SignInput(0, spendingTx, userKey, muunKey.PublicKey()))
 
 	var buf bytes.Buffer
 	require.NoError(t, spendingTx.Serialize(&buf))
@@ -705,17 +705,17 @@ func TestPartiallySignedTransaction_SignV7NonCollaborativeCrossCheck(t *testing.
 		signedTxHex = "0200000000010190f96d6cbf7fc93904e73a1a01a60feab793caae7db1f8460c1f4ff75ef597c200000000232200206ffcafb6a4fe440dcc76bb01f5f64b75276a0c58ca12742642f58172d0c20aff9000000001b88201000000000017a914367d2a0402da95d81f2e9ad44ede070f89845226870400483045022100e0a720502e2af0d7368dbd86b8a4f3fea76472e9902a642d841533a1eca9951202207f6f2e315bb3c3fbc6c44bbb17685b5e647afcf1dd3fb9f90262242a6e14ccc501483045022100ca9f1d97d57897b5d82e6c39363f4337ce8217888c8ba27ebe5a50a5c2f97f0402202e53ad82c574474e058707af299309a693200d26bc7b31aa2f42726dbf6fe78501702102ae989a18ed80e13b6e3a7388effdda52d970ade06e20a57f851d7cf60237339fad210299d23c84ce303c843f4a26f41b32f52d66cbe080482ba8d862d5eed8ae4bc1bcad2102b9fdc52d4ff72fd4514d1ad1dbabb527856c55097a47a29e881fb42a9b25e270ac7364029000b26800000000" //nolint:lll
 	)
 
-	userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+	userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 	derivedUserKey, err := userKey.DeriveTo(keyPath)
 	require.NoError(t, err)
-	derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 	derivedPeerKey, err := peerKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 
 	address, err := CreateAddressV7(
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
+		derivedMuunKey.PublicKey(),
 		derivedPeerKey.PublicKey(),
 		timelock,
 	)
@@ -732,7 +732,7 @@ func TestPartiallySignedTransaction_SignV7NonCollaborativeCrossCheck(t *testing.
 		LightningPeerKey:    peerKey.PublicKey(),
 	}
 
-	require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, meenKey))
+	require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, muunKey))
 
 	var buf bytes.Buffer
 	require.NoError(t, spendingTx.Serialize(&buf))
@@ -776,17 +776,17 @@ func TestPartiallySignedTransaction_SignV8(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+			userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 			derivedUserKey, err := userKey.DeriveTo(keyPath)
 			require.NoError(t, err)
-			derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+			derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 			derivedPeerKey, err := peerKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 
 			address, err := CreateAddressV8(
 				derivedUserKey.PublicKey(),
-				derivedMeenKey.PublicKey(),
+				derivedMuunKey.PublicKey(),
 				derivedPeerKey.PublicKey(),
 				timelock,
 			)
@@ -805,26 +805,26 @@ func TestPartiallySignedTransaction_SignV8(t *testing.T) {
 			spendingTx := spendTimelockedOutput(prevTx, tt.sequence)
 
 			if tt.collaborative {
-				// The server signs for meen and the lightning peer; both signatures must be present
+				// The server signs for muun and the lightning peer; both signatures must be present
 				// before the user can complete the collaborative witness.
 				userPubKey, err := derivedUserKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
-				meenPubKey, err := derivedMeenKey.PublicKey().ECPubKey()
+				muunPubKey, err := derivedMuunKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
 				peerPubKey, err := derivedPeerKey.PublicKey().ECPubKey()
 				require.NoError(t, err)
 				witnessScript, err := addresses.CreateWitnessScriptV7(
 					userPubKey,
-					meenPubKey,
+					muunPubKey,
 					peerPubKey,
 					timelock,
 				)
 				require.NoError(t, err)
 
-				coin.MeenSignature, err = coin.signature(
+				coin.MuunSignature, err = coin.signature(
 					0,
 					spendingTx,
-					derivedMeenKey,
+					derivedMuunKey,
 					witnessScript,
 				)
 				require.NoError(t, err)
@@ -837,10 +837,10 @@ func TestPartiallySignedTransaction_SignV8(t *testing.T) {
 				require.NoError(t, err)
 
 				// The user adds the final signature locally.
-				require.NoError(t, coin.SignInput(0, spendingTx, userKey, meenKey.PublicKey()))
+				require.NoError(t, coin.SignInput(0, spendingTx, userKey, muunKey.PublicKey()))
 			} else {
-				// The user signs with user and meen key.
-				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, meenKey))
+				// The user signs with user and muun key.
+				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, muunKey))
 			}
 
 			var buf bytes.Buffer
@@ -872,17 +872,17 @@ func TestPartiallySignedTransaction_SignV8CollaborativeCrossCheck(t *testing.T) 
 		signedTxHex = "020000000001017b5a61e0dfaed06c2dff00003086193337297d8f3f8b842a49b7d170855ddc450000000000ffffffff01b8820100000000002200206ffcafb6a4fe440dcc76bb01f5f64b75276a0c58ca12742642f58172d0c20aff04483045022100d3241a05ad5230829b3ac629dc4c3195becb3c4510ed399281eff17dabf20fa302205f161271faa8a0d877911791a9bd291e3cc466054ba29209ac8cd4dd02ccef70014730440220148e6faa0550237a258987bf9f9e961291ffe5d5efa6e825a9e9495955b963ed02201bc90aa2331fe706b37971a740bf02d85c79346c7e0fb6350e4a0ae6e9561509014730440220297f3b0fe8e48608478615d425ff881a8b817a9f8af9a6d7e9d9d3835f2202b1022046839e65539791c237857d375f07601140b6b97da81cc930cd5debc5eadbff9801702102ae989a18ed80e13b6e3a7388effdda52d970ade06e20a57f851d7cf60237339fad210299d23c84ce303c843f4a26f41b32f52d66cbe080482ba8d862d5eed8ae4bc1bcad2102b9fdc52d4ff72fd4514d1ad1dbabb527856c55097a47a29e881fb42a9b25e270ac7364029000b26800000000" //nolint:lll
 	)
 
-	userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+	userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 	derivedUserKey, err := userKey.DeriveTo(keyPath)
 	require.NoError(t, err)
-	derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 	derivedPeerKey, err := peerKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 
 	address, err := CreateAddressV8(
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
+		derivedMuunKey.PublicKey(),
 		derivedPeerKey.PublicKey(),
 		timelock,
 	)
@@ -901,23 +901,23 @@ func TestPartiallySignedTransaction_SignV8CollaborativeCrossCheck(t *testing.T) 
 
 	userPubKey, err := derivedUserKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
-	meenPubKey, err := derivedMeenKey.PublicKey().ECPubKey()
+	muunPubKey, err := derivedMuunKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
 	peerPubKey, err := derivedPeerKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
 	witnessScript, err := addresses.CreateWitnessScriptV7(
 		userPubKey,
-		meenPubKey,
+		muunPubKey,
 		peerPubKey,
 		timelock,
 	)
 	require.NoError(t, err)
 
-	coin.MeenSignature, err = coin.signature(0, spendingTx, derivedMeenKey, witnessScript)
+	coin.MuunSignature, err = coin.signature(0, spendingTx, derivedMuunKey, witnessScript)
 	require.NoError(t, err)
 	coin.LightningPeerSignature, err = coin.signature(0, spendingTx, derivedPeerKey, witnessScript)
 	require.NoError(t, err)
-	require.NoError(t, coin.SignInput(0, spendingTx, userKey, meenKey.PublicKey()))
+	require.NoError(t, coin.SignInput(0, spendingTx, userKey, muunKey.PublicKey()))
 
 	var buf bytes.Buffer
 	require.NoError(t, spendingTx.Serialize(&buf))
@@ -939,17 +939,17 @@ func TestPartiallySignedTransaction_SignV8NonCollaborativeCrossCheck(t *testing.
 		signedTxHex = "020000000001017b5a61e0dfaed06c2dff00003086193337297d8f3f8b842a49b7d170855ddc4500000000009000000001b8820100000000002200206ffcafb6a4fe440dcc76bb01f5f64b75276a0c58ca12742642f58172d0c20aff04004830450221008960310160b7fc4da6cf7e5c105912b8a4521697898ab4d3d89b9ac04919b4c5022051556346e13d9b628152734d87ea6a88a2c247f9594c45de8ed99c2f440bf0b7014730440220652c2a82e8ff549a8b1066591342cb9a2a0a2612ee2e9130f0c48c1433b2666d02204631e1a341649d35ab990ccda3aa27928f51ed60accadf7e5072d54e5c0bd1bd01702102ae989a18ed80e13b6e3a7388effdda52d970ade06e20a57f851d7cf60237339fad210299d23c84ce303c843f4a26f41b32f52d66cbe080482ba8d862d5eed8ae4bc1bcad2102b9fdc52d4ff72fd4514d1ad1dbabb527856c55097a47a29e881fb42a9b25e270ac7364029000b26800000000" //nolint:lll
 	)
 
-	userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+	userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 	derivedUserKey, err := userKey.DeriveTo(keyPath)
 	require.NoError(t, err)
-	derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 	derivedPeerKey, err := peerKey.DeriveTo(keyPath)
 	require.NoError(t, err)
 
 	address, err := CreateAddressV8(
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
+		derivedMuunKey.PublicKey(),
 		derivedPeerKey.PublicKey(),
 		timelock,
 	)
@@ -966,7 +966,7 @@ func TestPartiallySignedTransaction_SignV8NonCollaborativeCrossCheck(t *testing.
 		LightningPeerKey:    peerKey.PublicKey(),
 	}
 
-	require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, meenKey))
+	require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, muunKey))
 
 	var buf bytes.Buffer
 	require.NoError(t, spendingTx.Serialize(&buf))
@@ -1010,17 +1010,17 @@ func TestPartiallySignedTransaction_SignV9(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			userKey, meenKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
+			userKey, muunKey, peerKey := masterKey(t, 0x01), masterKey(t, 0x02), masterKey(t, 0x03)
 			derivedUserKey, err := userKey.DeriveTo(keyPath)
 			require.NoError(t, err)
-			derivedMeenKey, err := meenKey.DeriveTo(keyPath)
+			derivedMuunKey, err := muunKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 			derivedLightningPeerKey, err := peerKey.DeriveTo(keyPath)
 			require.NoError(t, err)
 
 			address, err := CreateAddressV9(
 				derivedUserKey.PublicKey(),
-				derivedMeenKey.PublicKey(),
+				derivedMuunKey.PublicKey(),
 				derivedLightningPeerKey.PublicKey(),
 				timelock,
 			)
@@ -1041,21 +1041,21 @@ func TestPartiallySignedTransaction_SignV9(t *testing.T) {
 			}
 
 			if tt.collaborative {
-				// The server signs for meen and the lightning peer.
+				// The server signs for muun and the lightning peer.
 				signCollaborativeV9(
 					t,
 					coin,
 					spendingTx,
 					derivedUserKey,
-					derivedMeenKey,
+					derivedMuunKey,
 					derivedLightningPeerKey,
 					timelock,
 				)
 				// The user adds the final signature and does the aggregation
-				require.NoError(t, coin.SignInput(0, spendingTx, userKey, meenKey.PublicKey()))
+				require.NoError(t, coin.SignInput(0, spendingTx, userKey, muunKey.PublicKey()))
 			} else {
-				// The user signs the non-collaborative leaf with both the user and meen keys.
-				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, meenKey))
+				// The user signs the non-collaborative leaf with both the user and muun keys.
+				require.NoError(t, coin.FullySignInput(0, spendingTx, userKey, muunKey))
 			}
 
 			var buf bytes.Buffer
@@ -1072,28 +1072,28 @@ func TestPartiallySignedTransaction_SignV9(t *testing.T) {
 	}
 }
 
-// signCollaborativeV9 adds meen and lightning peer keys' signatures simulating the server response.
+// signCollaborativeV9 adds muun and lightning peer keys' signatures simulating the server response.
 func signCollaborativeV9(
 	t *testing.T,
 	coin *coinV9,
 	spendingTx *wire.MsgTx,
-	derivedUserKey, derivedMeenKey, derivedLightningPeerKey *HDPrivateKey,
+	derivedUserKey, derivedMuunKey, derivedLightningPeerKey *HDPrivateKey,
 	timelock int64,
 ) {
 	t.Helper()
 
 	userPub, err := derivedUserKey.PublicKey().ECPubKey()
 	require.NoError(t, err)
-	meenPriv, err := derivedMeenKey.key.ECPrivKey()
+	muunPriv, err := derivedMuunKey.key.ECPrivKey()
 	require.NoError(t, err)
 	peerPriv, err := derivedLightningPeerKey.key.ECPrivKey()
 	require.NoError(t, err)
-	meenPub, peerPub := meenPriv.PubKey(), peerPriv.PubKey()
+	muunPub, peerPub := muunPriv.PubKey(), peerPriv.PubKey()
 
 	// The key-path signature commits to the internal key tweaked by the script tree root.
 	nonCollaborativeScript, err := addresses.CreateNonCollaborativeScriptV9(
 		userPub,
-		meenPub,
+		muunPub,
 		timelock,
 	)
 	require.NoError(t, err)
@@ -1111,7 +1111,7 @@ func signCollaborativeV9(
 
 	// Distinct deterministic session ids for each signer.
 	userSessionID := bytes.Repeat([]byte{0x10}, 32)
-	meenSessionID := bytes.Repeat([]byte{0x20}, 32)
+	muunSessionID := bytes.Repeat([]byte{0x20}, 32)
 	lightningPeerSessionID := bytes.Repeat([]byte{0x30}, 32)
 
 	userNonce, err := musig.MuSig2GenerateNonce(
@@ -1120,10 +1120,10 @@ func signCollaborativeV9(
 		userPub.SerializeCompressed(),
 	)
 	require.NoError(t, err)
-	meenNonce, err := musig.MuSig2GenerateNonce(
+	muunNonce, err := musig.MuSig2GenerateNonce(
 		musig.Musig2v100,
-		meenSessionID,
-		meenPub.SerializeCompressed(),
+		muunSessionID,
+		muunPub.SerializeCompressed(),
 	)
 	require.NoError(t, err)
 	lightningPeerNonce, err := musig.MuSig2GenerateNonce(
@@ -1133,14 +1133,14 @@ func signCollaborativeV9(
 	)
 	require.NoError(t, err)
 
-	meenPartialSig, err := musig.ComputePartialSignature3Of3(
+	muunPartialSig, err := musig.ComputePartialSignature3Of3(
 		sigHash,
-		meenPriv.Serialize(),
+		muunPriv.Serialize(),
 		userPub.SerializeCompressed(),
 		peerPub.SerializeCompressed(),
 		userNonce.PubNonce[:],
 		lightningPeerNonce.PubNonce[:],
-		meenSessionID,
+		muunSessionID,
 		tweak,
 	)
 	require.NoError(t, err)
@@ -1148,17 +1148,17 @@ func signCollaborativeV9(
 		sigHash,
 		peerPriv.Serialize(),
 		userPub.SerializeCompressed(),
-		meenPub.SerializeCompressed(),
+		muunPub.SerializeCompressed(),
 		userNonce.PubNonce[:],
-		meenNonce.PubNonce[:],
+		muunNonce.PubNonce[:],
 		lightningPeerSessionID,
 		tweak,
 	)
 	require.NoError(t, err)
 
 	copy(coin.UserSessionID[:], userSessionID)
-	coin.MeenPubNonce = meenNonce.PubNonce
-	copy(coin.MeenPartialSig[:], meenPartialSig)
+	coin.MuunPubNonce = muunNonce.PubNonce
+	copy(coin.MuunPartialSig[:], muunPartialSig)
 	coin.LightningPeerPubNonce = lightningPeerNonce.PubNonce
 	copy(coin.LightningPeerPartialSig[:], lightningPeerPartialSig)
 }
@@ -1202,7 +1202,7 @@ func spendTimelockedOutput(prevTx *wire.MsgTx, sequence uint32) *wire.MsgTx {
 func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 	var (
 		encodedUserKey = "tprv8dhZ55jWbg1oQHf7BkxL8AFJMWB4gZhyp2tzbHtLQd3g3L7b2MBuq3dEJMdgRevAxQ8BFSjgCRoC5jp9zpDnphGvjq8pT5Q2aA111dg5pxS"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //nolint:lll
-		encodedMeenKey = "tpubDBCFedMe1hS3ba6qSTivfi2f6MieNcgms1b6b9KK1xD6wtvG82dSvYQFgQcF2MBs4kyWEp7MB8tXgYzxiYpxDBnSU2F1sxrict9bNikM9kc"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //nolint:lll
+		encodedMuunKey = "tpubDBCFedMe1hS3ba6qSTivfi2f6MieNcgms1b6b9KK1xD6wtvG82dSvYQFgQcF2MBs4kyWEp7MB8tXgYzxiYpxDBnSU2F1sxrict9bNikM9kc"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        //nolint:lll
 		hexTx          = "010000000676cc7d617672313b795a1cac0afe1b045aa2a56face4c61202b733fa543cb4c40000000000ffffffffb3f49f5cfcb0dbaee92be859a79ebd3120964ad3208fc178e3fec5968a194f4b0100000000ffffffff6854626a1687a052653df7630b272446e87bb8eb57a74e537d8ff116248821420100000000ffffffff51849b950f0becdc008da1d072250bd65ddeabfd4a80feed09e25bd0a9ca1e5f0100000000ffffffff7d69cb9ee91913b5d96a4f8c5a32e86a96560c4db3e40f0496772a51186bf0280100000000ffffffffe894cf036db7f07d56b003036477d5c8ed494bbd1cec8a38c355fc88609573140100000000ffffffff01b820090000000000225120a21f34d36f71805071d0e3cb9cd92b0f8267b7ac95db0d60a60d7ec6bbff12db00000000" //nolint:lll
 		userSessionIDs = []string{
 			"bdc72b8cb2f8278ac5de74a585c8e60729d82635c574a0621e4f086121274227",
@@ -1235,7 +1235,7 @@ func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/2",
 				"2NCzGfq4MurQzhodoSFtB2VSEJ8Tc5MN82j",
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"3045022100860c48eb2374dbb67ed68dd91198994407a4e933f92e4f3187706f93debf246b02206b7d0607eaad478f6323cb707344739ce0ba8583266a39b617dd0e5bb77633b501", //nolint:lll
 			),
 		},
@@ -1252,7 +1252,7 @@ func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/1",
 				"2NA2wRRMNCsfECwvjHwAdPmciFRGrBKzc6W",
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"3045022100c907055dd0033f4f28113f566f68a9c0c400f804d83faca36f5f77a92696bf960220379da01e954f5cdee9fc69dfdf59ac33d36b4af5ea801fd011c2911df2ace2b501", //nolint:lll
 			),
 		},
@@ -1269,7 +1269,7 @@ func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/3",
 				"bcrt1qf66c9jnszkvk9nl3v2k6t5xy7mxlulh0zualfjts45thle56mfjqvkvgh0",
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"3045022100bb2a22510930bc31ddb6b9245eebe5d22499c54d08b326eebd249403f9f6128b02207c10ec0fb8a336230f352b4d2ed10be91cc31d883fd545dfc5124ce8c63a01bf01", //nolint:lll
 			),
 		},
@@ -1300,10 +1300,10 @@ func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/5",
 				"bcrt1ptnkuad8znwtr9q6jj06mdr7smeydjdpqumzxrv9pcyxu3nker0js0h0dfc",
 			),
-			meenPublicNonce: hexToBytes(
+			muunPublicNonce: hexToBytes(
 				"020129f74df468dadc7a1af0305f12a550a4792559b260f756b67277d1de8d0d6e03fb1229bf2eb848532714bf50d79770b2790c589926b3893c4697106dec17a27f", //nolint:lll
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"1be2d8c9f6781372950374bf6986ea32d40473beac5329ca9fe1fe459ce07e26",
 			),
 		},
@@ -1320,21 +1320,21 @@ func TestPartiallySignedTransaction_SignAll(t *testing.T) {
 				"m/schema:1'/recovery:1'/external:1/4",
 				"bcrt1pwscqkj5p0xl7d6kd0ercc5rv6qzytt3a6jykx35yvfkfkp8yajxs77vg44",
 			),
-			meenPublicNonce: hexToBytes(
+			muunPublicNonce: hexToBytes(
 				"03b844359aea6df24a8c7e1766b6cc81d86827f6a0239eef26bdd02d19d0c7fed103b5d431f46f51b73572a619355d60592cec11f16491220810070fd5150216fbcc", //nolint:lll
 			),
-			meenSignature: hexToBytes(
+			muunSignature: hexToBytes(
 				"ffc0c05c178fedc4ab2c4edc80dbb1a79d0ef5e6c0e3bfb7744215540c70d53c",
 			),
 		},
 	}}
 
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 
 	nonces := createTestNonces(t, userKey, inputList, userSessionIDs)
 	partial, _ := NewPartiallySignedTransaction(inputList, hexToBytes(hexTx), nonces)
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -1373,7 +1373,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV1(t *testing.T) {
 		hexTx1         = "0100000006f65ae1c782a5b37795a203a8820719100b1c82f59a4aa1cf3bbcc121442636a50000000023220020f1dcb100a8f4249af53e2ef831e2164545f329a5e8cda589210c033896cd1f12fffffffff21cc482a9359d2762f0a3621eb825e4e728b848588767aecdd8f906833e578e0100000023220020f1dcb100a8f4249af53e2ef831e2164545f329a5e8cda589210c033896cd1f12ffffffff68b507462f19a913b7a6a2a6956cd1c514e66b669d50b3f6228cc21935b78b7f00000000232200203ec9de492dfda91c6d7e84a14f478b1fd6c4b3432aeb4262482133975f94e8f2fffffffff18bce10875329410641316bf7c4d984e00780174b6983080e9225dc26e5bd8c00000000232200209f60ba93792ab212523ad6e6daaefb06d3d0c14ba02ddeaa38582031578bbbd3ffffffff741c42cabd1464b5752e4050acc9d9dfa7ccb296d3847a0e7da6d90effa0d80b0000000023220020d4cf5b8c1ddaa1e2788596655df089cbe10ad33bae149160e07dd76b54e2a1e3ffffffffa609573ae63856433d80793d44d05b077b2c5ef1cc04d820de0d107303ce831b0000000023220020b90f5d2eaf489a24ec6f6d93a47536145fbae13b745fbc7ef9fc5a16d1fa2408ffffffff01e87ec0230000000017a91417c1f13d6ba17a62d6f1f784927c0d45ba22f6fa8700000000" //nolint:lll
 		txAddressPath1 = "m/schema:1'/recovery:1'/external:1/2"
 		txAddress1     = "2MuQqs3e42GpYteWDGEN16TqCQDC8oGCpiV"
-		txMeenSigHex1  = "3044022032b35746170883b2f46c2f14019eb95e2e7e4d800248e6a8b372e504dc48674b02202ff47b29abf8f1be8719e757cbd218a4111c214b0c1aa4bdfc7debaf1b46880f01" //nolint:lll
+		txMuunSigHex1  = "3044022032b35746170883b2f46c2f14019eb95e2e7e4d800248e6a8b372e504dc48674b02202ff47b29abf8f1be8719e757cbd218a4111c214b0c1aa4bdfc7debaf1b46880f01" //nolint:lll
 
 		txIndex2           = 1
 		txAmount2          = 18400
@@ -1386,14 +1386,14 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV1(t *testing.T) {
 		txLockTime2        = 911
 		txRefundAddress2   = "n3yUtyw6xAnYNpfkbuVKPSqnGdbqsLNePr"
 
-		encodedMeenKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
+		encodedMuunKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
 		encodedUserKey = "tprv8fFtghPy2BsdB8nrBZcrHSihQDb65yVJa5DfLcFdtjnRc8SQcV4d59hZAzn2auLdEom9KscWv5JAuxUG65gDYiBxwbGarcix7H2Vp8xXPnX" //nolint:lll
 	)
 
 	txOut1, _ := hex.DecodeString(hexTxOut1)
 	txOut2, _ := hex.DecodeString(hexTxOut2)
 
-	meenSig1, _ := hex.DecodeString(txMeenSigHex1)
+	muunSig1, _ := hex.DecodeString(txMuunSigHex1)
 	paymentHash2, _ := hex.DecodeString(txPaymentHashHex2)
 	serverPubKey2, _ := hex.DecodeString(txServerPubKeyHex2)
 
@@ -1401,7 +1401,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV1(t *testing.T) {
 		&input{
 			outpoint:      outpoint{index: txIndex1, amount: txAmount1, txID: txOut1},
 			address:       addresses.New(addresses.V3, txAddressPath1, txAddress1),
-			meenSignature: meenSig1,
+			muunSignature: muunSig1,
 		},
 		&input{
 			outpoint: outpoint{index: txIndex2, amount: txAmount2, txID: txOut2},
@@ -1420,9 +1420,9 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV1(t *testing.T) {
 	nonces := GenerateMusigNonces(len(inputList.inputs))
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, basePath, Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, basePath, Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, basePath, Regtest())
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -1513,7 +1513,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV2(t *testing.T) {
 		txBlockForExpiration2 = 144
 		txServerSignatureHex2 = "304402207bd5a91f032ed3d69a7999d170c696861f36991f6b54e24da4319eaf512ccac402203d3d14c42103261f605b3a870ab10b03ff8b84537575768067e41853d77d2b2401" //nolint:lll
 
-		encodedMeenKey = "tpubD6NzVbkrYhZ4Yg872usw1wxNYrpCsUmiG4faYMaogSFwJFX9sz8MrR6GNKg4qUDjb3KUYcC9nrUL7tQYfK441qkFP9pwsw6fb8gTW7vJjXq" //nolint:lll
+		encodedMuunKey = "tpubD6NzVbkrYhZ4Yg872usw1wxNYrpCsUmiG4faYMaogSFwJFX9sz8MrR6GNKg4qUDjb3KUYcC9nrUL7tQYfK441qkFP9pwsw6fb8gTW7vJjXq" //nolint:lll
 		encodedUserKey = "tprv8ZgxMBicQKsPdu1SiZiQbV4K2af648S6jf8Axu7RkgQborzWpQVRzrSvyoYWb5Rmy8VVyFBDjZobn7ZaK3Ax2hLvF9NxJ6gUWNLwgLxRav7" //nolint:lll
 	)
 
@@ -1523,7 +1523,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV2(t *testing.T) {
 	serverPubKey2, _ := hex.DecodeString(txServerPubKeyHex2)
 	serverSignature2, _ := hex.DecodeString(txServerSignatureHex2)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, "m", Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, "m", Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, "m", Regtest())
 
 	inputs := []Input{
@@ -1534,7 +1534,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV2(t *testing.T) {
 				paymentHash256:      paymentHash2,
 				serverPublicKey:     serverPubKey2,
 				userPublicKey:       userKey.PublicKey().Raw(),
-				meenPublicKey:       meenKey.Raw(),
+				muunPublicKey:       muunKey.Raw(),
 				blocksForExpiration: txBlockForExpiration2,
 				serverSignature:     serverSignature2,
 			},
@@ -1546,7 +1546,7 @@ func TestPartiallySignedTransaction_SignSubmarineSwapV2(t *testing.T) {
 	nonces := GenerateMusigNonces(len(inputList.inputs))
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -1577,10 +1577,10 @@ func TestPartiallySignedTransaction_SignIncomingSwap(t *testing.T) {
 			17665301721646554283,
 		)
 
-		encodedMeenKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
+		encodedMuunKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
 		encodedUserKey = "tprv8deMke4d4jbc5wVYMaDpoqsXYuEPvwLPN43iRRwdZqVJCr9Wc9xh5194mMJeLTkLfQHS5CgkuXbZ9uwK9Eogcx2t7JoscYtrFirGsc3kgCr" //nolint:lll
 
-		meenSigHex = "3045022100c4bef5d32c5ed3530cd258df645dfb0298744dee7820095aca1a188a3b2138c102201669e21db8ee4d2b090cbb18e3e52bce40fc5e07be73c1be4d26c9f13c02e69701" //nolint:lll
+		muunSigHex = "3045022100c4bef5d32c5ed3530cd258df645dfb0298744dee7820095aca1a188a3b2138c102201669e21db8ee4d2b090cbb18e3e52bce40fc5e07be73c1be4d26c9f13c02e69701" //nolint:lll
 	)
 
 	txOut, _ := hex.DecodeString(hexTxOut)
@@ -1592,16 +1592,16 @@ func TestPartiallySignedTransaction_SignIncomingSwap(t *testing.T) {
 	preimage, _ := hex.DecodeString(preimageHex)
 	paymentSecret, _ := hex.DecodeString(paymentSecretHex)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, "m/schema:1'/recovery:1'", Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, "m/schema:1'/recovery:1'", Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, "m/schema:1'/recovery:1'", Regtest())
 
-	meenSig, _ := hex.DecodeString(meenSigHex)
+	muunSig, _ := hex.DecodeString(muunSigHex)
 
 	inputs := []Input{
 		&input{
 			outpoint:      outpoint{index: txIndex, amount: txAmount, txID: txOut},
 			address:       addresses.New(addresses.IncomingSwap, txAddressPath, txAddress),
-			meenSignature: meenSig,
+			muunSignature: muunSig,
 			incomingSwap: inputIncomingSwap{
 				sphinx:              sphinx,
 				htlcTx:              htlcTx,
@@ -1634,7 +1634,7 @@ func TestPartiallySignedTransaction_SignIncomingSwap(t *testing.T) {
 	nonces := GenerateMusigNonces(len(inputList.inputs))
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -1661,10 +1661,10 @@ func TestPartiallySignedTransaction_SignIncomingSwapCollaboratively(t *testing.T
 
 		preimageHex = "D7EA6B6FE58119AA061CBA3A3C1B556DE966053EE0B8A455A2FA5BA6EAE978FA"
 
-		encodedMeenKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
+		encodedMuunKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
 		encodedUserKey = "tprv8deMke4d4jbc5wVYMaDpoqsXYuEPvwLPN43iRRwdZqVJCr9Wc9xh5194mMJeLTkLfQHS5CgkuXbZ9uwK9Eogcx2t7JoscYtrFirGsc3kgCr" //nolint:lll
 
-		meenSigHex = "3045022100c4bef5d32c5ed3530cd258df645dfb0298744dee7820095aca1a188a3b2138c102201669e21db8ee4d2b090cbb18e3e52bce40fc5e07be73c1be4d26c9f13c02e69701" //nolint:lll
+		muunSigHex = "3045022100c4bef5d32c5ed3530cd258df645dfb0298744dee7820095aca1a188a3b2138c102201669e21db8ee4d2b090cbb18e3e52bce40fc5e07be73c1be4d26c9f13c02e69701" //nolint:lll
 	)
 
 	txOut, _ := hex.DecodeString(hexTxOut)
@@ -1675,16 +1675,16 @@ func TestPartiallySignedTransaction_SignIncomingSwapCollaboratively(t *testing.T
 
 	preimage, _ := hex.DecodeString(preimageHex)
 
-	meenKey, _ := NewHDPublicKeyFromString(encodedMeenKey, "m/schema:1'/recovery:1'", Regtest())
+	muunKey, _ := NewHDPublicKeyFromString(encodedMuunKey, "m/schema:1'/recovery:1'", Regtest())
 	userKey, _ := NewHDPrivateKeyFromString(encodedUserKey, "m/schema:1'/recovery:1'", Regtest())
 
-	meenSig, _ := hex.DecodeString(meenSigHex)
+	muunSig, _ := hex.DecodeString(muunSigHex)
 
 	inputs := []Input{
 		&input{
 			outpoint:      outpoint{index: txIndex, amount: txAmount, txID: txOut},
 			address:       addresses.New(addresses.IncomingSwap, txAddressPath, txAddress),
-			meenSignature: meenSig,
+			muunSignature: muunSig,
 			incomingSwap: inputIncomingSwap{
 				sphinx:              sphinx,
 				htlcTx:              htlcTx,
@@ -1708,7 +1708,7 @@ func TestPartiallySignedTransaction_SignIncomingSwapCollaboratively(t *testing.T
 	nonces := GenerateMusigNonces(len(inputList.inputs))
 	partial, _ := NewPartiallySignedTransaction(inputList, rawTx, nonces)
 
-	signedRawTx, err := partial.Sign(userKey, meenKey)
+	signedRawTx, err := partial.Sign(userKey, muunKey)
 
 	if err != nil {
 		t.Fatalf("failed to sign tx due to %v", err)
@@ -1798,7 +1798,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 		changeVersion7 = addresses.V4
 
 		encodedUserKey = "tpubDAKxNPypXDF3GNCpXFUh6sCdxz7DY9eKMgFxYBgyRSiYWXrBLgdtkPuMbQQzrsYLVyPPSHmNcduLRRd9TSMaYrGLryp8KNkkYBm6eka1Bem" //nolint:lll
-		encodedMeenKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
+		encodedMuunKey = "tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8" //nolint:lll
 
 		basePath = "m/schema:1'/recovery:1'"
 	)
@@ -1815,8 +1815,8 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 		basePath,
 		Regtest())
 
-	meenPublicKey, _ := NewHDPublicKeyFromString(
-		encodedMeenKey,
+	muunPublicKey, _ := NewHDPublicKeyFromString(
+		encodedMuunKey,
 		basePath,
 		Regtest())
 
@@ -1843,7 +1843,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 	type args struct {
 		expectations   *SigningExpectations
 		userPublicKey  *HDPublicKey
-		meenPublickKey *HDPublicKey
+		muunPublickKey *HDPublicKey
 	}
 	firstInput := input{
 		outpoint: outpoint{index: txIndex1, amount: txAmount1, txID: txID1},
@@ -1897,7 +1897,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 		},
 		{
@@ -1914,7 +1914,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -1932,7 +1932,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -1950,7 +1950,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -1968,7 +1968,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         12200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -1986,7 +1986,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2004,7 +2004,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         83600,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2022,7 +2022,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					fee:         122200,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: false,
 		},
@@ -2041,7 +2041,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 		},
 		{
@@ -2059,7 +2059,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2078,7 +2078,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2097,7 +2097,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2116,7 +2116,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2135,7 +2135,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 		},
 		{
@@ -2153,7 +2153,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 		},
 		{
@@ -2171,7 +2171,7 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 					alternative: true,
 				},
 				userPublicKey:  userPublicKey,
-				meenPublickKey: meenPublicKey,
+				muunPublickKey: muunPublicKey,
 			},
 			wantErr: true,
 		},
@@ -2198,12 +2198,12 @@ func TestPartiallySignedTransaction_Verify(t *testing.T) {
 			errNonAlternative := p.Verify(
 				&nonAlternativeExpectations,
 				tt.args.userPublicKey,
-				tt.args.meenPublickKey,
+				tt.args.muunPublickKey,
 			)
 			errAlternative := p.Verify(
 				alternativeExpectations,
 				tt.args.userPublicKey,
-				tt.args.meenPublickKey,
+				tt.args.muunPublickKey,
 			)
 
 			t.Logf("test %v non-alternative returned %v", tt.name, errNonAlternative)

@@ -3,12 +3,12 @@ package io.muun.apollo.utils.screens
 import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 
 class EmergencyKitSetupScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
 
     fun doCompleteFlow(sniffActivationCode: () -> String) {
@@ -22,7 +22,7 @@ class EmergencyKitSetupScreen(
         device.swipe(rect.centerX(), rect.centerY(), rect.left, rect.centerY(), 20) // 1 page slide
         device.swipe(rect.centerX(), rect.centerY(), rect.left, rect.centerY(), 20) // 1 page slide
 
-        pressMeenButton(R.id.accept)
+        pressMuunButton(R.id.accept)
 
         sleep() // Wait a little bit for EK to be generated
 
@@ -30,9 +30,9 @@ class EmergencyKitSetupScreen(
         // is send-by-email, which will open an external application. We assume that this device
         // has exactly gmail application installed, which is true for emulators and Bitrise.
 
-        // Use the email option, give the other app a moment to open, then return to Meen:
+        // Use the email option, give the other app a moment to open, then return to Muun:
         id(R.id.save_link_manual).click()
-        meenButton(R.id.dialog_confirm).press()
+        muunButton(R.id.dialog_confirm).press()
         label("Gmail").click()
 
         sleep(3)
@@ -40,8 +40,8 @@ class EmergencyKitSetupScreen(
 
         // We should be in the verification screen. Enter the code, and finish the flow:
         input(R.id.code_input).text = sniffActivationCode()
-        pressMeenButton(R.id.ek_verify_action)
+        pressMuunButton(R.id.ek_verify_action)
 
-        pressMeenButton(R.id.single_action_action)
+        pressMuunButton(R.id.single_action_action)
     }
 }

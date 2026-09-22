@@ -15,7 +15,7 @@ public class SubmarineSwapFundingOutputTemplate implements TemplateLoader {
             add("outputAmountInSatoshis", TemplateHelpers.satoshis());
             add("confirmationsNeeded", random(0, 1, 2));
             add("userLockTime", (int) System.currentTimeMillis() + 24 * 60 * 60);
-            add("userRefundAddress", TemplateHelpers.meenAddress());
+            add("userRefundAddress", TemplateHelpers.muunAddress());
             add("serverPaymentHashInHex", TemplateHelpers.publicKeyHex());
             add("serverPublicKeyInHex", TemplateHelpers.publicKeyHex());
         }});

@@ -11,7 +11,7 @@ import (
 )
 
 // TestComputePartialAndFinalSignature2Of2 drives the two-step 2-of-2 flow
-// (meen partial-signs first, the user signs last and combines) against pinned
+// (muun partial-signs first, the user signs last and combines) against pinned
 // vectors. The vectors are the same as the "sanity 1 (v100)" case of
 // TestMuSig2Tests2of2, so the v100-only functions are asserted byte-compatible
 // with the deprecated version-parametric ones.
@@ -19,18 +19,18 @@ func TestComputePartialAndFinalSignature2Of2(t *testing.T) {
 	t.Parallel()
 
 	userKey := hexDecode("507d881f0b5e1b12423cb0c84a196fb24227f3fe1540a1c7b20bf78d83de4533")
-	meenKey := hexDecode("b6f14c73ee5269f5a13a11f48ad54306293ee134e924f680fcd35f615881105b")
+	muunKey := hexDecode("b6f14c73ee5269f5a13a11f48ad54306293ee134e924f680fcd35f615881105b")
 	msg := hexDecode("ef2ecc1f48c0b28ccaf8f3a8c6477740d869964ebc152a2c5f93f19e7b84b103")
 	userSessionID := hexDecode("5c9360026e39ad06251a27916dcf086a7b2deb6789c5dcd75ba10e540cf37e13")
-	meenSessionID := hexDecode("cad3ec6737e2fb125d976bfe382441c59c6a4d46382bfab75e9d3f1b43a9b0a7")
+	muunSessionID := hexDecode("cad3ec6737e2fb125d976bfe382441c59c6a4d46382bfab75e9d3f1b43a9b0a7")
 	tweak := KeySpendOnlyTweak()
 
 	userPublicKeyBytes := secp256k1.PrivKeyFromBytes(userKey).PubKey().SerializeCompressed()
-	meenPublicKeyBytes := secp256k1.PrivKeyFromBytes(meenKey).PubKey().SerializeCompressed()
+	muunPublicKeyBytes := secp256k1.PrivKeyFromBytes(muunKey).PubKey().SerializeCompressed()
 
 	combinedKey, err := Musig2CombinePubKeysWithTweak(
 		Musig2v100,
-		[][]byte{userPublicKeyBytes, meenPublicKeyBytes},
+		[][]byte{userPublicKeyBytes, muunPublicKeyBytes},
 		tweak,
 	)
 	require.NoError(t, err)
@@ -42,30 +42,30 @@ func TestComputePartialAndFinalSignature2Of2(t *testing.T) {
 
 	userNonce, err := MuSig2GenerateNonce(Musig2v100, userSessionID, userPublicKeyBytes)
 	require.NoError(t, err)
-	meenNonce, err := MuSig2GenerateNonce(Musig2v100, meenSessionID, meenPublicKeyBytes)
+	muunNonce, err := MuSig2GenerateNonce(Musig2v100, muunSessionID, muunPublicKeyBytes)
 	require.NoError(t, err)
 
-	meenPartialSignature, err := ComputePartialSignature2Of2(
+	muunPartialSignature, err := ComputePartialSignature2Of2(
 		msg,
-		meenKey,
+		muunKey,
 		userPublicKeyBytes,
 		userNonce.PubNonce[:],
-		meenSessionID,
+		muunSessionID,
 		tweak,
 	)
 	require.NoError(t, err)
 	require.Equal(
 		t,
 		"18422b132ac447af9e98db197d45becb26c83aa4fa658312dd8357e1e8309ce4",
-		hex.EncodeToString(meenPartialSignature),
+		hex.EncodeToString(muunPartialSignature),
 	)
 
 	fullSignature, err := ComputeFinalSignature2Of2(
 		msg,
 		userKey,
-		meenPublicKeyBytes,
-		meenNonce.PubNonce[:],
-		meenPartialSignature,
+		muunPublicKeyBytes,
+		muunNonce.PubNonce[:],
+		muunPartialSignature,
 		userSessionID,
 		tweak,
 	)
@@ -89,7 +89,7 @@ func TestComputeFullSignature2Of2(t *testing.T) {
 	signerBKey, err := btcec.NewPrivateKey()
 	require.NoError(t, err)
 
-	toSign := sha256.Sum256([]byte("meen-2-of-2"))
+	toSign := sha256.Sum256([]byte("muun-2-of-2"))
 	tweak := KeySpendOnlyTweak()
 
 	combinedKey, err := Musig2CombinePubKeysWithTweak(
@@ -121,7 +121,7 @@ func TestComputeFullSignature2Of2WithScriptPath(t *testing.T) {
 	signerBKey, err := btcec.NewPrivateKey()
 	require.NoError(t, err)
 
-	toSign := sha256.Sum256([]byte("meen-2-of-2"))
+	toSign := sha256.Sum256([]byte("muun-2-of-2"))
 	scriptPath := RandomSessionID() // any random 32 bytes
 	tweak := TapScriptTweak(scriptPath[:])
 

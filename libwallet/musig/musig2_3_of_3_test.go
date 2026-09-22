@@ -31,7 +31,7 @@ func TestDroppingScriptPathFails(t *testing.T) {
 
 	// partial and final signatures computed without the scriptPath yield a
 	// signature that does not verify against the scriptPath-committed combined key
-	meenPartialSignature, swapServerPartialSignature, fullSignature := session.sign(
+	muunPartialSignature, swapServerPartialSignature, fullSignature := session.sign(
 		t, toSign[:], KeySpendOnlyTweak(),
 	)
 
@@ -45,8 +45,8 @@ func TestDroppingScriptPathFails(t *testing.T) {
 		toSign[:],
 		session.userKey,
 		session.allPubKeys,
-		[][]byte{session.meenNonce, session.swapServerNonce},
-		[][]byte{meenPartialSignature, swapServerPartialSignature},
+		[][]byte{session.muunNonce, session.swapServerNonce},
+		[][]byte{muunPartialSignature, swapServerPartialSignature},
 		session.userSessionID,
 		TapScriptTweak(scriptPath[:]),
 	)
@@ -60,15 +60,15 @@ func TestComputePartialSignatureMissingNonceFails(t *testing.T) {
 	t.Parallel()
 
 	session := newRandomSigningSession(t)
-	toSign := sha256.Sum256([]byte("meen-3-of-3"))
+	toSign := sha256.Sum256([]byte("muun-3-of-3"))
 
 	_, err := ComputePartialSignature(
 		Musig2v100,
 		toSign[:],
-		session.meenKey,
+		session.muunKey,
 		session.allPubKeys,
 		[][]byte{session.userNonce},
-		session.meenSessionID,
+		session.muunSessionID,
 		KeySpendOnlyTweak(),
 	)
 	require.ErrorContains(t, err, "some nonces are missing")
@@ -81,15 +81,15 @@ func TestComputeFinalSignatureMissingPartialSignatureFails(t *testing.T) {
 	t.Parallel()
 
 	session := newRandomSigningSession(t)
-	toSign := sha256.Sum256([]byte("meen-3-of-3"))
+	toSign := sha256.Sum256([]byte("muun-3-of-3"))
 
-	meenPartialSignature, err := ComputePartialSignature(
+	muunPartialSignature, err := ComputePartialSignature(
 		Musig2v100,
 		toSign[:],
-		session.meenKey,
+		session.muunKey,
 		session.allPubKeys,
 		[][]byte{session.userNonce, session.swapServerNonce},
-		session.meenSessionID,
+		session.muunSessionID,
 		KeySpendOnlyTweak(),
 	)
 	require.NoError(t, err)
@@ -99,8 +99,8 @@ func TestComputeFinalSignatureMissingPartialSignatureFails(t *testing.T) {
 		toSign[:],
 		session.userKey,
 		session.allPubKeys,
-		[][]byte{session.meenNonce, session.swapServerNonce},
-		[][]byte{meenPartialSignature},
+		[][]byte{session.muunNonce, session.swapServerNonce},
+		[][]byte{muunPartialSignature},
 		session.userSessionID,
 		KeySpendOnlyTweak(),
 	)
@@ -149,13 +149,13 @@ func TestCrossCheckWithJavaWithNoopTweak(t *testing.T) {
 	)
 }
 
-// roundTrip drives a full 3-of-3 round trip with random keys: meen and the
+// roundTrip drives a full 3-of-3 round trip with random keys: muun and the
 // swap server each produce a partial signature, then the user signs last and
 // combines everything. Asserts the resulting signature is valid and that
 // tampering with it breaks verification.
 func roundTrip(t *testing.T, scriptPath []byte) {
 	session := newRandomSigningSession(t)
-	toSign := sha256.Sum256([]byte("meen-3-of-3"))
+	toSign := sha256.Sum256([]byte("muun-3-of-3"))
 
 	tweak := KeySpendOnlyTweak()
 	if scriptPath != nil {
@@ -182,7 +182,7 @@ func crossCheckWithJava(
 	t *testing.T,
 	tweak *MuSig2Tweaks,
 	expectedCombinedPub string,
-	expectedMeenPartialSignature string,
+	expectedMuunPartialSignature string,
 	expectedSwapServerPartialSignature string,
 	expectedFullSignature string,
 ) {
@@ -204,16 +204,16 @@ func crossCheckWithJava(
 	// nonce generation does not depend on the scriptPath tweak, so the expected
 	// nonces are the same for both vectors
 	require.Equal(t, "033851b4c20a8d2724c0beb2aa9d870fb40b9808953fa0210b9e0968634e7df300027d3c122a2b5ef8a99e272252439b5c2973a3672154c1f75dac65d373a3f280dd", hex.EncodeToString(session.userNonce))       //nolint:lll
-	require.Equal(t, "039d31580aa30e79b174b2b0170cb20e8fcf90a67e6cd26cff43e91f521a62d658025706076ac9aff93b1804499c7245f4d1bc684d4a29fb312cb1ffb654c9c616f1", hex.EncodeToString(session.meenNonce))       //nolint:lll
+	require.Equal(t, "039d31580aa30e79b174b2b0170cb20e8fcf90a67e6cd26cff43e91f521a62d658025706076ac9aff93b1804499c7245f4d1bc684d4a29fb312cb1ffb654c9c616f1", hex.EncodeToString(session.muunNonce))       //nolint:lll
 	require.Equal(t, "025e350dd6c5c9fa2717ac5270f01ad7b70cb6676d60d847e0f5b61d8b89b77d6c02fc9aa7163d82d55c8fa97305755976358b13c9e577dc82aeeef8064f84d1e41e", hex.EncodeToString(session.swapServerNonce)) //nolint:lll
 
-	meenPartialSignature, swapServerPartialSignature, fullSignature := session.sign(
+	muunPartialSignature, swapServerPartialSignature, fullSignature := session.sign(
 		t, pinnedMsg, tweak,
 	)
 	require.Equal(
 		t,
-		expectedMeenPartialSignature,
-		hex.EncodeToString(meenPartialSignature),
+		expectedMuunPartialSignature,
+		hex.EncodeToString(muunPartialSignature),
 	)
 	require.Equal(
 		t,
@@ -229,14 +229,14 @@ func crossCheckWithJava(
 // nonces of the three participants of a 3-of-3 signing session.
 type signingSession struct {
 	userKey             []byte
-	meenKey             []byte
+	muunKey             []byte
 	swapServerKey       []byte
 	allPubKeys          [][]byte
 	userSessionID       []byte
-	meenSessionID       []byte
+	muunSessionID       []byte
 	swapServerSessionID []byte
 	userNonce           []byte
-	meenNonce           []byte
+	muunNonce           []byte
 	swapServerNonce     []byte
 }
 
@@ -246,19 +246,19 @@ func newRandomSigningSession(t *testing.T) *signingSession {
 
 	userKey, err := btcec.NewPrivateKey()
 	require.NoError(t, err)
-	meenKey, err := btcec.NewPrivateKey()
+	muunKey, err := btcec.NewPrivateKey()
 	require.NoError(t, err)
 	swapServerKey, err := btcec.NewPrivateKey()
 	require.NoError(t, err)
 
 	userSessionID := RandomSessionID()
-	meenSessionID := RandomSessionID()
+	muunSessionID := RandomSessionID()
 	swapServerSessionID := RandomSessionID()
 
 	return newSigningSession(
 		t,
-		userKey.Serialize(), meenKey.Serialize(), swapServerKey.Serialize(),
-		userSessionID[:], meenSessionID[:], swapServerSessionID[:],
+		userKey.Serialize(), muunKey.Serialize(), swapServerKey.Serialize(),
+		userSessionID[:], muunSessionID[:], swapServerSessionID[:],
 	)
 }
 
@@ -280,21 +280,21 @@ func newPinnedSigningSession(t *testing.T) *signingSession {
 
 func newSigningSession(
 	t *testing.T,
-	userKey, meenKey, swapServerKey []byte,
-	userSessionID, meenSessionID, swapServerSessionID []byte,
+	userKey, muunKey, swapServerKey []byte,
+	userSessionID, muunSessionID, swapServerSessionID []byte,
 ) *signingSession {
 	t.Helper()
 
 	allPubKeys := [][]byte{
 		secp256k1.PrivKeyFromBytes(userKey).PubKey().SerializeCompressed(),
-		secp256k1.PrivKeyFromBytes(meenKey).PubKey().SerializeCompressed(),
+		secp256k1.PrivKeyFromBytes(muunKey).PubKey().SerializeCompressed(),
 		secp256k1.PrivKeyFromBytes(swapServerKey).PubKey().SerializeCompressed(),
 	}
 
 	userNonce, err := MuSig2GenerateNonce(Musig2v100, userSessionID, allPubKeys[0])
 	require.NoError(t, err)
 
-	meenNonce, err := MuSig2GenerateNonce(Musig2v100, meenSessionID, allPubKeys[1])
+	muunNonce, err := MuSig2GenerateNonce(Musig2v100, muunSessionID, allPubKeys[1])
 	require.NoError(t, err)
 
 	swapServerNonce, err := MuSig2GenerateNonce(Musig2v100, swapServerSessionID, allPubKeys[2])
@@ -302,14 +302,14 @@ func newSigningSession(
 
 	return &signingSession{
 		userKey:             userKey,
-		meenKey:             meenKey,
+		muunKey:             muunKey,
 		swapServerKey:       swapServerKey,
 		allPubKeys:          allPubKeys,
 		userSessionID:       userSessionID,
-		meenSessionID:       meenSessionID,
+		muunSessionID:       muunSessionID,
 		swapServerSessionID: swapServerSessionID,
 		userNonce:           userNonce.PubNonce[:],
-		meenNonce:           meenNonce.PubNonce[:],
+		muunNonce:           muunNonce.PubNonce[:],
 		swapServerNonce:     swapServerNonce.PubNonce[:],
 	}
 }
@@ -326,9 +326,9 @@ func (s *signingSession) combinedKeys(t *testing.T, tweak *MuSig2Tweaks) ([]byte
 		combinedKey.PreTweakedKey.SerializeCompressed()
 }
 
-// sign runs the full 3-of-3 signing flow with the given tweak: meen and the
+// sign runs the full 3-of-3 signing flow with the given tweak: muun and the
 // swap server each produce a partial signature, then the user signs last and
-// combines everything. Returns the meen and swap server partial signatures and
+// combines everything. Returns the muun and swap server partial signatures and
 // the full signature.
 func (s *signingSession) sign(
 	t *testing.T,
@@ -337,14 +337,14 @@ func (s *signingSession) sign(
 ) ([]byte, []byte, []byte) {
 	t.Helper()
 
-	meenPartialSignature, err := ComputePartialSignature3Of3(
+	muunPartialSignature, err := ComputePartialSignature3Of3(
 		msg,
-		s.meenKey,
+		s.muunKey,
 		s.allPubKeys[0],
 		s.allPubKeys[2],
 		s.userNonce,
 		s.swapServerNonce,
-		s.meenSessionID,
+		s.muunSessionID,
 		tweak,
 	)
 	require.NoError(t, err)
@@ -355,7 +355,7 @@ func (s *signingSession) sign(
 		s.allPubKeys[0],
 		s.allPubKeys[1],
 		s.userNonce,
-		s.meenNonce,
+		s.muunNonce,
 		s.swapServerSessionID,
 		tweak,
 	)
@@ -366,16 +366,16 @@ func (s *signingSession) sign(
 		s.userKey,
 		s.allPubKeys[1],
 		s.allPubKeys[2],
-		s.meenNonce,
+		s.muunNonce,
 		s.swapServerNonce,
-		meenPartialSignature,
+		muunPartialSignature,
 		swapServerPartialSignature,
 		s.userSessionID,
 		tweak,
 	)
 	require.NoError(t, err)
 
-	return meenPartialSignature, swapServerPartialSignature, fullSignature
+	return muunPartialSignature, swapServerPartialSignature, fullSignature
 }
 
 // assertValidSignature asserts the signature verifies against the combined key

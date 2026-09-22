@@ -69,7 +69,7 @@ const contentEN = `
 
 <section class="instructions">
 <h1>Instructions</h1>
-<p>This emergency procedure will help you recover your funds if you are unable to use Meen on your phone.</p>
+<p>This emergency procedure will help you recover your funds if you are unable to use Muun on your phone.</p>
 
 <div class="item">
   <div class="number-box">
@@ -108,7 +108,7 @@ const contentEN = `
 <div class="text-box">
   <h3>Need help?</h3>
   <p>
-    Contact us at <a href="mailto:support@meen.com">support@meen.com</a>. We’re always there to help.
+    Contact us at <a href="mailto:support@muun.com">support@muun.com</a>. We’re always there to help.
   </p>
 </div>
 </section>
@@ -134,13 +134,13 @@ const contentEN = `
   {{ end }}
 
 <p>
-  Output descriptors are part of a developing standard for Recovery that Meen intends to support and is helping grow. 
+  Output descriptors are part of a developing standard for Recovery that Muun intends to support and is helping grow. 
   Since the standard is in a very early stage, the list above includes some non-standard elements.
 </p>
 
 <p>
   When descriptors reach a more mature stage, you’ll be able to take your funds from one wallet to another with 
-  complete independence. Meen believes this freedom is at the core of Bitcoin’s promise, and is working towards 
+  complete independence. Muun believes this freedom is at the core of Bitcoin’s promise, and is working towards 
   that goal.
 </p>
 </section>
@@ -181,7 +181,7 @@ const contentES = `
 
 <section class="instructions">
 <h1>Instrucciones</h1>
-<p>Este procedimiento de emergencia te ayudará a recuperar tus fondos si no puedes usar Meen en tu teléfono.</p>
+<p>Este procedimiento de emergencia te ayudará a recuperar tus fondos si no puedes usar Muun en tu teléfono.</p>
 
 <div class="item">
   <div class="number-box">
@@ -219,7 +219,7 @@ const contentES = `
 <div class="text-box">
   <h3>¿Necesitas ayuda?</h3>
   <p>
-  Contáctanos en <a href="mailto:support@meen.com">support@meen.com</a>. Siempre estamos disponibles para ayudar.
+  Contáctanos en <a href="mailto:support@muun.com">support@muun.com</a>. Siempre estamos disponibles para ayudar.
   </p>
 </div>
 </section>
@@ -245,14 +245,14 @@ const contentES = `
   {{ end }}
 
 <p>
-Los output descriptors son parte de un estándar de recuperación actualmente en desarrollo. Meen tiene la intención 
+Los output descriptors son parte de un estándar de recuperación actualmente en desarrollo. Muun tiene la intención 
 de soportar este estándar y apoyar su crecimiento. Dado que se encuentra en una etapa muy temprana, la siguiente lista 
 incluye algunos elementos que aún no están estandarizados.
 </p>
 
 <p>
 Cuando los descriptors lleguen a una etapa más madura, podrás llevar tus fondos de una billetera a la otra con completa 
-independencia. Meen cree que esta libertad es central a la promesa de Bitcoin, y está trabajando para que eso suceda.
+independencia. Muun cree que esta libertad es central a la promesa de Bitcoin, y está trabajando para que eso suceda.
 </p>
 </section>
 `

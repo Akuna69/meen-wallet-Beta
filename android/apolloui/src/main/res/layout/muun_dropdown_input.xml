@@ -3,7 +3,7 @@
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/meen_dropdown_input_spinner"
+        android:id="@+id/muun_dropdown_input_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingStart="4dp"

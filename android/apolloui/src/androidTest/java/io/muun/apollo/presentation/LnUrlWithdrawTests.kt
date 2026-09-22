@@ -4,7 +4,7 @@ import android.os.SystemClock
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import io.muun.apollo.R
 import io.muun.apollo.data.debug.LappClient
-import io.muun.apollo.utils.MeenTexts
+import io.muun.apollo.utils.MuunTexts
 import io.muun.common.utils.BitcoinUtils
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -61,8 +61,8 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
 
         label(R.string.error_lnurl_unknown_title).assertExists()
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.send_report))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.send_report))
             .press()
     }
 
@@ -75,22 +75,22 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
         // Let's wait for unresponsive service error (+15 secs)
         SystemClock.sleep(16_000)
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.retry))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.retry))
             .press()
 
-        meenButton(R.id.primary_button).doesntExist()
+        muunButton(R.id.primary_button).doesntExist()
 
         labelWith(R.string.contacting).assertExists()
 
         // Let's wait for unresponsive service error (+15 secs)
         SystemClock.sleep(16_000)
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.retry))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.retry))
             .press()
 
-        meenButton(R.id.primary_button).doesntExist()
+        muunButton(R.id.primary_button).doesntExist()
 
         labelWith(R.string.contacting).assertExists()
 
@@ -107,8 +107,8 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
 
         label(R.string.error_lnurl_no_balance_title).assertExists()
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.error_op_action))
             .press()
 
         // We should be at home by now
@@ -125,8 +125,8 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
 
         label(R.string.error_lnurl_expired_title).assertExists()
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.error_op_action))
             .press()
 
         // We should be at home by now
@@ -143,8 +143,8 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
 
         label(R.string.error_lnurl_no_route_title).assertExists()
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.error_op_action))
             .press()
 
         // We should be at home by now
@@ -161,8 +161,8 @@ open class LnUrlWithdrawTests : BaseInstrumentationTest() {
 
         label(R.string.error_invalid_lnurl_tag_title).assertExists()
 
-        meenButton(R.id.primary_button).waitForExists()
-            .textEquals(MeenTexts.normalize(R.string.error_op_action))
+        muunButton(R.id.primary_button).waitForExists()
+            .textEquals(MuunTexts.normalize(R.string.error_op_action))
             .press()
 
         // We should be at home by now

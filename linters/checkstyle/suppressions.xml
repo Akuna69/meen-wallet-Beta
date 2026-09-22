@@ -5,16 +5,16 @@
 
 <suppressions>
     <!-- Suppress errors caused by the double curly syntax for fixture templates -->
-    <suppress checks="Indentation" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]meen[\\/].*"/>
-    <suppress checks="RightCurly" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]meen[\\/].*"/>
+    <suppress checks="Indentation" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]muun[\\/].*"/>
+    <suppress checks="RightCurly" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]muun[\\/].*"/>
     <!-- Suppress errors caused by missing comments in tests -->
-    <suppress checks="MissingJavadocMethod" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]meen[\\/].*"/>
+    <suppress checks="MissingJavadocMethod" files=".*[\\/]src[\\/]test[\\/]java[\\/]io[\\/]muun[\\/].*"/>
     <!-- Suppress errors caused by missing comments in resources -->
     <suppress checks="MissingJavadocMethod"
-            files=".*[\\/]src[\\/]main[\\/]java[\\/]io[\\/]meen[\\/].*[\\/].*Resource\.java"/>
+            files=".*[\\/]src[\\/]main[\\/]java[\\/]io[\\/]muun[\\/].*[\\/].*Resource\.java"/>
     <!-- Suppress errors caused by missing comments in api models -->
     <suppress checks="MissingJavadocMethod"
-            files=".*[\\/]src[\\/]main[\\/]java[\\/]io[\\/]meen[\\/]common[\\/]api[\\/].*"/>
+            files=".*[\\/]src[\\/]main[\\/]java[\\/]io[\\/]muun[\\/]common[\\/]api[\\/].*"/>
     <!-- Suppress errors caused by exceeding line length -->
     <suppress checks="LineLength" files=".*[\\/]migrations(-[^.\\/]+)?\.xml" />
     <suppress checks="LineLength" files=".*[\\/]logback[^.\\/]*\.xml" />

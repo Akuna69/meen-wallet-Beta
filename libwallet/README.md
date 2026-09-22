@@ -1,8 +1,8 @@
-![meen](https://meen.com/images/github-banner-v2.png)
+![muun](https://muun.com/images/github-banner-v2.png)
 
 ## About
 
-This is the source code repository for meen's wallet core library. Meen is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
+This is the source code repository for muun's wallet core library. Muun is a non-custodial 2-of-2 multisig wallet with a special focus on security and ease of use.
 
 This library is used by our mobile wallets with [gomobile](https://godoc.org/golang.org/x/mobile/cmd/gomobile) and by the [recovery tool](https://github.com/muun/recovery).
 
@@ -15,7 +15,7 @@ This library is used by our mobile wallets with [gomobile](https://godoc.org/gol
 
 ## Responsible Disclosure
 
-Send us an email to report any security related bugs or vulnerabilities at [security@meen.com](mailto:security@meen.com).
+Send us an email to report any security related bugs or vulnerabilities at [security@muun.com](mailto:security@muun.com).
 
 You can encrypt your email message using our public PGP key.
 

@@ -21,7 +21,7 @@ pub const D: usize = 2;
 pub type C = KeccakGoldilocksConfig;
 pub type F = <C as GenericConfig<D>>::F;
 
-pub const INFO: &[u8] = b"meen.com/cosigning-key/2/2/recovery-code";
+pub const INFO: &[u8] = b"muun.com/cosigning-key/2/2/recovery-code";
 
 pub struct Circuit {
     pub circuit: CircuitData<F, C, D>,

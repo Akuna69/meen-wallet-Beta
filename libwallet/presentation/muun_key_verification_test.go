@@ -24,7 +24,7 @@ import (
 	"github.com/muun/libwallet/storage"
 )
 
-func TestEncryptedMeenKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) {
+func TestEncryptedMuunKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) {
 
 	setupKeyValueStorage(t, storage.BuildKVMigrationPlan())
 
@@ -50,7 +50,7 @@ func TestEncryptedMeenKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) 
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
@@ -58,15 +58,15 @@ func TestEncryptedMeenKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) 
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
 
 	_, err = walletServer.StartChallengeSetup(
@@ -95,26 +95,26 @@ func TestEncryptedMeenKeyAfterFinishSetupRecoveryCode_Integration(t *testing.T) 
 		t.Fatal(err)
 	}
 
-	mayRetrieveEncryptedMeenKey := recovery.NewMayRetrieveEncryptedMeenKeyAction(
+	mayRetrieveEncryptedMuunKey := recovery.NewMayRetrieveEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 	)
-	encryptedMeenKeyWithStatus, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status == recovery.HasNoEncryptedMeenKey {
-		t.Fatal("Encrypted meen key should be available")
+	if encryptedMuunKeyWithStatus.Status == recovery.HasNoEncryptedMuunKey {
+		t.Fatal("Encrypted muun key should be available")
 	}
 
-	decryptAndAssertDecryptedMeenKeyIsCorrect(
+	decryptAndAssertDecryptedMuunKeyIsCorrect(
 		t,
 		recoveryCodePrivateKey,
-		*encryptedMeenKeyWithStatus.EncryptedMeenKey,
-		meenPublicKey,
+		*encryptedMuunKeyWithStatus.EncryptedMuunKey,
+		muunPublicKey,
 	)
 }
 
-func TestPollForVerifiedEncryptedMeenKey_Integration(t *testing.T) {
+func TestPollForVerifiedEncryptedMuunKey_Integration(t *testing.T) {
 
 	setupKeyValueStorage(t, storage.BuildKVMigrationPlan())
 
@@ -140,7 +140,7 @@ func TestPollForVerifiedEncryptedMeenKey_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
@@ -148,17 +148,17 @@ func TestPollForVerifiedEncryptedMeenKey_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
-	walletServer.populateEncryptedMeenKey = recovery.NewPopulateEncryptedMeenKeyAction(
+	walletServer.populateEncryptedMuunKey = recovery.NewPopulateEncryptedMuunKeyAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
@@ -191,7 +191,7 @@ func TestPollForVerifiedEncryptedMeenKey_Integration(t *testing.T) {
 	}
 
 	err = WaitForCondition(1*time.Second, func() (bool, error) {
-		result, err := walletServer.houstonService.VerifiableMeenKey()
+		result, err := walletServer.houstonService.VerifiableMuunKey()
 		if err != nil {
 			return false, err
 		}
@@ -201,59 +201,59 @@ func TestPollForVerifiedEncryptedMeenKey_Integration(t *testing.T) {
 		t.Fatalf("Timed out: %s", err)
 	}
 
-	// We now poll with the PopulateEncryptedMeenKey endpoint
+	// We now poll with the PopulateEncryptedMuunKey endpoint
 
-	populateRequest := api.PopulateEncryptedMeenKeyRequest_builder{
+	populateRequest := api.PopulateEncryptedMuunKeyRequest_builder{
 		RecoveryCodePublicKeyHex: hex.EncodeToString(recoveryCodePublicKey.SerializeCompressed()),
 	}.Build()
 
-	_, err = walletServer.PopulateEncryptedMeenKey(context.Background(), populateRequest)
+	_, err = walletServer.PopulateEncryptedMuunKey(context.Background(), populateRequest)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// Now we should have a verified encrypted meen key
-	mayRetrieveEncryptedMeenKey := recovery.NewMayRetrieveEncryptedMeenKeyAction(
+	// Now we should have a verified encrypted muun key
+	mayRetrieveEncryptedMuunKey := recovery.NewMayRetrieveEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 	)
-	encryptedMeenKeyWithStatus, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.HasVerifiedEncryptedMeenKey {
-		t.Fatal("The user should have a verified meen key at this point.")
+	if encryptedMuunKeyWithStatus.Status != recovery.HasVerifiedEncryptedMuunKey {
+		t.Fatal("The user should have a verified muun key at this point.")
 	}
 
 	// We poll again
-	_, err = walletServer.PopulateEncryptedMeenKey(context.Background(), populateRequest)
+	_, err = walletServer.PopulateEncryptedMuunKey(context.Background(), populateRequest)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	encryptedMeenKeyWithStatusAgain, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatusAgain, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if encryptedMeenKeyWithStatus.Status != recovery.HasVerifiedEncryptedMeenKey {
-		t.Fatal("The user should still have a verified meen key at this point.")
+	if encryptedMuunKeyWithStatus.Status != recovery.HasVerifiedEncryptedMuunKey {
+		t.Fatal("The user should still have a verified muun key at this point.")
 	}
 
-	// Polling should not modify the encrypted meen key
-	if *encryptedMeenKeyWithStatus.EncryptedMeenKey !=
-		*encryptedMeenKeyWithStatusAgain.EncryptedMeenKey {
-		t.Fatal("The verified meen key should not change when polling")
+	// Polling should not modify the encrypted muun key
+	if *encryptedMuunKeyWithStatus.EncryptedMuunKey !=
+		*encryptedMuunKeyWithStatusAgain.EncryptedMuunKey {
+		t.Fatal("The verified muun key should not change when polling")
 	}
 
-	decryptAndAssertDecryptedMeenKeyIsCorrect(
+	decryptAndAssertDecryptedMuunKeyIsCorrect(
 		t,
 		recoveryCodePrivateKey,
-		*encryptedMeenKeyWithStatus.EncryptedMeenKey,
-		meenPublicKey,
+		*encryptedMuunKeyWithStatus.EncryptedMuunKey,
+		muunPublicKey,
 	)
 }
 
-func TestPollForVerifiedEncryptedMeenKeyWithDelay_Integration(t *testing.T) {
+func TestPollForVerifiedEncryptedMuunKeyWithDelay_Integration(t *testing.T) {
 
 	setupKeyValueStorage(t, storage.BuildKVMigrationPlan())
 
@@ -279,24 +279,24 @@ func TestPollForVerifiedEncryptedMeenKeyWithDelay_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
 	if err != nil {
 		t.Fatal(err)
 	}
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
-	walletServer.populateEncryptedMeenKey = recovery.NewPopulateEncryptedMeenKeyAction(
+	walletServer.populateEncryptedMuunKey = recovery.NewPopulateEncryptedMuunKeyAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
@@ -330,21 +330,21 @@ func TestPollForVerifiedEncryptedMeenKeyWithDelay_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	mayRetrieveEncryptedMeenKey := recovery.NewMayRetrieveEncryptedMeenKeyAction(
+	mayRetrieveEncryptedMuunKey := recovery.NewMayRetrieveEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 	)
-	encryptedMeenKeyWithStatus, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.OnlyHasUnverifiedEncryptedMeenKey {
+	if encryptedMuunKeyWithStatus.Status != recovery.OnlyHasUnverifiedEncryptedMuunKey {
 		t.Fatal("The user should only have an unverified key at this point.")
 	}
 
-	// We now poll with the PopulateEncryptedMeenKey endpoint
-	_, err = walletServer.PopulateEncryptedMeenKey(
+	// We now poll with the PopulateEncryptedMuunKey endpoint
+	_, err = walletServer.PopulateEncryptedMuunKey(
 		context.Background(),
-		api.PopulateEncryptedMeenKeyRequest_builder{
+		api.PopulateEncryptedMuunKeyRequest_builder{
 			RecoveryCodePublicKeyHex: hex.EncodeToString(
 				recoveryCodePublicKey.SerializeCompressed(),
 			),
@@ -354,30 +354,30 @@ func TestPollForVerifiedEncryptedMeenKeyWithDelay_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	encryptedMeenKeyWithStatusAgain, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatusAgain, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if encryptedMeenKeyWithStatusAgain.Status != recovery.OnlyHasUnverifiedEncryptedMeenKey {
+	if encryptedMuunKeyWithStatusAgain.Status != recovery.OnlyHasUnverifiedEncryptedMuunKey {
 		t.Fatal("The user should only have an unverified key at this point.")
 	}
 
-	// Polling should not modify the encrypted meen key
-	if *encryptedMeenKeyWithStatus.EncryptedMeenKey !=
-		*encryptedMeenKeyWithStatusAgain.EncryptedMeenKey {
-		t.Fatal("The unverified meen key should not change when polling")
+	// Polling should not modify the encrypted muun key
+	if *encryptedMuunKeyWithStatus.EncryptedMuunKey !=
+		*encryptedMuunKeyWithStatusAgain.EncryptedMuunKey {
+		t.Fatal("The unverified muun key should not change when polling")
 	}
 
-	decryptAndAssertDecryptedMeenKeyIsCorrect(
+	decryptAndAssertDecryptedMuunKeyIsCorrect(
 		t,
 		recoveryCodePrivateKey,
-		*encryptedMeenKeyWithStatus.EncryptedMeenKey,
-		meenPublicKey,
+		*encryptedMuunKeyWithStatus.EncryptedMuunKey,
+		muunPublicKey,
 	)
 }
 
-func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
+func TestVerifiedMuunKeyForExistingUsers_Integration(t *testing.T) {
 
 	setupKeyValueStorage(t, storage.BuildKVMigrationPlan())
 
@@ -403,7 +403,7 @@ func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest())
@@ -411,17 +411,17 @@ func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
-	walletServer.populateEncryptedMeenKey = recovery.NewPopulateEncryptedMeenKeyAction(
+	walletServer.populateEncryptedMuunKey = recovery.NewPopulateEncryptedMuunKeyAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
@@ -450,20 +450,20 @@ func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// The user should not have an encrypted meen key at this point
-	mayRetrieveEncryptedMeenKey := recovery.NewMayRetrieveEncryptedMeenKeyAction(
+	// The user should not have an encrypted muun key at this point
+	mayRetrieveEncryptedMuunKey := recovery.NewMayRetrieveEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 	)
-	encryptedMeenKeyWithStatus, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.HasNoEncryptedMeenKey {
-		t.Fatal("The user should not have an encrypted meen key at this point.")
+	if encryptedMuunKeyWithStatus.Status != recovery.HasNoEncryptedMuunKey {
+		t.Fatal("The user should not have an encrypted muun key at this point.")
 	}
 
 	err = WaitForCondition(1*time.Second, func() (bool, error) {
-		result, err := walletServer.houstonService.VerifiableMeenKey()
+		result, err := walletServer.houstonService.VerifiableMuunKey()
 		if err != nil {
 			return false, err
 		}
@@ -473,10 +473,10 @@ func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatalf("Timed out: %s", err)
 	}
 
-	// We poll with the PopulateEncryptedMeenKey endpoint simulating a migration
-	_, err = walletServer.PopulateEncryptedMeenKey(
+	// We poll with the PopulateEncryptedMuunKey endpoint simulating a migration
+	_, err = walletServer.PopulateEncryptedMuunKey(
 		context.Background(),
-		api.PopulateEncryptedMeenKeyRequest_builder{
+		api.PopulateEncryptedMuunKeyRequest_builder{
 			RecoveryCodePublicKeyHex: hex.EncodeToString(
 				recoveryCodePublicKey.SerializeCompressed(),
 			),
@@ -486,23 +486,23 @@ func TestVerifiedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	encryptedMeenKeyWithStatus, err = mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err = mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.HasVerifiedEncryptedMeenKey {
-		t.Fatal("The user should have a verified meen key at this point.")
+	if encryptedMuunKeyWithStatus.Status != recovery.HasVerifiedEncryptedMuunKey {
+		t.Fatal("The user should have a verified muun key at this point.")
 	}
 
-	decryptAndAssertDecryptedMeenKeyIsCorrect(
+	decryptAndAssertDecryptedMuunKeyIsCorrect(
 		t,
 		recoveryCodePrivateKey,
-		*encryptedMeenKeyWithStatus.EncryptedMeenKey,
-		meenPublicKey,
+		*encryptedMuunKeyWithStatus.EncryptedMuunKey,
+		muunPublicKey,
 	)
 }
 
-func TestUnverifiedEncryptedMeenKeyForExistingUsers_Integration(t *testing.T) {
+func TestUnverifiedEncryptedMuunKeyForExistingUsers_Integration(t *testing.T) {
 
 	setupKeyValueStorage(t, storage.BuildKVMigrationPlan())
 
@@ -528,7 +528,7 @@ func TestUnverifiedEncryptedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t,
 		userPrivateKey.PublicKey(),
 	)
-	meenPublicKey, err := libwallet.NewHDPublicKeyFromString(
+	muunPublicKey, err := libwallet.NewHDPublicKeyFromString(
 		createFirstSessionOkJson.CosigningPublicKey.Key,
 		createFirstSessionOkJson.CosigningPublicKey.Path,
 		libwallet.Regtest(),
@@ -537,17 +537,17 @@ func TestUnverifiedEncryptedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, meenPublicKey, 0)
-	computeAndStoreEncryptedMeenKeyAction := recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	walletServer.keyProvider = NewMockKeyProvider(userPrivateKey, muunPublicKey, 0)
+	computeAndStoreEncryptedMuunKeyAction := recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
 	)
 	walletServer.finishChallengeSetup = challenge_keys.NewFinishChallengeSetupAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
-	walletServer.populateEncryptedMeenKey = recovery.NewPopulateEncryptedMeenKeyAction(
+	walletServer.populateEncryptedMuunKey = recovery.NewPopulateEncryptedMuunKeyAction(
 		walletServer.houstonService,
 		walletServer.keyValueStorage,
 		walletServer.keyProvider,
@@ -578,22 +578,22 @@ func TestUnverifiedEncryptedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// The user should not have an encrypted meen key at this point
-	mayRetrieveEncryptedMeenKey := recovery.NewMayRetrieveEncryptedMeenKeyAction(
+	// The user should not have an encrypted muun key at this point
+	mayRetrieveEncryptedMuunKey := recovery.NewMayRetrieveEncryptedMuunKeyAction(
 		walletServer.keyValueStorage,
 	)
-	encryptedMeenKeyWithStatus, err := mayRetrieveEncryptedMeenKey.Run()
+	encryptedMuunKeyWithStatus, err := mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.HasNoEncryptedMeenKey {
-		t.Fatal("The user should not have an encrypted meen key at this point.")
+	if encryptedMuunKeyWithStatus.Status != recovery.HasNoEncryptedMuunKey {
+		t.Fatal("The user should not have an encrypted muun key at this point.")
 	}
 
-	// We poll with the PopulateEncryptedMeenKey endpoint simulating a migration
-	_, err = walletServer.PopulateEncryptedMeenKey(
+	// We poll with the PopulateEncryptedMuunKey endpoint simulating a migration
+	_, err = walletServer.PopulateEncryptedMuunKey(
 		context.Background(),
-		api.PopulateEncryptedMeenKeyRequest_builder{
+		api.PopulateEncryptedMuunKeyRequest_builder{
 			RecoveryCodePublicKeyHex: hex.EncodeToString(
 				recoveryCodePublicKey.SerializeCompressed(),
 			),
@@ -603,58 +603,58 @@ func TestUnverifiedEncryptedMeenKeyForExistingUsers_Integration(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	// Now the user should have an unverified encrypted meen key
-	encryptedMeenKeyWithStatus, err = mayRetrieveEncryptedMeenKey.Run()
+	// Now the user should have an unverified encrypted muun key
+	encryptedMuunKeyWithStatus, err = mayRetrieveEncryptedMuunKey.Run()
 	if err != nil {
 		t.Fatal(err)
 	}
-	if encryptedMeenKeyWithStatus.Status != recovery.OnlyHasUnverifiedEncryptedMeenKey {
+	if encryptedMuunKeyWithStatus.Status != recovery.OnlyHasUnverifiedEncryptedMuunKey {
 		t.Fatal("The user should only have an unverified key at this point.")
 	}
 
-	decryptAndAssertDecryptedMeenKeyIsCorrect(
+	decryptAndAssertDecryptedMuunKeyIsCorrect(
 		t,
 		recoveryCodePrivateKey,
-		*encryptedMeenKeyWithStatus.EncryptedMeenKey,
-		meenPublicKey,
+		*encryptedMuunKeyWithStatus.EncryptedMuunKey,
+		muunPublicKey,
 	)
 }
 
-func decryptAndAssertDecryptedMeenKeyIsCorrect(
+func decryptAndAssertDecryptedMuunKeyIsCorrect(
 	t *testing.T,
 	recoveryCodePrivateKey *btcec.PrivateKey,
-	encryptedMeenKey string,
-	expectedMeenPublicKey *libwallet.HDPublicKey,
+	encryptedMuunKey string,
+	expectedMuunPublicKey *libwallet.HDPublicKey,
 ) {
 
-	decryptedMeenPrivateKey, err := encrypted_key_v3.DecryptExtendedKey(
+	decryptedMuunPrivateKey, err := encrypted_key_v3.DecryptExtendedKey(
 		recoveryCodePrivateKey,
-		encryptedMeenKey,
+		encryptedMuunKey,
 		libwallet.Regtest())
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// Comparing meenPublicKey.String() to decryptedMeenKey.PublicKey().String() won't work because
+	// Comparing muunPublicKey.String() to decryptedMuunKey.PublicKey().String() won't work because
 	// we set the parentFingerprint to zero when reconstructing the key.
 	//
 	// We can instead compare the public keys and the chaincodes and also compare the keys after
 	// deriving at some path.
 
-	if !bytes.Equal(expectedMeenPublicKey.Raw(), decryptedMeenPrivateKey.PublicKey().Raw()) {
+	if !bytes.Equal(expectedMuunPublicKey.Raw(), decryptedMuunPrivateKey.PublicKey().Raw()) {
 		t.Fatal("decrypted public key does not match original public key")
 	}
 
-	if !bytes.Equal(expectedMeenPublicKey.ChainCode(), decryptedMeenPrivateKey.ChainCode()) {
+	if !bytes.Equal(expectedMuunPublicKey.ChainCode(), decryptedMuunPrivateKey.ChainCode()) {
 		t.Fatal("decrypted chain code does not match original chain code")
 	}
 
 	somePath := "m/schema:1'/recovery:1'/a:2/b:3/c:5"
-	derivedPrivateKey, err := decryptedMeenPrivateKey.DeriveTo(somePath)
+	derivedPrivateKey, err := decryptedMuunPrivateKey.DeriveTo(somePath)
 	if err != nil {
 		t.Fatal(err)
 	}
-	derivedPublicKey, err := expectedMeenPublicKey.DeriveTo(somePath)
+	derivedPublicKey, err := expectedMuunPublicKey.DeriveTo(somePath)
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -5,13 +5,13 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/meen_progress_bar_bg">
+        android:background="@drawable/muun_progress_bar_bg">
 
     <View
             android:id="@+id/progress"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@drawable/meen_progress_bar_bg"
+            android:background="@drawable/muun_progress_bar_bg"
             tools:layout_width="120dp"
             tools:background="@color/green" />
 

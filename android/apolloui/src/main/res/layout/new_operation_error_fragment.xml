@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MuunButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -57,13 +57,13 @@
                 tools:visibility="visible">
 
             <TextView
-                    style="@style/meen_new_op_error_extras_title"
+                    style="@style/muun_new_op_error_extras_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/new_op_error_required_amount"/>
 
             <TextView
-                    style="@style/meen_new_op_error_extras_body"
+                    style="@style/muun_new_op_error_extras_body"
                     android:id="@+id/insufficient_funds_extras_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -71,13 +71,13 @@
                     tools:text="12345.420006 BTC"/>
 
             <TextView
-                    style="@style/meen_new_op_error_extras_title"
+                    style="@style/muun_new_op_error_extras_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/new_op_error_total_balance"/>
 
             <TextView
-                    style="@style/meen_new_op_error_extras_body"
+                    style="@style/muun_new_op_error_extras_body"
                     android:id="@+id/insufficient_funds_extras_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,12 +89,12 @@
 
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
-            style="@style/meen_button_primary"
+    <io.muun.apollo.presentation.ui.view.MuunButton
+            style="@style/muun_button_primary"
             android:id="@+id/exit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/error_op_action"
             tools:text="Take the red pill" />
 
-</io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MuunButtonLayout>

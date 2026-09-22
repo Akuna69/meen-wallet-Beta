@@ -103,28 +103,28 @@ class KeysRepositoryTest : BaseTest() {
         assertFalse(keysRepository.hasEncryptedBasePrivateKey)
     }
 
-    // -- Encrypted meen key --
+    // -- Encrypted muun key --
 
     @Test
-    fun `should store and retrieve encrypted meen private key`() {
+    fun `should store and retrieve encrypted muun private key`() {
         // Given
-        val expected = "encrypted-meen-private-key-data"
+        val expected = "encrypted-muun-private-key-data"
 
         // When
-        keysRepository.storeEncryptedMeenPrivateKey(expected)
+        keysRepository.storeEncryptedMuunPrivateKey(expected)
 
         // Then
-        val actual = keysRepository.encryptedMeenPrivateKey.toBlocking().first()
+        val actual = keysRepository.encryptedMuunPrivateKey.toBlocking().first()
         assertEquals(expected, actual)
     }
 
     @Test
-    fun `should report encrypted meen private key as present after storing`() {
+    fun `should report encrypted muun private key as present after storing`() {
         // When
-        keysRepository.storeEncryptedMeenPrivateKey("some-data")
+        keysRepository.storeEncryptedMuunPrivateKey("some-data")
 
         // Then
-        assertTrue(keysRepository.hasEncryptedMeenPrivateKey)
+        assertTrue(keysRepository.hasEncryptedMuunPrivateKey)
     }
 
     // -- Challenge keys --
@@ -247,7 +247,7 @@ class KeysRepositoryTest : BaseTest() {
         // Then
         assertFalse(keysRepository.hasBasePrivateKey)
         assertFalse(keysRepository.hasEncryptedBasePrivateKey)
-        assertFalse(keysRepository.hasEncryptedMeenPrivateKey)
+        assertFalse(keysRepository.hasEncryptedMuunPrivateKey)
         assertFalse(keysRepository.hasChallengePublicKey(ChallengeType.PASSWORD))
         assertFalse(keysRepository.hasChallengePublicKey(ChallengeType.RECOVERY_CODE))
         assertFalse(keysRepository.hasChallengePublicKey(ChallengeType.USER_KEY))

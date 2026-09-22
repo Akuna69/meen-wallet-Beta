@@ -15,8 +15,8 @@
         <!-- Keep pre-MDC TextInputLayout look and feel See: https://link.medium.com/NOx9CHPhndb -->
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
 
-        <item name="android:actionBarStyle">@style/MeenActionBarStyle</item>
-        <item name="radioButtonStyle">@style/MeenRadioButtonStyle</item>
+        <item name="android:actionBarStyle">@style/MuunActionBarStyle</item>
+        <item name="radioButtonStyle">@style/MuunRadioButtonStyle</item>
 
     </style>
 
@@ -37,9 +37,9 @@
         <!--<item name="android:windowFullscreen">true</item>-->
     </style>
 
-    <style name="MeenAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
-        <item name="android:windowTitleStyle">@style/MeenAlertDialogTitle</item>
-        <item name="android:buttonStyle">@style/MeenAlertDialogButton</item>
+    <style name="MuunAlertDialog" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowTitleStyle">@style/MuunAlertDialogTitle</item>
+        <item name="android:buttonStyle">@style/MuunAlertDialogButton</item>
         <item name="android:windowMinWidthMinor">90%</item>
         <item name="android:background">@color/dialog_background</item>
         <item name="android:textSize">16sp</item>
@@ -47,7 +47,7 @@
         <item name="android:lineSpacingMultiplier">1.4</item>
     </style>
 
-    <style name="MeenAlertDialogTitle">
+    <style name="MuunAlertDialogTitle">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_primary_color</item>
@@ -55,25 +55,25 @@
         <item name="android:layout_marginBottom">8dp</item>
     </style>
 
-    <style name="MeenAlertDialogButton">
+    <style name="MuunAlertDialogButton">
         <item name="android:textSize">14sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
 
-    <style name="MeenWelcomeDialog" parent="MeenAlertDialog">
+    <style name="MuunWelcomeDialog" parent="MuunAlertDialog">
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:background">@drawable/meen_dialog_border_rounded</item>
+        <item name="android:background">@drawable/muun_dialog_border_rounded</item>
         <!-- Override the windowMinWidthMinor property -->
         <item name="android:windowMinWidthMinor">280dp</item>
     </style>
 
     <!-- ActionBar style -->
-    <style name="MeenActionBarStyle" parent="ThemeOverlay.MaterialComponents.ActionBar">
+    <style name="MuunActionBarStyle" parent="ThemeOverlay.MaterialComponents.ActionBar">
         <item name="titleTextColor">@color/text_primary_color</item>
 
         <item name="selectableItemBackground">?android:selectableItemBackground</item>
         <item name="selectableItemBackgroundBorderless">?android:selectableItemBackground</item>
-        <item name="searchViewStyle">@style/MeenSearchViewStyle</item>
+        <item name="searchViewStyle">@style/MuunSearchViewStyle</item>
 
         <!-- Style search view query hint -->
         <item name="android:textColorHint">@color/text_tertiary_color</item>
@@ -84,7 +84,7 @@
         <item name="android:actionMenuTextColor">@color/blue</item>
     </style>
 
-    <style name="MeenSearchViewStyle" parent="Widget.AppCompat.SearchView">
+    <style name="MuunSearchViewStyle" parent="Widget.AppCompat.SearchView">
         <item name="searchHintIcon">@null</item>
 
         <item name="android:queryBackground">@android:color/transparent</item>
@@ -102,7 +102,7 @@
         <item name="android:textCursorDrawable">@drawable/cursor</item>
     </style>
 
-    <style name="MeenRadioButtonStyle"
+    <style name="MuunRadioButtonStyle"
             parent="Widget.MaterialComponents.CompoundButton.RadioButton">
 
         <item name="android:layout_width">match_parent</item>
@@ -113,14 +113,14 @@
         xml or View constructor. Apparently works if set dynamically via setter.
         So to use this style statically, we put textColor here. -->
         <item name="android:textColor">@color/text_secondary_color</item>
-        <item name="android:textAppearance">@style/MeenRadioButtonTextAppearanceDefault</item>
-        <item name="android:padding">@dimen/meen_screen_margin</item>
+        <item name="android:textAppearance">@style/MuunRadioButtonTextAppearanceDefault</item>
+        <item name="android:padding">@dimen/muun_screen_margin</item>
     </style>
 
-    <style name="MeenRadioButtonTextAppearanceDefault" parent="@android:style/TextAppearance">
+    <style name="MuunRadioButtonTextAppearanceDefault" parent="@android:style/TextAppearance">
     </style>
 
-    <style name="MeenRadioButtonTextAppearanceSelected" parent="@android:style/TextAppearance">
+    <style name="MuunRadioButtonTextAppearanceSelected" parent="@android:style/TextAppearance">
         <!-- BEWARE for some reason android:textAppearance ignores textColor attr when set via
         xml or View constructor. Apparently works if set dynamically via setter. -->
         <item name="android:textSize">16sp</item>
@@ -128,7 +128,7 @@
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="MeenPopupTheme" parent="ThemeOverlay.MaterialComponents.Light">
+    <style name="MuunPopupTheme" parent="ThemeOverlay.MaterialComponents.Light">
         <item name="android:colorBackground">@color/background</item>
     </style>
 
@@ -223,7 +223,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">@dimen/meen_text_size_h1</item>
+        <item name="android:textSize">@dimen/muun_text_size_h1</item>
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
@@ -326,60 +326,60 @@
         <item name="android:imeOptions">actionNext</item>
     </style>
 
-    <style name="base_meen_text">
+    <style name="base_muun_text">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textStyle">normal</item>
     </style>
 
-    <style name="meen_text_h1" parent="base_meen_text">
-        <item name="android:textSize">@dimen/meen_text_size_h1</item>
+    <style name="muun_text_h1" parent="base_muun_text">
+        <item name="android:textSize">@dimen/muun_text_size_h1</item>
         <item name="android:textColor">@color/text_primary_color</item>
         <item name="android:letterSpacing">0.03</item>
         <item name="android:lineSpacingExtra">4sp</item>
     </style>
 
-    <style name="meen_text_h2" parent="base_meen_text">
-        <item name="android:textSize">@dimen/meen_text_size_h2</item>
+    <style name="muun_text_h2" parent="base_muun_text">
+        <item name="android:textSize">@dimen/muun_text_size_h2</item>
         <item name="android:textColor">@color/text_primary_color</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
-    <style name="meen_text_body" parent="base_meen_text">
-        <item name="android:textSize">@dimen/meen_text_size_body</item>
+    <style name="muun_text_body" parent="base_muun_text">
+        <item name="android:textSize">@dimen/muun_text_size_body</item>
         <item name="android:textColor">@color/text_secondary_color</item>
         <item name="android:letterSpacing">0.03</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
-    <style name="meen_new_operation_label_text" parent="base_meen_text">
+    <style name="muun_new_operation_label_text" parent="base_muun_text">
         <item name="android:textSize">16sp</item>
-        <item name="android:padding">@dimen/meen_screen_margin</item>
+        <item name="android:padding">@dimen/muun_screen_margin</item>
         <item name="android:textColor">@color/text_secondary_color</item>
         <item name="android:letterSpacing">0.03</item>
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
-    <style name="meen_new_operation_label_text_strong" parent="meen_new_operation_label_text">
+    <style name="muun_new_operation_label_text_strong" parent="muun_new_operation_label_text">
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
 
-    <style name="meen_new_operation_separator">
+    <style name="muun_new_operation_separator">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/meen_new_operation_separator</item>
+        <item name="android:background">@color/muun_new_operation_separator</item>
     </style>
 
-    <style name="meen_ek_save_separator">
+    <style name="muun_ek_save_separator">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1dp</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_marginBottom">2dp</item>
-        <item name="android:background">@color/meen_ek_save_separator</item>
+        <item name="android:background">@color/muun_ek_save_separator</item>
     </style>
 
-    <style name="meen_button_internal">
+    <style name="muun_button_internal">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/meen_button_internal_height</item>
+        <item name="android:layout_height">@dimen/muun_button_internal_height</item>
         <item name="android:paddingStart">14dp</item>
         <item name="android:paddingEnd">14dp</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
@@ -388,43 +388,43 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="meen_button_internal_cover">
+    <style name="muun_button_internal_cover">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">@dimen/meen_button_internal_height</item>
+        <item name="android:layout_height">@dimen/muun_button_internal_height</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">16dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:textSize">14sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
-        <item name="android:background">@drawable/meen_button_covered_bg</item>
+        <item name="android:background">@drawable/muun_button_covered_bg</item>
     </style>
 
-    <style name="meen_button_floating">
-        <item name="android:background">@drawable/meen_button_floating_bg</item>
+    <style name="muun_button_floating">
+        <item name="android:background">@drawable/muun_button_floating_bg</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:paddingStart">4dp</item>
         <item name="android:paddingEnd">4dp</item>
     </style>
 
-    <style name="meen_button_primary">
-        <item name="android:background">@drawable/meen_button_primary_bg</item>
-        <item name="android:textColor">@color/meen_button_primary_text_color</item>
+    <style name="muun_button_primary">
+        <item name="android:background">@drawable/muun_button_primary_bg</item>
+        <item name="android:textColor">@color/muun_button_primary_text_color</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="meen_button_secondary">
-        <item name="android:background">@drawable/meen_button_secondary_bg</item>
+    <style name="muun_button_secondary">
+        <item name="android:background">@drawable/muun_button_secondary_bg</item>
         <item name="android:textColor">@color/blue</item>
         <item name="android:fontFamily">sans-serif-medium</item>
     </style>
 
-    <style name="meen_card">
+    <style name="muun_card">
         <item name="android:background">@drawable/round_rect_background</item>
         <item name="android:padding">16dp</item>
     </style>
 
-    <style name="meen_item">
+    <style name="muun_item">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center_vertical</item>
@@ -435,27 +435,27 @@
         <item name="android:background">?attr/selectableItemBackground</item>
     </style>
 
-    <style name="meen_item_title" parent="meen_item_title_base">
+    <style name="muun_item_title" parent="muun_item_title_base">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/text_primary_color</item>
     </style>
 
-    <style name="meen_item_subtitle" parent="meen_item_title_base">
+    <style name="muun_item_subtitle" parent="muun_item_title_base">
         <item name="android:paddingTop">3dp</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/text_secondary_color</item>
     </style>
 
-    <style name="meen_item_title_badge" parent="meen_item_badge_base">
+    <style name="muun_item_title_badge" parent="muun_item_badge_base">
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="meen_item_subtitle_badge" parent="meen_item_badge_base">
+    <style name="muun_item_subtitle_badge" parent="muun_item_badge_base">
         <item name="android:paddingTop">4dp</item>
         <item name="android:textSize">12sp</item>
     </style>
 
-    <style name="meen_item_icon">
+    <style name="muun_item_icon">
         <item name="android:layout_width">48dp</item>
         <item name="android:layout_height">48dp</item>
         <item name="android:layout_marginLeft">4dp</item>
@@ -463,7 +463,7 @@
         <item name="android:scaleType">fitCenter</item>
     </style>
 
-    <style name="meen_item_badge_base">
+    <style name="muun_item_badge_base">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">4dp</item>
@@ -471,7 +471,7 @@
         <item name="android:fontFamily">sans-serif</item>
     </style>
 
-    <style name="meen_item_title_base">
+    <style name="muun_item_title_base">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
@@ -486,25 +486,25 @@
         <item name="android:lineSpacingExtra">8sp</item>
     </style>
 
-    <style name="meen_new_op_error_extras_title">
+    <style name="muun_new_op_error_extras_title">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:textColor">@color/text_secondary_color</item>
     </style>
 
-    <style name="meen_new_op_error_extras_body">
+    <style name="muun_new_op_error_extras_body">
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginBottom">16dp</item>
         <item name="android:textColor">@color/text_primary_color</item>
 
     </style>
 
-    <style name="ShapeAppearanceOverlay.MeenDialogBottomCorners">
-        <item name="cornerSizeBottomLeft">@dimen/meen_welcome_dialog_corner_radius</item>
-        <item name="cornerSizeBottomRight">@dimen/meen_welcome_dialog_corner_radius</item>
+    <style name="ShapeAppearanceOverlay.MuunDialogBottomCorners">
+        <item name="cornerSizeBottomLeft">@dimen/muun_welcome_dialog_corner_radius</item>
+        <item name="cornerSizeBottomRight">@dimen/muun_welcome_dialog_corner_radius</item>
     </style>
 
-    <style name="meen_block_clock_number">
+    <style name="muun_block_clock_number">
         <item name="android:layout_width">20dp</item>
         <item name="android:layout_height">28dp</item>
         <item name="android:layout_marginEnd">5dp</item>

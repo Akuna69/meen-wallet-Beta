@@ -17,7 +17,7 @@ import (
 type SigningExpectations struct {
 	destination string
 	amount      int64
-	change      MeenAddress
+	change      MuunAddress
 	fee         int64
 	alternative bool
 }
@@ -25,7 +25,7 @@ type SigningExpectations struct {
 func NewSigningExpectations(
 	destination string,
 	amount int64,
-	change MeenAddress,
+	change MuunAddress,
 	fee int64,
 	alternative bool,
 ) *SigningExpectations {
@@ -48,7 +48,7 @@ func (e *SigningExpectations) ForAlternativeTransaction() *SigningExpectations {
 	}
 }
 
-type MeenAddress interface {
+type MuunAddress interface {
 	Version() int
 	DerivationPath() string
 	Address() string
@@ -70,7 +70,7 @@ type InputSubmarineSwapV1 interface {
 type InputSubmarineSwapV2 interface {
 	PaymentHash256() []byte
 	UserPublicKey() []byte
-	MeenPublicKey() []byte
+	MuunPublicKey() []byte
 	ServerPublicKey() []byte
 	BlocksForExpiration() int64
 	ServerSignature() []byte
@@ -89,13 +89,13 @@ type InputIncomingSwap interface {
 
 type Input interface {
 	OutPoint() Outpoint
-	Address() MeenAddress
+	Address() MuunAddress
 	UserSignature() []byte
-	MeenSignature() []byte
+	MuunSignature() []byte
 	SubmarineSwapV1() InputSubmarineSwapV1
 	SubmarineSwapV2() InputSubmarineSwapV2
 	IncomingSwap() InputIncomingSwap
-	MeenPublicNonce() []byte
+	MuunPublicNonce() []byte
 }
 
 type PartiallySignedTransaction struct {
@@ -194,7 +194,7 @@ func (p *PartiallySignedTransaction) createPrevOuts(net *Network) ([]*wire.TxOut
 
 func (p *PartiallySignedTransaction) Sign(
 	userKey *HDPrivateKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 ) (*Transaction, error) {
 
 	coins, err := p.coins(userKey.Network)
@@ -203,7 +203,7 @@ func (p *PartiallySignedTransaction) Sign(
 	}
 
 	for i, coin := range coins {
-		err = coin.SignInput(i, p.tx, userKey, meenKey)
+		err = coin.SignInput(i, p.tx, userKey, muunKey)
 		if err != nil {
 			return nil, errors.Errorf("failed to sign input: %w", err)
 		}
@@ -214,7 +214,7 @@ func (p *PartiallySignedTransaction) Sign(
 }
 
 func (p *PartiallySignedTransaction) FullySign(
-	userKey, meenKey *HDPrivateKey,
+	userKey, muunKey *HDPrivateKey,
 ) (*Transaction, error) {
 
 	coins, err := p.coins(userKey.Network)
@@ -223,7 +223,7 @@ func (p *PartiallySignedTransaction) FullySign(
 	}
 
 	for i, coin := range coins {
-		err = coin.FullySignInput(i, p.tx, userKey, meenKey)
+		err = coin.FullySignInput(i, p.tx, userKey, muunKey)
 		if err != nil {
 			return nil, errors.Errorf("failed to sign input: %w", err)
 		}
@@ -235,7 +235,7 @@ func (p *PartiallySignedTransaction) FullySign(
 func (p *PartiallySignedTransaction) Verify(
 	expectations *SigningExpectations,
 	userPublicKey *HDPublicKey,
-	meenPublickKey *HDPublicKey,
+	muunPublickKey *HDPublicKey,
 ) error {
 
 	// TODO: We don't have enough information (yet) to check the inputs are actually ours and they
@@ -384,16 +384,16 @@ func (p *PartiallySignedTransaction) Verify(
 				expectedChange.DerivationPath(), err)
 		}
 
-		derivedMeenKey, err := meenPublickKey.DeriveTo(expectedChange.DerivationPath())
+		derivedMuunKey, err := muunPublickKey.DeriveTo(expectedChange.DerivationPath())
 		if err != nil {
-			return errors.Errorf("failed to derive meen key to change path %v: %w",
+			return errors.Errorf("failed to derive muun key to change path %v: %w",
 				expectedChange.DerivationPath(), err)
 		}
 
 		expectedChangeAddress, err := addresses.Create(
 			expectedChange.Version(),
 			&derivedUserKey.key,
-			&derivedMeenKey.key,
+			&derivedMuunKey.key,
 			expectedChange.DerivationPath(),
 			network.network,
 		)
@@ -463,8 +463,8 @@ func newTransaction(tx *wire.MsgTx) (*Transaction, error) {
 type coin interface {
 	// TODO: these two methods can be collapsed into a single one once we move
 	// it to a submodule and use *hdkeychain.ExtendedKey's for the arguments.
-	SignInput(index int, tx *wire.MsgTx, userKey *HDPrivateKey, meenKey *HDPublicKey) error
-	FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDPrivateKey) error
+	SignInput(index int, tx *wire.MsgTx, userKey *HDPrivateKey, muunKey *HDPublicKey) error
+	FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error
 }
 
 func createCoin(
@@ -506,7 +506,7 @@ func createCoin(
 			Network:       network.network,
 			OutPoint:      outPoint,
 			KeyPath:       keyPath,
-			MeenSignature: input.MeenSignature(),
+			MuunSignature: input.MuunSignature(),
 		}, nil
 	case addresses.V3:
 		return &coinV3{
@@ -514,7 +514,7 @@ func createCoin(
 			OutPoint:      outPoint,
 			KeyPath:       keyPath,
 			Amount:        amount,
-			MeenSignature: input.MeenSignature(),
+			MuunSignature: input.MuunSignature(),
 		}, nil
 	case addresses.V4:
 		return &coinV4{
@@ -522,36 +522,36 @@ func createCoin(
 			OutPoint:      outPoint,
 			KeyPath:       keyPath,
 			Amount:        amount,
-			MeenSignature: input.MeenSignature(),
+			MuunSignature: input.MuunSignature(),
 		}, nil
 	case addresses.V5:
 		var nonce [66]byte
-		copy(nonce[:], input.MeenPublicNonce())
-		var meenPartialSig [32]byte
-		copy(meenPartialSig[:], input.MeenSignature())
+		copy(nonce[:], input.MuunPublicNonce())
+		var muunPartialSig [32]byte
+		copy(muunPartialSig[:], input.MuunSignature())
 		return &coinV5{
 			Network:        network.network,
 			OutPoint:       outPoint,
 			KeyPath:        keyPath,
 			Amount:         amount,
 			UserSessionID:  userNonces.sessionIDs[index],
-			MeenPubNonce:   nonce,
-			MeenPartialSig: meenPartialSig,
+			MuunPubNonce:   nonce,
+			MuunPartialSig: muunPartialSig,
 			SigHashes:      sigHashes,
 		}, nil
 	case addresses.V6:
 		var nonce [66]byte
-		copy(nonce[:], input.MeenPublicNonce())
-		var meenPartialSig [32]byte
-		copy(meenPartialSig[:], input.MeenSignature())
+		copy(nonce[:], input.MuunPublicNonce())
+		var muunPartialSig [32]byte
+		copy(muunPartialSig[:], input.MuunSignature())
 		return &coinV6{
 			Network:        network.network,
 			OutPoint:       outPoint,
 			KeyPath:        keyPath,
 			Amount:         amount,
 			UserSessionID:  userNonces.sessionIDs[index],
-			MeenPubNonce:   nonce,
-			MeenPartialSig: meenPartialSig,
+			MuunPubNonce:   nonce,
+			MuunPartialSig: muunPartialSig,
 			SigHashes:      sigHashes,
 		}, nil
 	case addresses.SubmarineSwapV1:
@@ -581,7 +581,7 @@ func createCoin(
 			Amount:              amount,
 			PaymentHash256:      swap.PaymentHash256(),
 			UserPublicKey:       swap.UserPublicKey(),
-			MeenPublicKey:       swap.MeenPublicKey(),
+			MuunPublicKey:       swap.MuunPublicKey(),
 			ServerPublicKey:     swap.ServerPublicKey(),
 			BlocksForExpiration: swap.BlocksForExpiration(),
 			ServerSignature:     swap.ServerSignature(),
@@ -597,7 +597,7 @@ func createCoin(
 		}
 		return &coinIncomingSwap{
 			Network:             network.network,
-			MeenSignature:       input.MeenSignature(),
+			MuunSignature:       input.MuunSignature(),
 			Sphinx:              swap.Sphinx(),
 			HtlcTx:              swap.HtlcTx(),
 			PaymentHash256:      swap.PaymentHash256(),

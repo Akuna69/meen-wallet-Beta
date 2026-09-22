@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MuunButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,7 +11,7 @@
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/meen_screen_margin"
+                android:padding="@dimen/muun_screen_margin"
                 android:orientation="vertical">
 
             <TextView
@@ -24,7 +24,7 @@
                     android:id="@+id/enter_email_explanation"
                     android:text="@string/login_email_explanation" />
 
-            <io.muun.apollo.presentation.ui.view.MeenTextInput
+            <io.muun.apollo.presentation.ui.view.MuunTextInput
                     android:id="@+id/enter_email_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -37,17 +37,17 @@
         </LinearLayout>
     </ScrollView>
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
-            style="@style/meen_button_secondary"
+    <io.muun.apollo.presentation.ui.view.MuunButton
+            style="@style/muun_button_secondary"
             android:id="@+id/enter_email_use_rc_only"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/recover_with_recovery_code" />
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
-            style="@style/meen_button_primary"
+    <io.muun.apollo.presentation.ui.view.MuunButton
+            style="@style/muun_button_primary"
             android:id="@+id/enter_email_action"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/login_email_action" />
-</io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MuunButtonLayout>

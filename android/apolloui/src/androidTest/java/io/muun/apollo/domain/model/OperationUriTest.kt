@@ -86,7 +86,7 @@ class OperationUriTest : BaseUnitTest() {
         uri = OperationUri.fromString("BiTCoIN:$address?amount=1.2")
         assertTrue(uri.isBitcoin)
         assertEquals(address, uri.bitcoinAddress.get())
-        assertEquals("1.2", uri.getParam(OperationUri.MEEN_AMOUNT).get())
+        assertEquals("1.2", uri.getParam(OperationUri.MUUN_AMOUNT).get())
 
         // test case with data from recent incident
         val fee = 8
@@ -101,68 +101,68 @@ class OperationUriTest : BaseUnitTest() {
 
         // btcUriWithAmountAndCurrencyAndBolt11InvoiceParam
         val unifiedQrUri = OperationUri.fromString(
-            "meen:$address?amount=0.000001&currency=btc&lightning=$invoice100Sat"
+            "muun:$address?amount=0.000001&currency=btc&lightning=$invoice100Sat"
         )
         assertEquals(address, unifiedQrUri.bitcoinAddress.get())
-        assertEquals("0.000001", unifiedQrUri.getParam(OperationUri.MEEN_AMOUNT).get())
-        assertEquals("btc", unifiedQrUri.getParam(OperationUri.MEEN_CURRENCY).get())
-        assertEquals(invoice100Sat, unifiedQrUri.getParam(OperationUri.MEEN_LN_INVOICE).get())
+        assertEquals("0.000001", unifiedQrUri.getParam(OperationUri.MUUN_AMOUNT).get())
+        assertEquals("btc", unifiedQrUri.getParam(OperationUri.MUUN_CURRENCY).get())
+        assertEquals(invoice100Sat, unifiedQrUri.getParam(OperationUri.MUUN_LN_INVOICE).get())
     }
 
     @Test
-    fun fromStringWithMeenUri() {
+    fun fromStringWithMuunUri() {
 
-        checkMeenUrisFor(legacyAddress)
-        checkMeenUrisFor(bech32Address)
-        checkMeenUrisFor(taprootAddress)
+        checkMuunUrisFor(legacyAddress)
+        checkMuunUrisFor(bech32Address)
+        checkMuunUrisFor(taprootAddress)
 
-        val lnUri = OperationUri.fromString("meen:$invoice")
+        val lnUri = OperationUri.fromString("muun:$invoice")
         assertTrue(lnUri.isLn)
         assertEquals(invoice, lnUri.lnInvoice.get())
 
-        val uri = OperationUri.fromString("meen:$lnUrl")
+        val uri = OperationUri.fromString("muun:$lnUrl")
         assertFalse(uri.isLn)
         assertEquals(lnUrl, uri.lnUrl.get())
     }
 
-    private fun checkMeenUrisFor(address: String) {
-        val btcUriWithoutAmount = OperationUri.fromString("meen:$address")
+    private fun checkMuunUrisFor(address: String) {
+        val btcUriWithoutAmount = OperationUri.fromString("muun:$address")
         assertTrue(btcUriWithoutAmount.isBitcoin)
         assertEquals(address, btcUriWithoutAmount.bitcoinAddress.get())
 
-        val btcUriEdgeCase = OperationUri.fromString("meen:$address?")
+        val btcUriEdgeCase = OperationUri.fromString("muun:$address?")
         assertTrue(btcUriEdgeCase.isBitcoin)
         assertEquals(address, btcUriEdgeCase.bitcoinAddress.get())
 
-        val btcUriWithAmount = OperationUri.fromString("meen:$address?amount=1.2")
+        val btcUriWithAmount = OperationUri.fromString("muun:$address?amount=1.2")
         assertTrue(btcUriWithAmount.isBitcoin)
         assertEquals(address, btcUriWithAmount.bitcoinAddress.get())
-        assertEquals("1.2", btcUriWithAmount.getParam(OperationUri.MEEN_AMOUNT).get())
+        assertEquals("1.2", btcUriWithAmount.getParam(OperationUri.MUUN_AMOUNT).get())
 
         var btcUriWithAmountAndCurrency = OperationUri.fromString(
-            "meen:$address?amount=1.2&currency=BTC"
+            "muun:$address?amount=1.2&currency=BTC"
         )
         assertTrue(btcUriWithAmountAndCurrency.isBitcoin)
         assertEquals(address, btcUriWithAmountAndCurrency.bitcoinAddress.get())
-        assertEquals("1.2", btcUriWithAmountAndCurrency.getParam(OperationUri.MEEN_AMOUNT).get())
-        assertEquals("BTC", btcUriWithAmountAndCurrency.getParam(OperationUri.MEEN_CURRENCY).get())
+        assertEquals("1.2", btcUriWithAmountAndCurrency.getParam(OperationUri.MUUN_AMOUNT).get())
+        assertEquals("BTC", btcUriWithAmountAndCurrency.getParam(OperationUri.MUUN_CURRENCY).get())
 
         btcUriWithAmountAndCurrency = OperationUri.fromString(
-            "meen:$address?amount=1.2&currency=btc"
+            "muun:$address?amount=1.2&currency=btc"
         )
         assertTrue(btcUriWithAmountAndCurrency.isBitcoin)
         assertEquals(address, btcUriWithAmountAndCurrency.bitcoinAddress.get())
-        assertEquals("1.2", btcUriWithAmountAndCurrency.getParam(OperationUri.MEEN_AMOUNT).get())
-        assertEquals("btc", btcUriWithAmountAndCurrency.getParam(OperationUri.MEEN_CURRENCY).get())
+        assertEquals("1.2", btcUriWithAmountAndCurrency.getParam(OperationUri.MUUN_AMOUNT).get())
+        assertEquals("btc", btcUriWithAmountAndCurrency.getParam(OperationUri.MUUN_CURRENCY).get())
 
         // btcUriWithAmountAndCurrencyAndBolt11InvoiceParam
         val unifiedQrUri = OperationUri.fromString(
-            "meen:$address?amount=0.000001&currency=btc&lightning=$invoice100Sat"
+            "muun:$address?amount=0.000001&currency=btc&lightning=$invoice100Sat"
         )
         assertEquals(address, unifiedQrUri.bitcoinAddress.get())
-        assertEquals("0.000001", unifiedQrUri.getParam(OperationUri.MEEN_AMOUNT).get())
-        assertEquals("btc", unifiedQrUri.getParam(OperationUri.MEEN_CURRENCY).get())
-        assertEquals(invoice100Sat, unifiedQrUri.getParam(OperationUri.MEEN_LN_INVOICE).get())
+        assertEquals("0.000001", unifiedQrUri.getParam(OperationUri.MUUN_AMOUNT).get())
+        assertEquals("btc", unifiedQrUri.getParam(OperationUri.MUUN_CURRENCY).get())
+        assertEquals(invoice100Sat, unifiedQrUri.getParam(OperationUri.MUUN_LN_INVOICE).get())
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -172,7 +172,7 @@ class OperationUriTest : BaseUnitTest() {
 
     @Test(expected = IllegalArgumentException::class)
     fun fromMalformed2() {
-        OperationUri.fromString("lighting:meen:$invoice")
+        OperationUri.fromString("lighting:muun:$invoice")
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -182,7 +182,7 @@ class OperationUriTest : BaseUnitTest() {
 
     @Test(expected = IllegalArgumentException::class)
     fun fromMalformed4() {
-        OperationUri.fromString("lighting:meen:$lnUrl")
+        OperationUri.fromString("lighting:muun:$lnUrl")
     }
 
     @Test(expected = IllegalArgumentException::class)
@@ -208,6 +208,6 @@ class OperationUriTest : BaseUnitTest() {
         assertTrue(uri.isBitcoin)
     }
 
-    // TODO: What about bitcoin:<LNURL> or meen:<LNURL>??
-    // TODO: What about meen:<bitcoinUri>? E.g meen:bitcoin:<address>
+    // TODO: What about bitcoin:<LNURL> or muun:<LNURL>??
+    // TODO: What about muun:<bitcoinUri>? E.g muun:bitcoin:<address>
 }

@@ -10,7 +10,7 @@ public class PublicKeyTriple {
 
     private final PublicKey userPublicKey;
 
-    private final PublicKey meenPublicKey;
+    private final PublicKey muunPublicKey;
 
     private final PublicKey swapServerPublicKey;
 
@@ -19,11 +19,11 @@ public class PublicKeyTriple {
      */
     public PublicKeyTriple(
             PublicKey userPublicKey,
-            PublicKey meenPublicKey,
+            PublicKey muunPublicKey,
             PublicKey swapServerPublicKey
     ) {
         this.userPublicKey = userPublicKey;
-        this.meenPublicKey = meenPublicKey;
+        this.muunPublicKey = muunPublicKey;
         this.swapServerPublicKey = swapServerPublicKey;
 
         checkDerivationPaths();
@@ -34,8 +34,8 @@ public class PublicKeyTriple {
         return userPublicKey;
     }
 
-    public PublicKey getMeenPublicKey() {
-        return meenPublicKey;
+    public PublicKey getMuunPublicKey() {
+        return muunPublicKey;
     }
 
     public PublicKey getSwapServerPublicKey() {
@@ -69,7 +69,7 @@ public class PublicKeyTriple {
 
         return new PublicKeyTriple(
                 userPublicKey.deriveFromAbsolutePath(absolutePath),
-                meenPublicKey.deriveFromAbsolutePath(absolutePath),
+                muunPublicKey.deriveFromAbsolutePath(absolutePath),
                 swapServerPublicKey.deriveFromAbsolutePath(absolutePath)
         );
     }
@@ -97,7 +97,7 @@ public class PublicKeyTriple {
     public PublicKeyTriple deriveChild(int childIndex) throws KeyDerivationException {
         return new PublicKeyTriple(
                 userPublicKey.deriveChild(childIndex),
-                meenPublicKey.deriveChild(childIndex),
+                muunPublicKey.deriveChild(childIndex),
                 swapServerPublicKey.deriveChild(childIndex)
         );
     }
@@ -109,7 +109,7 @@ public class PublicKeyTriple {
      */
     @VisibleForTesting
     public PublicKeyPair toPair() {
-        return new PublicKeyPair(userPublicKey, meenPublicKey);
+        return new PublicKeyPair(userPublicKey, muunPublicKey);
     }
 
     /**
@@ -127,7 +127,7 @@ public class PublicKeyTriple {
                 derivationPath.equals(userPublicKey.getAbsoluteDerivationPath())
         );
         Preconditions.checkArgument(
-                derivationPath.equals(meenPublicKey.getAbsoluteDerivationPath())
+                derivationPath.equals(muunPublicKey.getAbsoluteDerivationPath())
         );
         Preconditions.checkArgument(
                 derivationPath.equals(swapServerPublicKey.getAbsoluteDerivationPath())
@@ -137,10 +137,10 @@ public class PublicKeyTriple {
 
     private void checkNetworkParameters() {
         final NetworkParameters userNetwork = userPublicKey.getNetworkParameters();
-        final NetworkParameters meenNetwork = meenPublicKey.getNetworkParameters();
+        final NetworkParameters muunNetwork = muunPublicKey.getNetworkParameters();
         final NetworkParameters swapServerNetwork = swapServerPublicKey.getNetworkParameters();
 
-        Preconditions.checkArgument(userNetwork.equals(meenNetwork));
-        Preconditions.checkArgument(meenNetwork.equals(swapServerNetwork));
+        Preconditions.checkArgument(userNetwork.equals(muunNetwork));
+        Preconditions.checkArgument(muunNetwork.equals(swapServerNetwork));
     }
 }

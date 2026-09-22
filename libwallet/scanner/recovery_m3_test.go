@@ -15,7 +15,7 @@ import (
 // validates that, given only
 //
 //   - Recovery Code
-//   - EKit keys (user + meen)
+//   - EKit keys (user + muun)
 //   - an in-app generated address
 //
 // a user can recover the funds held on an M3 address by talking to bitcoin core directly through an
@@ -24,12 +24,12 @@ import (
 // The crucial difference with the 2-of-2 schemes (V2/V3/V4/V6) is the spending path. An M3 address
 // has two ways to spend:
 //
-//   - collaborative (3-of-3): user + meen + lightning peer.
-//   - non-collaborative (2-of-2 + relative timelock): user + meen + older(N).
+//   - collaborative (3-of-3): user + muun + lightning peer.
+//   - non-collaborative (2-of-2 + relative timelock): user + muun + older(N).
 //
 // A recovering user never has the lightning peer key, so recovery MUST go through the
 // non-collaborative path: the descriptor carries the peer's PUBLIC key only, so bitcoin core can
-// satisfy the input solely via the timelocked user+meen branch once the UTXO matures.
+// satisfy the input solely via the timelocked user+muun branch once the UTXO matures.
 //
 // This test depends on regtest-musig, that container will be up for this test on CI but not on local
 // envs. If you want to run it locally use `docker compose up regtest-musig`.
@@ -38,7 +38,7 @@ func TestM3KitToBtcCore_Integration(t *testing.T) {
 	const (
 		// Same EKit fixtures as recovery_test.go.
 		encodedUserKey = "Fw11jm3oFyL4EEo8tZHpvApSdQ9DkCspVuxG7ZmH9ziTkfFkfpBg9itmFwwmi5GTekvaEwyghJG2phyBJkW4DkqKNqdZx1DRDCmL3s2PuyhticTA8pgfraQo26kLW9zrKVES2pvfgygHms1y" //nolint:lll
-		encodedMeenKey = "FvGKMF7cr7mTTF44ZHohs9M7Fh3L5LuUBnDjqJM8kBxuCnYz28i3cjKLEavim2wviGfH95LVBjuxwipbiTyBzDJWwMrQfTG8hq5X144rDeetHHAyGsXBDiyNFWxwN1u6qfQWH9bcC9TGNp6M" //nolint:lll
+		encodedMuunKey = "FvGKMF7cr7mTTF44ZHohs9M7Fh3L5LuUBnDjqJM8kBxuCnYz28i3cjKLEavim2wviGfH95LVBjuxwipbiTyBzDJWwMrQfTG8hq5X144rDeetHHAyGsXBDiyNFWxwN1u6qfQWH9bcC9TGNp6M" //nolint:lll
 		recoveryCode   = "LAWN-AXNA-RQ8K-APEA-JKW5-BT2Y-QH75-DRQM"
 
 		// Small relative timelock so the timelocked UTXOs mature within the test instead of the
@@ -67,7 +67,7 @@ func TestM3KitToBtcCore_Integration(t *testing.T) {
 	}
 
 	// MARK: - Step 2: Decrypt keys
-	userKey, meenKey := decryptMeenKeys(t, encodedUserKey, encodedMeenKey, recoveryCode, nil)
+	userKey, muunKey := decryptMuunKeys(t, encodedUserKey, encodedMuunKey, recoveryCode, nil)
 
 	// The lightning peer is a third party. For recovery we only ever need its PUBLIC key.
 	peerKey := newPeerKey(t)
@@ -77,7 +77,7 @@ func TestM3KitToBtcCore_Integration(t *testing.T) {
 	userWalletRPC := loadM3Wallet(
 		t,
 		userKey,
-		meenKey,
+		muunKey,
 		peerKey,
 		nonCollaborativeTimelock,
 		walletDescriptors,
@@ -89,7 +89,7 @@ func TestM3KitToBtcCore_Integration(t *testing.T) {
 	fundedAddresses := fundM3Addresses(
 		t,
 		userKey,
-		meenKey,
+		muunKey,
 		peerKey,
 		daemonRPC,
 		nonCollaborativeTimelock,
@@ -107,7 +107,7 @@ func TestM3KitToBtcCore_Integration(t *testing.T) {
 	userWalletStateBeforeSpendAllFunds := getWalletState(t, userWalletRPC)
 
 	// MARK: - Step 6: Spend all funds via the non-collaborative path
-	// The wallet lacks the peer key, so core spends the timelocked user+meen branch of every UTXO.
+	// The wallet lacks the peer key, so core spends the timelocked user+muun branch of every UTXO.
 	txID := spendAllFundsWithTimelockSequence(t, userWalletRPC, daemonRPC, nonCollaborativeTimelock)
 
 	// MARK: - Step 7: Validate transaction
@@ -142,10 +142,10 @@ type m3WalletDescriptor struct {
 }
 
 // loadM3Wallet creates a fresh descriptor wallet and imports every M3 descriptor
-// (user+meen xprivs, peer xpub).
+// (user+muun xprivs, peer xpub).
 func loadM3Wallet(
 	t *testing.T,
-	userKey, meenKey, peerKey *libwallet.HDPrivateKey,
+	userKey, muunKey, peerKey *libwallet.HDPrivateKey,
 	blocksForExpiration int64,
 	walletDescriptors []m3WalletDescriptor,
 ) *rpcclient.Client {
@@ -156,7 +156,7 @@ func loadM3Wallet(
 		descriptor := fmt.Sprintf(
 			desc.template,
 			userKey.String(),
-			meenKey.String(),
+			muunKey.String(),
 			peerKey.PublicKey().String(),
 			blocksForExpiration,
 		)
@@ -175,11 +175,11 @@ func loadM3Wallet(
 // what it funded.
 func fundM3Addresses(
 	t *testing.T,
-	userKey, meenKey, peerKey *libwallet.HDPrivateKey,
+	userKey, muunKey, peerKey *libwallet.HDPrivateKey,
 	daemonRPC *rpcclient.Client,
 	blocksForExpiration int64,
 ) []AddressWithBalance {
-	addresses := generateM3Addresses(t, userKey, meenKey, peerKey, blocksForExpiration)
+	addresses := generateM3Addresses(t, userKey, muunKey, peerKey, blocksForExpiration)
 	var fundedAddresses []AddressWithBalance
 
 	for _, addr := range addresses {
@@ -200,20 +200,20 @@ func fundM3Addresses(
 // tree.
 func generateM3Addresses(
 	t *testing.T,
-	userKey, meenKey, peerKey *libwallet.HDPrivateKey,
+	userKey, muunKey, peerKey *libwallet.HDPrivateKey,
 	blocksForExpiration int64,
-) []libwallet.MeenAddress {
+) []libwallet.MuunAddress {
 	derivationPaths := []string{"m/0/0", "m/1/0"}
 
-	var addresses []libwallet.MeenAddress
+	var addresses []libwallet.MuunAddress
 	for _, path := range derivationPaths {
 		derivedUserKey, err := userKey.PublicKey().DeriveTo(path)
 		if err != nil {
 			t.Fatalf("Failed to derive user key at %s: %v", path, err)
 		}
-		derivedMeenKey, err := meenKey.PublicKey().DeriveTo(path)
+		derivedMuunKey, err := muunKey.PublicKey().DeriveTo(path)
 		if err != nil {
-			t.Fatalf("Failed to derive meen key at %s: %v", path, err)
+			t.Fatalf("Failed to derive muun key at %s: %v", path, err)
 		}
 		derivedPeerKey, err := peerKey.PublicKey().DeriveTo(path)
 		if err != nil {
@@ -221,25 +221,25 @@ func generateM3Addresses(
 		}
 
 		addrV7, err := libwallet.CreateAddressV7(
-			derivedUserKey, derivedMeenKey, derivedPeerKey, blocksForExpiration,
+			derivedUserKey, derivedMuunKey, derivedPeerKey, blocksForExpiration,
 		)
 		if err != nil {
 			t.Fatalf("Failed to create V7 address at %s: %v", path, err)
 		}
 		addrV8, err := libwallet.CreateAddressV8(
-			derivedUserKey, derivedMeenKey, derivedPeerKey, blocksForExpiration,
+			derivedUserKey, derivedMuunKey, derivedPeerKey, blocksForExpiration,
 		)
 		if err != nil {
 			t.Fatalf("Failed to create V8 address at %s: %v", path, err)
 		}
 		addrV9, err := libwallet.CreateAddressV9(
-			derivedUserKey, derivedMeenKey, derivedPeerKey, blocksForExpiration,
+			derivedUserKey, derivedMuunKey, derivedPeerKey, blocksForExpiration,
 		)
 		if err != nil {
 			t.Fatalf("Failed to create V9 address at %s: %v", path, err)
 		}
 
-		for _, addr := range []libwallet.MeenAddress{addrV7, addrV8, addrV9} {
+		for _, addr := range []libwallet.MuunAddress{addrV7, addrV8, addrV9} {
 			addresses = append(addresses, addr)
 			t.Logf("Generated V%d (%s): %s", addr.Version(), addr.DerivationPath(), addr.Address())
 		}

@@ -74,7 +74,7 @@ static def configExternalLinks(productFlavor, String host) {
     String confirmAccountDeletionPath = "/link/confirm-account-deletion/index.html"
 
     // Required for AndroidManifest:
-    productFlavor.resValue "string", "meen_link_host", host
+    productFlavor.resValue "string", "muun_link_host", host
     productFlavor.resValue "string", "verify_link_path", verifyPath
     productFlavor.resValue "string", "authorize_link_path", authorizePath
     productFlavor.resValue "string", "confirm_link_path", changePasswdPath
@@ -82,7 +82,7 @@ static def configExternalLinks(productFlavor, String host) {
     productFlavor.resValue "string", "confirm_account_deletion_path", confirmAccountDeletionPath
 
     // Required for code access in action layer:
-    productFlavor.buildConfigField "String", "MEEN_LINK_HOST", quote(host)
+    productFlavor.buildConfigField "String", "MUUN_LINK_HOST", quote(host)
     productFlavor.buildConfigField "String", "VERIFY_LINK_PATH", quote(verifyPath)
     productFlavor.buildConfigField "String", "AUTHORIZE_LINK_PATH", quote(authorizePath)
     productFlavor.buildConfigField "String", "CONFIRM_LINK_PATH", quote(changePasswdPath)
@@ -194,7 +194,7 @@ android {
         local {
             // naming
             applicationIdSuffix ".debug"
-            resValue "string", "app_name", "Meen (local)"
+            resValue "string", "app_name", "Muun (local)"
 
             // external link configuration
             // This picks up our local links with localhost:8000 (local houston) while
@@ -216,7 +216,7 @@ android {
         regtest {
             // naming
             applicationIdSuffix ".regtest"
-            resValue "string", "app_name", "Meen (regtest-remote)"
+            resValue "string", "app_name", "Muun (regtest-remote)"
 
             // external link configuration
             configExternalLinks(owner, "dev.muun.io")
@@ -235,7 +235,7 @@ android {
 
         prod {
             // naming
-            resValue "string", "app_name", "Meen"
+            resValue "string", "app_name", "Muun"
 
             // external link configuration
             configExternalLinks(owner, "muun.com")
@@ -263,7 +263,7 @@ android {
             // Note: if we ever change smth about this suffix our CI/CD needs to patched
             versionNameSuffix "-" + commitTag()
             applicationIdSuffix ".internal.beta"
-            resValue "string", "app_name", "Meen (Dogfood)"
+            resValue "string", "app_name", "Muun (Dogfood)"
 
             // external link configuration
             configExternalLinks(owner, "muun.com")

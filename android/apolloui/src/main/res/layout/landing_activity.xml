@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.muun.apollo.presentation.ui.view.MeenButtonLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.muun.apollo.presentation.ui.view.MuunButtonLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -49,8 +49,8 @@
                     android:text="@string/slogan_second_line" />
         </LinearLayout>
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_secondary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_secondary"
                 android:id="@+id/recover_wallet_button"
                 android:layout_marginBottom="8dp"
                 android:layout_height="wrap_content"
@@ -61,8 +61,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/create_wallet_button" />
 
-        <io.muun.apollo.presentation.ui.view.MeenButton
-                style="@style/meen_button_primary"
+        <io.muun.apollo.presentation.ui.view.MuunButton
+                style="@style/muun_button_primary"
                 android:id="@+id/create_wallet_button"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
@@ -73,4 +73,4 @@
                 app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</io.muun.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MuunButtonLayout>

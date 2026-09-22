@@ -338,9 +338,9 @@ func decode(qr string) (*url.URL, error) {
 		}
 		toParse = u.Query().Get("lightning")
 	} else {
-		// Remove meen: prefix, including the :// version for iOS
-		qr = strings.Replace(qr, "meen://", "", 1)
-		qr = strings.Replace(qr, "meen:", "", 1)
+		// Remove muun: prefix, including the :// version for iOS
+		qr = strings.Replace(qr, "muun://", "", 1)
+		qr = strings.Replace(qr, "muun:", "", 1)
 
 		// Use a consistent prefix
 		if !strings.HasPrefix(strings.ToLower(qr), "lightning:") {

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MeenInputSubmarineSwapV102Json {
+public class MuunInputSubmarineSwapV102Json {
 
     @NotNull
     public String swapPaymentHash256Hex;
@@ -17,7 +17,7 @@ public class MeenInputSubmarineSwapV102Json {
     public String userPublicKeyHex;
 
     @NotNull
-    public String meenPublicKeyHex;
+    public String muunPublicKeyHex;
 
     @NotNull
     public String swapServerPublicKeyHex;
@@ -31,23 +31,23 @@ public class MeenInputSubmarineSwapV102Json {
     /**
      * Json constructor.
      */
-    public MeenInputSubmarineSwapV102Json() {
+    public MuunInputSubmarineSwapV102Json() {
     }
 
     /**
      * Manual constructor.
      */
-    public MeenInputSubmarineSwapV102Json(
+    public MuunInputSubmarineSwapV102Json(
             String swapPaymentHash256Hex,
             String userPublicKeyHex,
-            String meenPublicKeyHex,
+            String muunPublicKeyHex,
             String swapServerPublicKeyHex,
             Integer numBlocksForExpiration,
             @Nullable SignatureJson swapServerSignature) {
 
         this.swapPaymentHash256Hex = swapPaymentHash256Hex;
         this.userPublicKeyHex = userPublicKeyHex;
-        this.meenPublicKeyHex = meenPublicKeyHex;
+        this.muunPublicKeyHex = muunPublicKeyHex;
         this.swapServerPublicKeyHex = swapServerPublicKeyHex;
         this.numBlocksForExpiration = numBlocksForExpiration;
         this.swapServerSignature = swapServerSignature;

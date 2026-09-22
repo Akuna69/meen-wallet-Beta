@@ -10,8 +10,8 @@ import androidx.test.uiautomator.Until
 import io.muun.apollo.R
 import io.muun.apollo.presentation.ui.helper.isBtc
 import io.muun.apollo.utils.SystemCommand
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers.Companion.balanceNotEqualsErrorMessage
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers.Companion.balanceNotEqualsErrorMessage
 import io.muun.common.utils.Preconditions
 import org.assertj.core.api.Assertions.assertThat
 import javax.money.MonetaryAmount
@@ -21,7 +21,7 @@ import kotlin.random.Random
 class HomeScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     val balanceInBtc get() = id(R.id.balance_main_currency_amount).text.toBtcMoney()
 
@@ -31,7 +31,7 @@ class HomeScreen(
 
     fun waitForWelcomeDialog(): Boolean {
         // BIG timeout since sometimes (especially 1st test in suite) initial sync take looooooooong
-        return label(R.string.welcome_to_meen).waitForExists(25000)
+        return label(R.string.welcome_to_muun).waitForExists(25000)
     }
 
     fun waitUntilBalanceEquals(expectedBalance: MonetaryAmount) {
@@ -61,7 +61,7 @@ class HomeScreen(
     }
 
     fun goToReceive() {
-        pressMeenButtonAndWaitForNewWindow(R.id.home_receive_button)
+        pressMuunButtonAndWaitForNewWindow(R.id.home_receive_button)
     }
 
     fun goToSettings() {
@@ -137,14 +137,14 @@ class HomeScreen(
     }
 
     fun goToSend() {
-        pressMeenButtonAndWaitForNewWindow(R.id.home_send_button)
+        pressMuunButtonAndWaitForNewWindow(R.id.home_send_button)
     }
 
     fun goToP2PSetup() {
         goToSend()
 
         // We're using Espresso for this, we hit a roadblock with UiAutomator (can't click spans)
-        onView(withId(R.id.meen_empty_screen_text))
+        onView(withId(R.id.muun_empty_screen_text))
             .perform(clickClickableSpan(R.string.contact_list_empty_clickable_span))
     }
 

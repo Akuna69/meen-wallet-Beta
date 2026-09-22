@@ -15,18 +15,18 @@ import (
 type FinishChallengeSetupAction struct {
 	houstonService                  service.HoustonService
 	keyValueStorage                 *storage.KeyValueStorage
-	computeAndStoreEncryptedMeenKey *recovery.ComputeAndStoreEncryptedMeenKeyAction
+	computeAndStoreEncryptedMuunKey *recovery.ComputeAndStoreEncryptedMuunKeyAction
 }
 
 func NewFinishChallengeSetupAction(
 	houstonService service.HoustonService,
 	keyValueStorage *storage.KeyValueStorage,
-	computeAndStoreEncryptedMeenKey *recovery.ComputeAndStoreEncryptedMeenKeyAction,
+	computeAndStoreEncryptedMuunKey *recovery.ComputeAndStoreEncryptedMuunKeyAction,
 ) *FinishChallengeSetupAction {
 	return &FinishChallengeSetupAction{
 		houstonService,
 		keyValueStorage,
-		computeAndStoreEncryptedMeenKey,
+		computeAndStoreEncryptedMuunKey,
 	}
 }
 
@@ -37,7 +37,7 @@ func (action *FinishChallengeSetupAction) Run(recoveryCodePublicKey *btcec.Publi
 		PublicKey:     hex.EncodeToString(recoveryCodePublicKey.SerializeCompressed()),
 	}
 
-	verifiableMeenKeyJson, err := action.houstonService.ChallengeSetupFinishWithVerifiableMeenKey( //nolint:staticcheck // TODO: var verifiableMeenKeyJson should be verifiableMeenKeyJSON
+	verifiableMuunKeyJson, err := action.houstonService.ChallengeSetupFinishWithVerifiableMuunKey( //nolint:staticcheck // TODO: var verifiableMuunKeyJson should be verifiableMuunKeyJSON
 		challengeSetupVerifyJson,
 	)
 	if err != nil {
@@ -45,13 +45,13 @@ func (action *FinishChallengeSetupAction) Run(recoveryCodePublicKey *btcec.Publi
 	}
 
 	// If an error occurs during verification we log it, but we do not return it.
-	err = action.computeAndStoreEncryptedMeenKey.Run(
+	err = action.computeAndStoreEncryptedMuunKey.Run(
 		recoveryCodePublicKey,
-		&verifiableMeenKeyJson,
+		&verifiableMuunKeyJson,
 	)
 	if err != nil {
 		slog.Error(
-			"An error occurred during encrypted meen key verification",
+			"An error occurred during encrypted muun key verification",
 			slog.Any("error", err),
 		)
 	}

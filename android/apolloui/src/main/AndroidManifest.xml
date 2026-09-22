@@ -95,7 +95,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/meen_link_host"
+                        android:host="@string/muun_link_host"
                         android:path="@string/verify_link_path" />
             </intent-filter>
 
@@ -105,7 +105,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/meen_link_host"
+                        android:host="@string/muun_link_host"
                         android:path="@string/authorize_link_path" />
             </intent-filter>
 
@@ -115,7 +115,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/meen_link_host"
+                        android:host="@string/muun_link_host"
                         android:path="@string/confirm_link_path" />
             </intent-filter>
 
@@ -125,7 +125,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/meen_link_host"
+                        android:host="@string/muun_link_host"
                         android:path="@string/rc_login_authorize_link_path" />
             </intent-filter>
 
@@ -135,7 +135,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data android:scheme="https"
-                        android:host="@string/meen_link_host"
+                        android:host="@string/muun_link_host"
                         android:path="@string/confirm_account_deletion_path" />
             </intent-filter>
 
@@ -184,7 +184,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="meen"/>
+                <data android:scheme="muun"/>
             </intent-filter>
 
         </activity>
@@ -232,7 +232,7 @@
         <activity
                 android:name=".presentation.ui.single_action.SingleActionActivity"
                 android:launchMode="singleTop"
-                android:label="Meen"
+                android:label="Muun"
         />
 
         <!-- V2SingleActionActivity -->
@@ -247,7 +247,7 @@
         <activity
                 android:name=".presentation.ui.debug.DebugPanelActivity"
                 android:parentActivityName=".presentation.ui.home.HomeActivity"
-                android:label="Meen debug panel"
+                android:label="Muun debug panel"
         />
 
         <!-- DebugSecureKeyValueStorageActivity -->
@@ -454,7 +454,7 @@
         <!-- Providers -->
         <provider
                 android:name=".presentation.app.trace.StartupTraceProvider"
-                android:authorities="${applicationId}.meen-tracer"
+                android:authorities="${applicationId}.muun-tracer"
                 android:exported="false">
         </provider>
 

@@ -11,8 +11,8 @@ import (
 type KeyProvider interface {
 	UserPrivateKey() (*libwallet.HDPrivateKey, error)
 	UserPublicKey() (*libwallet.HDPublicKey, error)
-	MeenPublicKey() (*libwallet.HDPublicKey, error)
-	EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error)
+	MuunPublicKey() (*libwallet.HDPublicKey, error)
+	EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error)
 	MaxDerivedIndex() int
 }
 
@@ -52,26 +52,26 @@ func (p *keyProvider) UserPublicKey() (*libwallet.HDPublicKey, error) {
 	return userPrivKey.PublicKey(), nil
 }
 
-func (p *keyProvider) MeenPublicKey() (*libwallet.HDPublicKey, error) {
-	meenKeyData, err := p.keyProvider.FetchMeenKey()
+func (p *keyProvider) MuunPublicKey() (*libwallet.HDPublicKey, error) {
+	muunKeyData, err := p.keyProvider.FetchMuunKey()
 	if err != nil {
 		return nil, err
 	}
 
-	meenKey, err := libwallet.NewHDPublicKeyFromString(
-		meenKeyData.Serialized,
-		meenKeyData.Path,
+	muunKey, err := libwallet.NewHDPublicKeyFromString(
+		muunKeyData.Serialized,
+		muunKeyData.Path,
 		&p.network,
 	)
 	if err != nil {
 		return nil, err
 	}
 
-	return meenKey, nil
+	return muunKey, nil
 }
 
-func (p *keyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
-	encodedKeyData, err := p.keyProvider.FetchEncryptedMeenPrivateKey()
+func (p *keyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
+	encodedKeyData, err := p.keyProvider.FetchEncryptedMuunPrivateKey()
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (p *keyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyI
 	return libwallet.DecodeEncryptedPrivateKey(encodedKeyData)
 }
 
-func (p *keyProvider) DecryptMeenPrivateKey(
+func (p *keyProvider) DecryptMuunPrivateKey(
 	recoveryCode string,
 	encryptedKey *libwallet.EncryptedPrivateKeyInfo,
 	network *libwallet.Network,

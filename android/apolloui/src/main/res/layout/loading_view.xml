@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
-            android:textSize="@dimen/meen_text_size_body"
+            android:textSize="@dimen/muun_text_size_body"
             android:textColor="@color/text_primary_color"
             android:lineSpacingMultiplier="1.4"
             tools:text="Loading something" />

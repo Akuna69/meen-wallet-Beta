@@ -11,9 +11,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingLeft="@dimen/meen_screen_margin"
-            android:paddingRight="@dimen/meen_screen_margin"
-            android:paddingBottom="@dimen/meen_screen_margin">
+            android:paddingLeft="@dimen/muun_screen_margin"
+            android:paddingRight="@dimen/muun_screen_margin"
+            android:paddingBottom="@dimen/muun_screen_margin">
 
         <TextView
                 style="@style/help_screen_title"

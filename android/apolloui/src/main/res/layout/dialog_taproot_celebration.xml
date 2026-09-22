@@ -57,9 +57,9 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <io.muun.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MuunButton
         android:id="@+id/dialog_confirm"
-        style="@style/meen_button_primary"
+        style="@style/muun_button_primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"

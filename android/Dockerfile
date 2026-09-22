@@ -3,7 +3,7 @@
 # Any change made here will affect how the APK is built in the OSS repository (github action)
 # and will impact the reproducible build verification.
 
-FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774 AS meen_android_builder
+FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774 AS muun_android_builder
 
 ENV NDK_VERSION 22.0.7026061
 ENV ANDROID_PLATFORM_VERSION 28
@@ -82,7 +82,7 @@ COPY . /src
 
 RUN TARGETS="$TARGETS" USE_HOST_CARGO=true libwallet/librs/makelibs.sh
 
-FROM meen_android_builder AS build
+FROM muun_android_builder AS build
 
 WORKDIR /src
 COPY . /src

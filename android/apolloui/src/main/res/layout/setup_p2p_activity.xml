@@ -3,17 +3,17 @@
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        xmlns:meen="http://schemas.android.com/apk/res-auto"
+        xmlns:muun="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="top">
 
-    <io.muun.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MuunHeader
             android:id="@+id/setup_p2p_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            meen:elevated="false"
+            muun:elevated="false"
             android:visibility="gone" />
 
     <FrameLayout

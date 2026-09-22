@@ -46,7 +46,7 @@ class ConnectivityInfoProviderTest {
     @Test
     fun internalHostReturnsInternal() {
         assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("local"))
-        assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("meen.local"))
+        assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("muun.local"))
         assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("192.168.1.10"))
         assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("fc12:3456:789a:1::10"))
         assertEquals(AddressesType.INTERNAL.value, provider.classifyHost("fd00:1234:5678::1"))

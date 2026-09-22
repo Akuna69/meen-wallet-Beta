@@ -7,8 +7,8 @@
         android:orientation="vertical"
         android:gravity="center">
 
-    <io.muun.apollo.presentation.ui.view.MeenHeader
-            android:id="@+id/meen_header"
+    <io.muun.apollo.presentation.ui.view.MuunHeader
+            android:id="@+id/muun_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevated="true" />
