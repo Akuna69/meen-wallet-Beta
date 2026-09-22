@@ -32,152 +32,18 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Crear dummy libs y directorios completos de stubs
+    - name: Crear dummy libs y directorios
       run: |
         mkdir -p libwallet/librs/libs
         touch libwallet/librs/libs/x86_64-linux-android-librs.a
         touch libwallet/librs/libs/aarch64-linux-android-librs.a
         touch libwallet/librs/libs/armv7-linux-androideabi-librs.a
         touch libwallet/librs/libs/i686-linux-android-librs.a
-
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/
-        mkdir -p android/apolloui/src/main/java/io/muun/muun/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/domain/errors/
         mkdir -p android/apollo/src/main/java/libwallet/
-        mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
 
-    - name: Generar todos los Stubs y archivos de respaldo automáticamente
+    - name: Generar Libwallet stub
       run: |
-        # 1. Libwallet
-        cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
-        package libwallet
-        object Libwallet { fun initialize() {} }
-        open class Wallet { open fun balance(): Long = 0L }
-        open class BitcoinAmount { open fun inSatoshis(): Long = 0L }
-        EOF_L
-
-        # 2. UserActivatedFeature
-        cat << 'EOF_F' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
-        package io.muun.apollo.domain.model
-        enum class UserActivatedFeature {
-            LIGHTNING_NODE_MANAGEMENT, SWAP_FEATURE, FEE_BUMPING;
-            companion object { val values = entries.toTypedArray() }
-        }
-        EOF_F
-
-        # 3. Globals
-        cat << 'EOF_G' > android/apolloui/src/main/java/io/muun/apollo/presentation/app/GlobalsStubs.kt
-        package io.muun.apollo.presentation.app
-        open class GlobalsImpl { open fun add() {} }
-        interface MuunLinkHost { fun onLinkHandled() {} }
-        EOF_G
-
-        # 4. InAppUpdateManager
-        package io.muun.apollo.presentation.ui.home
-        open class InAppUpdateManager {
-            open fun checkForUpdate() {}
-        }
-        EOF_IAU
-
-        package io.muun.muun
-        object Cause {
-            val logging: Any = Any()
-            val TraceSection: Any = Any()
-            fun cause(block: () -> Unit) {}
-            fun cause(param: Any, block: () -> Unit) {}
-            fun tostacktracelement(): StackTraceElement {
-                return StackTraceElement("", "", "", 0)
-            }
-        }
-        EOF_CAUSE
-
-        # 6. Analytics y Logger de respaldo por si el código los reclama
-        cat << 'EOF_ANA' > android/apolloui/src/main/java/io/muun/apollo/domain/errors/AnalyticsStubs.kt
-        package io.muun.apollo.domain.errors
-        object Analytics {
-            fun report(e: Throwable) {}
-            fun setProperty(key: String, value: String) {}
-        }
-        EOF_ANA
-
-        # 7. Manual Fee
-        cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
-        package io.muun.apollo.presentation.ui.fragments.manual_fee
-        object newop {
-            val EditFeeState = Any()
-            val resolved = Any()
-            val calculatefee = Any()
-            val BitcoinAmount = Any()
-            val minfeekatefortarget = Any()
-        }
-        open class EditFeeState
-        EOF_MF
-
-        # 8. New Op Error
-        cat << 'EOF_NOE' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/NewOpErrorStubs.kt
-        package io.muun.apollo.presentation.ui.new_op_error
-        object newop {
-            val ErrorState = Any()
-            val BalanceErrorState = Any()
-            val totalAmount = Any()
-            val balance = Any()
-            val paymentIntent = Any()
-        }
-        open class ErrorState
-        open class BalanceErrorState
-        EOF_NOE
-
-        # 9. New Operation Stubs y newop.kt
-        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
-        package io.muun.apollo.presentation.ui.new_operation
-        object NewOp {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
-        }
-        open class EnterAmountState
-        open class EnterDescriptionState
-        open class StartState
-        open class ValidateState
-        open class BalanceErrorState
-        open class AbortState
-        open class ConfirmState
-        open class ConfirmLightningState
-        open class ValidateLightningState { open fun onvalidateLightning() {} }
-        EOF_STUBS
-
-        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
-        package io.muun.apollo.presentation.ui.new_operation
-        object newop {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
-        }
-        EOF_NEWOP
+        printf 'package libwallet\n\nobject Libwallet {\n    fun initialize() {}\n}\n\nopen class Wallet {\n    open fun balance(): Long = 0L\n}\n\nopen class BitcoinAmount {\n    open fun inSatoshis(): Long = 0L\n}\n' > android/apollo/src/main/java/libwallet/Libwallet.kt
 
     - name: Dar permisos y compilar con Gradle (Dogfood Debug)
       run: |
