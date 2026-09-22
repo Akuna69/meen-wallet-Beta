@@ -32,16 +32,15 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Limpiar parches duplicados y usar código original de Muun
+    - name: Normalizar referencias de Meen a Muun en archivos Java
       run: |
-        # Eliminar archivos de parche que causaban redeclaración
-        rm -f libwallet/presentation/api/muun_patch.go
-        rm -f libwallet/domain/nfc/muun_nfc_patch.go
-        
-        # Limpiar cualquier adición extra en bip21.go si existiera
-        git checkout libwallet/bip21.go || true
-
-        echo "Código limpio sin duplicados."
+        echo "Buscando y reemplazando referencias conflictivas en Java..."
+        find common/src/main/java -type f -name "*.java" | while read file; do
+          sed -i 's/MeenInputJson/MuunInputJson/g' "$file"
+          sed -i 's/VerifiableMeenKeyJson/VerifiableMuunKeyJson/g' "$file"
+          sed -i 's/MeenEncryptedPrivateKey/MuunEncryptedPrivateKey/g' "$file"
+        done
+        echo "Normalización completada."
 
     - name: Crear dummy libs y directorios de stubs Kotlin
       run: |
