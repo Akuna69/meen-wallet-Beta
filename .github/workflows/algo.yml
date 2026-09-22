@@ -72,21 +72,41 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs en el paquete correcto io.muun.apollo
+    - name: Inyectar Stubs completos con todas las referencias del Presenter
       run: |
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
         cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
 
-        object NewOp
-        
-        object newop {
+        object NewOp {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
             val EnterAmount = EnterAmountState()
             val EnterDescription = EnterDescriptionState()
             val Start = StartState()
             val Validate = ValidateState()
             val BalanceError = BalanceErrorState()
             val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
+        }
+        
+        object newop {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
             val ValidateLightning = ValidateLightningState()
         }
         
@@ -96,6 +116,8 @@ jobs:
         open class ValidateState
         open class BalanceErrorState
         open class AbortState
+        open class ConfirmState
+        open class ConfirmLightningState
         open class ValidateLightningState {
             companion object {
                 fun onValidateLightning(): Any = Any()
