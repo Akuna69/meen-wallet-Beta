@@ -72,7 +72,7 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs Globales para Manual Fee, New Op Error y Globals
+    - name: Inyectar Stubs Completos y Corregidos para New Operation
       run: |
         # Directorios
         mkdir -p android/apollo/src/main/java/libwallet/
@@ -82,7 +82,7 @@ jobs:
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
 
-        # 1. Libwallet extendido
+        # 1. Libwallet
         cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
         package libwallet
 
@@ -99,7 +99,7 @@ jobs:
         }
         EOF_L
 
-        # 2. Modelos de dominio y Feature
+        # 2. Domain model
         cat << 'EOF_F' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
         package io.muun.apollo.domain.model
 
@@ -114,7 +114,7 @@ jobs:
         }
         EOF_F
 
-        # 3. GlobalsImpl y MuunLinkHost simulados
+        # 3. Globals
         cat << 'EOF_G' > android/apolloui/src/main/java/io/muun/apollo/presentation/app/GlobalsStubs.kt
         package io.muun.apollo.presentation.app
 
@@ -127,7 +127,7 @@ jobs:
         }
         EOF_G
 
-        # 4. Stubs para Manual Fee (EditFeeState, resolved, calculatefee, etc.)
+        # 4. Manual Fee
         cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
         package io.muun.apollo.presentation.ui.fragments.manual_fee
 
@@ -142,7 +142,7 @@ jobs:
         open class EditFeeState
         EOF_MF
 
-        # 5. Stubs para New Op Error (ErrorState, paymentIntent, etc.)
+        # 5. New Op Error
         cat << 'EOF_NOE' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/NewOpErrorStubs.kt
         package io.muun.apollo.presentation.ui.new_op_error
 
@@ -158,7 +158,40 @@ jobs:
         open class BalanceErrorState
         EOF_NOE
 
-        # 6. Refuerzo del objeto newop general
+        # 6. New Operation Stubs & States unificados con open fun onvalidateLightning
+        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
+        package io.muun.apollo.presentation.ui.new_operation
+
+        object NewOp {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
+        }
+        
+        open class EnterAmountState
+        open class EnterDescriptionState
+        open class StartState
+        open class ValidateState
+        open class BalanceErrorState
+        open class AbortState
+        open class ConfirmState
+        open class ConfirmLightningState
+        open class ValidateLightningState {
+            open fun onvalidateLightning() {}
+        }
+        EOF_STUBS
+
+        # 7. Objeto newop en minúsculas
         cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
         package io.muun.apollo.presentation.ui.new_operation
 
@@ -167,15 +200,15 @@ jobs:
             val enterDescription: Any = Any()
             val totalbalance: Any = Any()
             val validated: Any = Any()
-            val EnterAmount = Any()
-            val EnterDescription = Any()
-            val Start = Any()
-            val Validate = Any()
-            val BalanceError = Any()
-            val Abort = Any()
-            val Confirm = Any()
-            val ConfirmLightning = Any()
-            val ValidateLightning = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
         }
         EOF_NEWOP
 
