@@ -72,8 +72,12 @@ jobs:
         }
         EOF_JSON
 
-    - name: Asegurar archivo newop global y stubs
+    - name: Limpiar carpetas duplicadas y crear estructura correcta io/muun/apollo
       run: |
+        # Eliminar carpeta duplicada muun/muun si existe
+        rm -rf android/apolloui/src/main/java/io/muun/muun
+        
+        # Crear rutas limpias sin duplicación
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
@@ -190,7 +194,7 @@ jobs:
         }
         EOF_STUBS
 
-        # 7. Objeto newop explícito en minúsculas en la raíz de presentación UI
+        # 7. Objeto newop en minúsculas en la ruta correcta de UI
         cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/newop.kt
         package io.muun.apollo.presentation.ui
 
