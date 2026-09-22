@@ -10,6 +10,6 @@ type KeyData struct {
 type KeyProvider interface {
 	FetchUserKey() (*KeyData, error)
 	FetchMeenKey() (*KeyData, error)
-	FetchEncryptedMuunPrivateKey() (string, error)
+	FetchEncryptedMeenPrivateKey() (string, error)
 	FetchMaxDerivedIndex() int
 }
