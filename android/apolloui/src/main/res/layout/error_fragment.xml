@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.meen.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MeenButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -58,7 +58,7 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             style="@style/meen_button_secondary"
             android:id="@+id/secondary_button"
             android:layout_width="match_parent"
@@ -68,7 +68,7 @@
             tools:visibility="visible"
             tools:text="Take the blue pill" />
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             style="@style/meen_button_primary"
             android:id="@+id/primary_button"
             android:layout_width="match_parent"
@@ -76,4 +76,4 @@
             android:text="@string/error_op_action"
             tools:text="Take the red pill" />
 
-</io.meen.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MeenButtonLayout>

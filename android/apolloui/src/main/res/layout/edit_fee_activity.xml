@@ -9,7 +9,7 @@
         android:orientation="vertical"
         android:gravity="top">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/edit_fee_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

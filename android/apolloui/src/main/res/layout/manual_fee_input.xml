@@ -7,7 +7,7 @@
         android:id="@+id/fee_option_item"
         android:background="@drawable/border_no_selection">
 
-    <io.meen.apollo.presentation.ui.view.MeenEditText
+    <io.muun.apollo.presentation.ui.view.MeenEditText
             android:id="@+id/fee_input"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

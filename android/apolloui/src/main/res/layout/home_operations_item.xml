@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         style="@style/meen_item">
 
-    <io.meen.apollo.presentation.ui.view.ProfilePictureView
+    <io.muun.apollo.presentation.ui.view.ProfilePictureView
             style="@style/meen_item_icon"
             android:id="@+id/image"
             tools:src="@drawable/profile" />

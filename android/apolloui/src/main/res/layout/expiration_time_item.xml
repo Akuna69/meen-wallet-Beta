@@ -41,7 +41,7 @@
             android:gravity="center"
             tools:text="23:59:58"/>
 
-    <io.meen.apollo.presentation.ui.view.LoadingView
+    <io.muun.apollo.presentation.ui.view.LoadingView
             android:id="@+id/expiration_time_loading"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"

@@ -8,7 +8,7 @@ platform :android do
       validate_only: false,
       release_status: "completed",
       json_key: "dogfood-serviceaccount-key.json",
-      package_name: "io.meen.apollo.internal.beta",
+      package_name: "io.muun.apollo.internal.beta",
       track: "internal" # production, beta, alpha, internal
     )
   end

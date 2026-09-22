@@ -57,7 +57,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             android:id="@+id/priming_notifications_enable"
             style="@style/meen_button_primary"
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:text="@string/priming_notifications_enable"/>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             android:id="@+id/priming_notifications_skip"
             style="@style/meen_button_secondary"
             android:layout_width="match_parent"

@@ -6,19 +6,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
         android:id="@+id/select_currency_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         meen:elevated="true" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSettingItem
+    <io.muun.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/bitcoin_unit_btc"
             meen:label="@string/select_bitcoin_unit_btc"
             meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSettingItem
+    <io.muun.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/bitcoin_unit_sat"
             meen:label="@string/select_bitcoin_unit_sat"
             meen:iconTint="@color/blue"

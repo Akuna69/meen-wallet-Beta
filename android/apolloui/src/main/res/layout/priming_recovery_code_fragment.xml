@@ -56,7 +56,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             android:id="@+id/priming_recovery_code_start"
             style="@style/meen_button_primary"
             android:layout_width="match_parent"

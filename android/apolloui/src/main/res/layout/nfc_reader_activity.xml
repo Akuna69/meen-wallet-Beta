@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -14,7 +14,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
-    <io.meen.apollo.presentation.ui.nfc.FeasibleZoneView
+    <io.muun.apollo.presentation.ui.nfc.FeasibleZoneView
             android:id="@+id/nfc_feasible_area_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

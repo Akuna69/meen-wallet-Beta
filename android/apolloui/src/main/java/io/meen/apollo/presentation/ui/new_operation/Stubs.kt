@@ -1,4 +1,4 @@
-package io.meen.apollo.presentation.ui.new_operation
+package io.muun.apollo.presentation.ui.new_operation
 
 // Definiciones de stubs para permitir que la compilación de Kotlin pase con éxito
 

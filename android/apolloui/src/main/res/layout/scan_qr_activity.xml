@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/scan_qr_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,7 +20,7 @@
             meen:layout_constraintBottom_toBottomOf="parent"
             meen:layout_constraintTop_toBottomOf="@id/scan_qr_header">
 
-        <io.meen.apollo.presentation.ui.view.MeenEmptyScreen
+        <io.muun.apollo.presentation.ui.view.MeenEmptyScreen
                 android:id="@+id/empty_screen"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -59,7 +59,7 @@
 
     </FrameLayout>
 
-    <io.meen.apollo.presentation.ui.view.MeenUriPaster
+    <io.muun.apollo.presentation.ui.view.MeenUriPaster
             android:id="@+id/uri_paster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

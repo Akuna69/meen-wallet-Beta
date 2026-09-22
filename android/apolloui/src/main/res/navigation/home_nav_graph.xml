@@ -7,7 +7,7 @@
 
     <fragment
             android:id="@+id/home_fragment"
-            android:name="io.meen.apollo.presentation.ui.fragments.home.HomeFragment"
+            android:name="io.muun.apollo.presentation.ui.fragments.home.HomeFragment"
             android:label="home"
             tools:layout="@layout/fragment_home">
 
@@ -19,19 +19,19 @@
 
     <fragment
             android:id="@+id/security_center_fragment"
-            android:name="io.meen.apollo.presentation.ui.fragments.security_center.SecurityCenterFragment"
+            android:name="io.muun.apollo.presentation.ui.fragments.security_center.SecurityCenterFragment"
             android:label="security"
             tools:layout="@layout/fragment_security_center">
 
         <argument
                 android:name="origin"
-                app:argType="io.meen.apollo.domain.analytics.AnalyticsEvent$SECURITY_CENTER_ORIGIN"
+                app:argType="io.muun.apollo.domain.analytics.AnalyticsEvent$SECURITY_CENTER_ORIGIN"
                 android:defaultValue="SHIELD_BUTTON" />
     </fragment>
 
     <fragment
             android:id="@+id/settings_fragment"
-            android:name="io.meen.apollo.presentation.ui.fragments.settings.SettingsFragment"
+            android:name="io.muun.apollo.presentation.ui.fragments.settings.SettingsFragment"
             android:label="settings"
             tools:layout="@layout/fragment_settings" />
 

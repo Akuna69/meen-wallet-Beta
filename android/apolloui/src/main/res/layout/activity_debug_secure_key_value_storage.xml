@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:text="Hardcoded alias: libwallet-bridge-smoketest"
                 tools:ignore="HardcodedText" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 style="@style/meen_button_primary"
                 android:layout_marginTop="16dp"
                 android:id="@+id/debug_button_secure_kv_put"
@@ -40,7 +40,7 @@
                 android:text="PUT"
                 tools:ignore="HardcodedText" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 style="@style/meen_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_secure_kv_get"
@@ -49,7 +49,7 @@
                 android:text="GET"
                 tools:ignore="HardcodedText" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 style="@style/meen_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_secure_kv_delete"
@@ -58,7 +58,7 @@
                 android:text="DELETE"
                 tools:ignore="HardcodedText" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 style="@style/meen_button_primary"
                 android:layout_marginTop="8dp"
                 android:id="@+id/debug_button_secure_kv_wipe"
@@ -67,7 +67,7 @@
                 android:text="WIPE"
                 tools:ignore="HardcodedText" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 style="@style/meen_button_primary"
                 android:layout_marginTop="16dp"
                 android:id="@+id/debug_button_export_audit_trail"

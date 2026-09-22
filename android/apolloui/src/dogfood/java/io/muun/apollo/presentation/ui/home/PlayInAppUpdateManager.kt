@@ -1,4 +1,4 @@
-package io.meen.apollo.presentation.ui.home
+package io.muun.apollo.presentation.ui.home
 
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -13,7 +13,7 @@ import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
 import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
-import io.meen.apollo.R
+import io.muun.apollo.R
 import timber.log.Timber
 
 class PlayInAppUpdateManager(

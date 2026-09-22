@@ -74,7 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                    <io.meen.apollo.presentation.ui.view.MeenButton
+                    <io.muun.apollo.presentation.ui.view.MeenButton
                             android:id="@+id/show_qr_share"
                             style="@style/meen_button_primary"
                             android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1">
 
-                    <io.meen.apollo.presentation.ui.view.MeenButton
+                    <io.muun.apollo.presentation.ui.view.MeenButton
                             android:id="@+id/show_qr_copy"
                             style="@style/meen_button_primary"
                             android:layout_width="match_parent"
@@ -106,7 +106,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <io.meen.apollo.presentation.ui.view.HiddenSection
+        <io.muun.apollo.presentation.ui.view.HiddenSection
                 android:id="@+id/address_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -129,12 +129,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_settings">
 
-            <io.meen.apollo.presentation.ui.view.EditAmountItem
+            <io.muun.apollo.presentation.ui.view.EditAmountItem
                     android:id="@+id/edit_amount_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-            <io.meen.apollo.presentation.ui.view.AddressTypeItem
+            <io.muun.apollo.presentation.ui.view.AddressTypeItem
                     android:id="@+id/address_type_item"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />

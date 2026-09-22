@@ -53,7 +53,7 @@
     <!-- Application -->
 
     <application
-            android:name="io.meen.apollo.presentation.app.${mainApplicationClass}"
+            android:name="io.muun.apollo.presentation.app.${mainApplicationClass}"
             android:allowBackup="false"
             android:usesCleartextTraffic="${usesCleartextTraffic}"
             android:icon="@mipmap/ic_launcher"
@@ -238,7 +238,7 @@
         <!-- V2SingleActionActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.single_action.V2SingleActionActivity"
+                android:name="io.muun.apollo.presentation.ui.single_action.V2SingleActionActivity"
                 android:launchMode="singleTop"
         />
 
@@ -260,13 +260,13 @@
 
         <!-- RecoveryToolActivity -->
         <activity
-                android:name="io.meen.apollo.presentation.ui.recovery_tool.RecoveryToolActivity"
+                android:name="io.muun.apollo.presentation.ui.recovery_tool.RecoveryToolActivity"
                 />
 
         <!-- DiagnosticActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.diagnostic.DiagnosticActivity"
+                android:name="io.muun.apollo.presentation.ui.diagnostic.DiagnosticActivity"
                 />
 
 
@@ -279,13 +279,13 @@
         <!-- SetUpPinCodeActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.setup_pin_code.SetUpPinCodeActivity"
+                android:name="io.muun.apollo.presentation.ui.setup_pin_code.SetUpPinCodeActivity"
                 />
 
         <!-- SecurityLogoutActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.security_logout.SecurityLogoutActivity"
+                android:name="io.muun.apollo.presentation.ui.security_logout.SecurityLogoutActivity"
                 />
 
         <!-- SetupRecoveryCodeActivity -->
@@ -299,25 +299,25 @@
         <!-- SelectCurrencyActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.select_currency.SelectCurrencyActivity"
+                android:name="io.muun.apollo.presentation.ui.select_currency.SelectCurrencyActivity"
         />
 
         <!-- SelectCountryActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.select_country.SelectCountryActivity"
+                android:name="io.muun.apollo.presentation.ui.select_country.SelectCountryActivity"
         />
 
         <!-- ExportKeysActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.export_keys.EmergencyKitActivity"
+                android:name="io.muun.apollo.presentation.ui.export_keys.EmergencyKitActivity"
         />
 
         <!-- TaprootSetupActivity -->
 
         <activity
-            android:name="io.meen.apollo.presentation.ui.taproot_setup.TaprootSetupActivity"
+            android:name="io.muun.apollo.presentation.ui.taproot_setup.TaprootSetupActivity"
             />
 
 
@@ -337,7 +337,7 @@
         <!-- SetupP2PActivity -->
 
         <activity
-                android:name="io.meen.apollo.presentation.ui.setup_p2p.SetupP2PActivity"
+                android:name="io.muun.apollo.presentation.ui.setup_p2p.SetupP2PActivity"
         />
 
         <activity

@@ -27,7 +27,7 @@
                     android:layout_marginTop="?attr/actionBarSize"
                     android:layout_marginBottom="16dp">
 
-                <io.meen.apollo.presentation.ui.view.MeenPictureInput
+                <io.muun.apollo.presentation.ui.view.MeenPictureInput
                         android:id="@+id/settings_profile_picture"
                         android:layout_marginStart="56dp"
                         android:layout_width="112dp"
@@ -51,7 +51,7 @@
                         android:letterSpacing="0.03"
                         tools:text="@string/tools_mock_long_name" />
 
-                <io.meen.apollo.presentation.ui.view.MeenIconButton
+                <io.muun.apollo.presentation.ui.view.MeenIconButton
                         android:id="@+id/settings_edit_username"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                     android:text="@string/settings_header_wallet_details"
                     style="@style/settings_section_header" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_phone_number"
                     meen:label="@string/settings_item_phone"
                     style="@style/settings_item" />
@@ -104,17 +104,17 @@
                     android:text="@string/settings_header_general"
                     style="@style/settings_section_header"/>
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_bitcoin_unit"
                     meen:label="@string/settings_item_bitcoin_unit"
                     style="@style/settings_item" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_primary_currency"
                     meen:label="@string/settings_item_primary_currency"
                     style="@style/settings_item" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_dark_mode"
                     meen:label="@string/dark_mode"
                     style="@style/settings_item" />
@@ -133,7 +133,7 @@
                     android:text="@string/settings_header_recovery"
                     style="@style/settings_section_header" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_password"
                     meen:label="@string/settings_password"
                     style="@style/settings_item" />
@@ -151,17 +151,17 @@
                     android:text="@string/settings_header_advanced"
                     style="@style/settings_section_header" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_bitcoin"
                     meen:label="@string/settings_bitcoin"
                     style="@style/settings_item" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_lightning"
                     meen:label="@string/settings_lightning"
                     style="@style/settings_item" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_diagnostic"
                     meen:label="@string/settings_diagnostic"
                     android:visibility="gone"
@@ -180,7 +180,7 @@
                     android:text="@string/settings_header_security"
                     style="@style/settings_section_header" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSwitchSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSwitchSettingItem
                     android:id="@+id/settings_biometrics"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,12 +206,12 @@
                     android:text="@string/settings_internal_debugging"
                     style="@style/settings_section_header" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_disable_feature_flags"
                     meen:label="@string/settings_disable_feature_flags"
                     style="@style/settings_item" />
 
-            <io.meen.apollo.presentation.ui.view.MeenSettingItem
+            <io.muun.apollo.presentation.ui.view.MeenSettingItem
                     android:id="@+id/settings_send_debug_data"
                     meen:label="@string/settings_send_debug_data"
                     style="@style/settings_item" />

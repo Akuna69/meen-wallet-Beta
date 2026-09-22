@@ -37,7 +37,7 @@
                     android:textSize="24sp"
                     tools:text="This is important" />
 
-            <io.meen.apollo.presentation.ui.view.HtmlTextView
+            <io.muun.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

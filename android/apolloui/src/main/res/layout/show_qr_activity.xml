@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             app:elevation="0dp">
 
-        <io.meen.apollo.presentation.ui.view.MeenHeader
+        <io.muun.apollo.presentation.ui.view.MeenHeader
                 android:id="@+id/show_qr_header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,7 +52,7 @@
         <!-- Keep this below ViewPager so that it overlaps the content, instead of pushing down -->
         <View style="@style/drop_shadow_bottom" />
 
-        <io.meen.apollo.presentation.ui.show_qr.NotificationsPrimingView
+        <io.muun.apollo.presentation.ui.show_qr.NotificationsPrimingView
                 android:id="@+id/show_qr_notifications_priming"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

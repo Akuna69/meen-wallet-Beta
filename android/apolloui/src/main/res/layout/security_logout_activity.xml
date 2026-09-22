@@ -35,7 +35,7 @@
 
     </LinearLayout>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             android:id="@+id/security_logout_sign_in"
             style="@style/meen_button_primary"
             android:layout_width="wrap_content"

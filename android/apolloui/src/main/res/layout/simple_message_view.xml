@@ -21,7 +21,7 @@
             tools:visibility="visible"
             tools:text="Some title placeholder" />
 
-    <io.meen.apollo.presentation.ui.view.HtmlTextView
+    <io.muun.apollo.presentation.ui.view.HtmlTextView
             android:id="@+id/simple_message_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -37,7 +37,7 @@
             android:gravity="center_horizontal"
             tools:text="Some long empty state description that wraps into  two lines." />
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             style="@style/meen_button_secondary"
             android:id="@+id/simple_message_button"
             android:layout_width="wrap_content"

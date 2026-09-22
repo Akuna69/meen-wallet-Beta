@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-    <io.meen.apollo.presentation.ui.view.HtmlTextView
+    <io.muun.apollo.presentation.ui.view.HtmlTextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

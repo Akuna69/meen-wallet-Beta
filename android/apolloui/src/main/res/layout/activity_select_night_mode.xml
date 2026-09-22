@@ -6,25 +6,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/select_dark_mode_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             meen:elevated="true" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSettingItem
+    <io.muun.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_light"
             meen:label="@string/dark_mode_light"
             meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSettingItem
+    <io.muun.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_dark"
             meen:label="@string/dark_mode_dark"
             meen:iconTint="@color/blue"
             style="@style/settings_item" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSettingItem
+    <io.muun.apollo.presentation.ui.view.MeenSettingItem
             android:id="@+id/night_mode_follow_system"
             meen:label="@string/dark_mode_follow_system"
             meen:iconTint="@color/blue"

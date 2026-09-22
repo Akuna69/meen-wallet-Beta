@@ -6,13 +6,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.meen.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MeenHeader
             android:id="@+id/new_operation_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:elevated="true" />
 
-    <io.meen.apollo.presentation.ui.view.MeenButtonLayout
+    <io.muun.apollo.presentation.ui.view.MeenButtonLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/meen_header_plus_shadow_height">
@@ -37,7 +37,7 @@
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent" />
 
-                <io.meen.apollo.presentation.ui.view.MeenPill
+                <io.muun.apollo.presentation.ui.view.MeenPill
                         android:id="@+id/new_operation_receiver"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -110,7 +110,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/amount_label">
 
-                    <io.meen.apollo.presentation.ui.view.StatusMessage
+                    <io.muun.apollo.presentation.ui.view.StatusMessage
                             android:id="@+id/status_message"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/fee_label">
 
-                    <io.meen.apollo.presentation.ui.view.StatusMessage
+                    <io.muun.apollo.presentation.ui.view.StatusMessage
                             android:id="@+id/insufficient_funds_message"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                         tools:text="This is some note"
                         tools:visibility="visible" />
 
-                <io.meen.apollo.presentation.ui.view.MeenAmountInput
+                <io.muun.apollo.presentation.ui.view.MeenAmountInput
                         android:id="@+id/meen_amount_input"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/meen_amount_input" />
 
-                <io.meen.apollo.presentation.ui.view.TextInputWithBackHandling
+                <io.muun.apollo.presentation.ui.view.TextInputWithBackHandling
                         android:id="@+id/meen_note_input"
                         style="@style/meen_text_h2"
                         android:layout_width="0dp"
@@ -293,7 +293,7 @@
         GONE by default so MeenButtonLayout doesn't add its own margin/padding. When content
         becomes visible, this also has to change visibility to VISIBLE.
         -->
-        <io.meen.apollo.presentation.ui.view.MeenButtonLayoutAnchor
+        <io.muun.apollo.presentation.ui.view.MeenButtonLayoutAnchor
                 android:id="@+id/button_layout_anchor"
                 android:visibility="gone"
                 android:layout_width="match_parent"
@@ -317,7 +317,7 @@
                     android:visibility="visible"
                     tools:text="Expiration time in 1 week" />
 
-            <io.meen.apollo.presentation.ui.view.NoticeBanner
+            <io.muun.apollo.presentation.ui.view.NoticeBanner
                     android:id="@+id/one_conf_notice_banner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -328,16 +328,16 @@
                     tools:visibility="visible"
                     />
 
-        </io.meen.apollo.presentation.ui.view.MeenButtonLayoutAnchor>
+        </io.muun.apollo.presentation.ui.view.MeenButtonLayoutAnchor>
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 android:id="@+id/meen_next_step_button"
                 style="@style/meen_button_primary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/confirm_amount" />
 
-    </io.meen.apollo.presentation.ui.view.MeenButtonLayout>
+    </io.muun.apollo.presentation.ui.view.MeenButtonLayout>
 
     <LinearLayout
             android:id="@+id/new_operation_resolving"

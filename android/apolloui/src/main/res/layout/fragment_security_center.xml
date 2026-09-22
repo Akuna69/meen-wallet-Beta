@@ -11,7 +11,7 @@
             android:padding="@dimen/meen_screen_margin"
             android:orientation="vertical">
 
-        <io.meen.apollo.presentation.ui.view.MeenProgressBar
+        <io.muun.apollo.presentation.ui.view.MeenProgressBar
                 android:id="@+id/progress"
                 android:layout_width="match_parent"
                 android:layout_height="8dp" />
@@ -78,7 +78,7 @@
                     android:background="@drawable/meen_task_card_skipped_tag"
                     />
 
-            <io.meen.apollo.presentation.ui.view.MeenTaskCard
+            <io.muun.apollo.presentation.ui.view.MeenTaskCard
                     android:id="@+id/task_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -86,13 +86,13 @@
 
         </RelativeLayout>
 
-        <io.meen.apollo.presentation.ui.view.MeenTaskCard
+        <io.muun.apollo.presentation.ui.view.MeenTaskCard
                 android:id="@+id/task_recovery_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp" />
 
-        <io.meen.apollo.presentation.ui.view.MeenTaskCard
+        <io.muun.apollo.presentation.ui.view.MeenTaskCard
                 android:id="@+id/task_export_keys"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -15,7 +15,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content">
 
-        <io.meen.apollo.presentation.ui.view.MeenHeader
+        <io.muun.apollo.presentation.ui.view.MeenHeader
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -84,7 +84,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
                 android:layout_width="wrap_content"
                 android:id="@+id/button_no_data_select_country"
                 app:layout_constraintBottom_toBottomOf="parent"

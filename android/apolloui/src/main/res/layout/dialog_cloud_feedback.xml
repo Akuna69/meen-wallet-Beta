@@ -30,7 +30,7 @@
             android:lineSpacingExtra="6dp"
             android:text="@string/save_option_feedback_dialog_body" />
 
-        <io.meen.apollo.presentation.ui.view.MeenTextInput
+        <io.muun.apollo.presentation.ui.view.MeenTextInput
             android:id="@+id/dialog_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:imeOptions="actionNext"
             android:fontFamily="sans-serif" />
 
-        <io.meen.apollo.presentation.ui.view.MeenButton
+        <io.muun.apollo.presentation.ui.view.MeenButton
             android:id="@+id/dialog_confirm"
             style="@style/meen_button_primary"
             android:layout_width="match_parent"

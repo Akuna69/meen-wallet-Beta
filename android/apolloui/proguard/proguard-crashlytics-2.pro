@@ -7,7 +7,7 @@
 # If you are using custom exceptions, add this line so that custom exception types are skipped during obfuscation:
 # -keep public class * extends java.lang.Exception
 
-# The line above is the crashlytics recommended way to whitelist this. We are wrapping some exceptions with io.meen.Cause
+# The line above is the crashlytics recommended way to whitelist this. We are wrapping some exceptions with io.muun.Cause
 # that extends from Throwable, using this more permisive way we prevent crashlytics obfuscating it
 -keep public class * extends java.lang.Throwable
 

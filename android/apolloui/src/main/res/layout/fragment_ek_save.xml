@@ -27,7 +27,7 @@
             android:textSize="24sp"
             android:text="@string/ek_save_title" />
 
-    <io.meen.apollo.presentation.ui.view.HtmlTextView
+    <io.muun.apollo.presentation.ui.view.HtmlTextView
             style="@style/explanation"
             android:id="@+id/explanation"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             android:layout_marginBottom="24dp"
             tools:text="@string/ek_save_explanation" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSaveOption
+    <io.muun.apollo.presentation.ui.view.MeenSaveOption
             android:id="@+id/save_option_drive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
 
     <View style="@style/meen_ek_save_separator" />
 
-    <io.meen.apollo.presentation.ui.view.MeenSaveOption
+    <io.muun.apollo.presentation.ui.view.MeenSaveOption
         android:id="@+id/save_option_feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
 
     <View style="@style/meen_ek_save_separator" />
 
-    <io.meen.apollo.presentation.ui.view.HtmlTextView
+    <io.muun.apollo.presentation.ui.view.HtmlTextView
         android:id="@+id/save_link_manual"
         style="@style/explanation"
         android:layout_width="match_parent"

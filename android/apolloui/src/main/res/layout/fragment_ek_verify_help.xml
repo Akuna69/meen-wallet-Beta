@@ -21,7 +21,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/ek_verify_help_title" />
 
-        <io.meen.apollo.presentation.ui.view.HtmlTextView
+        <io.muun.apollo.presentation.ui.view.HtmlTextView
                 android:id="@+id/subtitle"
                 style="@style/help_screen_body"
                 android:layout_width="match_parent"

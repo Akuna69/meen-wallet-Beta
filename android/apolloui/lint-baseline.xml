@@ -367,7 +367,7 @@
     <issue
         id="MissingConstraints"
         message="This view is not constrained horizontally: at runtime it will jump to the left unless you add a horizontal constraint"
-        errorLine1="            &lt;io.meen.apollo.presentation.ui.view.HtmlTextView"
+        errorLine1="            &lt;io.muun.apollo.presentation.ui.view.HtmlTextView"
         errorLine2="             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/signup_phone_number_fragment.xml"

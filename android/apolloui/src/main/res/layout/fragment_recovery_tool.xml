@@ -18,7 +18,7 @@
             android:lineSpacingExtra="4sp"
             android:text="@string/recovery_tool_info_title" />
 
-    <io.meen.apollo.presentation.ui.view.HtmlTextView
+    <io.muun.apollo.presentation.ui.view.HtmlTextView
             style="@style/meen_text_body"
             android:id="@+id/body"
             android:layout_width="match_parent"

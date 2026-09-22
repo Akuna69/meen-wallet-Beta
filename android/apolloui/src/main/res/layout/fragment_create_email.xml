@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.meen.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MeenButtonLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,12 +19,12 @@
                     style="@style/explanation_title"
                     android:text="@string/create_email_title" />
 
-            <io.meen.apollo.presentation.ui.view.HtmlTextView
+            <io.muun.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/create_email_subtitle"
                     style="@style/explanation"
                     android:text="@string/create_email_subtitle" />
 
-            <io.meen.apollo.presentation.ui.view.MeenTextInput
+            <io.muun.apollo.presentation.ui.view.MeenTextInput
                     android:id="@+id/create_email_input"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
                     android:inputType="textEmailAddress"
                     android:hint="@string/create_email_input_hint" />
 
-            <io.meen.apollo.presentation.ui.view.HtmlTextView
+            <io.muun.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/create_email_used_help"
                     android:layout_marginTop="16dp"
                     style="@style/explanation"
@@ -45,11 +45,11 @@
         </LinearLayout>
     </ScrollView>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             style="@style/meen_button_primary"
             android:id="@+id/create_email_action"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/create_email_action" />
 
-</io.meen.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MeenButtonLayout>

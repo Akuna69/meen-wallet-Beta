@@ -17,13 +17,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            <io.meen.apollo.presentation.ui.view.MeenHeader
+            <io.muun.apollo.presentation.ui.view.MeenHeader
                     android:id="@+id/operation_detail_header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     meen:elevated="false" />
 
-            <io.meen.apollo.presentation.ui.view.ProfilePictureView
+            <io.muun.apollo.presentation.ui.view.ProfilePictureView
                     android:id="@+id/operation_detail_profile_picture"
                     android:layout_width="93dp"
                     android:layout_height="93dp"
@@ -60,13 +60,13 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-            <io.meen.apollo.presentation.ui.view.MeenDetailItem
+            <io.muun.apollo.presentation.ui.view.MeenDetailItem
                     android:id="@+id/operation_detail_status"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     meen:title="@string/operation_pending" />
 
-            <io.meen.apollo.presentation.ui.view.NoticeBanner
+            <io.muun.apollo.presentation.ui.view.NoticeBanner
                     android:id="@+id/operation_detail_notice_banner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,26 +77,26 @@
                     tools:visibility="visible"
                     android:visibility="gone" />
 
-            <io.meen.apollo.presentation.ui.view.MeenDetailItem
+            <io.muun.apollo.presentation.ui.view.MeenDetailItem
                     android:id="@+id/operation_detail_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     meen:title="@string/operation_detail_description" />
 
-            <io.meen.apollo.presentation.ui.view.MeenDetailItem
+            <io.muun.apollo.presentation.ui.view.MeenDetailItem
                     android:id="@+id/operation_detail_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     meen:title="@string/operation_detail_date" />
 
-            <io.meen.apollo.presentation.ui.view.MeenDetailItem
+            <io.muun.apollo.presentation.ui.view.MeenDetailItem
                     android:id="@+id/operation_detail_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     meen:title="@string/operation_detail_amount"
                     meen:icon="@drawable/ic_copy" />
 
-            <io.meen.apollo.presentation.ui.view.MeenDetailItem
+            <io.muun.apollo.presentation.ui.view.MeenDetailItem
                     android:id="@+id/operation_detail_fee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -111,21 +111,21 @@
 
                 <View style="@style/detail_divider" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_confirmations"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         meen:title="@string/operation_detail_confirmations" />
 
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         meen:title="@string/operation_detail_address_incoming"
                         meen:icon="@drawable/ic_copy" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_txid"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -143,7 +143,7 @@
 
                 <View style="@style/detail_divider" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_swap_invoice"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         meen:title="@string/operation_detail_invoice"
                         meen:icon="@drawable/ic_copy" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_swap_hash"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                         meen:title="@string/operation_detail_swap_hash"
                         meen:icon="@drawable/ic_copy" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_swap_preimage"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
                         meen:title="@string/operation_detail_swap_preimage"
                         meen:icon="@drawable/ic_copy" />
 
-                <io.meen.apollo.presentation.ui.view.MeenDetailItem
+                <io.muun.apollo.presentation.ui.view.MeenDetailItem
                         android:id="@+id/operation_detail_swap_receiver_pubkey"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

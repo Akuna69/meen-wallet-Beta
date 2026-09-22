@@ -25,7 +25,7 @@
 
                 <!-- Using specially tuned margin top/bottom params to have same height as
                  turbo channels setting component-->
-                <io.meen.apollo.presentation.ui.view.ReceivePreferenceItem
+                <io.muun.apollo.presentation.ui.view.ReceivePreferenceItem
                         android:id="@+id/receive_preference_item"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
 
             </LinearLayout>
 
-            <io.meen.apollo.presentation.ui.view.HtmlTextView
+            <io.muun.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/receive_preference_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
 
             </LinearLayout>
 
-            <io.meen.apollo.presentation.ui.view.HtmlTextView
+            <io.muun.apollo.presentation.ui.view.HtmlTextView
                     android:id="@+id/turbo_channels_learn_more"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
 
         </LinearLayout>
 
-        <io.meen.apollo.presentation.ui.view.LoadingView
+        <io.muun.apollo.presentation.ui.view.LoadingView
                 android:id="@+id/lightning_settings_loading"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

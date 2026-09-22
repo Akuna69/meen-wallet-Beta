@@ -9,7 +9,7 @@
         android:background="@color/background">
     <!-- Need to set a non-transparent background to avoid glitch on enter transition -->
 
-    <io.meen.apollo.presentation.ui.view.MeenEmptyScreen
+    <io.muun.apollo.presentation.ui.view.MeenEmptyScreen
             android:id="@+id/empty_screen"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

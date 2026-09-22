@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:880007565849:android:ef5949071c84bde7b6d088",
         "android_client_info": {
-          "package_name": "io.meen.apollo.regtest"
+          "package_name": "io.muun.apollo.regtest"
         }
       },
       "oauth_client": [

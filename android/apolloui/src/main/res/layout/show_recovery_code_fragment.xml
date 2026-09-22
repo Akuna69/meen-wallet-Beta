@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<io.meen.apollo.presentation.ui.view.MeenButtonLayout
+<io.muun.apollo.presentation.ui.view.MeenButtonLayout
         tools:viewBindingIgnore="true"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -25,14 +25,14 @@
                 style="@style/explanation"
                 android:text="@string/recovery_code_explanation" />
 
-        <io.meen.apollo.presentation.ui.view.MeenRecoveryCodeBox
+        <io.muun.apollo.presentation.ui.view.MeenRecoveryCodeBox
                 android:id="@+id/recovery_code_box"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center" />
     </LinearLayout>
 
-    <io.meen.apollo.presentation.ui.view.MeenButton
+    <io.muun.apollo.presentation.ui.view.MeenButton
             style="@style/meen_button_primary"
             android:id="@+id/recovery_code_continue"
             android:layout_width="match_parent"
@@ -40,4 +40,4 @@
             android:layout_marginTop="16dp"
             android:text="@string/recovery_code_continue" />
 
-</io.meen.apollo.presentation.ui.view.MeenButtonLayout>
+</io.muun.apollo.presentation.ui.view.MeenButtonLayout>

@@ -1,4 +1,4 @@
-package io.meen.apollo.data.logging
+package io.muun.apollo.data.logging
 
 open class TraceCause(
     open val className: String = "",
