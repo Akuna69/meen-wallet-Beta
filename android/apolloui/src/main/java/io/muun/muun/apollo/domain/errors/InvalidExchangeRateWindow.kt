@@ -1,9 +1,0 @@
-package io.meen.apollo.domain.errors
-
-class InvalidExchangeRateWindow(
-    windowId: Long,
-    latestWindowId: Long,
-    fixedWindowId: Long?
-) : MeenError("Unknown rate window id $windowId. Latest: $latestWindowId, Fixed: $fixedWindowId") {
-    override val classification = ErrorClassification.UNEXPECTED
-}
