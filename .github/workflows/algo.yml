@@ -26,13 +26,13 @@ jobs:
       env:
         GOTOOLCHAIN: local
 
-    - name: Instalar e inicializar gomobile
+    - name: Instalar gomobile
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Crear librerias .a dummy de Rust
+    - name: Crear dummy libs y directorios de stubs
       run: |
         mkdir -p libwallet/librs/libs
         touch libwallet/librs/libs/x86_64-linux-android-librs.a
@@ -40,100 +40,42 @@ jobs:
         touch libwallet/librs/libs/armv7-linux-androideabi-librs.a
         touch libwallet/librs/libs/i686-linux-android-librs.a
 
-    - name: Dar permisos a gradlew
-      run: chmod +x gradlew
-
-    - name: Crear google-services.json multicliend para prod y debug
-      run: |
-        mkdir -p android/apolloui
-        cat > android/apolloui/google-services.json << 'EOF_JSON'
-        {
-          "project_info": {
-            "project_number": "000000000000",
-            "project_id": "dummy-project"
-          },
-          "client": [
-            {
-              "client_info": {
-                "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
-                "android_client_info": { "package_name": "io.meen.apollo" }
-              },
-              "api_key": [{ "current_key": "dummy" }]
-            },
-            {
-              "client_info": {
-                "mobilesdk_app_id": "1:000000000000:android:0000000000000001",
-                "android_client_info": { "package_name": "io.meen.apollo.debug" }
-              },
-              "api_key": [{ "current_key": "dummy" }]
-            }
-          ],
-          "configuration_version": "1"
-        }
-        EOF_JSON
-
-    - name: Limpiar carpetas duplicadas y crear estructura correcta io/muun/apollo
-      run: |
-        # Eliminar carpeta duplicada muun/muun si existe
-        rm -rf android/apolloui/src/main/java/io/muun/muun
-        
-        # Crear rutas limpias sin duplicación
-        mkdir -p android/apollo/src/main/java/libwallet/
-        mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/
-        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
+        mkdir -p android/apollo/src/main/java/libwallet/
+        mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
 
-        # 1. Libwallet
+    - name: Generar archivos Kotlin de Stubs y newop.kt
+      run: |
+        # Libwallet
         cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
         package libwallet
-
-        object Libwallet {
-            fun initialize() {}
-        }
-
-        open class Wallet {
-            open fun balance(): Long = 0L
-        }
-        
-        open class BitcoinAmount {
-            open fun inSatoshis(): Long = 0L
-        }
+        object Libwallet { fun initialize() {} }
+        open class Wallet { open fun balance(): Long = 0L }
+        open class BitcoinAmount { open fun inSatoshis(): Long = 0L }
         EOF_L
 
-        # 2. Domain model
+        # UserActivatedFeature
         cat << 'EOF_F' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
         package io.muun.apollo.domain.model
-
         enum class UserActivatedFeature {
-            LIGHTNING_NODE_MANAGEMENT,
-            SWAP_FEATURE,
-            FEE_BUMPING;
-
-            companion object {
-                val values = entries.toTypedArray()
-            }
+            LIGHTNING_NODE_MANAGEMENT, SWAP_FEATURE, FEE_BUMPING;
+            companion object { val values = entries.toTypedArray() }
         }
         EOF_F
 
-        # 3. Globals
+        # Globals
         cat << 'EOF_G' > android/apolloui/src/main/java/io/muun/apollo/presentation/app/GlobalsStubs.kt
         package io.muun.apollo.presentation.app
-
-        open class GlobalsImpl {
-            open fun add() {}
-        }
-
-        interface MuunLinkHost {
-            fun onLinkHandled() {}
-        }
+        open class GlobalsImpl { open fun add() {} }
+        interface MuunLinkHost { fun onLinkHandled() {} }
         EOF_G
 
-        # 4. Manual Fee
+        # Manual Fee
         cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
         package io.muun.apollo.presentation.ui.fragments.manual_fee
-
         object newop {
             val EditFeeState = Any()
             val resolved = Any()
@@ -141,14 +83,12 @@ jobs:
             val BitcoinAmount = Any()
             val minfeekatefortarget = Any()
         }
-
         open class EditFeeState
         EOF_MF
 
-        # 5. New Op Error
+        # New Op Error
         cat << 'EOF_NOE' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/NewOpErrorStubs.kt
         package io.muun.apollo.presentation.ui.new_op_error
-
         object newop {
             val ErrorState = Any()
             val BalanceErrorState = Any()
@@ -156,15 +96,13 @@ jobs:
             val balance = Any()
             val paymentIntent = Any()
         }
-
         open class ErrorState
         open class BalanceErrorState
         EOF_NOE
 
-        # 6. New Operation Stubs & States
+        # New Operation Stubs
         cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
-
         object NewOp {
             val enterAmount: Any = Any()
             val enterDescription: Any = Any()
@@ -180,7 +118,6 @@ jobs:
             val ConfirmLightning = ConfirmLightningState()
             val ValidateLightning = ValidateLightningState()
         }
-        
         open class EnterAmountState
         open class EnterDescriptionState
         open class StartState
@@ -189,38 +126,36 @@ jobs:
         open class AbortState
         open class ConfirmState
         open class ConfirmLightningState
-        open class ValidateLightningState {
-            open fun onvalidateLightning() {}
-        }
+        open class ValidateLightningState { open fun onvalidateLightning() {} }
         EOF_STUBS
 
-        # 7. Objeto newop en minúsculas en la ruta correcta de UI
-        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/newop.kt
-        package io.muun.apollo.presentation.ui
-
+        # Archivo newop.kt exacto en new_operation
+        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
+        package io.muun.apollo.presentation.ui.new_operation
         object newop {
             val enterAmount: Any = Any()
             val enterDescription: Any = Any()
             val totalbalance: Any = Any()
             val validated: Any = Any()
-            val EnterAmount = Any()
-            val EnterDescription = Any()
-            val Start = Any()
-            val Validate = Any()
-            val BalanceError = Any()
-            val Abort = Any()
-            val Confirm = Any()
-            val ConfirmLightning = Any()
-            val ValidateLightning = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
         }
         EOF_NEWOP
 
-    - name: Compilar APK con Gradle
-      run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
+    - name: Dar permisos y compilar con Gradle
+      run: |
+        chmod +x gradlew
+        ./gradlew :android:apolloui:assembleDebug --warning-mode all
 
-    - name: Subir archivo APK
+    - name: Subir artefacto APK
       uses: actions/upload-artifact@v4
       with:
         name: app-debug
-        path: |
-          android/apolloui/build/outputs/apk/debug/*.apk
+        path: android/apolloui/build/outputs/apk/debug/*.apk
