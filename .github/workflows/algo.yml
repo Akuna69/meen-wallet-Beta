@@ -179,3 +179,4 @@ jobs:
       with:
         name: app-dogfood-debug
         path: android/apolloui/build/outputs/apk/dogfood/debug/*.apk
+# Forzar activacion
