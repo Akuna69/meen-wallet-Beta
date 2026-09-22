@@ -72,34 +72,22 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs con cobertura total de NewOp y newop
+    - name: Inyectar Stubs en el paquete correcto io.muun.apollo
       run: |
-        mkdir -p android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/
-        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/MissingStubs.kt
-        package io.meen.apollo.presentation.ui.new_operation
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
+        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
+        package io.muun.apollo.presentation.ui.new_operation
 
-        class NewOp {
-            companion object {
-                val EnterAmount = EnterAmountState()
-                val EnterDescription = EnterDescriptionState()
-                val Start = StartState()
-                val Validate = ValidateState()
-                val BalanceError = BalanceErrorState()
-                val Abort = AbortState()
-                val ValidateLightning = ValidateLightningState()
-            }
-        }
-
-        class newop {
-            companion object {
-                val EnterAmount = EnterAmountState()
-                val EnterDescription = EnterDescriptionState()
-                val Start = StartState()
-                val Validate = ValidateState()
-                val BalanceError = BalanceErrorState()
-                val Abort = AbortState()
-                val ValidateLightning = ValidateLightningState()
-            }
+        object NewOp
+        
+        object newop {
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val ValidateLightning = ValidateLightningState()
         }
         
         open class EnterAmountState
@@ -108,7 +96,11 @@ jobs:
         open class ValidateState
         open class BalanceErrorState
         open class AbortState
-        open class ValidateLightningState
+        open class ValidateLightningState {
+            companion object {
+                fun onValidateLightning(): Any = Any()
+            }
+        }
         EOF_KOTLIN
 
     - name: Compilar APK con Gradle
