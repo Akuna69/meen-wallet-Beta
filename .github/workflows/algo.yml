@@ -43,7 +43,7 @@ jobs:
     - name: Dar permisos a gradlew
       run: chmod +x gradlew
 
-    - name: Crear google-services.json con soporte para debug
+    - name: Crear google-services.json multicliend para prod y debug
       run: |
         mkdir -p android/apolloui
         cat > android/apolloui/google-services.json << 'EOF_JSON'
@@ -52,13 +52,22 @@ jobs:
             "project_number": "000000000000",
             "project_id": "dummy-project"
           },
-          "client": [{
-            "client_info": {
-              "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
-              "android_client_info": { "package_name": "io.meen.apollo.debug" }
+          "client": [
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                "android_client_info": { "package_name": "io.meen.apollo" }
+              },
+              "api_key": [{ "current_key": "dummy" }]
             },
-            "api_key": [{ "current_key": "dummy" }]
-          }],
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:000000000000:android:0000000000000001",
+                "android_client_info": { "package_name": "io.meen.apollo.debug" }
+              },
+              "api_key": [{ "current_key": "dummy" }]
+            }
+          ],
           "configuration_version": "1"
         }
         EOF_JSON
