@@ -72,29 +72,14 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs completos con todas las referencias del Presenter
+    - name: Inyectar Stubs y archivo newop.kt independiente
       run: |
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
-        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
+        
+        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
 
         object NewOp {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
-        }
-        
-        object newop {
             val enterAmount: Any = Any()
             val enterDescription: Any = Any()
             val totalbalance: Any = Any()
@@ -123,7 +108,27 @@ jobs:
                 fun onValidateLightning(): Any = Any()
             }
         }
-        EOF_KOTLIN
+        EOF_STUBS
+
+        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
+        package io.muun.apollo.presentation.ui.new_operation
+
+        object newop {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
+        }
+        EOF_NEWOP
 
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
