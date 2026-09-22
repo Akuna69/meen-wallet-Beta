@@ -72,15 +72,18 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs corregidos con clases de estado independientes
+    - name: Inyectar Stubs Globales para Manual Fee, New Op Error y Globals
       run: |
-        # Directorios necesarios
+        # Directorios
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
-        
-        # 1. Libwallet
-        cat << 'EOF_LIBWALLET' > android/apollo/src/main/java/libwallet/Libwallet.kt
+
+        # 1. Libwallet extendido
+        cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
         package libwallet
 
         object Libwallet {
@@ -90,10 +93,14 @@ jobs:
         open class Wallet {
             open fun balance(): Long = 0L
         }
-        EOF_LIBWALLET
+        
+        open class BitcoinAmount {
+            open fun inSatoshis(): Long = 0L
+        }
+        EOF_L
 
-        # 2. UserActivatedFeature
-        cat << 'EOF_FEATURE' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
+        # 2. Modelos de dominio y Feature
+        cat << 'EOF_F' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
         package io.muun.apollo.domain.model
 
         enum class UserActivatedFeature {
@@ -105,42 +112,53 @@ jobs:
                 val values = entries.toTypedArray()
             }
         }
-        EOF_FEATURE
+        EOF_F
 
-        # 3. Clases de estado sueltas para evitar errores de resolución
-        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
-        package io.muun.apollo.presentation.ui.new_operation
+        # 3. GlobalsImpl y MuunLinkHost simulados
+        cat << 'EOF_G' > android/apolloui/src/main/java/io/muun/apollo/presentation/app/GlobalsStubs.kt
+        package io.muun.apollo.presentation.app
 
-        object NewOp {
-            val enterAmount: Any = Any()
-            val enterDescription: Any = Any()
-            val totalbalance: Any = Any()
-            val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
+        open class GlobalsImpl {
+            open fun add() {}
         }
-        
-        open class EnterAmountState
-        open class EnterDescriptionState
-        open class StartState
-        open class ValidateState
+
+        interface MuunLinkHost {
+            fun onLinkHandled() {}
+        }
+        EOF_G
+
+        # 4. Stubs para Manual Fee (EditFeeState, resolved, calculatefee, etc.)
+        cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
+        package io.muun.apollo.presentation.ui.fragments.manual_fee
+
+        object newop {
+            val EditFeeState = Any()
+            val resolved = Any()
+            val calculatefee = Any()
+            val BitcoinAmount = Any()
+            val minfeekatefortarget = Any()
+        }
+
+        open class EditFeeState
+        EOF_MF
+
+        # 5. Stubs para New Op Error (ErrorState, paymentIntent, etc.)
+        cat << 'EOF_NOE' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/NewOpErrorStubs.kt
+        package io.muun.apollo.presentation.ui.new_op_error
+
+        object newop {
+            val ErrorState = Any()
+            val BalanceErrorState = Any()
+            val totalAmount = Any()
+            val balance = Any()
+            val paymentIntent = Any()
+        }
+
+        open class ErrorState
         open class BalanceErrorState
-        open class AbortState
-        open class ConfirmState
-        open class ConfirmLightningState
-        open class ValidateLightningState {
-            fun onValidateLightning() {}
-        }
-        EOF_STUBS
+        EOF_NOE
 
-        # 4. Objeto newop en minúsculas idéntico
+        # 6. Refuerzo del objeto newop general
         cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
         package io.muun.apollo.presentation.ui.new_operation
 
@@ -149,15 +167,15 @@ jobs:
             val enterDescription: Any = Any()
             val totalbalance: Any = Any()
             val validated: Any = Any()
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val Confirm = ConfirmState()
-            val ConfirmLightning = ConfirmLightningState()
-            val ValidateLightning = ValidateLightningState()
+            val EnterAmount = Any()
+            val EnterDescription = Any()
+            val Start = Any()
+            val Validate = Any()
+            val BalanceError = Any()
+            val Abort = Any()
+            val Confirm = Any()
+            val ConfirmLightning = Any()
+            val ValidateLightning = Any()
         }
         EOF_NEWOP
 
