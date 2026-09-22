@@ -1,0 +1,66 @@
+name: Compilar APK Muun
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout del código
+      uses: actions/checkout@v4
+
+    - name: Configurar JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    # Usar Go 1.22 para evitar el fallo de gomobile en libwallet
+    - name: Configurar Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: '1.22.x'
+      env:
+        GOTOOLCHAIN: local
+
+    - name: Instalar e inicializar gomobile
+      run: |
+        go install golang.org/x/tools/cmd/goimports@latest
+        go install golang.org/x/mobile/cmd/gomobile@latest
+        gomobile init
+
+    - name: Dar permisos a gradlew
+      run: chmod +x gradlew
+
+    - name: Crear google-services.json dummy
+      run: |
+        cat > android/apolloui/google-services.json << 'EOF'
+        {
+          "project_info": {
+            "project_number": "000000000000",
+            "project_id": "dummy-project"
+          },
+          "client": [{
+            "client_info": {
+              "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+              "android_client_info": { "package_name": "io.meen.apollo.debug" }
+            },
+            "api_key": [{ "current_key": "dummy" }]
+          }],
+          "configuration_version": "1"
+        }
+        EOF
+
+    - name: Compilar APK con Gradle
+      run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
+
+    - name: Subir archivo APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-debug
+        path: |
+          android/apolloui/build/outputs/apk/debug/*.apkl
