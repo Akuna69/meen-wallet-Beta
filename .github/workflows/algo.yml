@@ -1,4 +1,4 @@
-name: Compilar APK Meen
+name: Compilar APK Muun
 
 on:
   push:
@@ -26,24 +26,75 @@ jobs:
       env:
         GOTOOLCHAIN: local
 
-    - name: Instalar gomobile
+    - name: Instalar gomobile y protoc si es necesario
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Crear dummy libs y directorios
+    - name: Parchar definiciones al estándar original de Muun en Go
+      run: |
+        # 1. Parche para API con nombres originales de Muun
+        mkdir -p libwallet/presentation/api
+        cat << 'EOF_GO' > libwallet/presentation/api/muun_patch.go
+        package api
+
+        type PopulateEncryptedMuunKeyRequest struct{}
+        type PopulateEncryptedMeenKeyRequest = PopulateEncryptedMuunKeyRequest
+        EOF_GO
+
+        # 2. Parche para NFC
+        mkdir -p libwallet/domain/nfc
+        cat << 'EOF_NFC' > libwallet/domain/nfc/muun_nfc_patch.go
+        package nfc
+
+        const (
+            MuuncardV2AppletId             = "0000000000"
+            MeencardV2AppletId             = MuuncardV2AppletId
+            insMuuncardV2GetVersion        = 0x00
+            insMeencardV2GetVersion        = insMuuncardV2GetVersion
+            insMuuncardV2GetMetadata       = 0x01
+            insMeencardV2GetMetadata       = insMuuncardV2GetMetadata
+            insMuuncardV2Setup             = 0x02
+            insMeencardV2Setup             = insMuuncardV2Setup
+            insMuuncardV2SignChallenge     = 0x03
+            insMeencardV2SignChallenge     = insMuuncardV2SignChallenge
+            insMuuncardV2ContinueChallenge = 0x04
+            insMeencardV2ContinueChallenge = insMuuncardV2ContinueChallenge
+            swMuuncardV2WrongLength         = 0x6700
+            swMeencardV2WrongLength         = swMuuncardV2WrongLength
+            swMuuncardV2InvalidPubKey       = 0x6800
+            swMeencardV2InvalidPubKey       = swMeencardV2InvalidPubKey
+            swMuuncardV2NoSlotsAvailable    = 0x6900
+            swMeencardV2NoSlotsAvailable    = swMuuncardV2NoSlotsAvailable
+        )
+        EOF_NFC
+
+        # 3. Parche para BIP21 URI
+        cat << 'EOF_BIP' >> libwallet/bip21.go
+
+        type MuunPaymentURI struct{}
+        type MeenPaymentURI = MuunPaymentURI
+        EOF_BIP
+
+        echo "Parches alineados a Muun inyectados correctamente."
+
+    - name: Crear dummy libs y directorios de stubs Kotlin
       run: |
         mkdir -p libwallet/librs/libs
         touch libwallet/librs/libs/x86_64-linux-android-librs.a
         touch libwallet/librs/libs/aarch64-linux-android-librs.a
         touch libwallet/librs/libs/armv7-linux-androideabi-librs.a
         touch libwallet/librs/libs/i686-linux-android-librs.a
-        mkdir -p android/apollo/src/main/java/libwallet/
 
-    - name: Generar Libwallet stub
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/
+        mkdir -p android/apolloui/src/main/java/io/muun/muun/
+
+    - name: Generar stubs Kotlin limpios
       run: |
-        printf 'package libwallet\n\nobject Libwallet {\n    fun initialize() {}\n}\n\nopen class Wallet {\n    open fun balance(): Long = 0L\n}\n\nopen class BitcoinAmount {\n    open fun inSatoshis(): Long = 0L\n}\n' > android/apollo/src/main/java/libwallet/Libwallet.kt
+        printf 'package io.muun.apollo.presentation.ui.home\n\nopen class InAppUpdateManager {\n    open fun checkForUpdate() {}\n}\n' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateManager.kt
+
+        printf 'package io.muun.muun\n\nobject Cause {\n    val logging: Any = Any()\n    val TraceSection: Any = Any()\n    fun cause(block: () -> Unit) {}\n    fun cause(param: Any, block: () -> Unit) {}\n    fun tostacktracelement(): StackTraceElement {\n        return StackTraceElement("", "", "", 0)\n    }\n}\n' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
 
     - name: Dar permisos y compilar con Gradle (Dogfood Debug)
       run: |
