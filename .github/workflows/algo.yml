@@ -77,15 +77,12 @@ jobs:
         EOF_G
 
         # 4. InAppUpdateManager
-        cat << 'EOF_IAU' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateManager.kt
         package io.muun.apollo.presentation.ui.home
         open class InAppUpdateManager {
             open fun checkForUpdate() {}
         }
         EOF_IAU
 
-        # 5. Cause.kt robusto
-        cat << 'EOF_CAUSE' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
         package io.muun.muun
         object Cause {
             val logging: Any = Any()
