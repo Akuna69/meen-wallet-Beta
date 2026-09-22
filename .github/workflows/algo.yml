@@ -26,58 +26,22 @@ jobs:
       env:
         GOTOOLCHAIN: local
 
-    - name: Instalar gomobile y protoc si es necesario
+    - name: Instalar gomobile
       run: |
         go install golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Parchar definiciones al estándar original de Muun en Go
+    - name: Limpiar parches duplicados y usar código original de Muun
       run: |
-        # 1. Parche para API con nombres originales de Muun
-        mkdir -p libwallet/presentation/api
-        cat << 'EOF_GO' > libwallet/presentation/api/muun_patch.go
-        package api
+        # Eliminar archivos de parche que causaban redeclaración
+        rm -f libwallet/presentation/api/muun_patch.go
+        rm -f libwallet/domain/nfc/muun_nfc_patch.go
+        
+        # Limpiar cualquier adición extra en bip21.go si existiera
+        git checkout libwallet/bip21.go || true
 
-        type PopulateEncryptedMuunKeyRequest struct{}
-        type PopulateEncryptedMeenKeyRequest = PopulateEncryptedMuunKeyRequest
-        EOF_GO
-
-        # 2. Parche para NFC
-        mkdir -p libwallet/domain/nfc
-        cat << 'EOF_NFC' > libwallet/domain/nfc/muun_nfc_patch.go
-        package nfc
-
-        const (
-            MuuncardV2AppletId             = "0000000000"
-            MeencardV2AppletId             = MuuncardV2AppletId
-            insMuuncardV2GetVersion        = 0x00
-            insMeencardV2GetVersion        = insMuuncardV2GetVersion
-            insMuuncardV2GetMetadata       = 0x01
-            insMeencardV2GetMetadata       = insMuuncardV2GetMetadata
-            insMuuncardV2Setup             = 0x02
-            insMeencardV2Setup             = insMuuncardV2Setup
-            insMuuncardV2SignChallenge     = 0x03
-            insMeencardV2SignChallenge     = insMuuncardV2SignChallenge
-            insMuuncardV2ContinueChallenge = 0x04
-            insMeencardV2ContinueChallenge = insMuuncardV2ContinueChallenge
-            swMuuncardV2WrongLength         = 0x6700
-            swMeencardV2WrongLength         = swMuuncardV2WrongLength
-            swMuuncardV2InvalidPubKey       = 0x6800
-            swMeencardV2InvalidPubKey       = swMeencardV2InvalidPubKey
-            swMuuncardV2NoSlotsAvailable    = 0x6900
-            swMeencardV2NoSlotsAvailable    = swMuuncardV2NoSlotsAvailable
-        )
-        EOF_NFC
-
-        # 3. Parche para BIP21 URI
-        cat << 'EOF_BIP' >> libwallet/bip21.go
-
-        type MuunPaymentURI struct{}
-        type MeenPaymentURI = MuunPaymentURI
-        EOF_BIP
-
-        echo "Parches alineados a Muun inyectados correctamente."
+        echo "Código limpio sin duplicados."
 
     - name: Crear dummy libs y directorios de stubs Kotlin
       run: |
@@ -90,7 +54,7 @@ jobs:
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/
         mkdir -p android/apolloui/src/main/java/io/muun/muun/
 
-    - name: Generar stubs Kotlin limpios
+    - name: Generar stubs Kotlin necesarios para Apollo
       run: |
         printf 'package io.muun.apollo.presentation.ui.home\n\nopen class InAppUpdateManager {\n    open fun checkForUpdate() {}\n}\n' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateManager.kt
 
