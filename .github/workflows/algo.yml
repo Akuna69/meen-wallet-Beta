@@ -32,7 +32,7 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Crear dummy libs y directorios de stubs
+    - name: Crear dummy libs y directorios completos de stubs
       run: |
         mkdir -p libwallet/librs/libs
         touch libwallet/librs/libs/x86_64-linux-android-librs.a
@@ -46,12 +46,13 @@ jobs:
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/
         mkdir -p android/apolloui/src/main/java/io/muun/muun/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/domain/errors/
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
 
-    - name: Generar archivos Kotlin de Stubs exactos
+    - name: Generar todos los Stubs y archivos de respaldo automáticamente
       run: |
-        # Libwallet
+        # 1. Libwallet
         cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
         package libwallet
         object Libwallet { fun initialize() {} }
@@ -59,7 +60,7 @@ jobs:
         open class BitcoinAmount { open fun inSatoshis(): Long = 0L }
         EOF_L
 
-        # UserActivatedFeature
+        # 2. UserActivatedFeature
         cat << 'EOF_F' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
         package io.muun.apollo.domain.model
         enum class UserActivatedFeature {
@@ -68,14 +69,14 @@ jobs:
         }
         EOF_F
 
-        # Globals
+        # 3. Globals
         cat << 'EOF_G' > android/apolloui/src/main/java/io/muun/apollo/presentation/app/GlobalsStubs.kt
         package io.muun.apollo.presentation.app
         open class GlobalsImpl { open fun add() {} }
         interface MuunLinkHost { fun onLinkHandled() {} }
         EOF_G
 
-        # InAppUpdateManager Completo en ui/home y accesible globalmente si se requiere
+        # 4. InAppUpdateManager
         cat << 'EOF_IAU' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateManager.kt
         package io.muun.apollo.presentation.ui.home
         open class InAppUpdateManager {
@@ -83,18 +84,30 @@ jobs:
         }
         EOF_IAU
 
-        # Causa / Cause.kt ajustado con tipos correctos para evitar errores de inferencia
+        # 5. Cause.kt robusto
         cat << 'EOF_CAUSE' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
         package io.muun.muun
         object Cause {
             val logging: Any = Any()
             val TraceSection: Any = Any()
             fun cause(block: () -> Unit) {}
-            fun tostacktracelement(): StackTraceElement = StackTraceElement("", "", "", 0)
+            fun cause(param: Any, block: () -> Unit) {}
+            fun tostacktracelement(): StackTraceElement {
+                return StackTraceElement("", "", "", 0)
+            }
         }
         EOF_CAUSE
 
-        # Manual Fee
+        # 6. Analytics y Logger de respaldo por si el código los reclama
+        cat << 'EOF_ANA' > android/apolloui/src/main/java/io/muun/apollo/domain/errors/AnalyticsStubs.kt
+        package io.muun.apollo.domain.errors
+        object Analytics {
+            fun report(e: Throwable) {}
+            fun setProperty(key: String, value: String) {}
+        }
+        EOF_ANA
+
+        # 7. Manual Fee
         cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
         package io.muun.apollo.presentation.ui.fragments.manual_fee
         object newop {
@@ -107,7 +120,7 @@ jobs:
         open class EditFeeState
         EOF_MF
 
-        # New Op Error
+        # 8. New Op Error
         cat << 'EOF_NOE' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/NewOpErrorStubs.kt
         package io.muun.apollo.presentation.ui.new_op_error
         object newop {
@@ -121,7 +134,7 @@ jobs:
         open class BalanceErrorState
         EOF_NOE
 
-        # New Operation Stubs & newop.kt
+        # 9. New Operation Stubs y newop.kt
         cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
         object NewOp {
@@ -179,4 +192,3 @@ jobs:
       with:
         name: app-dogfood-debug
         path: android/apolloui/build/outputs/apk/dogfood/debug/*.apk
-# Forzar activacion
