@@ -72,11 +72,11 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs completos de Kotlin para referencias faltantes
+    - name: Inyectar Stubs en la ruta correcta de Kotlin
       run: |
-        mkdir -p android/apolloui/src/main/java/io/meen/muun/apollo/presentation/ui/new_operation/
-        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
-        package io.meen.muun.apollo.presentation.ui.new_operation
+        mkdir -p android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/
+        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/MissingStubs.kt
+        package io.meen.apollo.presentation.ui.new_operation
 
         object NewOp
         object newop
