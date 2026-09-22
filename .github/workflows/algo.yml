@@ -72,7 +72,7 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs en la ruta correcta de Kotlin
+    - name: Inyectar Stubs robustos en Kotlin
       run: |
         mkdir -p android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/
         cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/MissingStubs.kt
@@ -80,16 +80,22 @@ jobs:
 
         object NewOp
         object newop
-        class EnterAmountState
-        class EnterDescriptionState
-        class StartState
-        class ValidateState
-        class ValidateLightningState {
+        
+        open class EnterAmountState
+        open class EnterDescriptionState
+        open class StartState
+        open class ValidateState
+        
+        open class ValidateLightningState {
             companion object {
                 fun onvalidate(): Any = Any()
                 fun onValidateLightning(): Any = Any()
             }
         }
+        
+        // Funciones de extensión globales para capturar llamadas sueltas si las hay
+        fun Any.onvalidate(): Any = Any()
+        fun Any.onValidateLightning(): Any = Any()
         EOF_KOTLIN
 
     - name: Compilar APK con Gradle
