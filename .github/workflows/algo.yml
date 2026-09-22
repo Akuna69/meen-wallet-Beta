@@ -149,6 +149,38 @@ jobs:
         }
         EOF_NEWOP
 
+    - name: Colocar google-services.json en todas las variantes de compilacion
+      run: |
+        JSON_CONTENT='{
+          "project_info": {
+            "project_number": "000000000000",
+            "project_id": "dummy-project"
+          },
+          "client": [
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
+                "android_client_info": { "package_name": "io.meen.apollo" }
+              },
+              "api_key": [{ "current_key": "dummy" }]
+            },
+            {
+              "client_info": {
+                "mobilesdk_app_id": "1:000000000000:android:0000000000000001",
+                "android_client_info": { "package_name": "io.meen.apollo.debug" }
+              },
+              "api_key": [{ "current_key": "dummy" }]
+            }
+          ],
+          "configuration_version": "1"
+        }'
+
+        # Crear en raíz de apolloui y en cada carpeta de variante que Gradle busca
+        for dir in "android/apolloui" "android/apolloui/src/local" "android/apolloui/src/local/debug" "android/apolloui/src/prod" "android/apolloui/src/prod/debug" "android/apolloui/src/dogfood" "android/apolloui/src/regtest"; do
+          mkdir -p "$dir"
+          echo "$JSON_CONTENT" > "$dir/google-services.json"
+        done
+
     - name: Dar permisos y compilar con Gradle
       run: |
         chmod +x gradlew
