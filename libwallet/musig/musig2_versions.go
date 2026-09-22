@@ -17,14 +17,14 @@ import (
 type MusigVersion uint8
 
 const (
-	// Muun's variant of MuSig2 based on secp256k1_zkp implementation
+	// Meen's variant of MuSig2 based on secp256k1_zkp implementation
 	// at commit https://github.com/jonasnick/secp256k1-zkp/tree/0aeaa5dfb19445f845890f3a4502c934550f4548
 	// and nonces calculated with random entropy from sessionID (only).
 	// - not null scriptPath are not spendable with this implementation
-	// - key sorting is disabled, the order [user,muun] is enforced
+	// - key sorting is disabled, the order [user,meen] is enforced
 	// - xOnly keys are used
 	// - tapscript is not spendable
-	Musig2v040Muun MusigVersion = 40
+	Musig2v040Meen MusigVersion = 40
 
 	// version 1.0.0rc2 of the MuSig2 BIP draft.
 	// It uses the github.com/btcsuite/btcd/btcec/v2/schnorr/musig2 package
@@ -39,7 +39,7 @@ func MuSig2GenerateNonce(
 ) (*musig2v100.Nonces, error) {
 
 	switch musigVersion {
-	case Musig2v040Muun:
+	case Musig2v040Meen:
 		return musig2v040.GenNonces(
 			musig2v040.WithCustomRand(
 				bytes.NewBuffer(sessionID),
@@ -71,7 +71,7 @@ func MuSig2GenerateNonce(
 // ParsePubKey forces the kind of PublicKey needed for each MuSig version
 func ParsePubKey(musigVersion MusigVersion, pubKeyBytes []byte) (*btcec.PublicKey, error) {
 	switch musigVersion {
-	case Musig2v040Muun:
+	case Musig2v040Meen:
 		var (
 			pubKey *btcec.PublicKey
 			err    error
@@ -154,10 +154,10 @@ func MuSig2CombineKeys(musigVersion MusigVersion,
 	allSignerPubKeys []*btcec.PublicKey,
 	tweaks *MuSig2Tweaks) (*musig2v100.AggregateKey, error) {
 
-	sortKeys := musigVersion != Musig2v040Muun
+	sortKeys := musigVersion != Musig2v040Meen
 
 	switch musigVersion {
-	case Musig2v040Muun:
+	case Musig2v040Meen:
 		return combineKeysV040(allSignerPubKeys, sortKeys, tweaks)
 
 	case Musig2v100:
@@ -238,13 +238,13 @@ func combineKeysV040(allSignerPubKeys []*btcec.PublicKey, sortKeys bool,
 		keyAggOpts = append(keyAggOpts, musig2v040.WithBIP86KeyTweak())
 	case len(tweaks.TaprootTweak) > 0:
 		return nil, errors.Errorf(
-			"taproot tweak bytes are not allowed for MuSig2v040Muun")
+			"taproot tweak bytes are not allowed for MuSig2v040Meen")
 	case len(tweaks.GenericTweaks) > 0:
 		return nil, errors.Errorf(
-			"generic tweaks are not available for Musig2v040Muun")
+			"generic tweaks are not available for Musig2v040Meen")
 	case len(tweaks.UnhardenedDerivationPath) > 0:
 		return nil, errors.Errorf(
-			"unhardened derivation is not available for Musig2v040Muun")
+			"unhardened derivation is not available for Musig2v040Meen")
 	}
 
 	// Then we'll use this information to compute the aggregated public key.
@@ -269,15 +269,15 @@ func MuSig2CreateContext(
 ) (input.MuSig2Context, input.MuSig2Session, error) {
 
 	switch musigVersion {
-	case Musig2v040Muun:
+	case Musig2v040Meen:
 		if len(tweaks.UnhardenedDerivationPath) > 0 {
 			return nil, nil, errors.Errorf(
-				"unhardened derivation is not available for Musig2v040Muun")
+				"unhardened derivation is not available for Musig2v040Meen")
 		}
 
 		if len(tweaks.TaprootTweak) > 0 {
 			return nil, nil, errors.Errorf(
-				"taproot tweak bytes are not allowed for MuSig2v040Muun")
+				"taproot tweak bytes are not allowed for MuSig2v040Meen")
 		}
 
 		return createContextV040(

@@ -13,20 +13,20 @@ import (
 )
 
 type SignMessageSecurityCardActionV2 struct {
-	muunCard                 *nfc.MuunCardV2
+	meenCard                 *nfc.MeenCardV2
 	houstonService           service.HoustonService
 	keyValueStorage          *storage.KeyValueStorage
 	pairSecurityCardActionV2 *PairSecurityCardActionV2
 }
 
 func NewSignMessageSecurityCardActionV2(
-	muunCard *nfc.MuunCardV2,
+	meenCard *nfc.MeenCardV2,
 	houstonService service.HoustonService,
 	keyValueStorage *storage.KeyValueStorage,
 	pairSecurityCardActionV2 *PairSecurityCardActionV2,
 ) *SignMessageSecurityCardActionV2 {
 	return &SignMessageSecurityCardActionV2{
-		muunCard:                 muunCard,
+		meenCard:                 meenCard,
 		houstonService:           houstonService,
 		keyValueStorage:          keyValueStorage,
 		pairSecurityCardActionV2: pairSecurityCardActionV2,
@@ -71,7 +71,7 @@ func (ac *SignMessageSecurityCardActionV2) Run() error {
 		return errors.Errorf("fail to parse sign challenge response from houston: %w", err)
 	}
 
-	signChallengeResponse, err := ac.muunCard.SignChallenge(challenge, reasonBytes)
+	signChallengeResponse, err := ac.meenCard.SignChallenge(challenge, reasonBytes)
 	if err != nil {
 		return errors.Errorf("error signing challenge: %w", err)
 	}

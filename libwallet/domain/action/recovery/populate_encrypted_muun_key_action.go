@@ -7,36 +7,36 @@ import (
 	"github.com/go-errors/errors"
 
 	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/domain/model/verifiable_muun_key"
+	"github.com/muun/libwallet/domain/model/verifiable_meen_key"
 	"github.com/muun/libwallet/service"
 	"github.com/muun/libwallet/storage"
 )
 
-type PopulateEncryptedMuunKeyAction struct {
+type PopulateEncryptedMeenKeyAction struct {
 	houstonService              service.HoustonService
 	keyValueStorage             *storage.KeyValueStorage
 	keyProvider                 keys.KeyProvider
-	mayRetrieveEncryptedMuunKey *MayRetrieveEncryptedMuunKeyAction
+	mayRetrieveEncryptedMeenKey *MayRetrieveEncryptedMeenKeyAction
 }
 
-func NewPopulateEncryptedMuunKeyAction(
+func NewPopulateEncryptedMeenKeyAction(
 	houstonService service.HoustonService,
 	keyValueStorage *storage.KeyValueStorage,
 	keyProvider keys.KeyProvider,
-) *PopulateEncryptedMuunKeyAction {
-	return &PopulateEncryptedMuunKeyAction{
+) *PopulateEncryptedMeenKeyAction {
+	return &PopulateEncryptedMeenKeyAction{
 		houstonService:              houstonService,
 		keyValueStorage:             keyValueStorage,
 		keyProvider:                 keyProvider,
-		mayRetrieveEncryptedMuunKey: NewMayRetrieveEncryptedMuunKeyAction(keyValueStorage),
+		mayRetrieveEncryptedMeenKey: NewMayRetrieveEncryptedMeenKeyAction(keyValueStorage),
 	}
 }
 
-// Populate the encrypted muun key in storage. If we already have an unverified muun key in
+// Populate the encrypted meen key in storage. If we already have an unverified meen key in
 // storage, go to houston and try to get a key that can be verified. This action does not overwrite
 // existing keys.
-func (a *PopulateEncryptedMuunKeyAction) Run(recoveryCodePublicKey *btcec.PublicKey) error {
-	slog.Warn("PopulateEncryptedMuunKeyAction.Run: start")
+func (a *PopulateEncryptedMeenKeyAction) Run(recoveryCodePublicKey *btcec.PublicKey) error {
+	slog.Warn("PopulateEncryptedMeenKeyAction.Run: start")
 
 	userHDPrivateKey, err := a.keyProvider.UserPrivateKey()
 	if err != nil {
@@ -48,9 +48,9 @@ func (a *PopulateEncryptedMuunKeyAction) Run(recoveryCodePublicKey *btcec.Public
 		return errors.Errorf("error obtaining user ec private key: %w", err)
 	}
 
-	muunHDPublicKey, err := a.keyProvider.MuunPublicKey()
+	meenHDPublicKey, err := a.keyProvider.MeenPublicKey()
 	if err != nil {
-		return errors.Errorf("error obtaining muun key from KeyProvider: %w", err)
+		return errors.Errorf("error obtaining meen key from KeyProvider: %w", err)
 	}
 
 	currentStatus, err := a.getCurrentStatus()
@@ -58,25 +58,25 @@ func (a *PopulateEncryptedMuunKeyAction) Run(recoveryCodePublicKey *btcec.Public
 		return err
 	}
 
-	if *currentStatus == HasVerifiedEncryptedMuunKey {
+	if *currentStatus == HasVerifiedEncryptedMeenKey {
 		// TODO remove this log once it is not necessary anymore
-		slog.Warn("PopulateEncryptedMuunKeyAction.Run: verified key is present, return early")
+		slog.Warn("PopulateEncryptedMeenKeyAction.Run: verified key is present, return early")
 		return nil
 	}
 
 	// we proceed, hoping to obtain a verified key
-	verifiableMuunKeyJson, err := a.houstonService.VerifiableMuunKey() //nolint:staticcheck // TODO: var verifiableMuunKeyJson should be verifiableMuunKeyJSON
+	verifiableMeenKeyJson, err := a.houstonService.VerifiableMeenKey() //nolint:staticcheck // TODO: var verifiableMeenKeyJson should be verifiableMeenKeyJSON
 	if err != nil {
 		return err
 	}
 
-	verifiableMuunKey, err := verifiable_muun_key.VerifiableMuunKeyFromJson(&verifiableMuunKeyJson)
+	verifiableMeenKey, err := verifiable_meen_key.VerifiableMeenKeyFromJson(&verifiableMeenKeyJson)
 	if err != nil {
 		return err
 	}
 
-	encryptedMuunKeyWithVerificationFlag, err := verifiableMuunKey.Verify(
-		muunHDPublicKey,
+	encryptedMeenKeyWithVerificationFlag, err := verifiableMeenKey.Verify(
+		meenHDPublicKey,
 		userEcPrivateKey,
 		recoveryCodePublicKey,
 	)
@@ -84,31 +84,31 @@ func (a *PopulateEncryptedMuunKeyAction) Run(recoveryCodePublicKey *btcec.Public
 		return err
 	}
 
-	if encryptedMuunKeyWithVerificationFlag.Verified {
-		slog.Warn("PopulateEncryptedMuunKeyAction.Run: store verified key")
+	if encryptedMeenKeyWithVerificationFlag.Verified {
+		slog.Warn("PopulateEncryptedMeenKeyAction.Run: store verified key")
 		return a.keyValueStorage.Save(
-			storage.VerifiedEncryptedMuunKey,
-			encryptedMuunKeyWithVerificationFlag.EncryptedMuunKey)
+			storage.VerifiedEncryptedMeenKey,
+			encryptedMeenKeyWithVerificationFlag.EncryptedMeenKey)
 	}
 
-	if *currentStatus == OnlyHasUnverifiedEncryptedMuunKey {
+	if *currentStatus == OnlyHasUnverifiedEncryptedMeenKey {
 		// Do not overwrite the existing unverified key
-		slog.Warn("PopulateEncryptedMuunKeyAction.Run: unverified key is present, return")
+		slog.Warn("PopulateEncryptedMeenKeyAction.Run: unverified key is present, return")
 		return nil
 	}
 
-	slog.Warn("PopulateEncryptedMuunKeyAction.Run: store unverified key")
+	slog.Warn("PopulateEncryptedMeenKeyAction.Run: store unverified key")
 	return a.keyValueStorage.Save(
-		storage.UnverifiedEncryptedMuunKey,
-		encryptedMuunKeyWithVerificationFlag.EncryptedMuunKey,
+		storage.UnverifiedEncryptedMeenKey,
+		encryptedMeenKeyWithVerificationFlag.EncryptedMeenKey,
 	)
 }
 
-func (a *PopulateEncryptedMuunKeyAction) getCurrentStatus() (*EncryptedMuunKeyStatus, error) {
-	encryptedMuunKeyWithStatus, err := a.mayRetrieveEncryptedMuunKey.Run()
+func (a *PopulateEncryptedMeenKeyAction) getCurrentStatus() (*EncryptedMeenKeyStatus, error) {
+	encryptedMeenKeyWithStatus, err := a.mayRetrieveEncryptedMeenKey.Run()
 	if err != nil {
 		return nil, err
 	}
 
-	return &encryptedMuunKeyWithStatus.Status, nil
+	return &encryptedMeenKeyWithStatus.Status, nil
 }

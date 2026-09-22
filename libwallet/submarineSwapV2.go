@@ -16,7 +16,7 @@ type coinSubmarineSwapV2 struct {
 	KeyPath             string
 	PaymentHash256      []byte
 	UserPublicKey       []byte
-	MuunPublicKey       []byte
+	MeenPublicKey       []byte
 	ServerPublicKey     []byte
 	BlocksForExpiration int64
 	ServerSignature     []byte
@@ -37,7 +37,7 @@ func (c *coinSubmarineSwapV2) SignInput(index int, tx *wire.MsgTx, userKey *HDPr
 	witnessScript, err := swaps.CreateWitnessScriptSubmarineSwapV2(
 		c.PaymentHash256,
 		c.UserPublicKey,
-		c.MuunPublicKey,
+		c.MeenPublicKey,
 		c.ServerPublicKey,
 		c.BlocksForExpiration)
 	if err != nil {
@@ -63,7 +63,7 @@ func (c *coinSubmarineSwapV2) SignInput(index int, tx *wire.MsgTx, userKey *HDPr
 func (c *coinSubmarineSwapV2) FullySignInput(
 	index int, //nolint:revive // TODO: use or remove index
 	tx *wire.MsgTx, //nolint:revive // TODO: use or remove tx
-	userKey, muunKey *HDPrivateKey, //nolint:revive // TODO: use or remove userKey
+	userKey, meenKey *HDPrivateKey, //nolint:revive // TODO: use or remove userKey
 ) error {
 	return errors.New("cannot fully sign submarine swap transactions")
 }

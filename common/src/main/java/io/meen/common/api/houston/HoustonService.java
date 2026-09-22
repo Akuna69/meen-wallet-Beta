@@ -1,0 +1,330 @@
+package io.meen.common.api.houston;
+
+
+import io.meen.common.api.ChallengeJson;
+import io.meen.common.api.ChallengeKeyUpdateMigrationJson;
+import io.meen.common.api.ChallengeSetupJson;
+import io.meen.common.api.ChallengeSetupVerifyJson;
+import io.meen.common.api.ChallengeSignatureJson;
+import io.meen.common.api.ChallengeUpdateJson;
+import io.meen.common.api.Contact;
+import io.meen.common.api.CreateFirstSessionJson;
+import io.meen.common.api.CreateFirstSessionOkJson;
+import io.meen.common.api.CreateLoginSessionJson;
+import io.meen.common.api.CreateRcLoginSessionJson;
+import io.meen.common.api.CreateSessionOkJson;
+import io.meen.common.api.CreateSessionRcOkJson;
+import io.meen.common.api.DiffJson;
+import io.meen.common.api.ExportEmergencyKitJson;
+import io.meen.common.api.ExternalAddressesRecord;
+import io.meen.common.api.FeasibleAreaJson;
+import io.meen.common.api.FeedbackJson;
+import io.meen.common.api.FulfillmentPushedJson;
+import io.meen.common.api.IncomingSwapFulfillmentDataJson;
+import io.meen.common.api.IntegrityCheck;
+import io.meen.common.api.IntegrityStatus;
+import io.meen.common.api.KeyFingerprintMigrationJson;
+import io.meen.common.api.KeySet;
+import io.meen.common.api.LinkActionJson;
+import io.meen.common.api.LoginJson;
+import io.meen.common.api.NextTransactionSizeJson;
+import io.meen.common.api.OperationCreatedJson;
+import io.meen.common.api.OperationJson;
+import io.meen.common.api.PasswordSetupJson;
+import io.meen.common.api.PendingChallengeUpdateJson;
+import io.meen.common.api.PhoneConfirmation;
+import io.meen.common.api.PhoneNumberJson;
+import io.meen.common.api.PlayIntegrityTokenJson;
+import io.meen.common.api.PreimageJson;
+import io.meen.common.api.PublicKeySetJson;
+import io.meen.common.api.PublicProfileJson;
+import io.meen.common.api.PushTransactionsJson;
+import io.meen.common.api.RawTransaction;
+import io.meen.common.api.RealTimeData;
+import io.meen.common.api.RealTimeFeesJson;
+import io.meen.common.api.RealTimeFeesRequestJson;
+import io.meen.common.api.SensorEventBatchJson;
+import io.meen.common.api.SetupChallengeResponse;
+import io.meen.common.api.StartEmailSetupJson;
+import io.meen.common.api.SubmarineSwapJson;
+import io.meen.common.api.SubmarineSwapRequestJson;
+import io.meen.common.api.TransactionPushedJson;
+import io.meen.common.api.UpdateOperationMetadataJson;
+import io.meen.common.api.UserInvoiceJson;
+import io.meen.common.api.UserJson;
+import io.meen.common.api.UserProfileJson;
+import io.meen.common.api.VerifiableMeenKeyJson;
+import io.meen.common.api.beam.notification.NotificationReportJson;
+import io.meen.common.model.UserPreferences;
+import io.meen.common.model.VerificationType;
+import io.meen.common.net.NetworkRetry;
+import io.meen.common.net.ServerRetry;
+
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
+import retrofit2.http.DELETE;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
+import retrofit2.http.Multipart;
+import retrofit2.http.PATCH;
+import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
+import rx.Completable;
+import rx.Observable;
+import rx.Single;
+
+import java.util.List;
+import javax.annotation.Nullable;
+
+
+public interface HoustonService {
+
+    // ---------------------------------------------------------------------------------------------
+    // Authentication and Sessions:
+
+    @POST("sessions-v2/first")
+    Observable<CreateFirstSessionOkJson> createFirstSession(@Body CreateFirstSessionJson session);
+
+    @POST("sessions-v2/login")
+    Observable<CreateSessionOkJson> createLoginSession(@Body CreateLoginSessionJson session);
+
+    @PUT("sessions-v2/play-integrity")
+    Completable submitPlayIntegrityToken(@Body PlayIntegrityTokenJson playIntegrityTokenJson);
+
+    @POST("sessions-v2/email/start")
+    Observable<Void> startEmailSetup(@Body StartEmailSetupJson startEmailSetup);
+
+    @POST("sessions-v2/email/finish")
+    Observable<Void> useVerifyLink(@Body LinkActionJson linkActionJson);
+
+    @POST("sessions-v2/password")
+    Observable<Void> setUpPassword(@Body PasswordSetupJson passwordSetup);
+
+    @POST("sessions/current/authorize")
+    Observable<Void> useAuthorizeLink(@Body LinkActionJson linkActionJson);
+
+    @POST("sessions/current/login")
+    Observable<KeySet> login(@Body LoginJson loginJson);
+
+    @POST("sessions/current/login/compat")
+    Observable<KeySet> loginCompatWithoutChallenge();
+
+    @POST("sessions/logout")
+    Observable<Void> notifyLogout(@Header("Authorization") String authHeader);
+
+    @POST("sessions/expire-all-others")
+    Completable expireAllOtherSessions();
+
+    @PUT("sessions/current/gcm-token")
+    Observable<Void> updateFcmToken(@Body String gcmToken);
+
+    @GET("sessions/notification_report")
+    Observable<NotificationReportJson> fetchNotificationReportAfter(
+            @Query("after") @Nullable Long notificationId
+    );
+
+    @PUT("sessions/notifications/confirm")
+    Observable<Void> confirmNotificationsDeliveryUntil(
+            @Query("until") Long notificationId,
+            @Query("deviceModel") String deviceModel,
+            @Query("osVersion") String osVersion,
+            @Query("appStatus") String appStatus
+    );
+
+    @GET("user/challenge")
+    Observable<ChallengeJson> requestChallenge(@Query("type") String challengeType);
+
+    @POST("user/challenge/setup")
+    Observable<SetupChallengeResponse> setupChallenge(@Body ChallengeSetupJson challengeSetupJson);
+
+    @POST("user/challenge/setup/start")
+    Observable<SetupChallengeResponse> startChallengeSetup(
+            @Body ChallengeSetupJson challengeSetupJson
+    );
+
+    @POST("user/challenge/setup/finish")
+    Completable finishChallengeSetup(@Body ChallengeSetupVerifyJson challengeSetupVerifyJson);
+
+    @POST("user/challenge/setup/finish-with-verifiable-meen-key")
+    Observable<VerifiableMeenKeyJson> finishChallengeSetupWithVerifiableMeenKey(
+            @Body ChallengeSetupVerifyJson challengeSetupVerifyJson
+    );
+
+    // ---------------------------------------------------------------------------------------------
+    // Recovery Code Only Login:
+
+    @POST("sessions-v2/recovery-code/start")
+    Observable<ChallengeJson> createRecoveryCodeLoginSession(@Body CreateRcLoginSessionJson body);
+
+    @POST("sessions-v2/recovery-code/finish")
+    Observable<CreateSessionRcOkJson> loginWithRecoveryCode(@Body ChallengeSignatureJson signature);
+
+    @POST("sessions-v2/recovery-code/authorize")
+    Observable<Void> authorizeLoginWithRecoveryCode(@Body LinkActionJson linkActionJson);
+
+    @GET("sessions-v2/current/key-set")
+    Observable<KeySet> getKeySet();
+
+
+    // ---------------------------------------------------------------------------------------------
+    // User and Profile:
+
+    @GET("user")
+    Observable<UserJson> fetchUserInfo();
+
+    @PUT("user/public-key-set")
+    Observable<PublicKeySetJson> updatePublicKeySet(@Body PublicKeySetJson publicKeySet);
+
+    @GET("user/external-addresses-record")
+    Observable<ExternalAddressesRecord> fetchExternalAddressesRecord();
+
+    @PUT("user/external-addresses-record")
+    Observable<ExternalAddressesRecord> updateExternalAddressesRecord(
+            @Body ExternalAddressesRecord externalAddressesRecord
+    );
+
+    @Multipart
+    @PUT("user/profile/picture")
+    Observable<PublicProfileJson> uploadProfilePicture(@Part("picture") RequestBody file);
+
+    @PATCH("user/profile")
+    Observable<UserJson> updateUser(@Body UserProfileJson user);
+
+    @POST("user/currency")
+    Observable<UserJson> changeCurrency(@Body UserJson user);
+
+    @POST("user/password")
+    Observable<PendingChallengeUpdateJson> beginPasswordChange(
+            @Body ChallengeSignatureJson challengeSignatureJson
+    );
+
+    @POST("user/password/authorize")
+    Observable<Void> useConfirmLink(@Body LinkActionJson linkActionJson);
+
+    @POST("user/password/finish")
+    Observable<SetupChallengeResponse> finishPasswordChange(
+            @Body ChallengeUpdateJson challengeUpdateJson
+    );
+
+    @POST("user/feedback")
+    Observable<Void> submitFeedback(@Body FeedbackJson feedback);
+
+    @POST("user/phone/create")
+    Observable<PhoneNumberJson> createPhone(@Body PhoneNumberJson phoneNumberJson);
+
+    @POST("user/phone/resend-code")
+    Observable<Void> resendVerificationCode(@Body VerificationType verificationType);
+
+    @PUT("user/phone/confirm")
+    Observable<PhoneNumberJson> confirmPhone(@Body PhoneConfirmation phoneConfirmation);
+
+    @POST("user/profile")
+    Observable<UserJson> createProfile(@Body UserProfileJson userProfileJson);
+
+    @GET("user/verifiable-meen-key")
+    Observable<VerifiableMeenKeyJson> getVerifiableServerCosigningKey();
+
+    @POST("user/emergency-kit/exported")
+    Observable<Void> reportEmergencyKitExported(@Body ExportEmergencyKitJson json);
+
+    @PUT("user/preferences")
+    Completable updateUserPreferences(@Body UserPreferences userPreferences);
+
+    @POST("user/delete")
+    Completable deleteWallet(@Body ChallengeSignatureJson challengeSignatureJson);
+
+    @POST("user/email/account-deletion/confirm")
+    Observable<Void> confirmAccountDeletion(@Body LinkActionJson linkActionJson);
+
+    // ---------------------------------------------------------------------------------------------
+    // Contacts:
+
+    @GET("contacts")
+    Observable<List<Contact>> fetchContacts();
+
+    @PATCH("watched-phone-numbers")
+    Observable<List<Contact>> patchPhoneNumbers(@Body DiffJson<String> phoneNumberHashDiff);
+
+
+    // ---------------------------------------------------------------------------------------------
+    // Real-time data and Operations:
+
+    @GET("realtime")
+    Observable<RealTimeData> fetchRealTimeData();
+
+    @POST("realtime/fees")
+    Observable<RealTimeFeesJson> fetchRealTimeFees(
+            @Body RealTimeFeesRequestJson unconfirmedOutpoints
+    );
+
+    @GET("operations")
+    Observable<List<OperationJson>> fetchOperations();
+
+    @NetworkRetry(count = 0)    // No retries. Avoid Musig nonces reuse!
+    @ServerRetry(count = 0)     // No retries. Avoid Musig nonces reuse!
+    @POST("operations")
+    Observable<OperationCreatedJson> newOperation(@Body OperationJson operation);
+
+    @PUT("operations/{operationId}/metadata")
+    Completable updateOperationMetadata(@Path("operationId") Long operationId,
+                                        @Body UpdateOperationMetadataJson data);
+
+    @NetworkRetry(count = 0)    // No retries. Avoid Musig nonces reuse!
+    @ServerRetry(count = 0)     // No retries. Avoid Musig nonces reuse!
+    @PUT("operations/{operationId}/raw-transactions")
+    Observable<TransactionPushedJson> pushTransactions(@Body PushTransactionsJson pushTransactions,
+                                                       @Path("operationId") Long operationId);
+
+    @GET("operations/next-transaction-size")
+    Observable<NextTransactionSizeJson> fetchNextTransactionSize();
+
+    @POST("operations/sswap/create")
+    Observable<SubmarineSwapJson> createSubmarineSwap(@Body SubmarineSwapRequestJson data);
+
+    // ---------------------------------------------------------------------------------------------
+    // Incoming swaps:
+
+    @POST("incoming-swaps/invoices")
+    Completable registerInvoices(@Body List<UserInvoiceJson> invoices);
+
+    @POST("incoming-swaps/{incomingSwapUuid}/fulfillment")
+    Single<IncomingSwapFulfillmentDataJson> fetchFulfillmentData(
+            @Path("incomingSwapUuid") String incomingSwapUuid);
+
+    @PUT("incoming-swaps/{incomingSwapUuid}/fulfillment")
+    Single<FulfillmentPushedJson> pushFulfillmentTransaction(
+            @Path("incomingSwapUuid") String incomingSwapUuid,
+            @Body RawTransaction tx);
+
+    @DELETE("incoming-swaps/invoices/{paymentHashHex}")
+    Completable expireInvoice(@Path("paymentHashHex") String paymentHashHex);
+
+    @PUT("incoming-swaps/{incomingSwapUuid}")
+    Completable fulfillIncomingSwap(
+            @Path("incomingSwapUuid") String incomingSwapUuid,
+            @Body PreimageJson preimage);
+
+    // ---------------------------------------------------------------------------------------------
+    // Other endpoints:
+
+    @POST("integrity/check")
+    Observable<IntegrityStatus> checkIntegrity(@Body IntegrityCheck request);
+
+    @POST("internal/save-sensor-event-batch")
+    Observable<Void> saveSensorEventBatch(@Body SensorEventBatchJson sensorEventBatchJson);
+
+    @GET("internal/nfc/feasible-area/{modelName}")
+    Single<FeasibleAreaJson> fetchFeasibleArea(@Path("modelName") String modelName);
+
+    // ---------------------------------------------------------------------------------------------
+    // Migrations:
+
+    @GET("migrations/challenge-keys")
+    Observable<ChallengeKeyUpdateMigrationJson> fetchChallengeKeyUpdateMigration();
+
+    @GET("migrations/fingerprints")
+    Observable<KeyFingerprintMigrationJson> fetchKeyFingerprintMigration();
+}

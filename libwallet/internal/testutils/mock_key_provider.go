@@ -12,16 +12,16 @@ var _ keys.KeyProvider = (*MockKeyProvider)(nil)
 // Set error fields to simulate failures.
 type MockKeyProvider struct {
 	userPrivateKey    *libwallet.HDPrivateKey
-	muunKey           *libwallet.HDPrivateKey
+	meenKey           *libwallet.HDPrivateKey
 	UserPrivateKeyErr error
-	MuunPublicKeyErr  error
+	MeenPublicKeyErr  error
 }
 
 // NewMockKeyProvider creates a MockKeyProvider from test keys.
 func NewMockKeyProvider(testKeys *TestKeys) *MockKeyProvider {
 	return &MockKeyProvider{
 		userPrivateKey: testKeys.UserKey,
-		muunKey:        testKeys.MuunKey,
+		meenKey:        testKeys.MeenKey,
 	}
 }
 
@@ -32,11 +32,11 @@ func (m *MockKeyProvider) UserPrivateKey() (*libwallet.HDPrivateKey, error) {
 	return m.userPrivateKey, nil
 }
 
-func (m *MockKeyProvider) MuunPublicKey() (*libwallet.HDPublicKey, error) {
-	if m.MuunPublicKeyErr != nil {
-		return nil, m.MuunPublicKeyErr
+func (m *MockKeyProvider) MeenPublicKey() (*libwallet.HDPublicKey, error) {
+	if m.MeenPublicKeyErr != nil {
+		return nil, m.MeenPublicKeyErr
 	}
-	return m.muunKey.PublicKey(), nil
+	return m.meenKey.PublicKey(), nil
 }
 
 // Methods below are not used in the actions under test — they panic if called.
@@ -45,7 +45,7 @@ func (m *MockKeyProvider) UserPublicKey() (*libwallet.HDPublicKey, error) {
 	panic("unimplemented")
 }
 
-func (m *MockKeyProvider) EncryptedMuunPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
+func (m *MockKeyProvider) EncryptedMeenPrivateKey() (*libwallet.EncryptedPrivateKeyInfo, error) {
 	panic("unimplemented")
 }
 

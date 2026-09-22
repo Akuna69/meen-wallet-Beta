@@ -36,28 +36,28 @@ func (action *SignSweepTxAction) Run(
 		return nil, err
 	}
 
-	muunPrivateKey, err := action.fetchMuunPrivateKey(recoveryCode)
+	meenPrivateKey, err := action.fetchMeenPrivateKey(recoveryCode)
 	if err != nil {
 		return nil, err
 	}
 
-	return buildSignedSweepTx(utxos, tx, userPrivateKey, muunPrivateKey)
+	return buildSignedSweepTx(utxos, tx, userPrivateKey, meenPrivateKey)
 }
 
-func (action *SignSweepTxAction) fetchMuunPrivateKey(
+func (action *SignSweepTxAction) fetchMeenPrivateKey(
 	recoveryCode string,
 ) (*libwallet.HDPrivateKey, error) {
-	encryptedKeyData, err := action.keyProvider.EncryptedMuunPrivateKey()
+	encryptedKeyData, err := action.keyProvider.EncryptedMeenPrivateKey()
 	if err != nil {
 		return nil, err
 	}
 
-	muunKeyData, err := decryptKeys(encryptedKeyData, recoveryCode, action.network)
+	meenKeyData, err := decryptKeys(encryptedKeyData, recoveryCode, action.network)
 	if err != nil {
 		return nil, err
 	}
 
-	return muunKeyData.Key, nil
+	return meenKeyData.Key, nil
 }
 
 func decryptKeys(
@@ -83,7 +83,7 @@ func buildSignedSweepTx(
 	utxos []*scanner.Utxo,
 	unsignedSweepTx *wire.MsgTx,
 	userKey *libwallet.HDPrivateKey,
-	muunKey *libwallet.HDPrivateKey,
+	meenKey *libwallet.HDPrivateKey,
 ) (*wire.MsgTx, error) {
 	inputList := &libwallet.InputList{}
 	userNonces := libwallet.EmptyMusigNonces()
@@ -118,7 +118,7 @@ func buildSignedSweepTx(
 		return nil, err
 	}
 
-	signedTx, err := pstx.FullySign(userKey, muunKey)
+	signedTx, err := pstx.FullySign(userKey, meenKey)
 	if err != nil {
 		return nil, err
 	}

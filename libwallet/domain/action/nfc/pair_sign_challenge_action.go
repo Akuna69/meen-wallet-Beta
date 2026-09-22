@@ -11,11 +11,11 @@ import (
 )
 
 type PairSignChallengeAction struct {
-	muunCard *nfc.MuunCardV2
+	meenCard *nfc.MeenCardV2
 }
 
-func NewPairSignChallengeAction(muunCard *nfc.MuunCardV2) *PairSignChallengeAction {
-	return &PairSignChallengeAction{muunCard: muunCard}
+func NewPairSignChallengeAction(meenCard *nfc.MeenCardV2) *PairSignChallengeAction {
+	return &PairSignChallengeAction{meenCard: meenCard}
 }
 
 // Run drives the NFC tap. It returns the card's response together with the
@@ -23,7 +23,7 @@ func NewPairSignChallengeAction(muunCard *nfc.MuunCardV2) *PairSignChallengeActi
 func (ac *PairSignChallengeAction) Run(
 	fresh *security_card.FreshPairChallenge,
 ) (*SignedPairChallenge, error) {
-	// TODO: remove the client keypair (and the second argument to muunCard.Pair below
+	// TODO: remove the client keypair (and the second argument to meenCard.Pair below
 	// + the clientPublicKey param of MapRegisterSecurityCardJson) once the card
 	// firmware drops pub_client from its MAC input. Today the card still MACs over
 	// pub_client (retro-compat with cards in the field) and the mock mirrors that
@@ -34,7 +34,7 @@ func (ac *PairSignChallengeAction) Run(
 	}
 	clientPublicKey := clientPrivateKey.PublicKey().Bytes()
 
-	pairingResponse, err := ac.muunCard.Pair(fresh.ServerPublicKey, clientPublicKey)
+	pairingResponse, err := ac.meenCard.Pair(fresh.ServerPublicKey, clientPublicKey)
 	if err != nil {
 		var cardError *nfc.CardError
 		if errors.As(err, &cardError) {
@@ -45,8 +45,8 @@ func (ac *PairSignChallengeAction) Run(
 					Cause:   err,
 				}
 			case nfc.ErrAppletIdNotFound:
-				return nil, &MuunAppletNotFoundError{
-					Message: "muun applet not found",
+				return nil, &MeenAppletNotFoundError{
+					Message: "meen applet not found",
 					Cause:   err,
 				}
 			}

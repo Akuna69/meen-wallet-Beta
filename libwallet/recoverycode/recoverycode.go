@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	kdfKey                   = "muun:rc"
+	kdfKey                   = "meen:rc"
 	kdfIterations            = 512
 	kdfBlockSize             = 8
 	kdfParallelizationFactor = 1

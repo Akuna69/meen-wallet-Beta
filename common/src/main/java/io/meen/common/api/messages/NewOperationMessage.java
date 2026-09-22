@@ -1,0 +1,58 @@
+package io.meen.common.api.messages;
+
+import io.meen.common.api.NextTransactionSizeJson;
+import io.meen.common.api.OperationJson;
+import io.meen.common.api.Transaction;
+import io.meen.common.model.SessionStatus;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class NewOperationMessage extends AbstractMessage {
+
+    public static final MessageSpec SPEC = new MessageSpec(
+            "operation/new",
+            SessionStatus.LOGGED_IN,
+            MessageOrigin.HOUSTON
+    );
+
+
+    public OperationJson operation;
+    public NextTransactionSizeJson nextTransactionSize;
+
+    @Override
+    public String toLog() {
+        final Transaction tx = operation.transaction;
+        if (operation.transaction != null) {
+            return String.format(
+                    "New tx '%s' with %s confirmations",
+                    tx.hash,
+                    tx.confirmations
+            );
+        }
+
+        return "New operation with null transaction";
+    }
+
+    /**
+     * Json constructor.
+     */
+    public NewOperationMessage() {
+    }
+
+    /**
+     * Houston constructor.
+     */
+    public NewOperationMessage(OperationJson operation, NextTransactionSizeJson nextTxSize) {
+        this.operation = operation;
+        this.nextTransactionSize = nextTxSize;
+    }
+
+    @Override
+    public MessageSpec getSpec() {
+        return SPEC;
+    }
+}

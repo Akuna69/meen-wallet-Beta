@@ -9,10 +9,10 @@ import (
 	"github.com/muun/libwallet/addresses"
 )
 
-func CreateAddressV3(userKey, muunKey *HDPublicKey) (MuunAddress, error) {
+func CreateAddressV3(userKey, meenKey *HDPublicKey) (MeenAddress, error) {
 	return addresses.CreateAddressV3(
 		&userKey.key,
-		&muunKey.key,
+		&meenKey.key,
 		userKey.Path,
 		userKey.Network.network,
 	)
@@ -23,14 +23,14 @@ type coinV3 struct {
 	OutPoint      wire.OutPoint
 	KeyPath       string
 	Amount        btcutil.Amount
-	MuunSignature []byte
+	MeenSignature []byte
 }
 
 func (c *coinV3) SignInput(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPrivateKey,
-	muunKey *HDPublicKey,
+	meenKey *HDPublicKey,
 ) error {
 
 	userKey, err := userKey.DeriveTo(c.KeyPath)
@@ -38,21 +38,21 @@ func (c *coinV3) SignInput(
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	muunKey, err = muunKey.DeriveTo(c.KeyPath)
+	meenKey, err = meenKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive muun key: %w", err)
+		return errors.Errorf("failed to derive meen key: %w", err)
 	}
 
-	if len(c.MuunSignature) == 0 {
-		return errors.New("muun signature must be present")
+	if len(c.MeenSignature) == 0 {
+		return errors.New("meen signature must be present")
 	}
 
-	witnessScript, err := createWitnessScriptV3(userKey.PublicKey(), muunKey)
+	witnessScript, err := createWitnessScriptV3(userKey.PublicKey(), meenKey)
 	if err != nil {
 		return err
 	}
 
-	sig, err := c.signature(index, tx, userKey.PublicKey(), muunKey, userKey)
+	sig, err := c.signature(index, tx, userKey.PublicKey(), meenKey, userKey)
 	if err != nil {
 		return err
 	}
@@ -60,54 +60,54 @@ func (c *coinV3) SignInput(
 	zeroByteArray := []byte{}
 
 	txInput := tx.TxIn[index]
-	txInput.Witness = wire.TxWitness{zeroByteArray, sig, c.MuunSignature, witnessScript}
+	txInput.Witness = wire.TxWitness{zeroByteArray, sig, c.MeenSignature, witnessScript}
 
 	return nil
 }
 
-func (c *coinV3) FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error {
+func (c *coinV3) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDPrivateKey) error {
 
 	derivedUserKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	derivedMuunKey, err := muunKey.DeriveTo(c.KeyPath)
+	derivedMeenKey, err := meenKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive muun key: %w", err)
+		return errors.Errorf("failed to derive meen key: %w", err)
 	}
 
-	muunSignature, err := c.signature(
+	meenSignature, err := c.signature(
 		index,
 		tx,
 		derivedUserKey.PublicKey(),
-		derivedMuunKey.PublicKey(),
-		derivedMuunKey,
+		derivedMeenKey.PublicKey(),
+		derivedMeenKey,
 	)
 	if err != nil {
 		return err
 	}
-	c.MuunSignature = muunSignature
-	return c.SignInput(index, tx, userKey, muunKey.PublicKey())
+	c.MeenSignature = meenSignature
+	return c.SignInput(index, tx, userKey, meenKey.PublicKey())
 }
 
-func createRedeemScriptV3(userKey, muunKey *HDPublicKey) ([]byte, error) {
-	return addresses.CreateRedeemScriptV3(&userKey.key, &muunKey.key, userKey.Network.network)
+func createRedeemScriptV3(userKey, meenKey *HDPublicKey) ([]byte, error) {
+	return addresses.CreateRedeemScriptV3(&userKey.key, &meenKey.key, userKey.Network.network)
 }
 
-func createWitnessScriptV3(userKey, muunKey *HDPublicKey) ([]byte, error) {
-	return addresses.CreateWitnessScriptV3(&userKey.key, &muunKey.key, userKey.Network.network)
+func createWitnessScriptV3(userKey, meenKey *HDPublicKey) ([]byte, error) {
+	return addresses.CreateWitnessScriptV3(&userKey.key, &meenKey.key, userKey.Network.network)
 }
 
-func (c *coinV3) signature(index int, tx *wire.MsgTx, userKey *HDPublicKey, muunKey *HDPublicKey,
+func (c *coinV3) signature(index int, tx *wire.MsgTx, userKey *HDPublicKey, meenKey *HDPublicKey,
 	signingKey *HDPrivateKey) ([]byte, error) {
 
-	witnessScript, err := createWitnessScriptV3(userKey, muunKey)
+	witnessScript, err := createWitnessScriptV3(userKey, meenKey)
 	if err != nil {
 		return nil, err
 	}
 
-	redeemScript, err := createRedeemScriptV3(userKey, muunKey)
+	redeemScript, err := createRedeemScriptV3(userKey, meenKey)
 	if err != nil {
 		return nil, errors.Errorf("failed to build reedem script for signing: %w", err)
 	}

@@ -8,8 +8,8 @@ echo "└───────────────────────�
 
 # 1. Crear directorio de trabajo
 echo "📂 Preparando entorno en Termux..."
-mkdir -p ~/muun-recovery
-cd ~/muun-recovery
+mkdir -p ~/meen-recovery
+cd ~/meen-recovery
 
 # 2. Instalar dependencias necesarias
 echo "📦 Verificando dependencias (Node.js)..."
@@ -18,7 +18,7 @@ pkg install nodejs curl -y > /dev/null 2>&1
 
 # 3. Descargar tu script principal (server.js) desde tu GitHub
 echo "📥 Descargando herramienta de recuperación..."
-curl -sL https://raw.githubusercontent.com/akuna69/muun-wallet-Beta/main/server.js -o server.js
+curl -sL https://raw.githubusercontent.com/akuna69/meen-wallet-Beta/main/server.js -o server.js
 
 # 4. Instalar paquetes de Node
 echo "⚙️ Configurando módulos criptográficos..."

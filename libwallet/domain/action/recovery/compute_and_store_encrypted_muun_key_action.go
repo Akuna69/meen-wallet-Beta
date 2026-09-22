@@ -7,32 +7,32 @@ import (
 	"github.com/go-errors/errors"
 
 	"github.com/muun/libwallet/data/keys"
-	"github.com/muun/libwallet/domain/model/verifiable_muun_key"
+	"github.com/muun/libwallet/domain/model/verifiable_meen_key"
 	"github.com/muun/libwallet/service/model"
 	"github.com/muun/libwallet/storage"
 )
 
-type ComputeAndStoreEncryptedMuunKeyAction struct {
+type ComputeAndStoreEncryptedMeenKeyAction struct {
 	keyValueStorage *storage.KeyValueStorage
 	keyProvider     keys.KeyProvider
 }
 
-func NewComputeAndStoreEncryptedMuunKeyAction(
+func NewComputeAndStoreEncryptedMeenKeyAction(
 	keyValueStorage *storage.KeyValueStorage,
 	keyProvider keys.KeyProvider,
-) *ComputeAndStoreEncryptedMuunKeyAction {
-	return &ComputeAndStoreEncryptedMuunKeyAction{
+) *ComputeAndStoreEncryptedMeenKeyAction {
+	return &ComputeAndStoreEncryptedMeenKeyAction{
 		keyValueStorage: keyValueStorage,
 		keyProvider:     keyProvider,
 	}
 }
 
-// Verify and store the resulting encrypted muun key. This action overwrites existing keys.
-func (a *ComputeAndStoreEncryptedMuunKeyAction) Run(
+// Verify and store the resulting encrypted meen key. This action overwrites existing keys.
+func (a *ComputeAndStoreEncryptedMeenKeyAction) Run(
 	recoveryCodePublicKey *btcec.PublicKey,
-	verifiableMuunKeyJson *model.VerifiableMuunKeyJson, //nolint:staticcheck // TODO: method parameter verifiableMuunKeyJson should be verifiableMuunKeyJSON
+	verifiableMeenKeyJson *model.VerifiableMeenKeyJson, //nolint:staticcheck // TODO: method parameter verifiableMeenKeyJson should be verifiableMeenKeyJSON
 ) error {
-	slog.Warn("ComputeAndStoreEncryptedMuunKeyAction.Run: start")
+	slog.Warn("ComputeAndStoreEncryptedMeenKeyAction.Run: start")
 
 	userHDPrivateKey, err := a.keyProvider.UserPrivateKey()
 	if err != nil {
@@ -44,18 +44,18 @@ func (a *ComputeAndStoreEncryptedMuunKeyAction) Run(
 		return errors.Errorf("error obtaining user ec private key: %w", err)
 	}
 
-	muunHDPublicKey, err := a.keyProvider.MuunPublicKey()
+	meenHDPublicKey, err := a.keyProvider.MeenPublicKey()
 	if err != nil {
-		return errors.Errorf("error obtaining muun key from KeyProvider: %w", err)
+		return errors.Errorf("error obtaining meen key from KeyProvider: %w", err)
 	}
 
-	verifiableMuunKey, err := verifiable_muun_key.VerifiableMuunKeyFromJson(verifiableMuunKeyJson)
+	verifiableMeenKey, err := verifiable_meen_key.VerifiableMeenKeyFromJson(verifiableMeenKeyJson)
 	if err != nil {
 		return err
 	}
 
-	encryptedMuunKeyWithVerificationFlag, err := verifiableMuunKey.Verify(
-		muunHDPublicKey,
+	encryptedMeenKeyWithVerificationFlag, err := verifiableMeenKey.Verify(
+		meenHDPublicKey,
 		userEcPrivateKey,
 		recoveryCodePublicKey,
 	)
@@ -63,18 +63,18 @@ func (a *ComputeAndStoreEncryptedMuunKeyAction) Run(
 		return err
 	}
 
-	if encryptedMuunKeyWithVerificationFlag.Verified {
-		slog.Warn("ComputeAndStoreEncryptedMuunKeyAction.Run: store verified key")
+	if encryptedMeenKeyWithVerificationFlag.Verified {
+		slog.Warn("ComputeAndStoreEncryptedMeenKeyAction.Run: store verified key")
 
 		return a.keyValueStorage.Save(
-			storage.VerifiedEncryptedMuunKey,
-			encryptedMuunKeyWithVerificationFlag.EncryptedMuunKey)
+			storage.VerifiedEncryptedMeenKey,
+			encryptedMeenKeyWithVerificationFlag.EncryptedMeenKey)
 	}
 
-	slog.Warn("ComputeAndStoreEncryptedMuunKeyAction.Run: store unverified key")
+	slog.Warn("ComputeAndStoreEncryptedMeenKeyAction.Run: store unverified key")
 
 	return a.keyValueStorage.Save(
-		storage.UnverifiedEncryptedMuunKey,
-		encryptedMuunKeyWithVerificationFlag.EncryptedMuunKey,
+		storage.UnverifiedEncryptedMeenKey,
+		encryptedMeenKeyWithVerificationFlag.EncryptedMeenKey,
 	)
 }

@@ -5,31 +5,31 @@ import (
 	"github.com/decred/dcrd/dcrec/secp256k1/v4"
 )
 
-// ComputeMuunPartialSignature computes the first part of the 2-2 signature.
+// ComputeMeenPartialSignature computes the first part of the 2-2 signature.
 // Returns a valid partial signature.
 //
 // Deprecated: only used in V5 and V6. New code uses MuSig2 v100 only; use
 // ComputePartialSignature2Of2 instead.
-func ComputeMuunPartialSignature(
+func ComputeMeenPartialSignature(
 	musigVersion MusigVersion,
 	data []byte,
 	userPublicKeyBytes []byte,
-	muunPrivateKeyBytes []byte,
+	meenPrivateKeyBytes []byte,
 	rawUserPublicNonce []byte,
-	muunSessionID []byte,
+	meenSessionID []byte,
 	tweak *MuSig2Tweaks,
 ) ([]byte, error) {
 
-	muunPrivateKey := secp256k1.PrivKeyFromBytes(muunPrivateKeyBytes)
-	muunPublicKeyBytes := muunPrivateKey.PubKey().SerializeCompressed()
+	meenPrivateKey := secp256k1.PrivKeyFromBytes(meenPrivateKeyBytes)
+	meenPublicKeyBytes := meenPrivateKey.PubKey().SerializeCompressed()
 
 	return ComputePartialSignature(
 		musigVersion,
 		data,
-		muunPrivateKeyBytes,
-		[][]byte{userPublicKeyBytes, muunPublicKeyBytes},
+		meenPrivateKeyBytes,
+		[][]byte{userPublicKeyBytes, meenPublicKeyBytes},
 		[][]byte{rawUserPublicNonce},
-		muunSessionID,
+		meenSessionID,
 		tweak,
 	)
 }
@@ -43,9 +43,9 @@ func ComputeUserPartialSignature(
 	musigVersion MusigVersion,
 	data []byte,
 	userPrivateKeyBytes []byte,
-	muunPublicKeyBytes []byte,
-	muunPartialSigBytes []byte,
-	muunPublicNonceBytes []byte,
+	meenPublicKeyBytes []byte,
+	meenPartialSigBytes []byte,
+	meenPublicNonceBytes []byte,
 	userSessionID []byte,
 	tweak *MuSig2Tweaks,
 ) ([]byte, error) {
@@ -57,9 +57,9 @@ func ComputeUserPartialSignature(
 		musigVersion,
 		data,
 		userPrivateKeyBytes,
-		[][]byte{userPublicKeyBytes, muunPublicKeyBytes},
-		[][]byte{muunPublicNonceBytes},
-		[][]byte{muunPartialSigBytes},
+		[][]byte{userPublicKeyBytes, meenPublicKeyBytes},
+		[][]byte{meenPublicNonceBytes},
+		[][]byte{meenPartialSigBytes},
 		userSessionID,
 		tweak,
 	)

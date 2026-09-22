@@ -8,10 +8,10 @@ import (
 	"github.com/muun/libwallet/errors"
 )
 
-// Invoice is muun's invoice struct
+// Invoice is meen's invoice struct
 type Invoice struct {
 	RawInvoice      string
-	FallbackAddress *MuunPaymentURI
+	FallbackAddress *MeenPaymentURI
 	Network         *Network
 	MilliSat        string
 	Destination     []byte
@@ -48,7 +48,7 @@ func ParseInvoice(rawInput string, network *Network) (*Invoice, error) {
 		return nil, errors.Errorf(ErrInvalidInvoice, "Couldn't parse invoice: %w", err)
 	}
 
-	var fallbackAdd *MuunPaymentURI
+	var fallbackAdd *MeenPaymentURI
 
 	if parsedInvoice.FallbackAddr != nil {
 		fallbackAdd, err = GetPaymentURI(parsedInvoice.FallbackAddr.String(), network)

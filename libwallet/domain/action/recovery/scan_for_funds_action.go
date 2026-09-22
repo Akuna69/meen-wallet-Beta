@@ -48,18 +48,18 @@ func (action *ScanForFundsAction) Run(logger *slog.Logger) (<-chan *scanner.Repo
 }
 
 // generates a list of addresses to recover
-func generateAddresses(keyProvider keys.KeyProvider) (chan libwallet.MuunAddress, error) {
+func generateAddresses(keyProvider keys.KeyProvider) (chan libwallet.MeenAddress, error) {
 	userPubKey, err := keyProvider.UserPublicKey()
 	if err != nil {
 		return nil, err
 	}
 
-	muunKey, err := keyProvider.MuunPublicKey()
+	meenKey, err := keyProvider.MeenPublicKey()
 	if err != nil {
 		return nil, err
 	}
 
-	addrGen := scanner.NewAddressGenerator(userPubKey, muunKey, false)
+	addrGen := scanner.NewAddressGenerator(userPubKey, meenKey, false)
 
 	maxIndex := keyProvider.MaxDerivedIndex()
 	if maxIndex == 0 {

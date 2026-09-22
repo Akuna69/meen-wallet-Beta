@@ -9,7 +9,7 @@ import (
 	"github.com/muun/libwallet/storage"
 )
 
-func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
+func TestComputeAndStoreEncryptedMeenKeyAction(t *testing.T) {
 
 	t.Run("routes to correct storage slot based on proof", func(t *testing.T) {
 		testCases := []struct {
@@ -21,14 +21,14 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 			{
 				"verified key when proof is provided",
 				true,
-				storage.VerifiedEncryptedMuunKey,
-				storage.UnverifiedEncryptedMuunKey,
+				storage.VerifiedEncryptedMeenKey,
+				storage.UnverifiedEncryptedMeenKey,
 			},
 			{
 				"unverified key when no proof is provided",
 				false,
-				storage.UnverifiedEncryptedMuunKey,
-				storage.VerifiedEncryptedMuunKey,
+				storage.UnverifiedEncryptedMeenKey,
+				storage.VerifiedEncryptedMeenKey,
 			},
 		}
 		for _, tc := range testCases {
@@ -37,8 +37,8 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 				keys := testutils.GenerateTestKeys()
 				kvStorage := testutils.NewTestKeyValueStorage(t)
 				keyProvider := testutils.NewMockKeyProvider(keys)
-				action := NewComputeAndStoreEncryptedMuunKeyAction(kvStorage, keyProvider)
-				vmkJSON := testutils.BuildVerifiableMuunKeyJson(
+				action := NewComputeAndStoreEncryptedMeenKeyAction(kvStorage, keyProvider)
+				vmkJSON := testutils.BuildVerifiableMeenKeyJson(
 					keys,
 					tc.withProof,
 				)
@@ -75,10 +75,10 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		keys := testutils.GenerateTestKeys()
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
-		action := NewComputeAndStoreEncryptedMuunKeyAction(kvStorage, keyProvider)
+		action := NewComputeAndStoreEncryptedMeenKeyAction(kvStorage, keyProvider)
 
 		// First run
-		vmkJSON1 := testutils.BuildVerifiableMuunKeyJson(
+		vmkJSON1 := testutils.BuildVerifiableMeenKeyJson(
 			keys,
 			true,
 		)
@@ -86,10 +86,10 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		if err != nil {
 			t.Fatalf("first Run() error = %v", err)
 		}
-		first, _ := kvStorage.Get(storage.VerifiedEncryptedMuunKey)
+		first, _ := kvStorage.Get(storage.VerifiedEncryptedMeenKey)
 
 		// Second run (HPKE uses ephemeral keys, so ciphertext differs)
-		vmkJSON2 := testutils.BuildVerifiableMuunKeyJson(
+		vmkJSON2 := testutils.BuildVerifiableMeenKeyJson(
 			keys,
 			true,
 		)
@@ -97,7 +97,7 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		if err != nil {
 			t.Fatalf("second Run() error = %v", err)
 		}
-		second, _ := kvStorage.Get(storage.VerifiedEncryptedMuunKey)
+		second, _ := kvStorage.Get(storage.VerifiedEncryptedMeenKey)
 
 		// Verify value changed
 		if first.(string) == second.(string) {
@@ -111,8 +111,8 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
 		keyProvider.UserPrivateKeyErr = errors.New("keystore locked")
-		action := NewComputeAndStoreEncryptedMuunKeyAction(kvStorage, keyProvider)
-		vmkJSON := testutils.BuildVerifiableMuunKeyJson(
+		action := NewComputeAndStoreEncryptedMeenKeyAction(kvStorage, keyProvider)
+		vmkJSON := testutils.BuildVerifiableMeenKeyJson(
 			keys,
 			true,
 		)
@@ -124,14 +124,14 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		}
 	})
 
-	t.Run("propagates muun key error", func(t *testing.T) {
+	t.Run("propagates meen key error", func(t *testing.T) {
 		// Setup
 		keys := testutils.GenerateTestKeys()
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
-		keyProvider.MuunPublicKeyErr = errors.New("keystore locked")
-		action := NewComputeAndStoreEncryptedMuunKeyAction(kvStorage, keyProvider)
-		vmkJSON := testutils.BuildVerifiableMuunKeyJson(
+		keyProvider.MeenPublicKeyErr = errors.New("keystore locked")
+		action := NewComputeAndStoreEncryptedMeenKeyAction(kvStorage, keyProvider)
+		vmkJSON := testutils.BuildVerifiableMeenKeyJson(
 			keys,
 			true,
 		)
@@ -139,7 +139,7 @@ func TestComputeAndStoreEncryptedMuunKeyAction(t *testing.T) {
 		// Test
 		err := action.Run(keys.RecoveryCodeKey.PubKey(), vmkJSON)
 		if err == nil {
-			t.Fatal("expected error when MuunPublicKey fails")
+			t.Fatal("expected error when MeenPublicKey fails")
 		}
 	})
 }

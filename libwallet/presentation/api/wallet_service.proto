@@ -23,7 +23,7 @@ service WalletService {
 
   rpc StartChallengeSetup(ChallengeSetupRequest) returns (SetupChallengeResponse);
   rpc FinishRecoveryCodeSetup(FinishRecoveryCodeSetupRequest) returns (google.protobuf.Empty);
-  rpc PopulateEncryptedMuunKey(PopulateEncryptedMuunKeyRequest) returns (google.protobuf.Empty);
+  rpc PopulateEncryptedMeenKey(PopulateEncryptedMeenKeyRequest) returns (google.protobuf.Empty);
 
   // Key-Value Storage
   rpc Save(SaveRequest) returns (google.protobuf.Empty);
@@ -150,15 +150,15 @@ message ChallengeSetupRequest {
 }
 
 message SetupChallengeResponse {
-  optional string muun_key = 1;
-  optional string muun_key_fingerprint = 2;
+  optional string meen_key = 1;
+  optional string meen_key_fingerprint = 2;
 }
 
 message FinishRecoveryCodeSetupRequest {
   string recovery_code_public_key_hex = 1;
 }
 
-message PopulateEncryptedMuunKeyRequest {
+message PopulateEncryptedMeenKeyRequest {
   string recovery_code_public_key_hex = 1;
 }
 

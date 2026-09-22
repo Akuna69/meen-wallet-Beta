@@ -30,18 +30,18 @@ type SubmarineSwapFundingOutput interface {
 	UserLockTime() int64
 
 	// v1 only
-	UserRefundAddress() MuunAddress
+	UserRefundAddress() MeenAddress
 
 	// v2 only
 	ExpirationInBlocks() int64
 	UserPublicKey() *HDPublicKey
-	MuunPublicKey() *HDPublicKey
+	MeenPublicKey() *HDPublicKey
 }
 
 func ValidateSubmarineSwap(
 	rawInvoice string,
 	userPublicKey *HDPublicKey,
-	muunPublicKey *HDPublicKey,
+	meenPublicKey *HDPublicKey,
 	swap SubmarineSwap,
 	originalExpirationInBlocks int64,
 	network *Network,
@@ -58,7 +58,7 @@ func ValidateSubmarineSwap(
 	return data.Validate(
 		rawInvoice,
 		&swaps.KeyDescriptor{Key: &userPublicKey.key, Path: userPublicKey.Path},
-		&swaps.KeyDescriptor{Key: &muunPublicKey.key, Path: muunPublicKey.Path},
+		&swaps.KeyDescriptor{Key: &meenPublicKey.key, Path: meenPublicKey.Path},
 		originalExpirationInBlocks,
 		network.network,
 	)
@@ -84,7 +84,7 @@ func createSwapFundingOutput(output SubmarineSwapFundingOutput) swaps.SubmarineS
 	case AddressVersionSwapsV2:
 		out.ExpirationInBlocks = output.ExpirationInBlocks()
 		out.UserPublicKey = &output.UserPublicKey().key
-		out.MuunPublicKey = &output.MuunPublicKey().key
+		out.MeenPublicKey = &output.MeenPublicKey().key
 		out.KeyPath = output.UserPublicKey().Path
 	}
 	return out

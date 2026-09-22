@@ -20,15 +20,15 @@ func TestMuSig2Bip32UnhardenedSignature(t *testing.T) {
 	musigVersion := Musig2v100
 	pubKeys := [][]byte{
 		userKey.PubKey().SerializeCompressed(),
-		muunKey.PubKey().SerializeCompressed(),
+		meenKey.PubKey().SerializeCompressed(),
 	}
 	path := []uint32{1, 2} // derivation path
 
-	// derive musig(user,muun)/1/2 using our helper
+	// derive musig(user,meen)/1/2 using our helper
 	aggKeyAll, err := MuSig2ComputeInternalKey(musigVersion, pubKeys, path)
 	require.NoError(t, err)
 
-	// derive let xpub=musig(user,muun); xpub/1/2 using bip32 impl from btcec
+	// derive let xpub=musig(user,meen); xpub/1/2 using bip32 impl from btcec
 	bip32pub := nativeBip32MusigDerivation(t, aggKeyAll.PreTweakedKey, path)
 
 	// Validate that the hdkeychain.ExtendedKey derivation matches our implenentation
@@ -44,7 +44,7 @@ func TestMuSig2Bip32UnhardenedSignature(t *testing.T) {
 		msg, _ := hex.DecodeString(
 			"1111111111111111111111111111111111111111111111111111111111111111")
 		tweak := NoopTweak().WithUnhardenedDerivationPath(path)
-		sig := muunSignMusig(t, musigVersion, msg, tweak)
+		sig := meenSignMusig(t, musigVersion, msg, tweak)
 
 		valid, err := VerifySignature(
 			musigVersion,
@@ -76,11 +76,11 @@ func TestMuSig2Bip32FailureModes(t *testing.T) {
 	musigVersion := Musig2v100
 	pubKeys := [][]byte{
 		userKey.PubKey().SerializeCompressed(),
-		muunKey.PubKey().SerializeCompressed(),
+		meenKey.PubKey().SerializeCompressed(),
 	}
 	path := []uint32{0x80000000 | 3, 1} // derivation path
 
-	// derive musig(user,muun)/3'/1 using our helper
+	// derive musig(user,meen)/3'/1 using our helper
 	_, err := MuSig2ComputeInternalKey(musigVersion, pubKeys, path)
 	require.Error(t, err, "Trying to derive a hardened MuSig key")
 }
@@ -91,14 +91,14 @@ func TestMuSig2Bip32UnhardenedSignatureTaprootTweak2(t *testing.T) {
 	musigVersion := Musig2v100
 	pubKeys := [][]byte{
 		userKey.PubKey().SerializeCompressed(),
-		muunKey.PubKey().SerializeCompressed(),
+		meenKey.PubKey().SerializeCompressed(),
 	}
 	taprootTweak, _ := hex.DecodeString(
 		"2222222222222222222222222222222222222222222222222222222222222222")
 
 	tweak := TapScriptTweak(taprootTweak).WithUnhardenedDerivationPath([]uint32{1, 2})
 	//                                          vvv━━━━━━━━━━━━━━━━━━━━━━━━━━━━━^^^^
-	// Create final key for tr(musig(user,muun)/1/2, {...})
+	// Create final key for tr(musig(user,meen)/1/2, {...})
 	taprootAggKey, err := Musig2CombinePubKeysWithTweak(
 		musigVersion, pubKeys, tweak)
 
@@ -113,7 +113,7 @@ func TestMuSig2Bip32UnhardenedSignatureTaprootTweak2(t *testing.T) {
 		msg, _ := hex.DecodeString(
 			"1111111111111111111111111111111111111111111111111111111111111111")
 
-		sig := muunSignMusig(t, musigVersion, msg, tweak)
+		sig := meenSignMusig(t, musigVersion, msg, tweak)
 
 		valid, err := VerifySignature(
 			musigVersion,
@@ -134,10 +134,10 @@ func TestMuSig2Bip32UnhardenedSignatureTaprootTweak2(t *testing.T) {
 // Output descriptor of this test:
 //
 //	tr(
-//	  musig(userKey, muunKey)/123,
+//	  musig(userKey, meenKey)/123,
 //	  {
-//	     musig(userKey, muunKey)/88,
-//	     musig(userKey, muunKey)/1/2,
+//	     musig(userKey, meenKey)/88,
+//	     musig(userKey, meenKey)/1/2,
 //	  }
 //	)
 //
@@ -150,10 +150,10 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 
 	pubKeys := [][]byte{
 		userKey.PubKey().SerializeCompressed(),
-		muunKey.PubKey().SerializeCompressed(),
+		meenKey.PubKey().SerializeCompressed(),
 	}
 
-	// derive musig(user,muun)/1/2
+	// derive musig(user,meen)/1/2
 	agg_1_2, err := MuSig2ComputeInternalKey( //nolint:staticcheck // TODO: should not use underscores in Go names; var agg_1_2 should be agg1_2
 		musigVersion,
 		pubKeys,
@@ -162,7 +162,7 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 	require.NoError(t, err)
 	signerCombinedPubKey_1_2 := agg_1_2.FinalKey //nolint:staticcheck // TODO: should not use underscores in Go names; var signerCombinedPubKey_1_2 should be signerCombinedPubKey1_2
 
-	// derive musig(user,muun)/88
+	// derive musig(user,meen)/88
 	agg_88, err := MuSig2ComputeInternalKey( //nolint:staticcheck // TODO: should not use underscores in Go names; var agg_88 should be agg88
 		musigVersion,
 		pubKeys,
@@ -171,7 +171,7 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 	require.NoError(t, err)
 	signerCombinedPubKey_88 := agg_88.FinalKey //nolint:staticcheck // TODO: should not use underscores in Go names; var signerCombinedPubKey_88 should be signerCombinedPubKey88
 
-	// derive musig(user,muun)/123
+	// derive musig(user,meen)/123
 	internalKeyAgg, err := MuSig2ComputeInternalKey(musigVersion, pubKeys, []uint32{1, 2})
 	require.NoError(t, err)
 	internalKey := internalKeyAgg.FinalKey
@@ -188,7 +188,7 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 	)
 	tapScriptTree := txscript.AssembleTaprootScriptTree(leaf_88, leaf_1_2)
 
-	// Create final key for tr(musig(user,muun)/123, {...}) applying taproot tweak bytes for
+	// Create final key for tr(musig(user,meen)/123, {...}) applying taproot tweak bytes for
 	// tapscript.rootMerlkeHash and bip32 tweaks for /123 derivation path
 	rootMerkleHash := tapScriptTree.RootNode.TapHash()
 
@@ -208,13 +208,13 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 	testCases := []tapscriptTestCase{
 		{
 			// tr(
-			//   musig(userKey, muunKey)/123, <- redeem internalKey
+			//   musig(userKey, meenKey)/123, <- redeem internalKey
 			//   {
-			//      musig(userKey, muunKey)/88,
-			//      musig(userKey, muunKey)/1/2,
+			//      musig(userKey, meenKey)/88,
+			//      musig(userKey, meenKey)/1/2,
 			//   }
 			// )
-			description: "keyspend with musig(user,muun)/123",
+			description: "keyspend with musig(user,meen)/123",
 			p2trKey:     p2trKey,
 
 			rootScript:    tapScriptTree,
@@ -223,13 +223,13 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 			signer: func(t *testing.T, msg []byte) []byte {
 				// in the keyspend path we must pass the script root
 				// hash to compute the final tweaked key.
-				return muunSignMusig(t, musigVersion, msg, tweak)
+				return meenSignMusig(t, musigVersion, msg, tweak)
 			},
 		},
 		{
-			// tr( musig(userKey, muunKey)/123, { musig(userKey, muunKey)/88, <------- redeem
-			// musig(userKey, muunKey)/1/2, } )
-			description: "tapscript with musig(user,muun)/88",
+			// tr( musig(userKey, meenKey)/123, { musig(userKey, meenKey)/88, <------- redeem
+			// musig(userKey, meenKey)/1/2, } )
+			description: "tapscript with musig(user,meen)/88",
 			internalKey: internalKey,
 
 			rootScript:    tapScriptTree,
@@ -237,18 +237,18 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 
 			signer: func(t *testing.T, msg []byte) []byte {
 				tweak := NoopTweak().WithUnhardenedDerivationPath([]uint32{88})
-				return muunSignMusig(t, musigVersion, msg, tweak)
+				return meenSignMusig(t, musigVersion, msg, tweak)
 			},
 		},
 		{
 			// tr(
-			//   musig(userKey, muunKey)/123,
+			//   musig(userKey, meenKey)/123,
 			//   {
-			//      musig(userKey, muunKey)/88,
-			//      musig(userKey, muunKey)/1/2, <------ redeem
+			//      musig(userKey, meenKey)/88,
+			//      musig(userKey, meenKey)/1/2, <------ redeem
 			//   }
 			// )
-			description: "tapscript with musig(user,muun)/1/2",
+			description: "tapscript with musig(user,meen)/1/2",
 			internalKey: signerCombinedPubKey_88,
 
 			rootScript:    tapScriptTree,
@@ -256,7 +256,7 @@ func TestMuSig2Bip328UnhardenedTapscript(t *testing.T) {
 
 			signer: func(t *testing.T, msg []byte) []byte {
 				tweak := NoopTweak().WithUnhardenedDerivationPath([]uint32{1, 2})
-				return muunSignMusig(t, musigVersion, msg, tweak)
+				return meenSignMusig(t, musigVersion, msg, tweak)
 			},
 		},
 	}

@@ -1,4 +1,4 @@
-package muun_model_constructor
+package meen_model_constructor
 
 import (
 	"go/ast"
@@ -16,7 +16,7 @@ import (
 )
 
 func init() {
-	register.Plugin("muun_model_constructor", newPlugin)
+	register.Plugin("meen_model_constructor", newPlugin)
 }
 
 func newPlugin(any) (register.LinterPlugin, error) {
@@ -43,7 +43,7 @@ func (*constructorPanicsFact) String() string { return "constructor panics" }
 
 func newAnalyzer(packagePattern string) *analysis.Analyzer {
 	a := &analysis.Analyzer{
-		Name:      "muun_model_constructor",
+		Name:      "meen_model_constructor",
 		Doc:       "Checks that structs from model packages use constructors.",
 		Requires:  []*analysis.Analyzer{inspect.Analyzer},
 		FactTypes: []analysis.Fact{(*constructorPanicsFact)(nil)},

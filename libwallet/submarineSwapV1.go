@@ -59,7 +59,7 @@ func (c *coinSubmarineSwapV1) SignInput(index int, tx *wire.MsgTx, userKey *HDPr
 func (c *coinSubmarineSwapV1) FullySignInput(
 	index int, //nolint:revive // TODO: use or remove index
 	tx *wire.MsgTx, //nolint:revive // TODO: use or remove tx
-	userKey, muunKey *HDPrivateKey, //nolint:revive // TODO: use or remove userKey
+	userKey, meenKey *HDPrivateKey, //nolint:revive // TODO: use or remove userKey
 ) error {
 	return errors.New("cannot fully sign submarine swap transactions")
 }
