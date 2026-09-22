@@ -72,12 +72,14 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs de Libwallet y Features en el dominio
+    - name: Inyectar todos los Stubs unificados (Libwallet, Estados y newop)
       run: |
+        # Directorios necesarios
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/
         
-        # 1. Stub principal de Libwallet
+        # 1. Libwallet
         cat << 'EOF_LIBWALLET' > android/apollo/src/main/java/libwallet/Libwallet.kt
         package libwallet
 
@@ -90,7 +92,7 @@ jobs:
         }
         EOF_LIBWALLET
 
-        # 2. Stub para UserActivatedFeature y estados de features
+        # 2. UserActivatedFeature
         cat << 'EOF_FEATURE' > android/apollo/src/main/java/io/muun/apollo/domain/model/UserActivatedFeature.kt
         package io.muun.apollo.domain.model
 
@@ -104,6 +106,60 @@ jobs:
             }
         }
         EOF_FEATURE
+
+        # 3. Estados de New Operation y NewOp
+        cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
+        package io.muun.apollo.presentation.ui.new_operation
+
+        object NewOp {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
+        }
+        
+        open class EnterAmountState
+        open class EnterDescriptionState
+        open class StartState
+        open class ValidateState
+        open class BalanceErrorState
+        open class AbortState
+        open class ConfirmState
+        open class ConfirmLightningState
+        open class ValidateLightningState {
+            open fun onValidateLightning() {}
+        }
+        EOF_STUBS
+
+        # 4. Objeto newop en minúsculas
+        cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
+        package io.muun.apollo.presentation.ui.new_operation
+
+        object newop {
+            val enterAmount: Any = Any()
+            val enterDescription: Any = Any()
+            val totalbalance: Any = Any()
+            val validated: Any = Any()
+            val EnterAmount = EnterAmountState()
+            val EnterDescription = EnterDescriptionState()
+            val Start = StartState()
+            val Validate = ValidateState()
+            val BalanceError = BalanceErrorState()
+            val Abort = AbortState()
+            val Confirm = ConfirmState()
+            val ConfirmLightning = ConfirmLightningState()
+            val ValidateLightning = ValidateLightningState()
+        }
+        EOF_NEWOP
 
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
