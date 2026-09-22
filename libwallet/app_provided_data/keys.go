@@ -9,7 +9,7 @@ type KeyData struct {
 // boundary with native code that should only be used within the keys.KeyProvider wrapper.
 type KeyProvider interface {
 	FetchUserKey() (*KeyData, error)
-	FetchMuunKey() (*KeyData, error)
+	FetchMeenKey() (*KeyData, error)
 	FetchEncryptedMuunPrivateKey() (string, error)
 	FetchMaxDerivedIndex() int
 }
