@@ -15,11 +15,11 @@ const { BIP32Factory } = require('bip32');
 const bip32 = BIP32Factory(ecc);
 bitcoin.initEccLib(ecc);
 
-// --- INTERFAZ VISUAL ESTILO MEEN FAST RECOVERY ---
+// --- INTERFAZ VISUAL ESTILO MUUN FAST RECOVERY ---
 function mostrarBanner(code = '----', fKey = '----', sKey = '----', addr = '----') {
   console.clear();
   console.log('┌────────────────────────────────────────────────────────┐');
-  console.log('│                   MEEN WALLET                          │');
+  console.log('│                   MUUN WALLET                          │');
   console.log('│                  FAST RECOVERY                         │');
   console.log('│                 v2.8.19@stable                         │');
   console.log('└────────────────────────────────────────────────────────┘');
