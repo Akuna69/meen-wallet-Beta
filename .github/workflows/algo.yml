@@ -13,19 +13,12 @@ jobs:
     - name: Checkout del código
       uses: actions/checkout@v4
 
-    - name: Compilar librería Rust (librs)
-      run: |
-        cd libwallet/librs
-        chmod +x makelibs.sh
-        TARGETS="aarch64-linux-android x86_64-linux-android" ./makelibs.sh
-
     - name: Configurar JDK 17
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
         java-version: '17'
 
-    # Usar Go 1.22 para evitar el fallo de gomobile en libwallet
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
