@@ -72,21 +72,34 @@ jobs:
         }
         EOF_JSON
 
-    - name: Inyectar Stubs limpios sin conflictos de herencia
+    - name: Inyectar Stubs con cobertura total de NewOp y newop
       run: |
         mkdir -p android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/
         cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.meen.apollo.presentation.ui.new_operation
 
-        object NewOp
-        object newop {
-            val EnterAmount = EnterAmountState()
-            val EnterDescription = EnterDescriptionState()
-            val Start = StartState()
-            val Validate = ValidateState()
-            val BalanceError = BalanceErrorState()
-            val Abort = AbortState()
-            val ValidateLightning = ValidateLightningState()
+        class NewOp {
+            companion object {
+                val EnterAmount = EnterAmountState()
+                val EnterDescription = EnterDescriptionState()
+                val Start = StartState()
+                val Validate = ValidateState()
+                val BalanceError = BalanceErrorState()
+                val Abort = AbortState()
+                val ValidateLightning = ValidateLightningState()
+            }
+        }
+
+        class newop {
+            companion object {
+                val EnterAmount = EnterAmountState()
+                val EnterDescription = EnterDescriptionState()
+                val Start = StartState()
+                val Validate = ValidateState()
+                val BalanceError = BalanceErrorState()
+                val Abort = AbortState()
+                val ValidateLightning = ValidateLightningState()
+            }
         }
         
         open class EnterAmountState
