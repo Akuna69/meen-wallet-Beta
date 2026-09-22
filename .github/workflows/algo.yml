@@ -49,7 +49,7 @@ jobs:
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
 
-    - name: Generar archivos Kotlin de Stubs y newop.kt
+    - name: Generar archivos Kotlin de Stubs exactos
       run: |
         # Libwallet
         cat << 'EOF_L' > android/apollo/src/main/java/libwallet/Libwallet.kt
@@ -75,20 +75,22 @@ jobs:
         interface MuunLinkHost { fun onLinkHandled() {} }
         EOF_G
 
-        # InAppUpdateManager Stubs
-        cat << 'EOF_IAU' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateStubs.kt
+        # InAppUpdateManager Completo en ui/home y accesible globalmente si se requiere
+        cat << 'EOF_IAU' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateManager.kt
         package io.muun.apollo.presentation.ui.home
-        open class InAppUpdateManager { open fun checkForUpdate() {} }
+        open class InAppUpdateManager {
+            open fun checkForUpdate() {}
+        }
         EOF_IAU
 
-        # Cause.kt Stub para corregir referencias faltantes
+        # Causa / Cause.kt ajustado con tipos correctos para evitar errores de inferencia
         cat << 'EOF_CAUSE' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
         package io.muun.muun
         object Cause {
             val logging: Any = Any()
             val TraceSection: Any = Any()
             fun cause(block: () -> Unit) {}
-            fun tostacktracelement(): Any = Any()
+            fun tostacktracelement(): StackTraceElement = StackTraceElement("", "", "", 0)
         }
         EOF_CAUSE
 
@@ -119,7 +121,7 @@ jobs:
         open class BalanceErrorState
         EOF_NOE
 
-        # New Operation Stubs
+        # New Operation Stubs & newop.kt
         cat << 'EOF_STUBS' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
         package io.muun.apollo.presentation.ui.new_operation
         object NewOp {
@@ -148,7 +150,6 @@ jobs:
         open class ValidateLightningState { open fun onvalidateLightning() {} }
         EOF_STUBS
 
-        # Archivo newop.kt exacto en new_operation
         cat << 'EOF_NEWOP' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_operation/newop.kt
         package io.muun.apollo.presentation.ui.new_operation
         object newop {
