@@ -32,12 +32,20 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
+    - name: Crear librerias .a dummy de Rust
+      run: |
+        mkdir -p libwallet/librs/libs
+        touch libwallet/librs/libs/x86_64-linux-android-librs.a
+        touch libwallet/librs/libs/aarch64-linux-android-librs.a
+        touch libwallet/librs/libs/armv7-linux-androideabi-librs.a
+        touch libwallet/librs/libs/i686-linux-android-librs.a
+
     - name: Dar permisos a gradlew
       run: chmod +x gradlew
 
-    - name: Crear google-services.json dummy
+    - name: Crear google-services.json dummy corregido
       run: |
-        cat > android/apolloui/google-services.json << 'EOF'
+        cat > android/apolloui/google-services.json << 'EOF_JSON'
         {
           "project_info": {
             "project_number": "000000000000",
@@ -46,13 +54,13 @@ jobs:
           "client": [{
             "client_info": {
               "mobilesdk_app_id": "1:000000000000:android:0000000000000000",
-              "android_client_info": { "package_name": "io.meen.apollo.debug" }
+              "android_client_info": { "package_name": "io.meen.apollo" }
             },
             "api_key": [{ "current_key": "dummy" }]
           }],
           "configuration_version": "1"
         }
-        EOF
+        EOF_JSON
 
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
