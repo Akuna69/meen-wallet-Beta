@@ -72,6 +72,19 @@ jobs:
         }
         EOF_JSON
 
+    - name: Inyectar Stubs de Kotlin para referencias faltantes
+      run: |
+        mkdir -p android/apolloui/src/main/java/io/meen/muun/apollo/presentation/ui/new_operation/
+        cat << 'EOF_KOTLIN' > android/apolloui/src/main/java/io/meen/muun/apollo/presentation/ui/new_operation/MissingStubs.kt
+        package io.meen.muun.apollo.presentation.ui.new_operation
+
+        object NewOp
+        class EnterAmountState
+        class EnterDescriptionState
+        class ValidateLightningState
+        class newop
+        EOF_KOTLIN
+
     - name: Compilar APK con Gradle
       run: ./gradlew :android:apolloui:assembleDebug --warning-mode all
 
