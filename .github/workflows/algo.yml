@@ -44,6 +44,8 @@ jobs:
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/new_op_error/
         mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/app/
+        mkdir -p android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/
+        mkdir -p android/apolloui/src/main/java/io/muun/muun/
         mkdir -p android/apollo/src/main/java/libwallet/
         mkdir -p android/apollo/src/main/java/io/muun/apollo/domain/model/
 
@@ -72,6 +74,23 @@ jobs:
         open class GlobalsImpl { open fun add() {} }
         interface MuunLinkHost { fun onLinkHandled() {} }
         EOF_G
+
+        # InAppUpdateManager Stubs
+        cat << 'EOF_IAU' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/home/InAppUpdateStubs.kt
+        package io.muun.apollo.presentation.ui.home
+        open class InAppUpdateManager { open fun checkForUpdate() {} }
+        EOF_IAU
+
+        # Cause.kt Stub para corregir referencias faltantes
+        cat << 'EOF_CAUSE' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
+        package io.muun.muun
+        object Cause {
+            val logging: Any = Any()
+            val TraceSection: Any = Any()
+            fun cause(block: () -> Unit) {}
+            fun tostacktracelement(): Any = Any()
+        }
+        EOF_CAUSE
 
         # Manual Fee
         cat << 'EOF_MF' > android/apolloui/src/main/java/io/muun/apollo/presentation/ui/fragments/manual_fee/ManualFeeStubs.kt
@@ -149,7 +168,7 @@ jobs:
         }
         EOF_NEWOP
 
-    - name: Dar permisos y compilar con Gradle (Dogfood Debug para usar el json existente)
+    - name: Dar permisos y compilar con Gradle (Dogfood Debug)
       run: |
         chmod +x gradlew
         ./gradlew :android:apolloui:assembleDogfoodDebug --warning-mode all
