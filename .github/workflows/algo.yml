@@ -19,6 +19,21 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Diagnostico de archivos InAppUpdate
+      run: |
+        echo "--- Buscando InAppUpdateManager.kt ---"
+        find . -iname "InAppUpdateManager.kt" 2>/dev/null
+        echo "--- Buscando PlayInAppUpdateManager.kt ---"
+        find . -iname "PlayInAppUpdateManager.kt" 2>/dev/null
+        echo "--- Buscando InAppUpdateModule.kt ---"
+        find . -iname "InAppUpdateModule.kt" 2>/dev/null
+        echo "--- Sabores/sourceSets disponibles en apolloui/src ---"
+        find android/apolloui/src -maxdepth 1 -type d
+        echo "--- Contenido de InAppUpdateModule.kt (dogfood) ---"
+        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || echo "no existe en dogfood"
+        echo "--- Contenido de InAppUpdateModule.kt (main, si existe) ---"
+        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || echo "no existe en main"
+
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
