@@ -72,7 +72,7 @@ go run golang.org/x/mobile/cmd/gomobile bind \
     -o "$libwallet" \
     -androidapi 21 \
     -trimpath -ldflags="-buildid=" -v \
-    . ./app_provided_data ./newop
+    . ./app_provided_data ./newop ./libwallet_init
 
 st=$?
 set -e
