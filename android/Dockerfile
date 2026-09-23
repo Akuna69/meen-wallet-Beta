@@ -91,7 +91,8 @@ COPY --from=librs_build /src/libwallet/librs/libs /src/libwallet/librs/libs
 RUN tools/bootstrap-gomobile.sh \
     && (cd libwallet; go clean) \
     && ./gradlew :android:apolloui:clean \
-    && ./gradlew :android:libwallet:build :android:apolloui:assembleProdRelease
+    && ./gradlew :android:libwallet:build \
+    && ./gradlew :android:apolloui:assembleProdRelease
 
 FROM scratch
 

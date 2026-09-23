@@ -1058,7 +1058,7 @@
     <string name="fee_option_item_title">Menos de</string>
     <string name="fee_option_item_hs">%d h</string>
     <string name="fee_option_item_mins">%d min</string>
-    <string name="fee_option_item_hs_mins">%d h %d min</string>
+    <string name="fee_option_item_hs_mins" formatted="false">%s h %s m</string>
     <string name="fee_option_item_fee_rate">%s sat/vbyte</string>
     <string name="enter_fee_manually">Ingresar comisión manualmente</string>
     <string name="manual_fee_entered">Comisión ingresada manualmente</string>
