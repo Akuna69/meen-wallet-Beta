@@ -538,8 +538,8 @@ dependencies {
     implementation 'com.github.muun.barcodescanner:zxing:1.9.13'    // For scanning QR codes
 
     // lifecycle helpers
-    // implementation 'frankiesardo:icepick:3.2.0'
-    // kapt 'frankiesardo:icepick-processor:3.2.0'
+    implementation 'frankiesardo:icepick:3.2.0'
+    kapt 'frankiesardo:icepick-processor:3.2.0'
 
     // Storage:
     implementation 'com.squareup.sqlbrite3:sqlbrite:3.2.0'
