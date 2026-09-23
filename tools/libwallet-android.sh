@@ -46,27 +46,16 @@ rm -rf "$GOCACHE"/src-android-* 2>/dev/null \
 # Set linker flags for 16KB page alignment required by Android targetSdk 35+
 export CGO_LDFLAGS="-Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384"
 
-# Verificar que el paquete newcop tenga al menos un símbolo exportado,
-# de lo contrario gomobile bind falla con "no exported names in the package"
-if ! grep -qrE '^(func|type|var|const) [A-Z]' ./newcop; then
-    echo "❌ Error: el paquete ./newcop no tiene funciones, tipos o variables exportadas."
-    echo "   gomobile bind requiere al menos un símbolo público (mayúscula inicial) para generar el binding."
-    echo "   Revisa los archivos en libwallet/newcop y agrega al menos una declaración exportada,"
-    echo "   o verifica que no haya build tags excluyendo los archivos para android/arm64 y android/amd64."
-    exit 1
-fi
-
 echo "🚀 Iniciando gomobile bind..."
 
-# Finalmente ejecutar gomobile bind apuntando únicamente al paquete principal (.)
-# Se desactiva temporalmente set -e para capturar correctamente el código de salida
+# Se ejecuta gomobile bind apuntando únicamente a la raíz del paquete Go (.)
 set +e
 go run golang.org/x/mobile/cmd/gomobile bind \
     -target=android/arm64,android/amd64 \
     -o "$libwallet" \
     -androidapi 21 \
     -trimpath -ldflags="-buildid=" -v \
-    ./newcop ./app_provided_data ./libwallet_init
+    .
 
 st=$?
 set -e
