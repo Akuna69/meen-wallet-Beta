@@ -30,10 +30,10 @@ func TestFulfillHtlc(t *testing.T) {
 
 	userKey, _ := NewHDPrivateKey(randomBytes(32), network)
 	userKey.Path = "m/schema:1'/recovery:1'"
-	meenKey, _ := NewHDPrivateKey(randomBytes(32), network)
-	meenKey.Path = "m/schema:1'/recovery:1'"
+	muunKey, _ := NewHDPrivateKey(randomBytes(32), network)
+	muunKey.Path = "m/schema:1'/recovery:1'"
 
-	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 	if err != nil {
 		panic(err)
 	}
@@ -55,14 +55,14 @@ func TestFulfillHtlc(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	meenHtlcKey, err := meenKey.DeriveTo(htlcKeyPath.String())
+	muunHtlcKey, err := muunKey.DeriveTo(htlcKeyPath.String())
 	if err != nil {
 		panic(err)
 	}
 
 	htlcScript, err := createHtlcScript(
 		userHtlcKey.PublicKey().Raw(),
-		meenHtlcKey.PublicKey().Raw(),
+		muunHtlcKey.PublicKey().Raw(),
 		swapServerPublicKey,
 		lockTime,
 		paymentHash,
@@ -112,14 +112,14 @@ func TestFulfillHtlc(t *testing.T) {
 	})
 
 	outputPath := "m/schema:1'/recovery:1'/34/56"
-	addr := newAddressAt(userKey, meenKey, outputPath, network)
+	addr := newAddressAt(userKey, muunKey, outputPath, network)
 
 	fulfillmentTx.AddTxOut(&wire.TxOut{
 		PkScript: addr.ScriptAddress(),
 		Value:    amt,
 	})
 
-	meenSignKey, err := meenHtlcKey.key.ECPrivKey()
+	muunSignKey, err := muunHtlcKey.key.ECPrivKey()
 	if err != nil {
 		panic(err)
 	}
@@ -129,14 +129,14 @@ func TestFulfillHtlc(t *testing.T) {
 		pkScript, amt)
 
 	sigHashes := txscript.NewTxSigHashes(fulfillmentTx, prevFetcher)
-	meenSignature, err := txscript.RawTxInWitnessSignature(
+	muunSignature, err := txscript.RawTxInWitnessSignature(
 		fulfillmentTx,
 		sigHashes,
 		0,
 		amt,
 		htlcScript,
 		txscript.SigHashAll,
-		meenSignKey,
+		muunSignKey,
 	)
 	if err != nil {
 		panic(err)
@@ -160,13 +160,13 @@ func TestFulfillHtlc(t *testing.T) {
 
 	data := &IncomingSwapFulfillmentData{
 		FulfillmentTx:      serializeTx(fulfillmentTx),
-		MeenSignature:      meenSignature,
+		MuunSignature:      muunSignature,
 		MerkleTree:         nil,
 		HtlcBlock:          nil,
 		ConfirmationTarget: 1,
 	}
 
-	result, err := swap.Fulfill(data, userKey, meenKey.PublicKey(), network)
+	result, err := swap.Fulfill(data, userKey, muunKey.PublicKey(), network)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -184,10 +184,10 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 
 	userKey, _ := NewHDPrivateKey(randomBytes(32), network)
 	userKey.Path = "m/schema:1'/recovery:1'"
-	meenKey, _ := NewHDPrivateKey(randomBytes(32), network)
-	meenKey.Path = "m/schema:1'/recovery:1'"
+	muunKey, _ := NewHDPrivateKey(randomBytes(32), network)
+	muunKey.Path = "m/schema:1'/recovery:1'"
 
-	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 	if err != nil {
 		panic(err)
 	}
@@ -211,14 +211,14 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
-	meenHtlcKey, err := meenKey.DeriveTo(htlcKeyPath.String())
+	muunHtlcKey, err := muunKey.DeriveTo(htlcKeyPath.String())
 	if err != nil {
 		panic(err)
 	}
 
 	htlcScript, err := createHtlcScript(
 		userHtlcKey.PublicKey().Raw(),
-		meenHtlcKey.PublicKey().Raw(),
+		muunHtlcKey.PublicKey().Raw(),
 		swapServerPublicKey,
 		lockTime,
 		paymentHash,
@@ -268,14 +268,14 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 	})
 
 	outputPath := "m/schema:1'/recovery:1'/34/56"
-	addr := newAddressAt(userKey, meenKey, outputPath, network)
+	addr := newAddressAt(userKey, muunKey, outputPath, network)
 	txOut := wire.TxOut{
 		PkScript: addr.ScriptAddress(),
 		Value:    outputAmount,
 	}
 	fulfillmentTx.AddTxOut(&txOut)
 
-	meenSignKey, err := meenHtlcKey.key.ECPrivKey()
+	muunSignKey, err := muunHtlcKey.key.ECPrivKey()
 	if err != nil {
 		panic(err)
 	}
@@ -284,14 +284,14 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 		txOut.PkScript, txOut.Value)
 
 	sigHashes := txscript.NewTxSigHashes(fulfillmentTx, prevFetcher)
-	meenSignature, err := txscript.RawTxInWitnessSignature(
+	muunSignature, err := txscript.RawTxInWitnessSignature(
 		fulfillmentTx,
 		sigHashes,
 		0,
 		amt,
 		htlcScript,
 		txscript.SigHashAll,
-		meenSignKey,
+		muunSignKey,
 	)
 	if err != nil {
 		panic(err)
@@ -316,7 +316,7 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 
 	data := &IncomingSwapFulfillmentData{
 		FulfillmentTx:      serializeTx(fulfillmentTx),
-		MeenSignature:      meenSignature,
+		MuunSignature:      muunSignature,
 		OutputVersion:      4,
 		OutputPath:         outputPath,
 		MerkleTree:         nil,
@@ -324,13 +324,13 @@ func TestFulfillHtlcWithCollect(t *testing.T) {
 		ConfirmationTarget: 1,
 	}
 
-	result, err := swap.Fulfill(data, userKey, meenKey.PublicKey(), network)
+	result, err := swap.Fulfill(data, userKey, muunKey.PublicKey(), network)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	swap.CollectSat = 0
-	_, err = swap.Fulfill(data, userKey, meenKey.PublicKey(), network)
+	_, err = swap.Fulfill(data, userKey, muunKey.PublicKey(), network)
 	if err == nil {
 		t.Fatal("expected 0 collect to fail")
 	}
@@ -348,11 +348,11 @@ func TestVerifyFulfillable(t *testing.T) {
 
 	userKey, _ := NewHDPrivateKey(randomBytes(32), network)
 	userKey.Path = "m/schema:1'/recovery:1'"
-	meenKey, _ := NewHDPrivateKey(randomBytes(32), network)
-	meenKey.Path = "m/schema:1'/recovery:1'"
+	muunKey, _ := NewHDPrivateKey(randomBytes(32), network)
+	muunKey.Path = "m/schema:1'/recovery:1'"
 
 	generateAndPersistInvoiceSecrets := func() {
-		secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+		secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 		if err != nil {
 			panic(err)
 		}
@@ -463,7 +463,7 @@ func TestVerifyFulfillable(t *testing.T) {
 		}
 	})
 
-	t.Run("meen 2 meen with no blob", func(t *testing.T) {
+	t.Run("muun 2 muun with no blob", func(t *testing.T) {
 		invoice := createInvoice(0)
 		paymentHash, _, _ := getInvoiceSecrets(invoice, userKey)
 
@@ -535,7 +535,7 @@ func TestVerifyFulfillable(t *testing.T) {
 		}
 	})
 
-	t.Run("validates invoice amount for meen 2 meen", func(t *testing.T) {
+	t.Run("validates invoice amount for muun 2 muun", func(t *testing.T) {
 		invoice := createInvoice(20000)
 		paymentHash, _, _ := getInvoiceSecrets(invoice, userKey)
 		amt := int64(10000)
@@ -600,7 +600,7 @@ func TestFulfillFailureWithoutPaymentSecret(t *testing.T) {
 		FulfillmentTx: d(
 			"0100000001a2b209d88daaa2b9fedc8217904b75934d280f889cd64db243c530dbd72a9b670100000000ffffffff0110270000000000002200209c58b43eff77533a3a056046ee4cb5044bb0eeb74635ebb8cc03048b3720716b00000000", //nolint:lll
 		),
-		MeenSignature: d(
+		MuunSignature: d(
 			"30450221008c40c9ef1613cfa500c52531b9fd0b7212f562e425dcdc4358cc3a6de25e11940220717ab86c13cb645dd2e694c3b4e5fd0e81e84f00ed8380570ab33a19fed0547201", //nolint:lll
 		),
 		OutputVersion:      4,
@@ -615,7 +615,7 @@ func TestFulfillFailureWithoutPaymentSecret(t *testing.T) {
 		"m/schema:1'/recovery:1'",
 		network,
 	)
-	meenKey, _ := NewHDPublicKeyFromString(
+	muunKey, _ := NewHDPublicKeyFromString(
 		"tpubDBYMnFoxYLdMBZThTk4uARTe4kGPeEYWdKcaEzaUxt1cesetnxtTqmAxVkzDRou51emWytommyLWcF91SdF5KecA6Ja8oHK1FF7d5U2hMxX", //nolint:lll
 		"m/schema:1'/recovery:1'",
 		network,
@@ -628,13 +628,13 @@ func TestFulfillFailureWithoutPaymentSecret(t *testing.T) {
 		PaymentHash:   d("31b35302d3e842a363f8992e423910bfb655b9cd6325b67f5c469fa8f2c4e55b"),
 		IdentityKey:   nil,
 		UserHtlcKey:   nil,
-		MeenHtlcKey:   nil,
+		MuunHtlcKey:   nil,
 		ShortChanId:   123,
 	}
 
 	PersistInvoiceSecrets(&InvoiceSecretsList{secrets: []*InvoiceSecrets{invoice}})
 
-	result, err := swap.Fulfill(data, userKey, meenKey, network)
+	result, err := swap.Fulfill(data, userKey, muunKey, network)
 	if err == nil || result != nil {
 		t.Fatal("expected failure due to missing payment secret")
 	}
@@ -689,7 +689,7 @@ func TestFulfillWithIncorrectPaymentSecret(t *testing.T) {
 		FulfillmentTx: d(
 			"01000000013754eeb4d1e71094e2470024163f073ce0e6c4f1b16ded51d1792255f4c8e3ed0000000000ffffffff01a086010000000000225120005914f986cb6749440e0e77367bac6c6e53d814449a2fd7443474aab61606f300000000", //nolint:lll
 		),
-		MeenSignature: d(
+		MuunSignature: d(
 			"304402206a1cfc3d01a8ca050967e5dddff87984ebafe390a61dc5225044c2ce22b02fae022071887ef3f13bd1b4cca33ffb1a217de5fb92b3bb74df398f8508fec0b37dfa9f01", //nolint:lll
 		),
 		OutputVersion:      5,
@@ -704,7 +704,7 @@ func TestFulfillWithIncorrectPaymentSecret(t *testing.T) {
 		"m/schema:1'/recovery:1'",
 		network,
 	)
-	meenKey, _ := NewHDPublicKeyFromString(
+	muunKey, _ := NewHDPublicKeyFromString(
 		"tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8", //nolint:lll
 		"m/schema:1'/recovery:1'",
 		network,
@@ -719,13 +719,13 @@ func TestFulfillWithIncorrectPaymentSecret(t *testing.T) {
 		PaymentHash: d("c7165cd3692877f5a85c51d834730dddffa1493117273926a20310e18b44523d"),
 		IdentityKey: nil,
 		UserHtlcKey: nil,
-		MeenHtlcKey: nil,
+		MuunHtlcKey: nil,
 		ShortChanId: parseInt64("15120913803481186240"),
 	}
 
 	PersistInvoiceSecrets(&InvoiceSecretsList{secrets: []*InvoiceSecrets{invoice}})
 
-	_, err := swap.Fulfill(data, userKey, meenKey, network)
+	_, err := swap.Fulfill(data, userKey, muunKey, network)
 
 	// We used an invalid secret, sphinx validation HAS to fail
 	if err == nil || !strings.Contains(err.Error(), "sphinx payment secret does not match") {
@@ -772,7 +772,7 @@ func TestFulfillWithHardwiredData(t *testing.T) {
 		FulfillmentTx: d(
 			"01000000013754eeb4d1e71094e2470024163f073ce0e6c4f1b16ded51d1792255f4c8e3ed0000000000ffffffff01a086010000000000225120005914f986cb6749440e0e77367bac6c6e53d814449a2fd7443474aab61606f300000000", //nolint:lll
 		),
-		MeenSignature: d(
+		MuunSignature: d(
 			"304402206a1cfc3d01a8ca050967e5dddff87984ebafe390a61dc5225044c2ce22b02fae022071887ef3f13bd1b4cca33ffb1a217de5fb92b3bb74df398f8508fec0b37dfa9f01", //nolint:lll
 		),
 		OutputVersion:      5,
@@ -787,7 +787,7 @@ func TestFulfillWithHardwiredData(t *testing.T) {
 		"m/schema:1'/recovery:1'",
 		network,
 	)
-	meenKey, _ := NewHDPublicKeyFromString(
+	muunKey, _ := NewHDPublicKeyFromString(
 		"tpubDBZaivUL3Hv8r25JDupShPuWVkGcwM7NgbMBwkhQLfWu18iBbyQCbRdyg1wRMjoWdZN7Afg3F25zs4c8E6Q4VJrGqAw51DJeqacTFABV9u8", //nolint:lll
 		"m/schema:1'/recovery:1'",
 		network,
@@ -800,13 +800,13 @@ func TestFulfillWithHardwiredData(t *testing.T) {
 		PaymentHash:   d("c7165cd3692877f5a85c51d834730dddffa1493117273926a20310e18b44523d"),
 		IdentityKey:   nil,
 		UserHtlcKey:   nil,
-		MeenHtlcKey:   nil,
+		MuunHtlcKey:   nil,
 		ShortChanId:   parseInt64("15120913803481186240"),
 	}
 
 	PersistInvoiceSecrets(&InvoiceSecretsList{secrets: []*InvoiceSecrets{invoice}})
 
-	result, err := swap.Fulfill(data, userKey, meenKey, network)
+	result, err := swap.Fulfill(data, userKey, muunKey, network)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -827,10 +827,10 @@ func TestFulfillFullDebt(t *testing.T) {
 
 	userKey, _ := NewHDPrivateKey(randomBytes(32), network)
 	userKey.Path = "m/schema:1'/recovery:1'"
-	meenKey, _ := NewHDPrivateKey(randomBytes(32), network)
-	meenKey.Path = "m/schema:1'/recovery:1'"
+	muunKey, _ := NewHDPrivateKey(randomBytes(32), network)
+	muunKey.Path = "m/schema:1'/recovery:1'"
 
-	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), meenKey.PublicKey())
+	secrets, err := GenerateInvoiceSecrets(userKey.PublicKey(), muunKey.PublicKey())
 	if err != nil {
 		panic(err)
 	}
@@ -953,7 +953,7 @@ func createMppSphinxPacket(
 }
 
 func newAddressAt(
-	userKey, meenKey *HDPrivateKey,
+	userKey, muunKey *HDPrivateKey,
 	keyPath string,
 	network *Network,
 ) btcutil.Address {
@@ -961,15 +961,15 @@ func newAddressAt(
 	if err != nil {
 		panic(err)
 	}
-	meenPublicKey, err := meenKey.PublicKey().DeriveTo(keyPath)
+	muunPublicKey, err := muunKey.PublicKey().DeriveTo(keyPath)
 	if err != nil {
 		panic(err)
 	}
-	meenAddr, err := CreateAddressV4(userPublicKey, meenPublicKey)
+	muunAddr, err := CreateAddressV4(userPublicKey, muunPublicKey)
 	if err != nil {
 		panic(err)
 	}
-	addr, err := btcutil.DecodeAddress(meenAddr.Address(), network.network)
+	addr, err := btcutil.DecodeAddress(muunAddr.Address(), network.network)
 	if err != nil {
 		panic(err)
 	}

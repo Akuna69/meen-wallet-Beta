@@ -14,7 +14,7 @@ func BuildKVMigrationPlan() []Migration {
 			Define("pinLength", NoAutoBackup, NotApplicable, false, &IntType{}),
 			// TODO: migrate to AsyncAutoBackup, Plain
 			Define(
-				"unverifiedEncryptedMeengKeyPrototype",
+				"unverifiedEncryptedMuungKeyPrototype",
 				NoAutoBackup,
 				NotApplicable,
 				false,
@@ -22,7 +22,7 @@ func BuildKVMigrationPlan() []Migration {
 			),
 			// TODO: migrate to AsyncAutoBackup, Authenticated, SecurityCritical
 			Define(
-				"verifiedEncryptedMeenKeyPrototype",
+				"verifiedEncryptedMuunKeyPrototype",
 				NoAutoBackup,
 				NotApplicable,
 				false,

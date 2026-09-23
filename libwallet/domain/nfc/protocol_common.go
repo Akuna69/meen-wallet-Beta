@@ -171,7 +171,7 @@ func parsePairingResponse(data []byte) (*PairingResponse, error) {
 
 // VerifyMetadata validates the integrity and correctness of card metadata.
 // It performs validation checks on critical metadata fields to ensure the card
-// is compatible and properly configured for use with the Meen wallet system.
+// is compatible and properly configured for use with the Muun wallet system.
 //
 // The function validates:
 //   - GlobalPubCard: Must be a valid Secp256r1 public key (65 bytes, uncompressed format)
@@ -298,7 +298,7 @@ func buildSignChallengeData(
 
 // buildSignChallengeAPDU wraps challenge data into a complete ISO 7816-4 APDU command.
 // It constructs an APDU struct with the appropriate class, instruction, and parameters
-// for the MeenCard V2 sign challenge operation.
+// for the MuunCard V2 sign challenge operation.
 //
 // The APDU format is: CLA || INS || P1 || P2 || LC || DATA
 // Where:
@@ -313,7 +313,7 @@ func buildSignChallengeAPDU(data []byte) *apdu {
 	// Build APDU: CLA(1) + INS(1) + P1(1) + P2(1) + LC(1) + DATA
 	return newAPDU(
 		claEdge,                    // CLA
-		insMeencardV2SignChallenge, // INS
+		insMuuncardV2SignChallenge, // INS
 		nullByte,                   // P1
 		nullByte,                   // P2
 		data,                       // DATA (LC calculate from Data array)

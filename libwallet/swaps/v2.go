@@ -15,7 +15,7 @@ import (
 
 func (swap *SubmarineSwap) validateV2(
 	rawInvoice string,
-	userPublicKey, meenPublicKey *KeyDescriptor,
+	userPublicKey, muunPublicKey *KeyDescriptor,
 	originalExpirationInBlocks int64,
 	network *chaincfg.Params,
 ) error {
@@ -79,16 +79,16 @@ func (swap *SubmarineSwap) validateV2(
 		)
 	}
 
-	derivedMeenKey, err := meenPublicKey.DeriveTo(derivationPath)
+	derivedMuunKey, err := muunPublicKey.DeriveTo(derivationPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	if derivedMeenKey.String() != fundingOutput.MeenPublicKey.String() {
+	if derivedMuunKey.String() != fundingOutput.MuunPublicKey.String() {
 		return errors.Errorf(
-			"meen pub keys dont match %v != %v",
-			derivedMeenKey.String(),
-			fundingOutput.MeenPublicKey.String(),
+			"muun pub keys dont match %v != %v",
+			derivedMuunKey.String(),
+			fundingOutput.MuunPublicKey.String(),
 		)
 	}
 
@@ -102,7 +102,7 @@ func (swap *SubmarineSwap) validateV2(
 	witnessScript, err := CreateWitnessScriptSubmarineSwapV2(
 		serverPaymentHash,
 		encodeRaw(derivedUserKey),
-		encodeRaw(derivedMeenKey),
+		encodeRaw(derivedMuunKey),
 		serverPubKey,
 		swap.FundingOutput.ExpirationInBlocks)
 	if err != nil {
@@ -143,18 +143,18 @@ func (swap *SubmarineSwap) validateV2(
 }
 
 func CreateWitnessScriptSubmarineSwapV2(
-	paymentHash, userPubKey, meenPubKey, swapServerPubKey []byte,
+	paymentHash, userPubKey, muunPubKey, swapServerPubKey []byte,
 	blocksForExpiration int64,
 ) ([]byte, error) {
 
 	// It turns out that the payment hash present in an invoice is just the SHA256 of the payment
 	// preimage, so we still have to do a pass of RIPEMD160 before pushing it to the script
 	paymentHash160 := ripemd160(paymentHash)
-	meenPublicKeyHash160 := btcutil.Hash160(meenPubKey)
+	muunPublicKeyHash160 := btcutil.Hash160(muunPubKey)
 
 	// Equivalent miniscript (http://bitcoin.sipa.be/miniscript/): or( and(pk(userPublicKey),
 	// pk(swapServerPublicKey)), or( and(pk(swapServerPublicKey), hash160(swapPaymentHash160)),
-	// and(pk(userPublicKey), and(pk(meenPublicKey), older(numBlocksForExpiration))) ) )
+	// and(pk(userPublicKey), and(pk(muunPublicKey), older(numBlocksForExpiration))) ) )
 	//
 	// However, we differ in that the size of the script was heavily optimized for spending the
 	// first two branches (the collaborative close and the unilateral close by swapper), which
@@ -202,17 +202,17 @@ func CreateWitnessScriptSubmarineSwapV2(
 		// Validate that the second stack item was a valid user signature
 		AddOp(txscript.OP_CHECKSIGVERIFY).
 
-		// Validate that the third stack item was the meen public key
+		// Validate that the third stack item was the muun public key
 		AddOp(txscript.OP_DUP).
 		AddOp(txscript.OP_HASH160).
-		AddData(meenPublicKeyHash160).
+		AddData(muunPublicKeyHash160).
 		AddOp(txscript.OP_EQUALVERIFY).
 
 		// Notice that instead of directly pushing the public key here and checking the signature
 		// P2PK-style, we pushed the hash of the public key, and require an extra stack item with
 		// the actual public key, verifying the signature and public key P2PKH-style.
 		//
-		// This trick reduces the on-chain footprint of the meen key from 33 bytes to
+		// This trick reduces the on-chain footprint of the muun key from 33 bytes to
 		// 20 bytes for the collaborative, and swap server's non-collaborative branches,
 		// which are the most frequent ones.
 

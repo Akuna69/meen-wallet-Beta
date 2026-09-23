@@ -3,12 +3,12 @@ package io.muun.apollo.utils.screens
 import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 
 class SettingsScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun goToChangePassword() {
         id(R.id.settings_password).click()

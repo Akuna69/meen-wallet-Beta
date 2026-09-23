@@ -51,7 +51,7 @@ public class ChallengePrivateKeyTest {
         final PrivateKey secretKey = PrivateKey.getNewRootPrivateKey(bitcoinContext);
 
         final String encryptedKey = publicKey.encryptPrivateKey(
-                MeenEncryptedPrivateKey.Version.V2,
+                MuunEncryptedPrivateKey.Version.V2,
                 secretKey,
                 birthday
         );
@@ -62,7 +62,7 @@ public class ChallengePrivateKeyTest {
 
         assertThat(secretKey.serializeBase58()).isEqualTo(decryptedKey.serializeBase58());
         assertThat(
-                MeenEncryptedPrivateKeyV2.fromBase58(encryptedKey).getBirthday()
+                MuunEncryptedPrivateKeyV2.fromBase58(encryptedKey).getBirthday()
         ).isEqualTo(birthday);
     }
 
@@ -80,7 +80,7 @@ public class ChallengePrivateKeyTest {
         final PrivateKey secretKey = PrivateKey.getNewRootPrivateKey(bitcoinContext);
 
         final String encryptedKey = publicKey.encryptPrivateKey(
-                MeenEncryptedPrivateKey.Version.V3,
+                MuunEncryptedPrivateKey.Version.V3,
                 secretKey,
                 birthday
         );
@@ -90,7 +90,7 @@ public class ChallengePrivateKeyTest {
         );
 
         assertThat(secretKey.serializeBase58()).isEqualTo(decryptedKey.serializeBase58());
-        assertThat(MeenEncryptedPrivateKeyV3.fromBase58(encryptedKey).getRecoveryCodeSalt())
+        assertThat(MuunEncryptedPrivateKeyV3.fromBase58(encryptedKey).getRecoveryCodeSalt())
                 .isEqualTo(salt);
     }
 }

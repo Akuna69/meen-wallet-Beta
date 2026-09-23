@@ -47,19 +47,19 @@ type Report struct {
 	Err              error
 }
 
-// Utxo references a transaction output, plus the associated MeenAddress and script.
+// Utxo references a transaction output, plus the associated MuunAddress and script.
 type Utxo struct {
 	TxID        string
 	OutputIndex int
 	Amount      int64
-	Address     libwallet.MeenAddress
+	Address     libwallet.MuunAddress
 	Script      []byte
 }
 
 // scanContext contains the synchronization objects for a single Scanner round, to manage Tasks.
 type scanContext struct {
 	// Task management:
-	addresses   chan libwallet.MeenAddress
+	addresses   chan libwallet.MuunAddress
 	results     chan *scanTaskResult
 	stopScan    chan struct{}
 	stopCollect chan struct{}
@@ -85,7 +85,7 @@ func NewScanner(
 }
 
 // Scan an address space and return all relevant transactions for a sweep.
-func (s *Scanner) Scan(addresses chan libwallet.MeenAddress) <-chan *Report {
+func (s *Scanner) Scan(addresses chan libwallet.MuunAddress) <-chan *Report {
 	var waitGroup sync.WaitGroup
 
 	// Create the Context that goroutines will share:
@@ -166,7 +166,7 @@ func (s *Scanner) startScan(ctx *scanContext) {
 		// Start scanning this address in background:
 		ctx.wg.Add(1)
 
-		go func(batch []libwallet.MeenAddress) {
+		go func(batch []libwallet.MuunAddress) {
 			defer s.pool.Release(client)
 			defer ctx.wg.Done()
 
@@ -185,7 +185,7 @@ func (s *Scanner) startScan(ctx *scanContext) {
 func (s *Scanner) scanBatch(
 	ctx *scanContext,
 	client *electrum.Client,
-	batch []libwallet.MeenAddress,
+	batch []libwallet.MuunAddress,
 ) {
 	// NOTE: we begin by building the task, passing our selected Client. Since we're choosing the
 	// instance, it's our job to control acquisition and release of Clients to prevent sharing
@@ -204,11 +204,11 @@ func (s *Scanner) scanBatch(
 	ctx.results <- task.Execute()
 }
 
-func streamBatches(addresses chan libwallet.MeenAddress) chan []libwallet.MeenAddress {
-	batches := make(chan []libwallet.MeenAddress)
+func streamBatches(addresses chan libwallet.MuunAddress) chan []libwallet.MuunAddress {
+	batches := make(chan []libwallet.MuunAddress)
 
 	go func() {
-		var nextBatch []libwallet.MeenAddress
+		var nextBatch []libwallet.MuunAddress
 
 		for address := range addresses {
 			// Add items to the batch until we reach the limit:
@@ -220,7 +220,7 @@ func streamBatches(addresses chan libwallet.MeenAddress) chan []libwallet.MeenAd
 
 			// Send back the batch and start over:
 			batches <- nextBatch
-			nextBatch = []libwallet.MeenAddress{}
+			nextBatch = []libwallet.MuunAddress{}
 		}
 
 		// Send back an incomplete batch with any remaining addresses:

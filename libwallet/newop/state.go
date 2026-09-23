@@ -205,7 +205,7 @@ func (s *StartState) Resolve(address string, network *libwallet.Network) error {
 	return nil
 }
 
-func (s *StartState) resolveBip70(uri *libwallet.MeenPaymentURI, network *libwallet.Network) {
+func (s *StartState) resolveBip70(uri *libwallet.MuunPaymentURI, network *libwallet.Network) {
 
 	intent := &PaymentIntent{
 		URI: uri,
@@ -263,7 +263,7 @@ func (s *StartState) ResolveInvoice(
 	next := &ResolveState{
 		BaseState: s.BaseState,
 		PaymentIntent: &PaymentIntent{
-			URI: &libwallet.MeenPaymentURI{
+			URI: &libwallet.MuunPaymentURI{
 				Invoice: invoice,
 			},
 		},
@@ -277,7 +277,7 @@ func (s *StartState) ResolveInvoice(
 
 // PaymentIntent contains the resolved payment intent and does not change during the flow
 type PaymentIntent struct {
-	URI *libwallet.MeenPaymentURI
+	URI *libwallet.MuunPaymentURI
 }
 
 func (p *PaymentIntent) Amount() *MonetaryAmount {

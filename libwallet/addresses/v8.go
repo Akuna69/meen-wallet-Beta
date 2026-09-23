@@ -10,10 +10,10 @@ import (
 )
 
 // CreateAddressV8 returns a native-segwit (P2WSH) address for `to_client`
-// (user AND meen AND lightningPeer)                       // collaborative spend
-// OR (user AND meen AND older(blocksForExpiration))       // non-collaborative spend
+// (user AND muun AND lightningPeer)                       // collaborative spend
+// OR (user AND muun AND older(blocksForExpiration))       // non-collaborative spend
 func CreateAddressV8(
-	userKey, meenKey, lightningPeerKey *hdkeychain.ExtendedKey,
+	userKey, muunKey, lightningPeerKey *hdkeychain.ExtendedKey,
 	blocksForExpiration int64,
 	path string,
 	network *chaincfg.Params,
@@ -23,9 +23,9 @@ func CreateAddressV8(
 		return nil, errors.Errorf("get user public key: %w", err)
 	}
 
-	meenEcPubKey, err := meenKey.ECPubKey()
+	muunEcPubKey, err := muunKey.ECPubKey()
 	if err != nil {
-		return nil, errors.Errorf("get meen public key: %w", err)
+		return nil, errors.Errorf("get muun public key: %w", err)
 	}
 
 	lightningPeerEcPubKey, err := lightningPeerKey.ECPubKey()
@@ -36,7 +36,7 @@ func CreateAddressV8(
 	// Reuse the V7 witness script: the spending policy is identical for both schemes.
 	witnessScript, err := CreateWitnessScriptV7(
 		userEcPubKey,
-		meenEcPubKey,
+		muunEcPubKey,
 		lightningPeerEcPubKey,
 		blocksForExpiration,
 	)

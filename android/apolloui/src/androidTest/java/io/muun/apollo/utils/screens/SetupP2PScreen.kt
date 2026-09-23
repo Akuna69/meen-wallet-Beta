@@ -6,12 +6,12 @@ import io.muun.apollo.R
 import io.muun.apollo.data.external.Gen
 import io.muun.apollo.domain.model.P2PSetupStep
 import io.muun.apollo.domain.model.user.UserPhoneNumber
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 
 class SetupP2PScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun fillForm(
         phoneNumber: UserPhoneNumber = Gen.userPhoneNumber(),
@@ -53,12 +53,12 @@ class SetupP2PScreen(
 
     private fun enableContactsPermission() {
         checkStep(P2PSetupStep.SYNC_CONTACTS)
-        pressMeenButton(R.id.sync_contacts_button)
+        pressMuunButton(R.id.sync_contacts_button)
 
     }
 
     private fun goNext() {
-        pressMeenButton(R.id.signup_continue)
+        pressMuunButton(R.id.signup_continue)
     }
 
     // @formatter:off

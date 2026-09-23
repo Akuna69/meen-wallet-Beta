@@ -29,8 +29,8 @@ const (
 	AddressVersionSwapsV2 = addresses.SubmarineSwapV2
 )
 
-// MeenPaymentURI is meen's uri struct
-type MeenPaymentURI struct {
+// MuunPaymentURI is muun's uri struct
+type MuunPaymentURI struct {
 	Address      string
 	Label        string
 	Message      string
@@ -44,11 +44,11 @@ type MeenPaymentURI struct {
 
 const (
 	bitcoinScheme = "bitcoin:"
-	meenScheme    = "meen:"
+	muunScheme    = "muun:"
 )
 
-// GetPaymentURI builds a MeenPaymentURI from text (Bitcoin Uri, Meen Uri or address) and a network
-func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
+// GetPaymentURI builds a MuunPaymentURI from text (Bitcoin Uri, Muun Uri or address) and a network
+func GetPaymentURI(rawInput string, network *Network) (*MuunPaymentURI, error) {
 
 	bitcoinUri, components := buildUriFromString( //nolint:staticcheck // TODO: var bitcoinUri should be bitcoinURI
 		rawInput,
@@ -117,7 +117,7 @@ func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
 
 	// legacy Apollo P2P/contacts check
 	if strings.Contains(rawInput, "contacts/") {
-		return &MeenPaymentURI{
+		return &MuunPaymentURI{
 			Label:   label,
 			Message: message,
 			Amount:  amount,
@@ -136,7 +136,7 @@ func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
 		}
 
 		if len(address) > 0 {
-			return &MeenPaymentURI{
+			return &MuunPaymentURI{
 				Address:  address,
 				Label:    label,
 				Message:  message,
@@ -147,7 +147,7 @@ func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
 			}, nil
 		}
 
-		return &MeenPaymentURI{
+		return &MuunPaymentURI{
 			Label:    label,
 			Message:  message,
 			Amount:   amount,
@@ -186,7 +186,7 @@ func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
 		}
 	}
 
-	return &MeenPaymentURI{
+	return &MuunPaymentURI{
 		Address: decodedAddress.String(),
 		Label:   label,
 		Message: message,
@@ -197,8 +197,8 @@ func GetPaymentURI(rawInput string, network *Network) (*MeenPaymentURI, error) {
 
 }
 
-// DoPaymentRequestCall builds a MeenPaymentUri from a url and a network. Handling BIP70 to 72
-func DoPaymentRequestCall(url string, network *Network) (*MeenPaymentURI, error) {
+// DoPaymentRequestCall builds a MuunPaymentUri from a url and a network. Handling BIP70 to 72
+func DoPaymentRequestCall(url string, network *Network) (*MuunPaymentURI, error) {
 	req, err := http.NewRequest( //nolint:noctx // TODO: use http.NewRequestWithContext
 		"GET",
 		url,
@@ -246,7 +246,7 @@ func DoPaymentRequestCall(url string, network *Network) (*MeenPaymentURI, error)
 
 	amount := float64(payDetails.Outputs[0].Amount) / 100_000_000
 
-	return &MeenPaymentURI{
+	return &MuunPaymentURI{
 		Address:      address,
 		Message:      payDetails.Memo,
 		Amount:       strconv.FormatFloat(amount, 'f', -1, 64),
@@ -274,7 +274,7 @@ func buildUriFromString( //nolint:staticcheck // TODO: func buildUriFromString s
 ) (string, *url.URL) {
 	newUri := strings.Replace( //nolint:staticcheck // TODO: var newUri should be newURI
 		rawInput,
-		meenScheme,
+		muunScheme,
 		targetScheme,
 		1,
 	)

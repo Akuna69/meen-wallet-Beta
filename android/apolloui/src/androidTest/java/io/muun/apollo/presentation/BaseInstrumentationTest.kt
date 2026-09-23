@@ -22,13 +22,13 @@ import io.muun.apollo.presentation.app.Navigator
 import io.muun.apollo.presentation.ui.launcher.LauncherActivity
 import io.muun.apollo.utils.AutoFlows
 import io.muun.apollo.utils.SystemCommand
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.rules.TestName
 
-open class BaseInstrumentationTest : WithMeenInstrumentationHelpers {
+open class BaseInstrumentationTest : WithMuunInstrumentationHelpers {
 
     @JvmField
     @Rule

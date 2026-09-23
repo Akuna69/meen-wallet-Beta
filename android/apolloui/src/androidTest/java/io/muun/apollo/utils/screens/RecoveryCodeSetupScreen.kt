@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 
 class RecoveryCodeSetupScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun tryClose() {
         toolbar.pressClose()
@@ -47,29 +47,29 @@ class RecoveryCodeSetupScreen(
     }
 
     fun begin() {
-        pressMeenButton(R.id.priming_recovery_code_start)
+        pressMuunButton(R.id.priming_recovery_code_start)
     }
 
     fun goNext() {
-        pressMeenButton(R.id.recovery_code_continue)
+        pressMuunButton(R.id.recovery_code_continue)
     }
 
     fun readRecoveryCode() =
         bindRecoveryCodeSegments().map { uiObject -> uiObject.text.toString() }
 
     fun confirmRecoveryCode() {
-        pressMeenButton(R.id.accept)
+        pressMuunButton(R.id.accept)
     }
 
     private fun acceptConditions() {
         id(R.id.recovery_code_condition_1).click()
         id(R.id.recovery_code_condition_2).click()
 
-        pressMeenButton(R.id.recovery_code_accept)
+        pressMuunButton(R.id.recovery_code_accept)
     }
 
     private fun finish() {
-        pressMeenButton(R.id.single_action_action)
+        pressMuunButton(R.id.single_action_action)
     }
 
     private fun checkDialogDisplayed() {

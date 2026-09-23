@@ -12,9 +12,9 @@ import (
 type SignChallenge = security_card.SecurityCardSignChallenge
 
 func TestGetVersion(t *testing.T) {
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -25,8 +25,8 @@ func TestGetVersion(t *testing.T) {
 		t.Fatalf("failed GetVersion: %v", err)
 	}
 
-	if version.Vendor != "MeenV2" {
-		t.Fatalf("expected vendor 'MeenV2', got '%s'", version.Vendor)
+	if version.Vendor != "MuunV2" {
+		t.Fatalf("expected vendor 'MuunV2', got '%s'", version.Vendor)
 	}
 
 	if version.Major != 2 {
@@ -39,9 +39,9 @@ func TestGetVersion(t *testing.T) {
 }
 
 func TestGetMetadata(t *testing.T) {
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -59,9 +59,9 @@ func TestGetMetadata(t *testing.T) {
 }
 
 func TestPairCard_ErrorScenarios(t *testing.T) {
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -142,9 +142,9 @@ func TestPairCard_ErrorScenarios(t *testing.T) {
 
 func TestPairCard_Success(t *testing.T) {
 
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -181,9 +181,9 @@ func TestPairCard_Success(t *testing.T) {
 }
 
 func TestSignChallenge_ErrorScenarios(t *testing.T) {
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -290,9 +290,9 @@ func TestSignChallenge_ErrorScenarios(t *testing.T) {
 
 func TestSignChallenge_Success(t *testing.T) {
 
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)
@@ -353,9 +353,9 @@ func TestSignChallenge_SecretValidForRetries(t *testing.T) {
 	// Signing process never finishes, shared secret still valid.
 	// challenge 2 should work with initial secret
 
-	mockCard, err := NewMockMeenCardV2()
+	mockCard, err := NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("failed NewMockMeenCardV2: %v", err)
+		t.Fatalf("failed NewMockMuunCardV2: %v", err)
 	}
 
 	mockNfcBridge := NewMockJavaCard(mockCard)

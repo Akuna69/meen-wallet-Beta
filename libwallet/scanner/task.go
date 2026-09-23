@@ -16,7 +16,7 @@ import (
 type scanTask struct {
 	servers     *electrum.ServerProvider
 	client      *electrum.Client
-	addresses   []libwallet.MeenAddress
+	addresses   []libwallet.MuunAddress
 	timeout     time.Duration
 	exit        chan struct{}
 	chainParams *chaincfg.Params
@@ -181,7 +181,7 @@ func getIndexHashes(outputScripts [][]byte) ([]string, error) {
 
 // getOutputScripts creates all the scripts that send to an list of Bitcoin address.
 func getOutputScripts(
-	addresses []libwallet.MeenAddress,
+	addresses []libwallet.MuunAddress,
 	chainParams *chaincfg.Params,
 ) ([][]byte, error) {
 	outputScripts := make([][]byte, len(addresses))

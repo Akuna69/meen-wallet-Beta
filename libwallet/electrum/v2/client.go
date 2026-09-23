@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	clientName    = "meen"
+	clientName    = "muun"
 	clientVersion = "1.4" // Electrum version we support.
 )
 

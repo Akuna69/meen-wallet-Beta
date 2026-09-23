@@ -11,22 +11,22 @@ var _ service.HoustonService = (*MockHoustonService)(nil)
 // MockHoustonService is a configurable test double for service.HoustonService.
 // Set the fields you need for your test; all unconfigured methods panic.
 type MockHoustonService struct {
-	VerifiableMeenKeyResult    model.VerifiableMeenKeyJson
-	VerifiableMeenKeyErr       error
-	FinishWithVerifiableResult model.VerifiableMeenKeyJson
+	VerifiableMuunKeyResult    model.VerifiableMuunKeyJson
+	VerifiableMuunKeyErr       error
+	FinishWithVerifiableResult model.VerifiableMuunKeyJson
 	FinishWithVerifiableErr    error
 
 	// Captured requests for assertions
 	CapturedChallengeSetupVerify *model.ChallengeSetupVerifyJson
 }
 
-func (m *MockHoustonService) VerifiableMeenKey() (model.VerifiableMeenKeyJson, error) {
-	return m.VerifiableMeenKeyResult, m.VerifiableMeenKeyErr
+func (m *MockHoustonService) VerifiableMuunKey() (model.VerifiableMuunKeyJson, error) {
+	return m.VerifiableMuunKeyResult, m.VerifiableMuunKeyErr
 }
 
-func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMeenKey(
+func (m *MockHoustonService) ChallengeSetupFinishWithVerifiableMuunKey(
 	req model.ChallengeSetupVerifyJson,
-) (model.VerifiableMeenKeyJson, error) {
+) (model.VerifiableMuunKeyJson, error) {
 	m.CapturedChallengeSetupVerify = &req
 	return m.FinishWithVerifiableResult, m.FinishWithVerifiableErr
 }

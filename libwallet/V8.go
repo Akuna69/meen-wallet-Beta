@@ -10,12 +10,12 @@ import (
 )
 
 func CreateAddressV8(
-	userKey, meenKey, lightningPeerKey *HDPublicKey,
+	userKey, muunKey, lightningPeerKey *HDPublicKey,
 	blocksForExpiration int64,
-) (MeenAddress, error) {
+) (MuunAddress, error) {
 	return addresses.CreateAddressV8(
 		&userKey.key,
-		&meenKey.key,
+		&muunKey.key,
 		&lightningPeerKey.key,
 		blocksForExpiration,
 		userKey.Path,
@@ -31,24 +31,24 @@ type coinV8 struct {
 	Amount                 btcutil.Amount
 	BlocksForExpiration    int64
 	LightningPeerKey       *HDPublicKey
-	MeenSignature          []byte
+	MuunSignature          []byte
 	LightningPeerSignature []byte
 }
 
-// SignInput adds the user signature and assembles the collaborative (3-of-3) witness. The meen and
+// SignInput adds the user signature and assembles the collaborative (3-of-3) witness. The muun and
 // peer signatures must already be present.
 func (c *coinV8) SignInput(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPrivateKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 ) error {
 	derivedUserKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return err
 	}
 
-	derivedMeenKey, err := meenKey.DeriveTo(c.KeyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return err
 	}
@@ -58,8 +58,8 @@ func (c *coinV8) SignInput(
 		return err
 	}
 
-	if len(c.MeenSignature) == 0 {
-		return errors.New("meen signature must be present")
+	if len(c.MuunSignature) == 0 {
+		return errors.New("muun signature must be present")
 	}
 	if len(c.LightningPeerSignature) == 0 {
 		return errors.New("lightning peer signature must be present")
@@ -69,7 +69,7 @@ func (c *coinV8) SignInput(
 	if err != nil {
 		return err
 	}
-	meenPubKey, err := derivedMeenKey.ECPubKey()
+	muunPubKey, err := derivedMuunKey.ECPubKey()
 	if err != nil {
 		return err
 	}
@@ -80,7 +80,7 @@ func (c *coinV8) SignInput(
 
 	witnessScript, err := addresses.CreateWitnessScriptV7(
 		userPubKey,
-		meenPubKey,
+		muunPubKey,
 		lightningPeerPubKey,
 		c.BlocksForExpiration,
 	)
@@ -93,10 +93,10 @@ func (c *coinV8) SignInput(
 		return err
 	}
 
-	// Stack top -> bottom: witnessScript, userSig, meenSig, peerSig.
+	// Stack top -> bottom: witnessScript, userSig, muunSig, peerSig.
 	tx.TxIn[index].Witness = wire.TxWitness{
 		c.LightningPeerSignature,
-		c.MeenSignature,
+		c.MuunSignature,
 		userSignature,
 		witnessScript,
 	}
@@ -104,16 +104,16 @@ func (c *coinV8) SignInput(
 	return nil
 }
 
-// FullySignInput signs the non-collaborative (2-of-2 + timelock) path with the user and meen
+// FullySignInput signs the non-collaborative (2-of-2 + timelock) path with the user and muun
 // private keys, for recovery contexts. The caller must build a version-2 tx whose input nSequence
 // encodes the relative timelock, since nSequence is committed to by the signature.
-func (c *coinV8) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDPrivateKey) error {
+func (c *coinV8) FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error {
 	derivedUserKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return err
 	}
 
-	derivedMeenKey, err := meenKey.DeriveTo(c.KeyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return err
 	}
@@ -127,7 +127,7 @@ func (c *coinV8) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDP
 	if err != nil {
 		return err
 	}
-	meenPubKey, err := derivedMeenKey.PublicKey().ECPubKey()
+	muunPubKey, err := derivedMuunKey.PublicKey().ECPubKey()
 	if err != nil {
 		return err
 	}
@@ -138,7 +138,7 @@ func (c *coinV8) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDP
 
 	witnessScript, err := addresses.CreateWitnessScriptV7(
 		userPubKey,
-		meenPubKey,
+		muunPubKey,
 		lightningPeerPubKey,
 		c.BlocksForExpiration,
 	)
@@ -151,15 +151,15 @@ func (c *coinV8) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDP
 		return err
 	}
 
-	meenSignature, err := c.signature(index, tx, derivedMeenKey, witnessScript)
+	muunSignature, err := c.signature(index, tx, derivedMuunKey, witnessScript)
 	if err != nil {
 		return err
 	}
 
-	// Stack top -> bottom: witnessScript, userSig, meenSig, <empty>.
+	// Stack top -> bottom: witnessScript, userSig, muunSig, <empty>.
 	tx.TxIn[index].Witness = wire.TxWitness{
 		[]byte{},
-		meenSignature,
+		muunSignature,
 		userSignature,
 		witnessScript,
 	}

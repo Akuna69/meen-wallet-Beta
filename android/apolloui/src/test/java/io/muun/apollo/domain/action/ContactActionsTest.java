@@ -14,7 +14,7 @@ import io.muun.apollo.domain.action.base.AsyncActionStore;
 import io.muun.apollo.domain.model.Contact;
 import io.muun.apollo.domain.model.PublicProfile;
 import io.muun.apollo.template.TemplateHelpers;
-import io.muun.common.crypto.hd.MeenAddress;
+import io.muun.common.crypto.hd.MuunAddress;
 import io.muun.common.crypto.hd.PublicKey;
 import io.muun.common.crypto.hd.exception.KeyDerivationException;
 
@@ -128,7 +128,7 @@ public class ContactActionsTest extends BaseTest {
         final long hid = contact.getHid();
         doReturn(Observable.just(contact)).when(contactDao).fetchByHid(hid);
 
-        final MeenAddress address =
+        final MuunAddress address =
                 fetchItemFromObservable(contactActions.fetchContactAddress(hid));
 
         final PublicKey derivedKey =

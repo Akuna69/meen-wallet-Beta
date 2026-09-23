@@ -174,7 +174,7 @@ follow [https://changelog.md/](https://changelog.md/) guidelines.
 
 ### FIXED
 
-- Visual bug regarding welcomeToMeen dialog width in foldables and tablets.
+- Visual bug regarding welcomeToMuun dialog width in foldables and tablets.
 
 ### CHANGED
 
@@ -330,7 +330,7 @@ data migration to init utxos' status.
 ### CHANGED
 - Made the payment address (aka payment secret) flag required in our invoices (and also
 the TLV onion as payment secret depends on it). Having the flag as optional was causing some strict
-services to block zero amount invoices from Meen. If the secret is optional, the last hop (us) can
+services to block zero amount invoices from Muun. If the secret is optional, the last hop (us) can
 forward a fake sphinx without a payment secret and for 1 sat, the app will accept it since the
 secret is optional and the last hop keeps the rest of the payment. Payment secret has been widely
 adopted for quite a bit now. Major impls all require it.
@@ -340,7 +340,7 @@ adopted for quite a bit now. Major impls all require it.
 ### FIXED
 
 - A crash when trying to change password using Recovery Code
-- A probable source of crashes regarding handling of MeenHeader
+- A probable source of crashes regarding handling of MuunHeader
 
 ## [51.6] - 2024-01-17
 
@@ -379,7 +379,7 @@ use it and we can start removing Butterknife.
 - Stop polling notifications for non-retryable errors. Avoid wasting resources and generating
 backend alerts.
 - A crash related to our handling of fragment/activity lifecycle callbacks with regard to our
-MeenHeader (Toolbar). Mid refactor to enhance how we handle the lifecycle callbacks to prevent
+MuunHeader (Toolbar). Mid refactor to enhance how we handle the lifecycle callbacks to prevent
 this issue in the future.
 - A crash involving proguard rules for androidx.lifecycle classes.
 - A memory leak when making lightning payments.
@@ -415,7 +415,7 @@ screen.
 generating backend alerts.
 - A visual glitch in lnurl withdraw unresponsive error handling.
 - A bug in lnurl withdraw flow when manually inputting the lnurl in the Send screen.
-- A bug where the "Welcome to Meen" dialog would be displayed more than once if the Home activity
+- A bug where the "Welcome to Muun" dialog would be displayed more than once if the Home activity
 was recreated.
 - Several memory leaks regarding QRs bitmaps and Repository registry.
 
@@ -553,7 +553,7 @@ the callback URL returned by the lnurl service had to had the same domain/host.
 ### FIXED
 
 - A problem regarding concurrent modification of a collection during initial sync.
-- A problem occurring in times of high-traffic (of the Bitcoin Network and/or of Meen services)
+- A problem occurring in times of high-traffic (of the Bitcoin Network and/or of Muun services)
 when submitting a payment. Enhanced overall reliability of payment submission.
 - A problem when trying to send non-standard bitcoin uris (e.g having '?' but no query params).
 
@@ -680,7 +680,7 @@ Go Mobile that messed up build reproducibility
 
 ### CHANGED
 - Moved away from using personal forks and started using forks from official
-Meen org
+Muun org
 - Upgraded protobuf go package (really dropped github.com/golang/protobuf) and re-generate
 bip70 Go code base on its proto file
 
@@ -760,7 +760,7 @@ return a 404 not found), we copy node public key to clipboard.
 ## [49.3] - 2022-04-26
 
 ### ADDED
-- Better error reporting and extra metadata for MoneyDecoration (MeenAmountInput) crash
+- Better error reporting and extra metadata for MoneyDecoration (MuunAmountInput) crash
 - Show LN alias for outgoing payments in payment history and payment Detail
 
 ### FIXED
@@ -780,7 +780,7 @@ return a 404 not found), we copy node public key to clipboard.
 - Bug when fetching legacy Contact model after SQLDelight upgrade (on 49)
 - Use of Math.toIntExact() which isn't supported on lower api levels (introduced in SQLDelight
 upgrade)
-- MeenAmountInput handling of SATs (currencies without decimals)
+- MuunAmountInput handling of SATs (currencies without decimals)
 - Incorrect handling of changeCurrency and useAllFunds in send flow, introduced in our send payment
 flow rewrite (48.2)
 - Minor copy change when copying a LN payment hash to clipboard
@@ -813,7 +813,7 @@ flow rewrite (48.2)
 
 ### FIXED
 
-- Race condition in MeenAmountInput to avoid random crashes
+- Race condition in MuunAmountInput to avoid random crashes
 - Added missing null check in ExternalResultExtension, to avoid rather frequent crashes
 
 ## [48.3] - 2022-01-14
@@ -877,7 +877,7 @@ features like Taproot
 - Data visibility in operation detail screen. Hide confirmations for failed transactions
 
 ### FIXED
-- Crash in MeenAmountInput introduced with newest amount formatting impl (46.9)
+- Crash in MuunAmountInput introduced with newest amount formatting impl (46.9)
 - Null support ids on error reports
 
 ## [46.10] - 2021-09-22
@@ -899,7 +899,7 @@ features like Taproot
 
 ### FIXED
 - Amount formatting issues with different locales/languages
-Note: MeenAmountInput still uses THIN_SPACE as grouping separator, due to android bug.
+Note: MuunAmountInput still uses THIN_SPACE as grouping separator, due to android bug.
 - Lnurl payments with synchronous lnurl service providers (e.g. AZTE.CO)
 - Fragment manager lifecycle issues in ErrorFragment
 
@@ -915,9 +915,9 @@ Note: MeenAmountInput still uses THIN_SPACE as grouping separator, due to androi
 ## [46.7] - 2021-07-27
 
 ### CHANGED
-- Kotlinized MeenView
+- Kotlinized MuunView
 - Kotlinized AlertDialogExtension
-- Refactor to add dependency injection in our custom views (children of MeenView)
+- Refactor to add dependency injection in our custom views (children of MuunView)
 - Enhanced connectivity error message and remove contact us call to action
 
 ### FIXED
@@ -956,7 +956,7 @@ Note: MeenAmountInput still uses THIN_SPACE as grouping separator, due to androi
 - Increased LNURL requests timeouts for better reliability with slow services
 
 ### FIXED
-- Use new ImageDecoderApi for MeenPictureInput, fix crash Huawei devices
+- Use new ImageDecoderApi for MuunPictureInput, fix crash Huawei devices
 - Handling of FulfillIncomingSwap notifications. More reliable receive lightning
 - Error due to double destroy wallet on session expired
 - Crash in scan QR with strange input

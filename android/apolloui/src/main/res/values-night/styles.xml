@@ -19,8 +19,8 @@
         <!-- Keep pre-MDC TextInputLayout look and feel See: https://link.medium.com/NOx9CHPhndb -->
         <item name="textInputStyle">@style/Widget.Design.TextInputLayout</item>
 
-        <item name="android:actionBarStyle">@style/MeenActionBarStyle</item>
-        <item name="radioButtonStyle">@style/MeenRadioButtonStyle</item>
+        <item name="android:actionBarStyle">@style/MuunActionBarStyle</item>
+        <item name="radioButtonStyle">@style/MuunRadioButtonStyle</item>
 
     </style>
 

@@ -9,10 +9,10 @@ type HoustonService interface {
 	HealthCheck() error
 	ChallengeKeySetupStart(req model.ChallengeSetupJson) (model.SetupChallengeResponseJson, error)
 	ChallengeKeySetupFinish(req model.ChallengeSetupVerifyJson) error
-	ChallengeSetupFinishWithVerifiableMeenKey(
+	ChallengeSetupFinishWithVerifiableMuunKey(
 		req model.ChallengeSetupVerifyJson,
-	) (model.VerifiableMeenKeyJson, error)
-	VerifiableMeenKey() (model.VerifiableMeenKeyJson, error)
+	) (model.VerifiableMuunKeyJson, error)
+	VerifiableMuunKey() (model.VerifiableMuunKeyJson, error)
 	CreateFirstSession(
 		createSessionJson model.CreateFirstSessionJson, //nolint:staticcheck // TODO: interface method parameter createSessionJson should be createSessionJSON
 	) (model.CreateFirstSessionOkJson, error)
@@ -78,23 +78,23 @@ func (h *HoustonClient) ChallengeKeySetupFinish(req model.ChallengeSetupVerifyJs
 	return err
 }
 
-func (h *HoustonClient) ChallengeSetupFinishWithVerifiableMeenKey(
+func (h *HoustonClient) ChallengeSetupFinishWithVerifiableMuunKey(
 	req model.ChallengeSetupVerifyJson,
-) (model.VerifiableMeenKeyJson, error) {
+) (model.VerifiableMuunKeyJson, error) {
 
-	r := request[model.VerifiableMeenKeyJson]{
+	r := request[model.VerifiableMuunKeyJson]{
 		Method: MethodPost,
-		Path:   "/user/challenge/setup/finish-with-verifiable-meen-key",
+		Path:   "/user/challenge/setup/finish-with-verifiable-muun-key",
 		Body:   req,
 	}
 
 	return r.do(&h.client)
 }
 
-func (h *HoustonClient) VerifiableMeenKey() (model.VerifiableMeenKeyJson, error) {
-	r := request[model.VerifiableMeenKeyJson]{
+func (h *HoustonClient) VerifiableMuunKey() (model.VerifiableMuunKeyJson, error) {
+	r := request[model.VerifiableMuunKeyJson]{
 		Method: MethodGet,
-		Path:   "/user/verifiable-meen-key",
+		Path:   "/user/verifiable-muun-key",
 	}
 
 	return r.do(&h.client)

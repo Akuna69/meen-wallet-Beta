@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.annotation.IdRes
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 import javax.money.MonetaryAmount
 
 class RecommendedFeeScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     class OnScreenFeeOption(
         val feeRate: Double,
@@ -31,7 +31,7 @@ class RecommendedFeeScreen(
         id(R.id.fee_option_slow).exists()
 
     fun confirmFee() =
-        pressMeenButton(R.id.confirm_fee)
+        pressMuunButton(R.id.confirm_fee)
 
     fun goToManualFee() =
         id(R.id.enter_fee_manually).click()

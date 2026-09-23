@@ -3,27 +3,27 @@ package io.muun.apollo.utils.screens
 import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 
 class EmailPasswordSetupScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun skipSetup() {
-        pressMeenButton(R.id.create_email_skip)
+        pressMuunButton(R.id.create_email_skip)
 
         dialog.checkDisplayed(R.string.setup_password_skip_title)
         dialog.pressSkip()
     }
 
     fun startSetup() {
-        pressMeenButton(R.id.setup_password_intro_action)
+        pressMuunButton(R.id.setup_password_intro_action)
     }
 
     fun enterEmailAndConfirm(email: String) {
         input(R.id.create_email_input).text = email
-        pressMeenButton(R.id.create_email_action)
+        pressMuunButton(R.id.create_email_action)
     }
 
     fun checkEmailVerificationScreenDisplayed(email: String) {
@@ -46,18 +46,18 @@ class EmailPasswordSetupScreen(
         input(R.id.create_password_input).text = password
         input(R.id.create_password_confirm_input).text = password
 
-        pressMeenButton(R.id.create_password_confirm)
+        pressMuunButton(R.id.create_password_confirm)
     }
 
     fun acceptConditions() {
         id(R.id.setup_password_accept_condition_1).click()
         id(R.id.setup_password_accept_condition_2).click()
 
-        pressMeenButton(R.id.setup_password_accept_action)
+        pressMuunButton(R.id.setup_password_accept_action)
     }
 
     fun finishSetup() {
-        pressMeenButton(R.id.setup_password_success_action)
+        pressMuunButton(R.id.setup_password_success_action)
     }
 
     fun tryClose() {

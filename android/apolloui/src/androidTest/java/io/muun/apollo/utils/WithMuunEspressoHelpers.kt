@@ -24,7 +24,7 @@ import org.hamcrest.Matchers
 import org.hamcrest.Matchers.not
 
 
-interface WithMeenEspressoHelpers {
+interface WithMuunEspressoHelpers {
 
     val context: Context    // "Real" app context
 

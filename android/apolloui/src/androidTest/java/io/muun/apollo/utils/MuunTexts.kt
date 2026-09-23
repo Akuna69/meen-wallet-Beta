@@ -5,7 +5,7 @@ import androidx.test.platform.app.InstrumentationRegistry
 import io.muun.apollo.presentation.ui.utils.OS
 import java.util.Locale
 
-object MeenTexts {
+object MuunTexts {
 
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 

@@ -163,9 +163,9 @@ func TestParseInvoice(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			name: "simple invoice with meen scheme",
+			name: "simple invoice with muun scheme",
 			args: args{
-				invoice: meenScheme + invoice,
+				invoice: muunScheme + invoice,
 				network: network,
 			},
 			want: &Invoice{
@@ -179,9 +179,9 @@ func TestParseInvoice(t *testing.T) {
 			},
 		},
 		{
-			name: "simple invoice with meen:// scheme",
+			name: "simple invoice with muun:// scheme",
 			args: args{
-				invoice: meenScheme + "//" + invoice,
+				invoice: muunScheme + "//" + invoice,
 				network: network,
 			},
 			want: &Invoice{

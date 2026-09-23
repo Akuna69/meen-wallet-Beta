@@ -9,7 +9,7 @@ import (
 	"github.com/muun/libwallet/storage"
 )
 
-func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
+func TestPopulateEncryptedMuunKeyAction(t *testing.T) {
 
 	t.Run("stores key in correct slot when storage is empty", func(t *testing.T) {
 		testCases := []struct {
@@ -17,8 +17,8 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 			withProof    bool
 			expectedSlot string
 		}{
-			{"verified key when proof is provided", true, storage.VerifiedEncryptedMeenKey},
-			{"unverified key when no proof is provided", false, storage.UnverifiedEncryptedMeenKey},
+			{"verified key when proof is provided", true, storage.VerifiedEncryptedMuunKey},
+			{"unverified key when no proof is provided", false, storage.UnverifiedEncryptedMuunKey},
 		}
 		for _, tc := range testCases {
 			t.Run(tc.desc, func(t *testing.T) {
@@ -26,14 +26,14 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 				keys := testutils.GenerateTestKeys()
 				kvStorage := testutils.NewTestKeyValueStorage(t)
 				keyProvider := testutils.NewMockKeyProvider(keys)
-				vmkJSON := testutils.BuildVerifiableMeenKeyJson(
+				vmkJSON := testutils.BuildVerifiableMuunKeyJson(
 					keys,
 					tc.withProof,
 				)
 				houston := &testutils.MockHoustonService{
-					VerifiableMeenKeyResult: *vmkJSON,
+					VerifiableMuunKeyResult: *vmkJSON,
 				}
-				action := NewPopulateEncryptedMeenKeyAction(houston, kvStorage, keyProvider)
+				action := NewPopulateEncryptedMuunKeyAction(houston, kvStorage, keyProvider)
 
 				// Test
 				err := action.Run(keys.RecoveryCodeKey.PubKey())
@@ -58,16 +58,16 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		keys := testutils.GenerateTestKeys()
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
-		err := kvStorage.Save(storage.VerifiedEncryptedMeenKey, "existing-verified-key")
+		err := kvStorage.Save(storage.VerifiedEncryptedMuunKey, "existing-verified-key")
 		if err != nil {
 			t.Fatalf("Save() error = %v", err)
 		}
 
 		// Houston should NOT be called — if it is, the mock will return an error
 		houston := &testutils.MockHoustonService{
-			VerifiableMeenKeyErr: errors.New("should not be called"),
+			VerifiableMuunKeyErr: errors.New("should not be called"),
 		}
-		action := NewPopulateEncryptedMeenKeyAction(houston, kvStorage, keyProvider)
+		action := NewPopulateEncryptedMuunKeyAction(houston, kvStorage, keyProvider)
 
 		// Test
 		err = action.Run(keys.RecoveryCodeKey.PubKey())
@@ -76,7 +76,7 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		}
 
 		// Verify key is unchanged
-		got, _ := kvStorage.Get(storage.VerifiedEncryptedMeenKey)
+		got, _ := kvStorage.Get(storage.VerifiedEncryptedMuunKey)
 		if got.(string) != "existing-verified-key" {
 			t.Fatal("verified key should not have been modified")
 		}
@@ -87,18 +87,18 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		keys := testutils.GenerateTestKeys()
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
-		err := kvStorage.Save(storage.UnverifiedEncryptedMeenKey, "existing-unverified-key")
+		err := kvStorage.Save(storage.UnverifiedEncryptedMuunKey, "existing-unverified-key")
 		if err != nil {
 			t.Fatalf("Save() error = %v", err)
 		}
-		vmkJSON := testutils.BuildVerifiableMeenKeyJson(
+		vmkJSON := testutils.BuildVerifiableMuunKeyJson(
 			keys,
 			false,
 		)
 		houston := &testutils.MockHoustonService{
-			VerifiableMeenKeyResult: *vmkJSON,
+			VerifiableMuunKeyResult: *vmkJSON,
 		}
-		action := NewPopulateEncryptedMeenKeyAction(houston, kvStorage, keyProvider)
+		action := NewPopulateEncryptedMuunKeyAction(houston, kvStorage, keyProvider)
 
 		// Test
 		err = action.Run(keys.RecoveryCodeKey.PubKey())
@@ -107,7 +107,7 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		}
 
 		// Verify key is unchanged
-		got, _ := kvStorage.Get(storage.UnverifiedEncryptedMeenKey)
+		got, _ := kvStorage.Get(storage.UnverifiedEncryptedMuunKey)
 		if got.(string) != "existing-unverified-key" {
 			t.Fatal("unverified key should not have been overwritten")
 		}
@@ -118,18 +118,18 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		keys := testutils.GenerateTestKeys()
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
-		err := kvStorage.Save(storage.UnverifiedEncryptedMeenKey, "existing-unverified-key")
+		err := kvStorage.Save(storage.UnverifiedEncryptedMuunKey, "existing-unverified-key")
 		if err != nil {
 			t.Fatalf("Save() error = %v", err)
 		}
-		vmkJSON := testutils.BuildVerifiableMeenKeyJson(
+		vmkJSON := testutils.BuildVerifiableMuunKeyJson(
 			keys,
 			true,
 		)
 		houston := &testutils.MockHoustonService{
-			VerifiableMeenKeyResult: *vmkJSON,
+			VerifiableMuunKeyResult: *vmkJSON,
 		}
-		action := NewPopulateEncryptedMeenKeyAction(houston, kvStorage, keyProvider)
+		action := NewPopulateEncryptedMuunKeyAction(houston, kvStorage, keyProvider)
 
 		// Test
 		err = action.Run(keys.RecoveryCodeKey.PubKey())
@@ -138,14 +138,14 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		}
 
 		// Verify verified key was stored
-		got, _ := kvStorage.Get(storage.VerifiedEncryptedMeenKey)
+		got, _ := kvStorage.Get(storage.VerifiedEncryptedMuunKey)
 		if got == nil {
 			t.Fatal("expected verified key to be stored after upgrade")
 		}
 
 		// Verify unverified key was NOT deleted (production code writes verified but keeps
 		// unverified)
-		unverified, _ := kvStorage.Get(storage.UnverifiedEncryptedMeenKey)
+		unverified, _ := kvStorage.Get(storage.UnverifiedEncryptedMuunKey)
 		if unverified == nil || unverified.(string) != "existing-unverified-key" {
 			t.Fatal("unverified key should remain in storage after upgrade")
 		}
@@ -157,9 +157,9 @@ func TestPopulateEncryptedMeenKeyAction(t *testing.T) {
 		kvStorage := testutils.NewTestKeyValueStorage(t)
 		keyProvider := testutils.NewMockKeyProvider(keys)
 		houston := &testutils.MockHoustonService{
-			VerifiableMeenKeyErr: errors.New("houston error"),
+			VerifiableMuunKeyErr: errors.New("houston error"),
 		}
-		action := NewPopulateEncryptedMeenKeyAction(houston, kvStorage, keyProvider)
+		action := NewPopulateEncryptedMuunKeyAction(houston, kvStorage, keyProvider)
 
 		// Test
 		err := action.Run(keys.RecoveryCodeKey.PubKey())

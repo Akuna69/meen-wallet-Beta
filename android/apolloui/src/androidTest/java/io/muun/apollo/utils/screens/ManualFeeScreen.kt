@@ -3,14 +3,14 @@ package io.muun.apollo.utils.screens
 import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
-import io.muun.apollo.utils.WithMeenInstrumentationHelpers
+import io.muun.apollo.utils.WithMuunInstrumentationHelpers
 import io.muun.apollo.utils.screens.RecommendedFeeScreen.OnScreenFeeOption
 import java.text.DecimalFormat
 
 class ManualFeeScreen(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun editFeeRate(feeRate: Double): OnScreenFeeOption {
         feeInput.text = DecimalFormat.getInstance(locale).format(feeRate);
@@ -18,7 +18,7 @@ class ManualFeeScreen(
     }
 
     fun confirmFeeRate() {
-        pressMeenButton(R.id.confirm_fee)
+        pressMuunButton(R.id.confirm_fee)
     }
 
     private val feeOption

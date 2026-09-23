@@ -31,7 +31,7 @@ func GenerateMusigNonces(count int) *MusigNonces {
 	for i := 0; i < count; i += 1 {
 		sessionIDs = append(sessionIDs, musig.RandomSessionID())
 		nonce, _ := musig.MuSig2GenerateNonce(
-			musig.Musig2v040Meen,
+			musig.Musig2v040Muun,
 			sessionIDs[i][:],
 			nil,
 		)

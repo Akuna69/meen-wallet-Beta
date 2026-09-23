@@ -151,7 +151,7 @@ type KeyProvider interface {
 	Path() string
 }
 
-// hdPrivKeyDecrypter holds the keys for validation and decryption of messages using Meen's scheme
+// hdPrivKeyDecrypter holds the keys for validation and decryption of messages using Muun's scheme
 type HdPrivKeyDecrypter struct {
 	KeyProvider KeyProvider
 

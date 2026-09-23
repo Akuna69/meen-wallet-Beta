@@ -37,8 +37,8 @@ const (
 	// TODO: These three are marked as prototypes to avoid accidentally setting the non-prototype
 	// fields in a consumer device before finalizing the design. Before production, the "Prototype"
 	// suffix must be removed
-	UnverifiedEncryptedMeenKey string = "unverifiedEncryptedMuungKeyPrototype"
-	VerifiedEncryptedMeenKey   string = "verifiedEncryptedMuunKeyPrototype"
+	UnverifiedEncryptedMuunKey string = "unverifiedEncryptedMuungKeyPrototype"
+	VerifiedEncryptedMuunKey   string = "verifiedEncryptedMuunKeyPrototype"
 	EncryptedUserKey           string = "encryptedUserKeyPrototype"
 
 	// ==== Feature flag overrides ====

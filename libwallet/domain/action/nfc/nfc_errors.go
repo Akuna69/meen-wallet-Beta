@@ -2,19 +2,19 @@ package nfc
 
 import "fmt"
 
-type MeenAppletNotFoundError struct {
+type MuunAppletNotFoundError struct {
 	Message string
 	Cause   error
 }
 
-func (e MeenAppletNotFoundError) Error() string {
+func (e MuunAppletNotFoundError) Error() string {
 	if e.Cause != nil {
-		return fmt.Sprintf("meen applet id not found: %s: %v", e.Message, e.Cause)
+		return fmt.Sprintf("muun applet id not found: %s: %v", e.Message, e.Cause)
 	}
-	return "meen applet id not found"
+	return "muun applet id not found"
 }
 
-func (e MeenAppletNotFoundError) Unwrap() error {
+func (e MuunAppletNotFoundError) Unwrap() error {
 	return e.Cause
 }
 

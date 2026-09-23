@@ -15,7 +15,7 @@ import io.muun.apollo.data.external.UserFacingErrorMessages
 import io.muun.apollo.data.preferences.BiometricsRepository
 import io.muun.apollo.domain.analytics.Analytics
 import io.muun.apollo.domain.errors.BiometricAuthenticationError
-import io.muun.apollo.domain.model.MeenFeature
+import io.muun.apollo.domain.model.MuunFeature
 import io.muun.apollo.domain.selector.FeatureSelector
 import org.junit.Before
 import org.junit.Test
@@ -63,7 +63,7 @@ class BiometricsControllerImplTest {
         val onFailure = mockk<(BiometricAuthenticationError) -> Unit>().apply {
             every { this@apply.invoke(any()) } just runs
         }
-        every { featureSelector.get(MeenFeature.APOLLO_BIOMETRICS) } returns false
+        every { featureSelector.get(MuunFeature.APOLLO_BIOMETRICS) } returns false
         every { biometricManager.canAuthenticate(any()) } returns BiometricManager.BIOMETRIC_SUCCESS
 
         controller.authenticate(
@@ -84,7 +84,7 @@ class BiometricsControllerImplTest {
         val onFailure = mockk<(BiometricAuthenticationError) -> Unit>().apply {
             every { this@apply.invoke(any()) } just runs
         }
-        every { featureSelector.get(MeenFeature.APOLLO_BIOMETRICS) } returns true
+        every { featureSelector.get(MuunFeature.APOLLO_BIOMETRICS) } returns true
         every { biometricManager.canAuthenticate(any()) } returns BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED
 
         controller.authenticate(

@@ -11,12 +11,12 @@ import (
 )
 
 func CreateAddressV3(
-	userKey, meenKey *hdkeychain.ExtendedKey,
+	userKey, muunKey *hdkeychain.ExtendedKey,
 	path string,
 	network *chaincfg.Params,
 ) (*WalletAddress, error) {
 
-	redeemScript, err := CreateRedeemScriptV3(userKey, meenKey, network)
+	redeemScript, err := CreateRedeemScriptV3(userKey, muunKey, network)
 	if err != nil {
 		return nil, err
 	}
@@ -34,10 +34,10 @@ func CreateAddressV3(
 }
 
 func CreateRedeemScriptV3(
-	userKey, meenKey *hdkeychain.ExtendedKey,
+	userKey, muunKey *hdkeychain.ExtendedKey,
 	network *chaincfg.Params,
 ) ([]byte, error) {
-	witnessScript, err := CreateWitnessScriptV3(userKey, meenKey, network)
+	witnessScript, err := CreateWitnessScriptV3(userKey, muunKey, network)
 	if err != nil {
 		return nil, errors.Errorf("failed to generate redeem script v3: %w", err)
 	}
@@ -46,11 +46,11 @@ func CreateRedeemScriptV3(
 }
 
 func CreateWitnessScriptV3(
-	userKey, meenKey *hdkeychain.ExtendedKey,
+	userKey, muunKey *hdkeychain.ExtendedKey,
 	network *chaincfg.Params,
 ) ([]byte, error) {
 	// createMultisigRedeemScript creates a valid script for both V2 and V3 schemes
-	return createMultisigRedeemScript(userKey, meenKey, network)
+	return createMultisigRedeemScript(userKey, muunKey, network)
 }
 
 func createNonNativeSegwitRedeemScript(witnessScript []byte) ([]byte, error) {

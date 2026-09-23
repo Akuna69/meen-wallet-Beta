@@ -9,12 +9,12 @@ import (
 	"github.com/muun/libwallet/addresses"
 )
 
-// CreateAddressV4 returns a P2WSH MeenAddress from a user HD-pubkey and a Meen co-signing
+// CreateAddressV4 returns a P2WSH MuunAddress from a user HD-pubkey and a Muun co-signing
 // HD-pubkey.
-func CreateAddressV4(userKey, meenKey *HDPublicKey) (MeenAddress, error) {
+func CreateAddressV4(userKey, muunKey *HDPublicKey) (MuunAddress, error) {
 	return addresses.CreateAddressV4(
 		&userKey.key,
-		&meenKey.key,
+		&muunKey.key,
 		userKey.Path,
 		userKey.Network.network,
 	)
@@ -25,14 +25,14 @@ type coinV4 struct {
 	OutPoint      wire.OutPoint
 	KeyPath       string
 	Amount        btcutil.Amount
-	MeenSignature []byte
+	MuunSignature []byte
 }
 
 func (c *coinV4) SignInput(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPrivateKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 ) error {
 
 	userKey, err := userKey.DeriveTo(c.KeyPath)
@@ -40,21 +40,21 @@ func (c *coinV4) SignInput(
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	meenKey, err = meenKey.DeriveTo(c.KeyPath)
+	muunKey, err = muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	if len(c.MeenSignature) == 0 {
-		return errors.Errorf("meen signature must be present: %w", err)
+	if len(c.MuunSignature) == 0 {
+		return errors.Errorf("muun signature must be present: %w", err)
 	}
 
-	witnessScript, err := createWitnessScriptV4(userKey.PublicKey(), meenKey)
+	witnessScript, err := createWitnessScriptV4(userKey.PublicKey(), muunKey)
 	if err != nil {
 		return err
 	}
 
-	sig, err := c.signature(index, tx, userKey.PublicKey(), meenKey, userKey)
+	sig, err := c.signature(index, tx, userKey.PublicKey(), muunKey, userKey)
 	if err != nil {
 		return err
 	}
@@ -62,41 +62,41 @@ func (c *coinV4) SignInput(
 	zeroByteArray := []byte{}
 
 	txInput := tx.TxIn[index]
-	txInput.Witness = wire.TxWitness{zeroByteArray, sig, c.MeenSignature, witnessScript}
+	txInput.Witness = wire.TxWitness{zeroByteArray, sig, c.MuunSignature, witnessScript}
 
 	return nil
 }
 
-func (c *coinV4) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDPrivateKey) error {
+func (c *coinV4) FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error {
 
 	derivedUserKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	derivedMeenKey, err := meenKey.DeriveTo(c.KeyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	meenSignature, err := c.signature(
+	muunSignature, err := c.signature(
 		index,
 		tx,
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
-		derivedMeenKey,
+		derivedMuunKey.PublicKey(),
+		derivedMuunKey,
 	)
 	if err != nil {
 		return err
 	}
-	c.MeenSignature = meenSignature
-	return c.SignInput(index, tx, userKey, meenKey.PublicKey())
+	c.MuunSignature = muunSignature
+	return c.SignInput(index, tx, userKey, muunKey.PublicKey())
 }
 
-func (c *coinV4) signature(index int, tx *wire.MsgTx, userKey *HDPublicKey, meenKey *HDPublicKey,
+func (c *coinV4) signature(index int, tx *wire.MsgTx, userKey *HDPublicKey, muunKey *HDPublicKey,
 	signingKey *HDPrivateKey) ([]byte, error) {
 
-	witnessScript, err := createWitnessScriptV4(userKey, meenKey)
+	witnessScript, err := createWitnessScriptV4(userKey, muunKey)
 	if err != nil {
 		return nil, err
 	}
@@ -105,6 +105,6 @@ func (c *coinV4) signature(index int, tx *wire.MsgTx, userKey *HDPublicKey, meen
 		index, tx, signingKey, witnessScript, c.Amount)
 }
 
-func createWitnessScriptV4(userKey, meenKey *HDPublicKey) ([]byte, error) {
-	return addresses.CreateWitnessScriptV4(&userKey.key, &meenKey.key, userKey.Network.network)
+func createWitnessScriptV4(userKey, muunKey *HDPublicKey) ([]byte, error) {
+	return addresses.CreateWitnessScriptV4(&userKey.key, &muunKey.key, userKey.Network.network)
 }

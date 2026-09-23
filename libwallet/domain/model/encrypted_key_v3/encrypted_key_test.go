@@ -13,7 +13,7 @@ import (
 	"github.com/muun/libwallet/recoverycode"
 )
 
-func TestFinishMeenKeyEncryption(t *testing.T) {
+func TestFinishMuunKeyEncryption(t *testing.T) {
 
 	recoveryCode := recoverycode.Generate()
 
@@ -23,18 +23,18 @@ func TestFinishMeenKeyEncryption(t *testing.T) {
 	}
 	recoveryCodePublicKey := recoveryCodePrivateKey.PubKey()
 
-	meenKey, err := libwallet.NewHDPrivateKey(randomBytes(32), libwallet.Mainnet())
+	muunKey, err := libwallet.NewHDPrivateKey(randomBytes(32), libwallet.Mainnet())
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// simulate splitting Meen key and encrypting second half to RC
+	// simulate splitting Muun key and encrypting second half to RC
 
 	firstHalfKey, err := btcec.NewPrivateKey()
 	if err != nil {
 		t.Fatal(err)
 	}
-	meenECPrivateKey, err := meenKey.ECPrivateKey()
+	muunECPrivateKey, err := muunKey.ECPrivateKey()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,43 +43,43 @@ func TestFinishMeenKeyEncryption(t *testing.T) {
 		btcec.ModNScalar,
 	).Set(&firstHalfKey.Key).
 		Negate().
-		Add(&meenECPrivateKey.Key).
+		Add(&muunECPrivateKey.Key).
 		Bytes()
 	secondHalfKeyEncryptedToRecoveryCode, err := bitcoin_hpke.SingleShotEncrypt(
 		secondHalfKeyBytes[:],
 		recoveryCodePublicKey,
-		[]byte(MeenSecondHalfToRecoveryCode),
+		[]byte(MuunSecondHalfToRecoveryCode),
 		[]byte(""),
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	// Now test FinishMeenKeyEncryption
-	encryptedMeenKey, err := FinishMeenKeyEncryption(
+	// Now test FinishMuunKeyEncryption
+	encryptedMuunKey, err := FinishMuunKeyEncryption(
 		recoveryCodePublicKey,
 		firstHalfKey,
-		meenKey.ChainCode(),
+		muunKey.ChainCode(),
 		secondHalfKeyEncryptedToRecoveryCode,
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	decryptedMeenKey, err := DecryptExtendedKey(
+	decryptedMuunKey, err := DecryptExtendedKey(
 		recoveryCodePrivateKey,
-		encryptedMeenKey,
+		encryptedMuunKey,
 		libwallet.Mainnet(),
 	)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	if !bytes.Equal(decryptedMeenKey.PublicKey().Raw(), meenKey.PublicKey().Raw()) {
+	if !bytes.Equal(decryptedMuunKey.PublicKey().Raw(), muunKey.PublicKey().Raw()) {
 		t.Fatal("decrypted public key does not match original public key")
 	}
 
-	if !bytes.Equal(decryptedMeenKey.ChainCode(), meenKey.ChainCode()) {
+	if !bytes.Equal(decryptedMuunKey.ChainCode(), muunKey.ChainCode()) {
 		t.Fatal("decrypted chain code does not match original chain code")
 	}
 }
@@ -126,7 +126,7 @@ func TestDeserializationFailsDueToWrongVersion(t *testing.T) {
 	key := base64.StdEncoding.EncodeToString(bs)
 	_, err := deserializeEncryptedKeyV3(key)
 	if err.Error() != "decrypting key: expected a v3 key, version byte indicates v2" {
-		t.Fatal("Expected to fail due to unexpected meen key version")
+		t.Fatal("Expected to fail due to unexpected muun key version")
 	}
 }
 

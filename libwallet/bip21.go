@@ -8,8 +8,8 @@ import (
 	"github.com/muun/libwallet/errors"
 )
 
-// GenerateBip21Uri generates the serialized version (string) of a bitcoin uri from a MeenPaymentUri
-func GenerateBip21Uri(uri *MeenPaymentURI) (string, error) {
+// GenerateBip21Uri generates the serialized version (string) of a bitcoin uri from a MuunPaymentUri
+func GenerateBip21Uri(uri *MuunPaymentURI) (string, error) {
 
 	if uri.Address == "" {
 		return "", errors.New(ErrInvalidURI, "On chain address is required for bip21 uris")

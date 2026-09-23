@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <io.muun.apollo.presentation.ui.view.MeenHeader
+    <io.muun.apollo.presentation.ui.view.MuunHeader
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -35,7 +35,7 @@ type IncomingSwapHtlc struct {
 
 type IncomingSwapFulfillmentData struct {
 	FulfillmentTx      []byte
-	MeenSignature      []byte
+	MuunSignature      []byte
 	OutputVersion      int    // unused
 	OutputPath         string // unused
 	MerkleTree         []byte // unused
@@ -128,7 +128,7 @@ func (s *IncomingSwap) VerifyFulfillable(userKey *HDPrivateKey, net *Network) er
 // It returns the fullfillment tx and the preimage.
 func (s *IncomingSwap) Fulfill(
 	data *IncomingSwapFulfillmentData,
-	userKey *HDPrivateKey, meenKey *HDPublicKey,
+	userKey *HDPrivateKey, muunKey *HDPublicKey,
 	net *Network) (*IncomingSwapFulfillmentResult, error) {
 
 	if s.Htlc == nil {
@@ -142,7 +142,7 @@ func (s *IncomingSwap) Fulfill(
 		return nil, err
 	}
 
-	// Validate the fullfillment tx proposed by Meen.
+	// Validate the fullfillment tx proposed by Muun.
 	tx := wire.MsgTx{}
 	err = tx.DeserializeNoWitness(bytes.NewReader(data.FulfillmentTx))
 	if err != nil {
@@ -170,7 +170,7 @@ func (s *IncomingSwap) Fulfill(
 	// Sign the htlc input (there is only one, at index 0)
 	coin := coinIncomingSwap{
 		Network:             net.network,
-		MeenSignature:       data.MeenSignature,
+		MuunSignature:       data.MuunSignature,
 		Sphinx:              s.SphinxPacket,
 		HtlcTx:              s.Htlc.HtlcTx,
 		PaymentHash256:      s.PaymentHash,
@@ -179,7 +179,7 @@ func (s *IncomingSwap) Fulfill(
 		VerifyOutputAmount:  true,
 		Collect:             btcutil.Amount(s.CollectSat),
 	}
-	err = coin.SignInput(0, &tx, userKey, meenKey)
+	err = coin.SignInput(0, &tx, userKey, muunKey)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +220,7 @@ func (s *IncomingSwap) FulfillFullDebt() (*IncomingSwapFulfillmentResult, error)
 
 type coinIncomingSwap struct {
 	Network             *chaincfg.Params
-	MeenSignature       []byte
+	MuunSignature       []byte
 	Sphinx              []byte
 	HtlcTx              []byte
 	PaymentHash256      []byte
@@ -237,7 +237,7 @@ func (c *coinIncomingSwap) SignInput(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPrivateKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 ) error {
 	// Deserialize the HTLC transaction
 	htlcTx := wire.MsgTx{}
@@ -303,12 +303,12 @@ func (c *coinIncomingSwap) SignInput(
 	}
 	userPublicKey := userPrivateKey.PublicKey()
 
-	meenPublicKey, err := meenKey.DeriveTo(htlcKeyPath.String())
+	muunPublicKey, err := muunKey.DeriveTo(htlcKeyPath.String())
 	if err != nil {
 		return err
 	}
 
-	htlcScript, err := c.createHtlcScript(userPublicKey, meenPublicKey)
+	htlcScript, err := c.createHtlcScript(userPublicKey, muunPublicKey)
 	if err != nil {
 		return errors.Errorf("could not create htlc script: %w", err)
 	}
@@ -343,12 +343,12 @@ func (c *coinIncomingSwap) SignInput(
 
 	sigHashes := lndinput.NewTxSigHashesV0Only(tx)
 
-	meenSigKey, err := meenPublicKey.key.ECPubKey()
+	muunSigKey, err := muunPublicKey.key.ECPubKey()
 	if err != nil {
 		return err
 	}
 
-	// Verify Meen signature
+	// Verify Muun signature
 	htlcOutputAmount := htlcTx.TxOut[htlcOutputIndex].Value
 	err = verifyTxWitnessSignature(
 		tx,
@@ -356,11 +356,11 @@ func (c *coinIncomingSwap) SignInput(
 		index,
 		htlcOutputAmount,
 		htlcScript,
-		c.MeenSignature,
-		meenSigKey,
+		c.MuunSignature,
+		muunSigKey,
 	)
 	if err != nil {
-		return errors.Errorf("could not verify Meen signature for htlc: %w", err)
+		return errors.Errorf("could not verify Muun signature for htlc: %w", err)
 	}
 
 	var outputAmount, expectedAmount lnwire.MilliSatoshi
@@ -405,7 +405,7 @@ func (c *coinIncomingSwap) SignInput(
 	txInput.Witness = wire.TxWitness{
 		secrets.Preimage,
 		sig,
-		c.MeenSignature,
+		c.MuunSignature,
 		htlcScript,
 	}
 
@@ -415,7 +415,7 @@ func (c *coinIncomingSwap) SignInput(
 func (c *coinIncomingSwap) FullySignInput(
 	index int,
 	tx *wire.MsgTx,
-	userKey, meenKey *HDPrivateKey,
+	userKey, muunKey *HDPrivateKey,
 ) error {
 	// Lookup invoice data matching this HTLC using the payment hash
 	var secrets *walletdb.Invoice
@@ -427,31 +427,31 @@ func (c *coinIncomingSwap) FullySignInput(
 		return errors.Errorf("could not find invoice data for payment hash: %w", err)
 	}
 
-	derivedMeenKey, err := meenKey.DeriveTo(secrets.KeyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(secrets.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	meenSignature, err := c.signature(
+	muunSignature, err := c.signature(
 		index,
 		tx,
 		userKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
-		derivedMeenKey,
+		derivedMuunKey.PublicKey(),
+		derivedMuunKey,
 	)
 	if err != nil {
 		return err
 	}
-	c.MeenSignature = meenSignature
-	return c.SignInput(index, tx, userKey, meenKey.PublicKey())
+	c.MuunSignature = muunSignature
+	return c.SignInput(index, tx, userKey, muunKey.PublicKey())
 }
 
 func (c *coinIncomingSwap) createHtlcScript(
-	userPublicKey, meenPublicKey *HDPublicKey,
+	userPublicKey, muunPublicKey *HDPublicKey,
 ) ([]byte, error) {
 	return createHtlcScript(
 		userPublicKey.Raw(),
-		meenPublicKey.Raw(),
+		muunPublicKey.Raw(),
 		c.SwapServerPublicKey,
 		c.ExpirationHeight,
 		c.PaymentHash256,
@@ -462,7 +462,7 @@ func (c *coinIncomingSwap) signature(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPublicKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 	signingKey *HDPrivateKey,
 ) ([]byte, error) {
 
@@ -472,7 +472,7 @@ func (c *coinIncomingSwap) signature(
 		return nil, errors.Errorf("could not deserialize htlc tx: %w", err)
 	}
 
-	htlcScript, err := c.createHtlcScript(userKey, meenKey)
+	htlcScript, err := c.createHtlcScript(userKey, muunKey)
 	if err != nil {
 		return nil, errors.Errorf("could not create htlc script: %w", err)
 	}
@@ -520,12 +520,12 @@ func (c *coinIncomingSwap) findHtlcOutputIndex(htlcTx *wire.MsgTx, htlcScript []
 }
 
 func createHtlcScript(
-	userPublicKey, meenPublicKey, swapServerPublicKey []byte,
+	userPublicKey, muunPublicKey, swapServerPublicKey []byte,
 	expiry int64,
 	paymentHash []byte,
 ) ([]byte, error) {
 	sb := txscript.NewScriptBuilder()
-	sb.AddData(meenPublicKey)
+	sb.AddData(muunPublicKey)
 	sb.AddOp(txscript.OP_CHECKSIG)
 	sb.AddOp(txscript.OP_NOTIF)
 	sb.AddOp(txscript.OP_DUP)

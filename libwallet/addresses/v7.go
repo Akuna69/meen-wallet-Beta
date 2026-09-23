@@ -10,10 +10,10 @@ import (
 )
 
 // CreateAddressV7 returns a wrapped-segwit (P2SH-P2WSH) address for `to_client`
-// (user AND meen AND lightningPeer)                       // collaborative spend
-// OR (user AND meen AND older(blocksForExpiration))       // non-collaborative spend
+// (user AND muun AND lightningPeer)                       // collaborative spend
+// OR (user AND muun AND older(blocksForExpiration))       // non-collaborative spend
 func CreateAddressV7(
-	userKey, meenKey, lightningPeerKey *hdkeychain.ExtendedKey,
+	userKey, muunKey, lightningPeerKey *hdkeychain.ExtendedKey,
 	blocksForExpiration int64,
 	path string,
 	network *chaincfg.Params,
@@ -23,9 +23,9 @@ func CreateAddressV7(
 		return nil, errors.Errorf("get user public key: %w", err)
 	}
 
-	meenEcPubKey, err := meenKey.ECPubKey()
+	muunEcPubKey, err := muunKey.ECPubKey()
 	if err != nil {
-		return nil, errors.Errorf("get meen public key: %w", err)
+		return nil, errors.Errorf("get muun public key: %w", err)
 	}
 
 	lightningPeerEcPubKey, err := lightningPeerKey.ECPubKey()
@@ -35,7 +35,7 @@ func CreateAddressV7(
 
 	witnessScript, err := CreateWitnessScriptV7(
 		userEcPubKey,
-		meenEcPubKey,
+		muunEcPubKey,
 		lightningPeerEcPubKey,
 		blocksForExpiration,
 	)
@@ -69,10 +69,10 @@ func CreateRedeemScriptV7(witnessScript []byte) ([]byte, error) {
 // CreateWitnessScriptV7 builds the P2WSH witness script for the M3 policy from the public keys.
 //
 // Two spending paths:
-//  1. collaborative path: user + meen + lightningPeer
-//  2. non-collaborative path: user + meen + a RELATIVE timelock of blocksForExpiration blocks
+//  1. collaborative path: user + muun + lightningPeer
+//  2. non-collaborative path: user + muun + a RELATIVE timelock of blocksForExpiration blocks
 func CreateWitnessScriptV7(
-	userPubKey, meenPubKey, lightningPeerPubKey *btcec.PublicKey,
+	userPubKey, muunPubKey, lightningPeerPubKey *btcec.PublicKey,
 	blocksForExpiration int64,
 ) ([]byte, error) {
 	builder := txscript.NewScriptBuilder()
@@ -81,8 +81,8 @@ func CreateWitnessScriptV7(
 	builder.AddData(userPubKey.SerializeCompressed()).
 		AddOp(txscript.OP_CHECKSIGVERIFY)
 
-	// Meen key, required in BOTH paths.
-	builder.AddData(meenPubKey.SerializeCompressed()).
+	// Muun key, required in BOTH paths.
+	builder.AddData(muunPubKey.SerializeCompressed()).
 		AddOp(txscript.OP_CHECKSIGVERIFY)
 
 	// The lightning peer's signature doubles as the branch selector:

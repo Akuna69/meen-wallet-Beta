@@ -45,8 +45,8 @@ var mockHoustonService service.HoustonService
 var keyProvider keys.KeyProvider
 var startChallengeSetupAction *challenge_keys.StartChallengeSetupAction
 var finishChallengeSetupAction *challenge_keys.FinishChallengeSetupAction
-var computeAndStoreEncryptedMeenKeyAction *recovery.ComputeAndStoreEncryptedMeenKeyAction
-var populateEncryptedMeenKeyAction *recovery.PopulateEncryptedMeenKeyAction
+var computeAndStoreEncryptedMuunKeyAction *recovery.ComputeAndStoreEncryptedMuunKeyAction
+var populateEncryptedMuunKeyAction *recovery.PopulateEncryptedMuunKeyAction
 var scanForFundsAction *recovery.ScanForFundsAction
 var submitDiagnosticAction *diagnostic_mode_reports.SubmitDiagnosticAction
 var buildSweepTxAction *recovery.BuildSweepTxAction
@@ -116,16 +116,16 @@ func Init(c *app_provided_data.Config) {
 
 	// TODO do this only for debug builds and while making use of FakeNfcSession or equivalent
 	// Enables security cards testing in emulators and ui tests.
-	//mockMeenCardV2, _ := nfc.NewMockMeenCardV2()
-	//cfg.NfcBridge = nfc.NewMockJavaCard(mockMeenCardV2)
+	//mockMuunCardV2, _ := nfc.NewMockMuunCardV2()
+	//cfg.NfcBridge = nfc.NewMockJavaCard(mockMuunCardV2)
 
-	meencardV2 := nfc.NewCardV2(cfg.NfcBridge)
+	muuncardV2 := nfc.NewCardV2(cfg.NfcBridge)
 	// Actions
-	computeAndStoreEncryptedMeenKeyAction = recovery.NewComputeAndStoreEncryptedMeenKeyAction(
+	computeAndStoreEncryptedMuunKeyAction = recovery.NewComputeAndStoreEncryptedMuunKeyAction(
 		keyValueStorage,
 		keyProvider,
 	)
-	populateEncryptedMeenKeyAction = recovery.NewPopulateEncryptedMeenKeyAction(
+	populateEncryptedMuunKeyAction = recovery.NewPopulateEncryptedMuunKeyAction(
 		houstonService,
 		keyValueStorage,
 		keyProvider,
@@ -134,7 +134,7 @@ func Init(c *app_provided_data.Config) {
 	finishChallengeSetupAction = challenge_keys.NewFinishChallengeSetupAction(
 		houstonService,
 		keyValueStorage,
-		computeAndStoreEncryptedMeenKeyAction,
+		computeAndStoreEncryptedMuunKeyAction,
 	)
 	electrumProvider := electrum.NewServerProvider(electrum.PublicServers)
 	scanForFundsAction = recovery.NewScanForFundsAction(keyProvider, electrumProvider, network)
@@ -143,11 +143,11 @@ func Init(c *app_provided_data.Config) {
 	signSweepTxAction = recovery.NewSignSweepTxAction(keyProvider, network)
 	pairSecurityCardActionV2 = nfcActions.NewPairSecurityCardActionV2(
 		keyValueStorage,
-		meencardV2,
+		muuncardV2,
 		mockHoustonService,
 	)
 	signMessageSecurityCardActionV2 = nfcActions.NewSignMessageSecurityCardActionV2(
-		meencardV2,
+		muuncardV2,
 		mockHoustonService,
 		keyValueStorage,
 		pairSecurityCardActionV2,
@@ -160,7 +160,7 @@ func Init(c *app_provided_data.Config) {
 	pairLoadPersistedChallengeAction = nfcActions.NewPairLoadPersistedChallengeAction(
 		securityCardsProtocolRepository,
 	)
-	pairSignChallengeAction = nfcActions.NewPairSignChallengeAction(meencardV2)
+	pairSignChallengeAction = nfcActions.NewPairSignChallengeAction(muuncardV2)
 	pairSubmitSolvedChallengeAction = nfcActions.NewPairSubmitSolvedChallengeAction(
 		securityCardsProtocolRepository,
 		mockHoustonService,
@@ -219,7 +219,7 @@ func StartServer() error {
 		resetDataAction,
 		startChallengeSetupAction,
 		finishChallengeSetupAction,
-		populateEncryptedMeenKeyAction,
+		populateEncryptedMuunKeyAction,
 		scanForFundsAction,
 		submitDiagnosticAction,
 		buildSweepTxAction,

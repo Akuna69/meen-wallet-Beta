@@ -1,4 +1,4 @@
-package meen_errorf_wrap
+package muun_errorf_wrap
 
 import (
 	"testing"

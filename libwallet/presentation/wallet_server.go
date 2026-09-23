@@ -47,7 +47,7 @@ type WalletServer struct {
 	resetData                   reset.ResetDataAction
 	startChallengeSetup         *challenge_keys.StartChallengeSetupAction
 	finishChallengeSetup        *challenge_keys.FinishChallengeSetupAction
-	populateEncryptedMeenKey    *recovery.PopulateEncryptedMeenKeyAction
+	populateEncryptedMuunKey    *recovery.PopulateEncryptedMuunKeyAction
 	scanForFunds                *recovery.ScanForFundsAction
 	submitDiagnostic            *diagnostic_mode_reports.SubmitDiagnosticAction
 	buildSweepTx                *recovery.BuildSweepTxAction
@@ -71,7 +71,7 @@ func NewWalletServer(
 	resetData reset.ResetDataAction,
 	startChallengeSetup *challenge_keys.StartChallengeSetupAction,
 	finishChallengeSetup *challenge_keys.FinishChallengeSetupAction,
-	obtainVerifiedEncryptedMeenKeyIfAbsent *recovery.PopulateEncryptedMeenKeyAction,
+	obtainVerifiedEncryptedMuunKeyIfAbsent *recovery.PopulateEncryptedMuunKeyAction,
 	scanForFunds *recovery.ScanForFundsAction,
 	submitDiagnostic *diagnostic_mode_reports.SubmitDiagnosticAction,
 	buildSweepTx *recovery.BuildSweepTxAction,
@@ -95,7 +95,7 @@ func NewWalletServer(
 		resetData:                   resetData,
 		startChallengeSetup:         startChallengeSetup,
 		finishChallengeSetup:        finishChallengeSetup,
-		populateEncryptedMeenKey:    obtainVerifiedEncryptedMeenKeyIfAbsent,
+		populateEncryptedMuunKey:    obtainVerifiedEncryptedMuunKeyIfAbsent,
 		scanForFunds:                scanForFunds,
 		submitDiagnostic:            submitDiagnostic,
 		buildSweepTx:                buildSweepTx,
@@ -152,7 +152,7 @@ func (ws WalletServer) SignMessageSecurityCardV2(
 		var challengeExpiredErr *nfc.ChallengeExpiredError
 		var pairInternalErr *nfc.PairInternalError
 		var noSlotsAvailableErr *nfc.NoSlotsAvailableError
-		var meenAppletNotFoundErr *nfc.MeenAppletNotFoundError
+		var muunAppletNotFoundErr *nfc.MuunAppletNotFoundError
 
 		switch {
 		case errors.As(err, &invalidMacErr):
@@ -163,7 +163,7 @@ func (ws WalletServer) SignMessageSecurityCardV2(
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrPairInternalError, err)
 		case errors.As(err, &noSlotsAvailableErr):
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrNoSlotsAvailable, err)
-		case errors.As(err, &meenAppletNotFoundErr):
+		case errors.As(err, &muunAppletNotFoundErr):
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrAppletNotFound, err)
 		default:
 			return nil, NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrSignInternalError, err)
@@ -206,13 +206,13 @@ func (ws WalletServer) PairSignAndSubmitChallenge(
 
 	if err != nil {
 		var noSlotsAvailableErr *nfc.NoSlotsAvailableError
-		var meenAppletNotFoundErr *nfc.MeenAppletNotFoundError
+		var muunAppletNotFoundErr *nfc.MuunAppletNotFoundError
 		var invalidMacErr *nfc.InvalidMacError
 		var challengeExpiredErr *nfc.ChallengeExpiredError
 		switch {
 		case errors.As(err, &noSlotsAvailableErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrNoSlotsAvailable, err)
-		case errors.As(err, &meenAppletNotFoundErr):
+		case errors.As(err, &muunAppletNotFoundErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrAppletNotFound, err)
 		case errors.As(err, &invalidMacErr):
 			return NewGrpcErrorFromCodeAndErr(apierrors.ErrorCodes.ErrSignMacValidation, err)
@@ -396,8 +396,8 @@ func (ws WalletServer) StartChallengeSetup(
 	}
 
 	return api.SetupChallengeResponse_builder{
-		MeenKey:            setupChallengeResponseJson.MeenKey,
-		MeenKeyFingerprint: setupChallengeResponseJson.MeenKeyFingerprint,
+		MuunKey:            setupChallengeResponseJson.MuunKey,
+		MuunKeyFingerprint: setupChallengeResponseJson.MuunKeyFingerprint,
 	}.Build(), nil
 }
 
@@ -419,16 +419,16 @@ func (ws WalletServer) FinishRecoveryCodeSetup(
 	return &emptypb.Empty{}, nil
 }
 
-func (ws WalletServer) PopulateEncryptedMeenKey(
+func (ws WalletServer) PopulateEncryptedMuunKey(
 	ctx context.Context, //nolint:revive // TODO: use or remove ctx
-	req *api.PopulateEncryptedMeenKeyRequest,
+	req *api.PopulateEncryptedMuunKeyRequest,
 ) (*emptypb.Empty, error) {
 	recoveryCodePublicKey, err := hexToPublicKey(req.GetRecoveryCodePublicKeyHex())
 	if err != nil {
 		return nil, goerr.Errorf("error parsing recovery code public key: %w", err)
 	}
 
-	err = ws.populateEncryptedMeenKey.Run(recoveryCodePublicKey)
+	err = ws.populateEncryptedMuunKey.Run(recoveryCodePublicKey)
 	if err != nil {
 		return nil, err
 	}

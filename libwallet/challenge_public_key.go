@@ -25,18 +25,18 @@ func NewChallengePublicKeyFromSerialized(serializedKey []byte) (*ChallengePublic
 }
 
 // EncryptKey
-// We must check whether the MeenKey is serialized as V2 or V3 before serializing the
-// UserKey. Since the MeenKey is stored client-side after login, users already logged in
-// will always have the MeenKey serialized as V2 on their devices. If the user updates
-// the app without re-logging in, a MeenKeyV2 will remain stored, and we must serialize
+// We must check whether the MuunKey is serialized as V2 or V3 before serializing the
+// UserKey. Since the MuunKey is stored client-side after login, users already logged in
+// will always have the MuunKey serialized as V2 on their devices. If the user updates
+// the app without re-logging in, a MuunKeyV2 will remain stored, and we must serialize
 // the UserKey as V2 to maintain key consistency in the EmergencyKit.
 func (k *ChallengePublicKey) EncryptKey(
 	privKey *HDPrivateKey,
 	recoveryCodeSalt []byte,
 	birthday int,
-	meenPrivateKey string,
+	muunPrivateKey string,
 ) (string, error) {
-	reader := bytes.NewReader(base58.Decode(meenPrivateKey))
+	reader := bytes.NewReader(base58.Decode(muunPrivateKey))
 	version, err := reader.ReadByte()
 	if err != nil {
 		return "", errors.Errorf("decrypting key: %w", err)

@@ -85,9 +85,9 @@ async function extraerClavesDePDF() {
     throw new Error('No se pudo acceder a la carpeta de Descargas del teléfono.');
   }
 
-  // Buscar archivos PDF que parezcan el kit de Meen
+  // Buscar archivos PDF que parezcan el kit de Muun
   const archivos = fs.readdirSync(carpetaDescargas);
-  const pdfKit = archivos.find(f => f.toLowerCase().includes('meen') || f.toLowerCase().includes('emergency') || f.toLowerCase().includes('kit') || f.toLowerCase().endsWith('.pdf'));
+  const pdfKit = archivos.find(f => f.toLowerCase().includes('muun') || f.toLowerCase().includes('emergency') || f.toLowerCase().includes('kit') || f.toLowerCase().endsWith('.pdf'));
 
   if (!pdfKit) {
     console.log('⚠️ PDF no encontrado automáticamente en Descargas.');
@@ -116,7 +116,7 @@ async function extraerClavesDePDF() {
 }
 
 // --- DESENCRIPTACIÓN ---
-function descifrarKitMeen(primeraClaveStr, segundaClaveStr, recoveryCodeStr, network) {
+function descifrarKitMuun(primeraClaveStr, segundaClaveStr, recoveryCodeStr, network) {
   try {
     const key1 = Buffer.from(primeraClaveStr.replace(/\s+/g, ''), 'base64');
     const key2 = Buffer.from(segundaClaveStr.replace(/\s+/g, ''), 'base64');
@@ -260,7 +260,7 @@ async function escaneoConEstadisticas(clientNode, recoveryNode, destAddress, use
 
     const network = bitcoin.networks.bitcoin;
     const clientNode = parseClientKey(clientKeyStr, network);
-    const recoveryNode = descifrarKitMeen(primeraClave, segundaClave, codigoPapel, network);
+    const recoveryNode = descifrarKitMuun(primeraClave, segundaClave, codigoPapel, network);
 
     await escaneoConEstadisticas(clientNode, recoveryNode, destAddress, 1, 'mainnet');
 

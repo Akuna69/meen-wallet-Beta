@@ -9,11 +9,11 @@ import (
 	"github.com/muun/libwallet/addresses"
 )
 
-func CreateAddressV2(userKey, meenKey *HDPublicKey) (MeenAddress, error) {
+func CreateAddressV2(userKey, muunKey *HDPublicKey) (MuunAddress, error) {
 	// TODO: check both paths match?
 	return addresses.CreateAddressV2(
 		&userKey.key,
-		&meenKey.key,
+		&muunKey.key,
 		userKey.Path,
 		userKey.Network.network,
 	)
@@ -23,49 +23,49 @@ type coinV2 struct {
 	Network       *chaincfg.Params
 	OutPoint      wire.OutPoint
 	KeyPath       string
-	MeenSignature []byte
+	MuunSignature []byte
 }
 
 func (c *coinV2) SignInput(
 	index int,
 	tx *wire.MsgTx,
 	userKey *HDPrivateKey,
-	meenKey *HDPublicKey,
+	muunKey *HDPublicKey,
 ) error {
 	userKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	meenKey, err = meenKey.DeriveTo(c.KeyPath)
+	muunKey, err = muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	if len(c.MeenSignature) == 0 {
-		return errors.New("meen signature must be present")
+	if len(c.MuunSignature) == 0 {
+		return errors.New("muun signature must be present")
 	}
 
 	txInput := tx.TxIn[index]
 
-	redeemScript, err := createRedeemScriptV2(userKey.PublicKey(), meenKey)
+	redeemScript, err := createRedeemScriptV2(userKey.PublicKey(), muunKey)
 	if err != nil {
 		return errors.Errorf("failed to build reedem script for signing: %w", err)
 	}
 
-	sig, err := c.signature(index, tx, userKey.PublicKey(), meenKey, userKey)
+	sig, err := c.signature(index, tx, userKey.PublicKey(), muunKey, userKey)
 	if err != nil {
 		return err
 	}
 
 	// This is a standard 2 of 2 multisig script
 	// 0 because of a bug in bitcoind
-	// Then the 2 sigs: first the users and then meens
+	// Then the 2 sigs: first the users and then muuns
 	// Last, the script that contains the two pub keys and OP_CHECKMULTISIG
 	builder := txscript.NewScriptBuilder()
 	builder.AddInt64(0)
 	builder.AddData(sig)
-	builder.AddData(c.MeenSignature)
+	builder.AddData(c.MuunSignature)
 	builder.AddData(redeemScript)
 	script, err := builder.Script()
 	if err != nil {
@@ -77,36 +77,36 @@ func (c *coinV2) SignInput(
 	return nil
 }
 
-func (c *coinV2) FullySignInput(index int, tx *wire.MsgTx, userKey, meenKey *HDPrivateKey) error {
+func (c *coinV2) FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error {
 
 	derivedUserKey, err := userKey.DeriveTo(c.KeyPath)
 	if err != nil {
 		return errors.Errorf("failed to derive user key: %w", err)
 	}
 
-	derivedMeenKey, err := meenKey.DeriveTo(c.KeyPath)
+	derivedMuunKey, err := muunKey.DeriveTo(c.KeyPath)
 	if err != nil {
-		return errors.Errorf("failed to derive meen key: %w", err)
+		return errors.Errorf("failed to derive muun key: %w", err)
 	}
 
-	meenSignature, err := c.signature(
+	muunSignature, err := c.signature(
 		index,
 		tx,
 		derivedUserKey.PublicKey(),
-		derivedMeenKey.PublicKey(),
-		derivedMeenKey,
+		derivedMuunKey.PublicKey(),
+		derivedMuunKey,
 	)
 	if err != nil {
 		return err
 	}
-	c.MeenSignature = meenSignature
-	return c.SignInput(index, tx, userKey, meenKey.PublicKey())
+	c.MuunSignature = muunSignature
+	return c.SignInput(index, tx, userKey, muunKey.PublicKey())
 }
 
-func (c *coinV2) signature(index int, tx *wire.MsgTx, userKey, meenKey *HDPublicKey,
+func (c *coinV2) signature(index int, tx *wire.MsgTx, userKey, muunKey *HDPublicKey,
 	signingKey *HDPrivateKey) ([]byte, error) {
 
-	redeemScript, err := createRedeemScriptV2(userKey, meenKey)
+	redeemScript, err := createRedeemScriptV2(userKey, muunKey)
 	if err != nil {
 		return nil, errors.Errorf("failed to build reedem script for signing: %w", err)
 	}
@@ -124,6 +124,6 @@ func (c *coinV2) signature(index int, tx *wire.MsgTx, userKey, meenKey *HDPublic
 	return sig, nil
 }
 
-func createRedeemScriptV2(userKey, meenKey *HDPublicKey) ([]byte, error) {
-	return addresses.CreateRedeemScriptV2(&userKey.key, &meenKey.key, userKey.Network.network)
+func createRedeemScriptV2(userKey, muunKey *HDPublicKey) ([]byte, error) {
+	return addresses.CreateRedeemScriptV2(&userKey.key, &muunKey.key, userKey.Network.network)
 }

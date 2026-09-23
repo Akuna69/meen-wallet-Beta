@@ -80,8 +80,8 @@ func GenerateDeterministicCode(params *Input) string {
 	// NOTE:
 	// This function creates a stable verification code given the inputs to render the
 	// Emergency Kit. For now, the implementation relies exclusively on the SecondEncryptedKey,
-	// which is the Meen key. This is obviously not ideal, since we're both dropping part of the
-	// input and introducing the assumption that the Meen key will always be rendered second --
+	// which is the Muun key. This is obviously not ideal, since we're both dropping part of the
+	// input and introducing the assumption that the Muun key will always be rendered second --
 	// but it compensates for a problem with one of our clients that causes the user key
 	// serialization to be recreated each time the kit is rendered (making this deterministic
 	// approach useless).

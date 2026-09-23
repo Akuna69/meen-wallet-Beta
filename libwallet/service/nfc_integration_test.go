@@ -15,9 +15,9 @@ import (
 )
 
 func TestMockCardPairCardSuccess(t *testing.T) {
-	mockCard, err := nfc.NewMockMeenCardV2()
+	mockCard, err := nfc.NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("NewMockMeenCardV2 failed: %v", err)
+		t.Fatalf("NewMockMuunCardV2 failed: %v", err)
 	}
 
 	mockNfcBridge := nfc.NewMockJavaCard(mockCard)
@@ -42,7 +42,7 @@ func TestMockCardPairCardSuccess(t *testing.T) {
 func pairCardWithHouston(
 	t *testing.T,
 	mockHouston *MockHoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 ) {
 
 	challengePair, err := mockHouston.PairRequestChallenge()
@@ -110,9 +110,9 @@ func registerPairingOnHouston(
 }
 
 func TestMockCardSignChallenge(t *testing.T) {
-	mockCard, err := nfc.NewMockMeenCardV2()
+	mockCard, err := nfc.NewMockMuunCardV2()
 	if err != nil {
-		t.Fatalf("NewMockMeenCardV2 failed: %v", err)
+		t.Fatalf("NewMockMuunCardV2 failed: %v", err)
 	}
 
 	mockNfcBridge := nfc.NewMockJavaCard(mockCard)
@@ -147,7 +147,7 @@ func TestMockCardSignChallenge(t *testing.T) {
 func testSignChallengeSuccess(
 	t *testing.T,
 	mockHouston HoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 	reason []byte,
 ) {
 
@@ -186,7 +186,7 @@ func testSignChallengeSuccess(
 func testSignChallengeInvalidCounter(
 	t *testing.T,
 	mockHouston *MockHoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 	reason []byte,
 ) {
 	challengeResponse, err := mockHouston.ChallengeSecurityCardSign(
@@ -236,7 +236,7 @@ func testSignChallengeInvalidCounter(
 func testSignChallengeCounterAdvancesEvenIfSolveChallengeFails(
 	t *testing.T,
 	mockHouston *MockHoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 	reason []byte,
 ) {
 	challengeResponse, err := mockHouston.ChallengeSecurityCardSign(
@@ -304,7 +304,7 @@ func testSignChallengeCounterAdvancesEvenIfSolveChallengeFails(
 func testSignChallengeInvalidSlot(
 	t *testing.T,
 	mockHouston *MockHoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 	reason []byte,
 ) {
 	challengeResponse, err := mockHouston.ChallengeSecurityCardSign(
@@ -354,7 +354,7 @@ func testSignChallengeInvalidSlot(
 func testSignChallengeInvalidMac(
 	t *testing.T,
 	mockHouston *MockHoustonService,
-	card *nfc.MeenCardV2,
+	card *nfc.MuunCardV2,
 	reason []byte,
 ) {
 	challengeResponse, err := mockHouston.ChallengeSecurityCardSign(
@@ -403,7 +403,7 @@ func testSignChallengeInvalidMac(
 func testSignChallengeSecretUpdates(
 	t *testing.T, //nolint:revive // TODO: use or remove t
 	houston *MockHoustonService, //nolint:revive // TODO: use or remove houston
-	card *nfc.MeenCardV2, //nolint:revive // TODO: use or remove card
+	card *nfc.MuunCardV2, //nolint:revive // TODO: use or remove card
 	reason1 []byte, //nolint:revive // TODO: use or remove reason1
 ) {
 

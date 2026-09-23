@@ -4,10 +4,10 @@ import android.content.Context
 import androidx.test.uiautomator.UiDevice
 import io.muun.apollo.R
 
-class MeenToolbar(
+class MuunToolbar(
     override val device: UiDevice,
     override val context: Context,
-) : WithMeenInstrumentationHelpers {
+) : WithMuunInstrumentationHelpers {
 
     fun pressClose() {
         // TODO maybe unreliable? There's no "right" way to access this (even less to assert if it's
