@@ -13,7 +13,6 @@ import androidx.annotation.DrawableRes;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import butterknife.BindView;
-import icepick.State;
 
 import java.util.HashMap;
 
@@ -31,7 +30,7 @@ public class MuunActionDrawer extends MuunView {
     @BindView(R.id.muun_action_drawer_title)
     TextView title;
 
-    @State
+    
     HashMap<Integer, Integer> actionIdToViewIndex = new HashMap<>();
 
     private OnActionClickListener listener;

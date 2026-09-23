@@ -16,7 +16,6 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
 import butterknife.ButterKnife
-import icepick.Icepick
 import io.muun.apollo.domain.errors.BugDetected
 import io.muun.apollo.presentation.ui.activity.extension.ExternalResultExtension
 import io.muun.apollo.presentation.ui.activity.extension.PermissionManagerExtension
@@ -182,7 +181,7 @@ abstract class MuunView : FrameLayout,
         // unique ID, nothing will clash.
 
         val state = Bundle()
-        val ownState = Icepick.saveInstanceState(this, super.onSaveInstanceState())
+        val ownState = // Icepick.save
         val childState = SparseArray<Parcelable>()
         for (i in 0 until childCount) {
             getChildAt(i).saveHierarchyState(childState)
@@ -202,7 +201,7 @@ abstract class MuunView : FrameLayout,
             for (i in 0 until childCount) {
                 getChildAt(i).restoreHierarchyState(childState)
             }
-            super.onRestoreInstanceState(Icepick.restoreInstanceState(this, ownState))
+            super.onRestoreInstanceState(// Icepick.restore
         } else {
             super.onRestoreInstanceState(parcelable)
         }

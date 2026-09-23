@@ -10,13 +10,12 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import androidx.annotation.NonNull;
-import icepick.State;
 
 import javax.annotation.Nullable;
 
 public class MuunPhoneInput extends MuunTextInput {
 
-    @State
+    
     protected String countryCode;
 
     private TextWatcher formatter;

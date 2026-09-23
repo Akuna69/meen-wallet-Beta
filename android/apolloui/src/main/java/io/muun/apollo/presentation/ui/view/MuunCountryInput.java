@@ -16,7 +16,6 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.TextView;
 import butterknife.BindView;
-import icepick.State;
 
 import java.util.Objects;
 import javax.annotation.Nullable;
@@ -32,7 +31,7 @@ public class MuunCountryInput extends MuunView {
     @BindView(R.id.selected_country)
     TextView selectedCountryView;
 
-    @State(CountryInfoBundler.class)
+    
     CountryInfo selectedCountry;
 
     private OnChangeListener onChangeListener;

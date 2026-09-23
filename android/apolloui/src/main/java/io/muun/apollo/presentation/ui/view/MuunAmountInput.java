@@ -25,7 +25,6 @@ import androidx.annotation.NonNull;
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.OnClick;
-import icepick.State;
 import org.javamoney.moneta.Money;
 
 import java.math.BigDecimal;
@@ -85,14 +84,14 @@ public class MuunAmountInput extends MuunView {
     ApplicationLockManager lockManager;
 
     // State:
-    @State
+    
     float maxWidthPx;
 
 
     /**
      * Part of our (ugly) hack to allow SATs as an input currency option.
      */
-    @State
+    
     BitcoinUnit bitcoinUnit;
 
     private MonetaryAmount value;

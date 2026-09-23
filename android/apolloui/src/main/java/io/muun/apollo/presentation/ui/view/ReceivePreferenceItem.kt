@@ -5,7 +5,6 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.widget.TextView
 import butterknife.BindView
-import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.presentation.ui.utils.getStyledString
 import io.muun.apollo.presentation.ui.view.PickerCard.Status
@@ -30,7 +29,7 @@ class ReceivePreferenceItem @JvmOverloads constructor(
     @BindView(R.id.receive_preference_value)
     lateinit var editReceivePreferenceButton: TextView
 
-    @State
+    
     lateinit var current: ReceiveFormatPreference
 
     override val layoutResource: Int

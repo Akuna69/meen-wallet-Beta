@@ -18,7 +18,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.imageview.ShapeableImageView
-import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.presentation.ui.utils.getResourceIdentifier
 import io.muun.apollo.presentation.ui.utils.isAndroidResourceUri
@@ -33,7 +32,7 @@ class ProfilePictureView  @JvmOverloads constructor(c: Context, a: AttributeSet?
     }
 
     @JvmField
-    @State
+    
     var pictureUri: Uri? = null
 
     private var listener: ImageLoadListener? = null

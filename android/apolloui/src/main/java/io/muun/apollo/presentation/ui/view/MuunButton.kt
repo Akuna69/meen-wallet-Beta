@@ -15,7 +15,6 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.viewbinding.ViewBinding
-import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.databinding.MuunButtonBinding
 import io.muun.apollo.presentation.ui.utils.UiUtils
@@ -85,29 +84,29 @@ class MuunButton @JvmOverloads constructor(c: Context, a: AttributeSet? = null, 
 
     // This is meant for private (e.g only this class) use, but IcePick requires it to be public.
     // If you are an external caller move along to setLoading/isLoading methods.
-    @State
+    
     @JvmField
     var mIsLoading = false
 
     // This is meant for private (e.g only this class) use, but IcePick requires it to be public.
     // If you are an external caller move along to setEnabled/isEnabled methods.
     @JvmField
-    @State
+    
     var mIsEnabled = false
 
     @JvmField
-    @State
+    
     var backgroundRes: Int? = null
 
     @JvmField
-    @State
+    
     var buttonText: String? = null
 
     @JvmField
-    @State
+    
     var coverText: String? = null
 
-    // These fields do not use @State because they are only set from attrs (and/or at creation)
+    // These fields do not use 
     // if they could change after creation, they should use it.
     private var textStyle = 0
     private var typeface: Typeface? = null
