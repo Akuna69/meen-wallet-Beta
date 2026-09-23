@@ -71,7 +71,7 @@ ARG TARGETS="aarch64-unknown-linux-musl x86_64-unknown-linux-musl aarch64-linux-
 
 RUN rustup toolchain install ${RUSTUP_TOOLCHAIN} \
     && rustup override set ${RUSTUP_TOOLCHAIN} \
-    && rustup target add --toolchain ${RUSTUP_TOOLCHAIN}$TARGETS \
+    && rustup target add --toolchain ${RUSTUP_TOOLCHAIN} $TARGETS \
     && rustup component add clippy \
     && rustup component add rustfmt
 
