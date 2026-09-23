@@ -636,6 +636,7 @@ public class ApiObjectsMapper {
         return new SubmarineSwapRequestJson(
                 request.invoice,
                 request.swapExpirationInBlocks,
+                null,
                 request.origin.name().toLowerCase(Locale.getDefault()), // match analytics event
                 mapBackgroundTimes(request.bkgTimes)
         );
