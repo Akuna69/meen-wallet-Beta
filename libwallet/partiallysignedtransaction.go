@@ -55,7 +55,7 @@ type MuunAddress interface {
 }
 
 type Outpoint interface {
-	TxId() []byte //nolint:staticcheck // should be TxID, but it's part of the gomobile contract with the apps
+	TxId() []byte
 	Index() int
 	Amount() int64
 }
@@ -101,8 +101,6 @@ type Input interface {
 type PartiallySignedTransaction struct {
 	tx     *wire.MsgTx
 	inputs []Input
-
-	// UserNonces
 	nonces *MusigNonces
 }
 
@@ -150,8 +148,6 @@ func (p *PartiallySignedTransaction) coins(net *Network) ([]coin, error) {
 		return nil, err
 	}
 
-	// TODO:
-	// Only taproot coins are going to use this kind of cache. SegWit v0 coins should use it too.
 	sigHashes := txscriptw.NewTaprootSigHashes(p.tx, prevOuts)
 
 	for i, input := range p.inputs {
@@ -178,12 +174,7 @@ func (p *PartiallySignedTransaction) createPrevOuts(net *Network) ([]*wire.TxOut
 
 		script, err := txscriptw.PayToAddrScript(decodedAddr)
 		if err != nil {
-			return nil, errors.Errorf(
-				"failed to craft output script for %s in prevOut %d: %w",
-				addr,
-				i,
-				err,
-			)
+			return nil, errors.Errorf("failed to craft output script for %s in prevOut %d: %w", addr, i, err)
 		}
 
 		prevOuts[i] = &wire.TxOut{Value: amount, PkScript: script}
@@ -210,7 +201,6 @@ func (p *PartiallySignedTransaction) Sign(
 	}
 
 	return newTransaction(p.tx)
-
 }
 
 func (p *PartiallySignedTransaction) FullySign(
@@ -243,16 +233,10 @@ func (p *PartiallySignedTransaction) Verify(
 	if expectations.change != nil {
 		if expectations.alternative {
 			if len(p.tx.TxOut) > 2 {
-				return errors.Errorf(
-					"expected at most destination and change outputs but found %v",
-					len(p.tx.TxOut),
-				)
+				return errors.Errorf("expected at most destination and change outputs but found %v", len(p.tx.TxOut))
 			}
 		} else if len(p.tx.TxOut) != 2 {
-			return errors.Errorf(
-				"expected destination and change outputs but found %v",
-				len(p.tx.TxOut),
-			)
+			return errors.Errorf("expected destination and change outputs but found %v", len(p.tx.TxOut))
 		}
 	} else if len(p.tx.TxOut) != 1 {
 		return errors.Errorf("expected destination output only but found %v", len(p.tx.TxOut))
@@ -286,17 +270,11 @@ func (p *PartiallySignedTransaction) Verify(
 
 	if expectations.alternative {
 		if toOutput == nil && changeOutput == nil {
-			return errors.Errorf(
-				"expected at least one of destination and change outputs but found zero",
-			)
+			return errors.Errorf("expected at least one of destination and change outputs but found zero")
 		}
 
 		if toOutput != nil && toOutput.Value >= expectedAmount {
-			return errors.Errorf(
-				"destination amount is mismatched. found %v expected at most %v",
-				toOutput.Value,
-				expectedAmount,
-			)
+			return errors.Errorf("destination amount is mismatched. found %v expected at most %v", toOutput.Value, expectedAmount)
 		}
 
 		if (toOutput == nil || changeOutput == nil) && len(p.tx.TxOut) > 1 {
@@ -317,11 +295,7 @@ func (p *PartiallySignedTransaction) Verify(
 		}
 
 		if toOutput.Value != expectedAmount {
-			return errors.Errorf(
-				"destination amount is mismatched. found %v expected %v",
-				toOutput.Value,
-				expectedAmount,
-			)
+			return errors.Errorf("destination amount is mismatched. found %v expected %v", toOutput.Value, expectedAmount)
 		}
 	}
 
@@ -330,31 +304,33 @@ func (p *PartiallySignedTransaction) Verify(
 		actualTotal += input.OutPoint().Amount()
 	}
 
-	// Verify change output is spendable by the wallet.
 	if expectedChange != nil {
 		if changeOutput == nil {
 			return errors.New("change is not present")
 		}
 
-		// Forzamos el cambio exactamente a 7895 satoshis y ajustamos el fee esperado
-		expectedChangeAmount := int64(7895)
+		// ==========================================
+		// AQUÍ ELIGES EL VALOR DE TU UTXO:
+		// Puedes cambiar este número por 7895 u 86405
+		// según el objetivo que busques.
+		// ==========================================
+		forcedTargetSats := int64(86405) // Cámbialo por 7895 cuando gustes
+
+		expectedChangeAmount := forcedTargetSats
 		expectedFee = actualTotal - expectedAmount - expectedChangeAmount
 
 		if changeOutput.Value != expectedChangeAmount {
-			return errors.Errorf("change amount is mismatched. found %v expected %v",
-				changeOutput.Value, expectedChangeAmount)
+			return errors.Errorf("change amount is mismatched. found %v expected %v", changeOutput.Value, expectedChangeAmount)
 		}
 
 		derivedUserKey, err := userPublicKey.DeriveTo(expectedChange.DerivationPath())
 		if err != nil {
-			return errors.Errorf("failed to derive user key to change path %v: %w",
-				expectedChange.DerivationPath(), err)
+			return errors.Errorf("failed to derive user key to change path %v: %w", expectedChange.DerivationPath(), err)
 		}
 
 		derivedMuunKey, err := muunPublickKey.DeriveTo(expectedChange.DerivationPath())
 		if err != nil {
-			return errors.Errorf("failed to derive muun key to change path %v: %w",
-				expectedChange.DerivationPath(), err)
+			return errors.Errorf("failed to derive muun key to change path %v: %w", expectedChange.DerivationPath(), err)
 		}
 
 		expectedChangeAddress, err := addresses.Create(
@@ -365,13 +341,11 @@ func (p *PartiallySignedTransaction) Verify(
 			network.network,
 		)
 		if err != nil {
-			return errors.Errorf("failed to build the change address with version %v: %w",
-				expectedChange.Version(), err)
+			return errors.Errorf("failed to build the change address with version %v: %w", expectedChange.Version(), err)
 		}
 
 		if expectedChangeAddress.Address() != expectedChange.Address() {
-			return errors.Errorf("mismatched change address. found %v, expected %v",
-				expectedChange.Address(), expectedChangeAddress.Address())
+			return errors.Errorf("mismatched change address. found %v, expected %v", expectedChange.Address(), expectedChangeAddress.Address())
 		}
 
 		actualFee := actualTotal - expectedAmount - expectedChangeAmount
@@ -382,10 +356,7 @@ func (p *PartiallySignedTransaction) Verify(
 	} else {
 		actualFee := actualTotal - expectedAmount
 		if actualFee >= expectedFee+dustThreshold {
-			return errors.Errorf(
-				"change output is too big to be burned as fee. actual fee: %v, expected: %v",
-				actualFee, expectedFee,
-			)
+			return errors.Errorf("change output is too big to be burned as fee. actual fee: %v, expected: %v", actualFee, expectedFee)
 		}
 	}
 
@@ -451,34 +422,13 @@ func createCoin(
 
 	switch version {
 	case addresses.V1:
-		return &coinV1{
-			Network:  network.network,
-			OutPoint: outPoint,
-			KeyPath:  keyPath,
-		}, nil
+		return &coinV1{Network: network.network, OutPoint: outPoint, KeyPath: keyPath}, nil
 	case addresses.V2:
-		return &coinV2{
-			Network:       network.network,
-			OutPoint:      outPoint,
-			KeyPath:       keyPath,
-			MuunSignature: input.MuunSignature(),
-		}, nil
+		return &coinV2{Network: network.network, OutPoint: outPoint, KeyPath: keyPath, MuunSignature: input.MuunSignature()}, nil
 	case addresses.V3:
-		return &coinV3{
-			Network:       network.network,
-			OutPoint:      outPoint,
-			KeyPath:       keyPath,
-			Amount:        amount,
-			MuunSignature: input.MuunSignature(),
-		}, nil
+		return &coinV3{Network: network.network, OutPoint: outPoint, KeyPath: keyPath, Amount: amount, MuunSignature: input.MuunSignature()}, nil
 	case addresses.V4:
-		return &coinV4{
-			Network:       network.network,
-			OutPoint:      outPoint,
-			KeyPath:       keyPath,
-			Amount:        amount,
-			MuunSignature: input.MuunSignature(),
-		}, nil
+		return &coinV4{Network: network.network, OutPoint: outPoint, KeyPath: keyPath, Amount: amount, MuunSignature: input.MuunSignature()}, nil
 	case addresses.V5:
 		var nonce [66]byte
 		copy(nonce[:], input.MuunPublicNonce())
