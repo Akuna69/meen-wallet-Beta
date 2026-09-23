@@ -22,12 +22,13 @@ jobs:
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
-        go-version: '1.22.x'
+        go-version: '1.21.x'
       env:
         GOTOOLCHAIN: local
 
-    - name: Instalar gomobile
+    - name: Limpiar cache de Go e instalar gomobile
       run: |
+        go clean -cache -testcache -modcache
         go install golang.org/x/tools/cmd/goimports@latest
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
