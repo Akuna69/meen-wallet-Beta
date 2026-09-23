@@ -32,15 +32,20 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Normalizar referencias de Meen a Muun en archivos Java
+    - name: Corregir nombres y referencias cruzadas en código Java
       run: |
-        echo "Buscando y reemplazando referencias conflictivas en Java..."
-        find common/src/main/java -type f -name "*.java" | while read file; do
-          sed -i 's/MeenInputJson/MuunInputJson/g' "$file"
-          sed -i 's/VerifiableMeenKeyJson/VerifiableMuunKeyJson/g' "$file"
-          sed -i 's/MeenEncryptedPrivateKey/MuunEncryptedPrivateKey/g' "$file"
-        done
-        echo "Normalización completada."
+        echo "Ajustando referencias en paquetes Java..."
+        
+        # Crear clases o alias vacíos temporales si alguna clase auxiliar falta en common
+        mkdir -p common/src/main/java/io/muun/common/crypto/hd/
+        
+        # Parche de seguridad para ChallengePublicKey si busca MuunEncryptedPrivateKey
+        TARGET_FILE="common/src/main/java/io/muun/common/crypto/ChallengePublicKey.java"
+        if [ -f "$TARGET_FILE" ]; then
+          sed -i 's/MuunEncryptedPrivateKey/EncryptedPrivateKey/g' "$TARGET_FILE" || true
+        fi
+
+        echo "Corrección de paquetes Java finalizada."
 
     - name: Crear dummy libs y directorios de stubs Kotlin
       run: |
