@@ -22,23 +22,23 @@ jobs:
     - name: Diagnostico de archivos InAppUpdate
       run: |
         echo "--- Buscando InAppUpdateManager.kt ---"
-        find . -iname "InAppUpdateManager.kt" 2>/dev/null
+        find . -iname "InAppUpdateManager.kt" 2>/dev/null || true
         echo "--- Buscando PlayInAppUpdateManager.kt ---"
-        find . -iname "PlayInAppUpdateManager.kt" 2>/dev/null
+        find . -iname "PlayInAppUpdateManager.kt" 2>/dev/null || true
         echo "--- Buscando InAppUpdateModule.kt ---"
-        find . -iname "InAppUpdateModule.kt" 2>/dev/null
+        find . -iname "InAppUpdateModule.kt" 2>/dev/null || true
         echo "--- Sabores/sourceSets disponibles en apolloui/src ---"
-        find android/apolloui/src -maxdepth 1 -type d
+        find android/apolloui/src -maxdepth 1 -type d || true
         echo "--- Contenido de InAppUpdateModule.kt (dogfood) ---"
-        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null
+        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || true
         echo "--- Contenido de InAppUpdateModule.kt (main, si existe) ---"
-        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null
+        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || true
         echo "--- Buscando MuunButton.kt ---"
-        find android/apolloui/src -iname "MuunButton.kt" 2>/dev/null
+        find android/apolloui/src -iname "MuunButton.kt" 2>/dev/null || true
         echo "--- Buscando MuunHeader.kt ---"
-        find android/apolloui/src -iname "MuunHeader.kt" 2>/dev/null
+        find android/apolloui/src -iname "MuunHeader.kt" 2>/dev/null || true
         echo "--- Buscando DecorationHandler.java ---"
-        find android/apolloui/src -iname "DecorationHandler.java" 2>/dev/null
+        find android/apolloui/src -iname "DecorationHandler.java" 2>/dev/null || true
 
     - name: Configurar Go
       uses: actions/setup-go@v5
