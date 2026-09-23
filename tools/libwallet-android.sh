@@ -46,6 +46,23 @@ rm -rf "$GOCACHE"/src-android-* 2>/dev/null \
 # Set linker flags for 16KB page alignment required by Android targetSdk 35+
 export CGO_LDFLAGS="-Wl,-z,max-page-size=16384 -Wl,-z,common-page-size=16384"
 
+# Auto-detectar la ruta válida del NDK en GitHub Actions
+if [ -z "$ANDROID_NDK_HOME" ] || [ ! -d "$ANDROID_NDK_HOME" ]; then
+    if [ -n "$ANDROID_NDK_LATEST_HOME" ] && [ -d "$ANDROID_NDK_LATEST_HOME" ]; then
+        export ANDROID_NDK_HOME="$ANDROID_NDK_LATEST_HOME"
+    elif [ -n "$ANDROID_HOME" ] && [ -d "$ANDROID_HOME/ndk-bundle" ]; then
+        export ANDROID_NDK_HOME="$ANDROID_HOME/ndk-bundle"
+    else
+        ndk_found=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}/ndk" -maxdepth 1 -mindepth 1 -type d 2>/dev/null | tail -n 1)
+        if [ -n "$ndk_found" ]; then
+            export ANDROID_NDK_HOME="$ndk_found"
+        fi
+    fi
+fi
+
+export ANDROID_NDK_ROOT="$ANDROID_NDK_HOME"
+echo "📌 Usando NDK en: $ANDROID_NDK_HOME"
+
 echo "🚀 Iniciando gomobile bind..."
 
 # Se ejecuta gomobile bind apuntando únicamente a la raíz del paquete Go (.)
