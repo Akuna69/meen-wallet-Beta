@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class VerifiableMeenKeyJson {
+public class VerifiableMuunKeyJson {
 
     @NotNull
     // Hpke-encrypted first half of the server cosigning key
@@ -22,11 +22,11 @@ public class VerifiableMeenKeyJson {
 
     public String proof;
 
-    public VerifiableMeenKeyJson() {
+    public VerifiableMuunKeyJson() {
 
     }
 
-    public VerifiableMeenKeyJson(
+    public VerifiableMuunKeyJson(
             @Nonnull String firstHalfKeyEncryptedToClient,
             @Nonnull String secondHalfKeyEncryptedToRecoveryCode,
             String proof
