@@ -7,7 +7,7 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class MeenEncryptedPrivateKeyV2 implements MeenEncryptedPrivateKey {
+public class MuunEncryptedPrivateKeyV2 implements MuunEncryptedPrivateKey {
 
     private static final byte VERSION_BYTE = 0x2;
     private static final int VERSION_BYTE_SIZE = 1;
@@ -24,7 +24,7 @@ public class MeenEncryptedPrivateKeyV2 implements MeenEncryptedPrivateKey {
     /**
      * Deserialize encrypted private key from base 58.
      */
-    public static MeenEncryptedPrivateKeyV2 fromBase58(String serialization) {
+    public static MuunEncryptedPrivateKeyV2 fromBase58(String serialization) {
 
         return fromBytes(Base58.decode(serialization));
     }
@@ -32,7 +32,7 @@ public class MeenEncryptedPrivateKeyV2 implements MeenEncryptedPrivateKey {
     /**
      * Deserialize encrypted private key from a byte array.
      */
-    private static MeenEncryptedPrivateKeyV2 fromBytes(byte[] bytes) {
+    private static MuunEncryptedPrivateKeyV2 fromBytes(byte[] bytes) {
 
         try {
 
@@ -54,7 +54,7 @@ public class MeenEncryptedPrivateKeyV2 implements MeenEncryptedPrivateKey {
 
             Preconditions.checkArgument(version == VERSION_BYTE);
 
-            return new MeenEncryptedPrivateKeyV2(
+            return new MuunEncryptedPrivateKeyV2(
                     birthday,
                     publicKey,
                     cypherText,
@@ -69,7 +69,7 @@ public class MeenEncryptedPrivateKeyV2 implements MeenEncryptedPrivateKey {
     /**
      * Constructor.
      */
-    public MeenEncryptedPrivateKeyV2(
+    public MuunEncryptedPrivateKeyV2(
             long birthday,
             byte[] ephemeralPublicKey,
             byte[] cypherText,

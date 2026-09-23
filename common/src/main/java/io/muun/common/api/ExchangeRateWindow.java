@@ -1,6 +1,6 @@
 package io.muun.common.api;
 
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -16,7 +16,7 @@ public class ExchangeRateWindow {
     public Long id;
 
     @NotNull
-    public MeenZonedDateTime fetchDate;
+    public MuunZonedDateTime fetchDate;
 
     @NotNull
     public Map<String, Double> rates;
@@ -30,7 +30,7 @@ public class ExchangeRateWindow {
     /**
      * Houston constructor.
      */
-    public ExchangeRateWindow(Long id, MeenZonedDateTime fetchDate, Map<String, Double> rates) {
+    public ExchangeRateWindow(Long id, MuunZonedDateTime fetchDate, Map<String, Double> rates) {
 
         this.id = id;
         this.fetchDate = fetchDate;

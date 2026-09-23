@@ -1,7 +1,7 @@
 package io.muun.common.api;
 
 import io.muun.common.Supports;
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 import io.muun.common.model.UserPreferences;
 import io.muun.common.utils.Since;
 
@@ -26,7 +26,7 @@ public class UserJson {
 
     @Nullable
     @Deprecated // Keeping it for legacy users/clients. New ones should use emergencyKit field
-    public MeenZonedDateTime emergencyKitLastExportedAt;
+    public MuunZonedDateTime emergencyKitLastExportedAt;
 
     @Nullable
     @Since(
@@ -55,7 +55,7 @@ public class UserJson {
             apolloVersion = Supports.CreationDateInUserInfo.APOLLO,
             falconVersion = Supports.CreationDateInUserInfo.FALCON
     )
-    public MeenZonedDateTime createdAt;
+    public MuunZonedDateTime createdAt;
 
     public UserPreferences preferences;
 
@@ -80,7 +80,7 @@ public class UserJson {
                     boolean hasPasswordChallengeKey,
                     boolean hasRecoveryCodeChallengeKey,
                     boolean hasP2PEnabled,
-                    MeenZonedDateTime createdAt,
+                    MuunZonedDateTime createdAt,
                     UserPreferences preferences) {
 
         this.id = id;

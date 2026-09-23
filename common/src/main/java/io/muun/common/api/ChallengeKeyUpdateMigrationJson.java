@@ -12,7 +12,7 @@ public class ChallengeKeyUpdateMigrationJson {
     public String recoveryCodeKeySaltInHex;
 
     @Nullable
-    public String newEncrytpedMeenKey;
+    public String newEncrytpedMuunKey;
 
     /**
      * Json constructor.
@@ -25,9 +25,9 @@ public class ChallengeKeyUpdateMigrationJson {
      */
     public ChallengeKeyUpdateMigrationJson(String passwordKeySaltInHex,
                                            @Nullable String recoveryCodeKeySaltInHex,
-                                           @Nullable String newEncrytpedMeenKey) {
+                                           @Nullable String newEncrytpedMuunKey) {
         this.passwordKeySaltInHex = passwordKeySaltInHex;
         this.recoveryCodeKeySaltInHex = recoveryCodeKeySaltInHex;
-        this.newEncrytpedMeenKey = newEncrytpedMeenKey;
+        this.newEncrytpedMuunKey = newEncrytpedMuunKey;
     }
 }

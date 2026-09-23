@@ -32,20 +32,6 @@ jobs:
         go install golang.org/x/mobile/cmd/gomobile@latest
         gomobile init
 
-    - name: Neutralizar errores de compilacion en modulo common
-      run: |
-        echo "Creando stubs vacios para archivos Java faltantes en common..."
-        mkdir -p common/src/main/java/io/muun/common/crypto/hd/
-        mkdir -p common/src/main/java/io/muun/common/api/
-        mkdir -p common/src/main/java/io/muun/common/crypto/
-
-        # Clases base que causaban error de símbolos no encontrados
-        touch common/src/main/java/io/muun/common/crypto/hd/MuunInput.java
-        touch common/src/main/java/io/muun/common/api/MuunInputJson.java
-        touch common/src/main/java/io/muun/common/crypto/ChallengePublicKey.java
-
-        echo "Stubs creados con exito."
-
     - name: Crear dummy libs y directorios de stubs Kotlin
       run: |
         mkdir -p libwallet/librs/libs

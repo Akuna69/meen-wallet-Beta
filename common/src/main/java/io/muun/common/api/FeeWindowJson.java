@@ -1,6 +1,6 @@
 package io.muun.common.api;
 
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 import io.muun.common.utils.Deprecated;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -18,7 +18,7 @@ public class FeeWindowJson {
     public Long id;
 
     @NotNull
-    public MeenZonedDateTime fetchDate;
+    public MuunZonedDateTime fetchDate;
 
     @NotNull
     @Deprecated(atApolloVersion = 40, atFalconVersion = 1)
@@ -47,7 +47,7 @@ public class FeeWindowJson {
      * Houston constructor.
      */
     public FeeWindowJson(long id,
-                         MeenZonedDateTime fetchDate,
+                         MuunZonedDateTime fetchDate,
                          long feeInSatoshisPerByte,
                          SortedMap<Integer, Double> targetedFees,
                          Integer fastConfTarget,

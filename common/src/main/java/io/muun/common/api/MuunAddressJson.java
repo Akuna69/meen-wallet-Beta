@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MeenAddressJson {
+public class MuunAddressJson {
 
     @NotNull
     public Integer version;
@@ -22,13 +22,13 @@ public class MeenAddressJson {
     /**
      * Json constructor.
      */
-    public MeenAddressJson() {
+    public MuunAddressJson() {
     }
 
     /**
      * Manual constructor.
      */
-    public MeenAddressJson(Integer version, String derivationPath, String address) {
+    public MuunAddressJson(Integer version, String derivationPath, String address) {
         this.version = version;
         this.derivationPath = derivationPath;
         this.address = address;

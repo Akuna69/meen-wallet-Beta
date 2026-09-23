@@ -7,7 +7,7 @@ import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-public class MeenEncryptedPrivateKeyV3 implements MeenEncryptedPrivateKey {
+public class MuunEncryptedPrivateKeyV3 implements MuunEncryptedPrivateKey {
 
     private static final byte VERSION_BYTE = 0x3;
     private static final int VERSION_BYTE_SIZE = 1;
@@ -21,7 +21,7 @@ public class MeenEncryptedPrivateKeyV3 implements MeenEncryptedPrivateKey {
     /**
      * Deserialize encrypted private key from base 58.
      */
-    public static MeenEncryptedPrivateKeyV3 fromBase58(String serialization) {
+    public static MuunEncryptedPrivateKeyV3 fromBase58(String serialization) {
 
         return fromBytes(Base58.decode(serialization));
     }
@@ -29,7 +29,7 @@ public class MeenEncryptedPrivateKeyV3 implements MeenEncryptedPrivateKey {
     /**
      * Deserialize encrypted private key from a byte array.
      */
-    public static MeenEncryptedPrivateKeyV3 fromBytes(byte[] bytes) {
+    public static MuunEncryptedPrivateKeyV3 fromBytes(byte[] bytes) {
 
         try {
 
@@ -49,7 +49,7 @@ public class MeenEncryptedPrivateKeyV3 implements MeenEncryptedPrivateKey {
 
             Preconditions.checkArgument(version == VERSION_BYTE);
 
-            return new MeenEncryptedPrivateKeyV3(
+            return new MuunEncryptedPrivateKeyV3(
                     publicKey,
                     cypherText,
                     salt
@@ -63,7 +63,7 @@ public class MeenEncryptedPrivateKeyV3 implements MeenEncryptedPrivateKey {
     /**
      * Constructor.
      */
-    public MeenEncryptedPrivateKeyV3(
+    public MuunEncryptedPrivateKeyV3(
             byte[] ephemeralPublicKey,
             byte[] cypherText,
             byte[] recoveryCodeSalt

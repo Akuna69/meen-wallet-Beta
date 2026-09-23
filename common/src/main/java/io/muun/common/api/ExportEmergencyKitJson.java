@@ -1,7 +1,7 @@
 package io.muun.common.api;
 
 import io.muun.common.Supports;
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 import io.muun.common.utils.Since;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -19,7 +19,7 @@ public class ExportEmergencyKitJson {
         MANUAL
     }
 
-    public MeenZonedDateTime lastExportedAt;
+    public MuunZonedDateTime lastExportedAt;
 
     @Nullable
     public Boolean verified;
@@ -48,7 +48,7 @@ public class ExportEmergencyKitJson {
      * Apollo constructor.
      */
     public ExportEmergencyKitJson(
-            MeenZonedDateTime lastExportedAt,
+            MuunZonedDateTime lastExportedAt,
             @Nullable Boolean verified,
             String verificationCode,
             int version,
@@ -66,7 +66,7 @@ public class ExportEmergencyKitJson {
      * Houston constructor.
      */
     public ExportEmergencyKitJson(
-            MeenZonedDateTime lastExportedAt,
+            MuunZonedDateTime lastExportedAt,
             @Nullable Boolean verified,
             int version,
             @Nullable Method method

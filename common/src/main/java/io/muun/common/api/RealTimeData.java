@@ -38,7 +38,7 @@ public class RealTimeData {
     public double minFeeRateInWeightUnits;
 
     @NotNull
-    public List<MeenFeatureJson> features;
+    public List<MuunFeatureJson> features;
 
     /**
      * Json constructor.
@@ -56,7 +56,7 @@ public class RealTimeData {
             List<ForwardingPolicyJson> forwardingPolicies,
             MinFeeRateIncrementToBumpJson minFeeRateIncrementToBumpJson,
             double minFeeRateInWeightUnits,
-            List<MeenFeatureJson> features
+            List<MuunFeatureJson> features
     ) {
         this.feeWindow = feeWindow;
         this.exchangeRateWindow = exchangeRateWindow;

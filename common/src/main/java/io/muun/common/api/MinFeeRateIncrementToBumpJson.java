@@ -1,6 +1,6 @@
 package io.muun.common.api;
 
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -15,13 +15,13 @@ public class MinFeeRateIncrementToBumpJson {
     public Double incrementInSatsPerVbyte;
 
     @NotNull
-    public MeenZonedDateTime createdAt;
+    public MuunZonedDateTime createdAt;
 
     /**
      * Constructor.
      */
     public MinFeeRateIncrementToBumpJson(Double incrementInSatsPerVbyte,
-                                         MeenZonedDateTime createdAt) {
+                                         MuunZonedDateTime createdAt) {
 
         this.incrementInSatsPerVbyte = incrementInSatsPerVbyte;
         this.createdAt = createdAt;

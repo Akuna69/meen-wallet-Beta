@@ -1,6 +1,6 @@
 package io.muun.common.api;
 
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,7 +29,7 @@ public class RealTimeFeesJson {
     public double minFeeRateIncrementToReplaceByFeeInSatPerVbyte;
 
     @NotNull
-    public MeenZonedDateTime computedAt;
+    public MuunZonedDateTime computedAt;
 
     /**
      * Json Constructor.
@@ -45,7 +45,7 @@ public class RealTimeFeesJson {
             TargetFeeRatesJson targetFeeRates,
             double minMempoolFeeRateInSatPerVbyte,
             double minFeeRateIncrementToReplaceByFeeInSatPerVbyte,
-            MeenZonedDateTime computedAt
+            MuunZonedDateTime computedAt
     ) {
 
         this.feeBumpFunctions = feeBumpFunctions;

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class MeenInputSubmarineSwapV101Json {
+public class MuunInputSubmarineSwapV101Json {
 
     @NotNull
     public String refundAddress;
@@ -25,13 +25,13 @@ public class MeenInputSubmarineSwapV101Json {
     /**
      * Json constructor.
      */
-    public MeenInputSubmarineSwapV101Json() {
+    public MuunInputSubmarineSwapV101Json() {
     }
 
     /**
      * Manual constructor.
      */
-    public MeenInputSubmarineSwapV101Json(String refundAddress,
+    public MuunInputSubmarineSwapV101Json(String refundAddress,
                                           String swapPaymentHash256Hex,
                                           String swapServerPublicKeyHex,
                                           Long lockTime) {

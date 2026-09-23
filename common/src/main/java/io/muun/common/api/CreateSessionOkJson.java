@@ -1,6 +1,6 @@
 package io.muun.common.api;
 
-import io.muun.common.dates.MeenZonedDateTime;
+import io.muun.common.dates.MuunZonedDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -19,10 +19,10 @@ public class CreateSessionOkJson {
     public Boolean canUseRecoveryCode;
 
     @Nullable
-    public MeenZonedDateTime passwordSetupDate;
+    public MuunZonedDateTime passwordSetupDate;
 
     @Nullable
-    public MeenZonedDateTime recoveryCodeSetupDate;
+    public MuunZonedDateTime recoveryCodeSetupDate;
 
     @Nullable
     public String playIntegrityNonce;
@@ -38,8 +38,8 @@ public class CreateSessionOkJson {
      */
     public CreateSessionOkJson(Boolean isExistingUser,
                                Boolean canUseRecoveryCode,
-                               @Nullable MeenZonedDateTime passwordSetupDate,
-                               @Nullable MeenZonedDateTime recoveryCodeSetupDate,
+                               @Nullable MuunZonedDateTime passwordSetupDate,
+                               @Nullable MuunZonedDateTime recoveryCodeSetupDate,
                                @Nullable String playIntegrityNonce) {
 
         this.isExistingUser = isExistingUser;
