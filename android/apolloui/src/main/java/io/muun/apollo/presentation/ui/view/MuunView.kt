@@ -9,23 +9,14 @@ import android.util.AttributeSet
 import android.util.SparseArray
 import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
-import androidx.annotation.CallSuper
 import androidx.annotation.LayoutRes
-import androidx.fragment.app.DialogFragment
-import androidx.viewbinding.ViewBinding
 import butterknife.ButterKnife
 import io.muun.apollo.domain.errors.BugDetected
 import io.muun.apollo.presentation.ui.activity.extension.ExternalResultExtension
 import io.muun.apollo.presentation.ui.activity.extension.PermissionManagerExtension
 import io.muun.apollo.presentation.ui.base.BaseActivity
 import io.muun.apollo.presentation.ui.base.di.ViewComponent
-import io.muun.apollo.presentation.ui.utils.BundleSizeLogger
-import io.muun.apollo.presentation.ui.utils.locale
-import timber.log.Timber
-import java.util.LinkedList
-import java.util.Locale
 
 abstract class MuunView : FrameLayout,
     ExternalResultExtension.Caller,
@@ -79,17 +70,19 @@ abstract class MuunView : FrameLayout,
         setUpComponent(component)
     }
 
-    protected open fun setUpComponent(component: ViewComponent) { me.inject(component) }
+    protected open fun setUpComponent(component: ViewComponent) {
+        me.inject(component)
+    }
 
     protected open val me: MuunView
         get() = this
 
     protected open fun inject(component: ViewComponent) {
-        // Option to override in subclasses
+        // Método destinado a ser sobrescrito por las vistas hijas para inyectar dependencias
     }
 
     protected val component: ViewComponent
-        get() = (context as BaseActivity<*>).component.viewComponent()
+        get() = parentActivity.component.viewComponent()
 
     protected val parentActivity: BaseActivity<*>
         get() {
