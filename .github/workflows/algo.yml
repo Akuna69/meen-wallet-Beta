@@ -1,4 +1,4 @@
-name: Compilar APK Muun
+name: build
 
 on:
   push:
@@ -10,79 +10,47 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-     - name: Configurar JDK 11
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Configurar JDK 11
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '11'
 
+      - name: Configurar Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21.x'
 
-    - name: Diagnostico de archivos InAppUpdate
-      run: |
-        echo "--- Buscando InAppUpdateManager.kt ---"
-        find . -iname "InAppUpdateManager.kt" 2>/dev/null || true
-        echo "--- Buscando PlayInAppUpdateManager.kt ---"
-        find . -iname "PlayInAppUpdateManager.kt" 2>/dev/null || true
-        echo "--- Buscando InAppUpdateModule.kt ---"
-        find . -iname "InAppUpdateModule.kt" 2>/dev/null || true
-        echo "--- Sabores/sourceSets disponibles en apolloui/src ---"
-        find android/apolloui/src -maxdepth 1 -type d || true
-        echo "--- Contenido de InAppUpdateModule.kt (dogfood) ---"
-        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || true
-        echo "--- Contenido de InAppUpdateModule.kt (main, si existe) ---"
-        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || true
-        echo "--- Buscando MuunButton.kt ---"
-        find android/apolloui/src -iname "MuunButton.kt" 2>/dev/null || true
-        echo "--- Buscando MuunHeader.kt ---"
-        find android/apolloui/src -iname "MuunHeader.kt" 2>/dev/null || true
-        echo "--- Buscando DecorationHandler.java ---"
-        find android/apolloui/src -iname "DecorationHandler.java" 2>/dev/null || true
+      - name: Limpiar cache e instalar gomobile
+        run: |
+          go clean -testcache -modcache
+          go install golang.org/x/tools/cmd/goimports@latest
+          go install golang.org/x/mobile/cmd/gomobile@latest
+          gomobile init
 
-    - name: Configurar Go
-      uses: actions/setup-go@v5
-      with:
-        go-version: '1.21.x'
-      env:
-        GOTOOLCHAIN: local
+      - name: Crear dummy libs de Rust
+        run: |
+          mkdir -p libwallet/libs/libs
+          touch libwallet/libs/libs/x86_64-linux-android-libs.a
+          touch libwallet/libs/libs/aarch64-linux-android-libs.a
+          touch libwallet/libs/libs/armv7-linux-android-libs.a
+          touch libwallet/libs/libs/i686-linux-android-libs.a
 
-    - name: Limpiar cache e instalar gomobile
-      run: |
-        go clean -cache -testcache -modcache
-        go install golang.org/x/tools/cmd/goimports@latest
-        go install golang.org/x/mobile/cmd/gomobile@latest
-        gomobile init
+      - name: Dar permisos y compilar APK sin tests
+        env:
+          ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_LATEST_HOME }}
+          ANDROID_NDK_ROOT: ${{ env.ANDROID_NDK_LATEST_HOME }}
+        run: |
+          chmod +x gradlew
+          chmod +x tools/libwallet-android.sh
+          ./gradlew :android:apolloui:assembleDogfoodDebug -x test -x lint --warning-mode all --stacktrace
 
-    - name: Crear dummy libs de Rust
-      run: |
-        mkdir -p libwallet/librs/libs
-        touch libwallet/librs/libs/x86_64-linux-android-librs.a
-        touch libwallet/librs/libs/aarch64-linux-android-librs.a
-        touch libwallet/librs/libs/armv7-linux-androideabi-librs.a
-        touch libwallet/librs/libs/i686-linux-android-librs.a
+      - name: Subir artefacto APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-dogfood-debug
+          path: android/apolloui/build/outputs/apk/dogfood/debug/*.apk
 
-    - name: Dar permisos y compilar APK sin tests
-      env:
-        ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_LATEST_HOME }}
-        ANDROID_NDK_ROOT: ${{ env.ANDROID_NDK_LATEST_HOME }}
-        JAVA_TOOL_OPTIONS: >-
-          --add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
-          --add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED
-      run: |
-        chmod +x gradlew
-        chmod +x tools/libwallet-android.sh
-        ./gradlew :android:apolloui:assembleDogfoodDebug -x test -x lint --warning-mode all --stacktrace
-
-    - name: Subir artefacto APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-dogfood-debug
-        path: android/apolloui/build/outputs/apk/dogfood/debug/*.apk
