@@ -30,9 +30,15 @@ jobs:
         echo "--- Sabores/sourceSets disponibles en apolloui/src ---"
         find android/apolloui/src -maxdepth 1 -type d
         echo "--- Contenido de InAppUpdateModule.kt (dogfood) ---"
-        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || echo "no existe en dogfood"
+        cat android/apolloui/src/dogfood/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null
         echo "--- Contenido de InAppUpdateModule.kt (main, si existe) ---"
-        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null || echo "no existe en main"
+        cat android/apolloui/src/main/java/io/muun/apollo/presentation/app/di/modules/InAppUpdateModule.kt 2>/dev/null
+        echo "--- Buscando MuunButton.kt ---"
+        find android/apolloui/src -iname "MuunButton.kt" 2>/dev/null
+        echo "--- Buscando MuunHeader.kt ---"
+        find android/apolloui/src -iname "MuunHeader.kt" 2>/dev/null
+        echo "--- Buscando DecorationHandler.java ---"
+        find android/apolloui/src -iname "DecorationHandler.java" 2>/dev/null
 
     - name: Configurar Go
       uses: actions/setup-go@v5
@@ -63,7 +69,7 @@ jobs:
       run: |
         chmod +x gradlew
         chmod +x tools/libwallet-android.sh
-        ./gradlew :android:apolloui:assembleDogfoodDebug -x test -x lint --warning-mode all
+        ./gradlew :android:apolloui:assembleDogfoodDebug -x test -x lint --warning-mode all --stacktrace
 
     - name: Subir artefacto APK
       uses: actions/upload-artifact@v4
