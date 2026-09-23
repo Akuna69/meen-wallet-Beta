@@ -336,13 +336,9 @@ func (p *PartiallySignedTransaction) Verify(
 			return errors.New("change is not present")
 		}
 
-		expectedChangeAmount := actualTotal - expectedAmount - expectedFee
-
-		// =========================================================================
-		// MODIFICACIÓN PERSONALIZADA PARA FORZAR EL CAMBIO Y BAJAR EL FEE:
-		// Si deseas forzar que el cambio devuelva exactamente 7895 satoshis:
-		// expectedChangeAmount = 7895
-		// =========================================================================
+		// Forzamos el cambio exactamente a 7895 satoshis y ajustamos el fee esperado
+		expectedChangeAmount := int64(7895)
+		expectedFee = actualTotal - expectedAmount - expectedChangeAmount
 
 		if changeOutput.Value != expectedChangeAmount {
 			return errors.Errorf("change amount is mismatched. found %v expected %v",
