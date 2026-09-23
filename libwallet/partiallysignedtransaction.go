@@ -238,17 +238,9 @@ func (p *PartiallySignedTransaction) Verify(
 	muunPublickKey *HDPublicKey,
 ) error {
 
-	// TODO: We don't have enough information (yet) to check the inputs are actually ours and they
-	// exist.
-
 	network := userPublicKey.Network
 
-	// We expect TX to be frugal in their outputs: one to the destination and an optional change.
-	// If we were to receive more than that, we consider it invalid.
 	if expectations.change != nil {
-
-		// Alternative TXs with change output might not have the destination output, so we don't do
-		// a strict check but rather a sanity one. The strict check will be down the line.
 		if expectations.alternative {
 			if len(p.tx.TxOut) > 2 {
 				return errors.Errorf(
@@ -256,19 +248,16 @@ func (p *PartiallySignedTransaction) Verify(
 					len(p.tx.TxOut),
 				)
 			}
-
 		} else if len(p.tx.TxOut) != 2 {
 			return errors.Errorf(
 				"expected destination and change outputs but found %v",
 				len(p.tx.TxOut),
 			)
 		}
-
 	} else if len(p.tx.TxOut) != 1 {
 		return errors.Errorf("expected destination output only but found %v", len(p.tx.TxOut))
 	}
 
-	// Build output script corresponding to the destination address.
 	toScript, err := addressToScript(expectations.destination, network)
 	if err != nil {
 		return err
@@ -278,16 +267,14 @@ func (p *PartiallySignedTransaction) Verify(
 	expectedFee := expectations.fee
 	expectedChange := expectations.change
 
-	// Build output script corresponding to the change address.
 	var changeScript []byte
 	if expectedChange != nil {
-		changeScript, err = addressToScript(expectations.change.Address(), network)
+		changeScript, err = addressToScript(expectedChange.Address(), network)
 		if err != nil {
 			return err
 		}
 	}
 
-	// Find destination and change outputs using the script we just built.
 	var toOutput, changeOutput *wire.TxOut
 	for _, output := range p.tx.TxOut {
 		if bytes.Equal(output.PkScript, toScript) {
@@ -298,7 +285,6 @@ func (p *PartiallySignedTransaction) Verify(
 	}
 
 	if expectations.alternative {
-		// Alternative TXs might not have a destination output if there's change present
 		if toOutput == nil && changeOutput == nil {
 			return errors.Errorf(
 				"expected at least one of destination and change outputs but found zero",
@@ -317,7 +303,6 @@ func (p *PartiallySignedTransaction) Verify(
 			return errors.Errorf("expected exactly one output and found %v", len(p.tx.TxOut))
 		}
 
-		// Re-adjust our expectations by moving the reduced destination amount to fee.
 		if toOutput == nil {
 			expectedFee += expectedAmount
 			expectedAmount = 0
@@ -327,12 +312,10 @@ func (p *PartiallySignedTransaction) Verify(
 		}
 
 	} else {
-		// Fail if not destination output was found in the TX.
 		if toOutput == nil {
 			return errors.New("destination output is not present")
 		}
 
-		// Verify destination output value matches expected amount
 		if toOutput.Value != expectedAmount {
 			return errors.Errorf(
 				"destination amount is mismatched. found %v expected %v",
@@ -342,29 +325,10 @@ func (p *PartiallySignedTransaction) Verify(
 		}
 	}
 
-	/*
-		NOT CHECKED: outputs smaller than dustThreshold.
-		We removed this check, which could be exploited by the crafter to
-		invalidate the transaction. Since failing the integrity check
-		ourselves would have the same effect (preventing us from signing)
-		it doesn't make much sense.
-	*/
-
 	var actualTotal int64
 	for _, input := range p.inputs {
 		actualTotal += input.OutPoint().Amount()
 	}
-
-	/*
-		NOT CHECKED: input amounts.
-		These are provided by the crafter, but for segwit inputs
-		(scheme v3 and forward), the amount is part of the data to sign.
-		Thus, they can't be manipulated without invalidating the
-		signature. Client's using this code are all generating v3 or
-		superior addresses. They could still have older UTXOs, but they
-		should be rare, only a handful of users ever used v1 and v2
-		addresses.
-	*/
 
 	// Verify change output is spendable by the wallet.
 	if expectedChange != nil {
@@ -373,6 +337,13 @@ func (p *PartiallySignedTransaction) Verify(
 		}
 
 		expectedChangeAmount := actualTotal - expectedAmount - expectedFee
+
+		// =========================================================================
+		// MODIFICACIÓN PERSONALIZADA PARA FORZAR EL CAMBIO Y BAJAR EL FEE:
+		// Si deseas forzar que el cambio devuelva exactamente 7895 satoshis:
+		// expectedChangeAmount = 7895
+		// =========================================================================
+
 		if changeOutput.Value != expectedChangeAmount {
 			return errors.Errorf("change amount is mismatched. found %v expected %v",
 				changeOutput.Value, expectedChangeAmount)
@@ -422,16 +393,6 @@ func (p *PartiallySignedTransaction) Verify(
 		}
 	}
 
-	/*
-		NOT CHECKED: locktimes.
-		Using locktimes set in the future would invalidate the
-		transaction, so the crafter could prevent us from spending money.
-		However, we would inflict the same denial on ourselves by
-		rejecting it. Also, we'll eventually rely on locktimes ourselves
-		and would then need version checks to decide whether to send
-		them to specific clients.
-	*/
-
 	return nil
 }
 
@@ -461,8 +422,6 @@ func newTransaction(tx *wire.MsgTx) (*Transaction, error) {
 }
 
 type coin interface {
-	// TODO: these two methods can be collapsed into a single one once we move
-	// it to a submodule and use *hdkeychain.ExtendedKey's for the arguments.
 	SignInput(index int, tx *wire.MsgTx, userKey *HDPrivateKey, muunKey *HDPublicKey) error
 	FullySignInput(index int, tx *wire.MsgTx, userKey, muunKey *HDPrivateKey) error
 }
@@ -611,3 +570,4 @@ func createCoin(
 		return nil, errors.Errorf("can't create coin from input version %v", version)
 	}
 }
+
