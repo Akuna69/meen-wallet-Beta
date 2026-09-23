@@ -19,6 +19,10 @@ jobs:
         distribution: 'temurin'
         java-version: '17'
 
+    - name: Instalar NDK de Android
+      run: |
+        $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;25.2.9519653"
+
     - name: Configurar Go
       uses: actions/setup-go@v5
       with:
@@ -55,7 +59,8 @@ jobs:
 
     - name: Dar permisos y compilar APK sin tests
       env:
-        ANDROID_NDK_HOME: ${{ env.ANDROID_SDK_ROOT }}/ndk-bundle
+        ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/25.2.9519653
+        ANDROID_NDK_ROOT: ${{ env.ANDROID_HOME }}/ndk/25.2.9519653
       run: |
         chmod +x gradlew
         chmod +x tools/libwallet-android.sh
