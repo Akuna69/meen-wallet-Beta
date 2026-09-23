@@ -1,6 +1,17 @@
 package verifiable_muun_key
 
-// VerifiableMuunKeyFromJson es un stub para satisfacer la compilación de Go
-func VerifiableMuunKeyFromJson(data string) (any, error) {
-    return nil, nil
+type VerifiableMuunKey struct {
+    // Estructura base para satisfacer la compilación
+}
+
+func VerifiableMuunKeyFromJson(data string) (VerifiableMuunKey, error) {
+    return VerifiableMuunKey{}, nil
+}
+
+IntoJSON() (string, error) {
+    return "", nil
+}
+
+func (v VerifiableMuunKey) Verify() error {
+    return nil
 }
