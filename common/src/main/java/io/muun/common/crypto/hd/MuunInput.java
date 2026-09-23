@@ -10,10 +10,10 @@ import javax.validation.constraints.NotNull;
 public class MuunInput {
 
     @NotNull
-    private final MuunOutput prevOut;
+    private final MeenOutput prevOut;
 
     @NotNull
-    private final MuunAddress address;
+    private final MeenAddress address;
 
     @Nullable
     private Signature userSignature;
@@ -49,8 +49,8 @@ public class MuunInput {
     public static MuunInput fromJson(MuunInputJson json) {
 
         return new MuunInput(
-                MuunOutput.fromJson(json.prevOut),
-                MuunAddress.fromJson(json.address),
+                MeenOutput.fromJson(json.prevOut),
+                MeenAddress.fromJson(json.address),
                 json.userSignature == null ? null : Signature.fromJson(json.userSignature),
                 json.muunSignature == null ? null : Signature.fromJson(json.muunSignature),
                 json.swapServerSignature == null ? null : Signature.fromJson(
@@ -74,7 +74,7 @@ public class MuunInput {
     /**
      * Constructor without signatures or additional details.
      */
-    public MuunInput(MuunOutput prevOut, MuunAddress address) {
+    public MuunInput(MeenOutput prevOut, MeenAddress address) {
         this.prevOut = prevOut;
         this.address = address;
     }
@@ -82,8 +82,8 @@ public class MuunInput {
     /**
      * Full constructor.
      */
-    public MuunInput(MuunOutput prevOut,
-                     MuunAddress address,
+    public MuunInput(MeenOutput prevOut,
+                     MeenAddress address,
                      @Nullable Signature userSignature,
                      @Nullable Signature muunSignature,
                      @Nullable Signature swapServerSignature,
@@ -103,7 +103,7 @@ public class MuunInput {
         this.rawMuunPublicNonce = rawMuunPublicNonce;
     }
 
-    public MuunOutput getPrevOut() {
+    public MeenOutput getPrevOut() {
         return prevOut;
     }
 
@@ -115,7 +115,7 @@ public class MuunInput {
         return address.getDerivationPath();
     }
 
-    public MuunAddress getAddress() {
+    public MeenAddress getAddress() {
         return address;
     }
 
