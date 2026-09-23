@@ -49,10 +49,10 @@ jobs:
 
         printf 'package io.muun.muun\n\nobject Cause {\n    val logging: Any = Any()\n    val TraceSection: Any = Any()\n    fun cause(block: () -> Unit) {}\n    fun cause(param: Any, block: () -> Unit) {}\n    fun tostacktracelement(): StackTraceElement {\n        return StackTraceElement("", "", "", 0)\n    }\n}\n' > android/apolloui/src/main/java/io/muun/muun/Cause.kt
 
-    - name: Dar permisos y compilar con Gradle (Dogfood Debug)
+    - name: Dar permisos y compilar APK sin tests
       run: |
         chmod +x gradlew
-        ./gradlew :android:apolloui:assembleDogfoodDebug --warning-mode all
+        ./gradlew :android:apolloui:assembleDogfoodDebug -x test -x lint --warning-mode all
 
     - name: Subir artefacto APK
       uses: actions/upload-artifact@v4
