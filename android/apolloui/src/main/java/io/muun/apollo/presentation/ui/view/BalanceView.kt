@@ -10,6 +10,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import butterknife.BindColor
 import butterknife.BindDrawable
 import butterknife.BindView
+import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.domain.model.BitcoinUnit
 import io.muun.apollo.domain.selector.UtxoSetStateSelector
@@ -61,26 +62,26 @@ class BalanceView @JvmOverloads constructor(
     internal var clockRbfColor: Int = 0
 
     // State:
-    
+    @State
     @JvmField
     var balanceInSatoshis: Long = 0
 
-    
+    @State
     @JvmField
     var bitcoinUnit: BitcoinUnit? = null
 
     // Setting a default to avoid race condition, paymentCtx may take too long to load/fetch
     // and if state must be saved, null can't be serialized by CurrencyUnitBundler
-    
+    @State(CurrencyUnitBundler::class)
     @JvmField
     var primaryCurrency: CurrencyUnit =
         if (isInEditMode) FakeCurrencyUnit() else Monetary.getCurrency("USD")
 
-    
+    @State
     @JvmField
     var hidden: Boolean = false
 
-    
+    @State
     @JvmField
     var clockState: UtxoSetStateSelector.UtxoSetState = UtxoSetStateSelector.UtxoSetState.CONFIRMED
 

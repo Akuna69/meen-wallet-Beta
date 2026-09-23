@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.widget.ImageView
 import android.widget.TextView
 import butterknife.BindView
+import icepick.State
 import io.muun.apollo.R
 
 class HiddenSection @JvmOverloads constructor(c: Context, a: AttributeSet? = null, s: Int = 0) :
@@ -24,15 +25,15 @@ class HiddenSection @JvmOverloads constructor(c: Context, a: AttributeSet? = nul
     lateinit var hiddenSectionChevron: ImageView
 
     // State:
-    
+    @State
     @JvmField
     var retractedTextResId: Int = 0
 
-    
+    @State
     @JvmField
     var expandedTextResId: Int = 0
 
-    
+    @State
     @JvmField
     var expanded: Boolean = false
 

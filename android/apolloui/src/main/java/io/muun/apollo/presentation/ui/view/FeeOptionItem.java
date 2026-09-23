@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindColor;
 import butterknife.BindString;
 import butterknife.BindView;
+import icepick.State;
 
 import javax.annotation.Nullable;
 import javax.money.MonetaryAmount;
@@ -51,7 +52,7 @@ public class FeeOptionItem extends MuunView {
     @BindColor(R.color.disabled_color)
     int disabledTintColor;
 
-    
+    @State
     BitcoinUnit bitcoinUnit;
 
     public FeeOptionItem(Context context) {

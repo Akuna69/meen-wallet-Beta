@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import androidx.annotation.StringRes;
 import androidx.viewbinding.ViewBinding;
+import icepick.State;
 import kotlin.jvm.functions.Function1;
 import rx.functions.Action0;
 
@@ -37,7 +38,7 @@ public class MuunPinInput extends MuunView {
         return MuunPinInputBinding::bind;
     }
 
-    
+    @State
     String content = "";
 
     private OnPinEnteredListener listener;

@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import butterknife.BindString;
 import butterknife.BindView;
+import icepick.State;
 import timber.log.Timber;
 
 import java.io.ByteArrayOutputStream;
@@ -75,7 +76,7 @@ public class MuunPictureInput extends MuunView {
     private OnChangeListener changeListener;
     private OnErrorListener errorListener;
 
-    
+    @State
     boolean loading;
 
     public MuunPictureInput(Context context) {

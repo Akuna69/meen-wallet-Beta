@@ -5,6 +5,7 @@ import android.content.Intent
 import android.util.AttributeSet
 import android.view.View
 import androidx.viewbinding.ViewBinding
+import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.databinding.EditAddressTypeItemBinding
 import io.muun.apollo.domain.model.AddressType
@@ -32,14 +33,14 @@ class AddressTypeItem @JvmOverloads constructor(c: Context, a: AttributeSet? = n
 
     private lateinit var listener: AddressTypeChangedListener
 
-    
+    @State
     lateinit var addressType: AddressType
 
-    
+    @State
     @JvmField
     var taprootStatus: UserActivatedFeatureStatus = UserActivatedFeatureStatus.OFF
 
-    
+    @State
     @JvmField
     var hoursToTaproot: Int = 0
 

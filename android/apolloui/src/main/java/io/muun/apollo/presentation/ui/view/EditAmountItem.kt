@@ -9,6 +9,7 @@ import butterknife.BindColor
 import butterknife.BindDrawable
 import butterknife.BindView
 import butterknife.OnClick
+import icepick.State
 import io.muun.apollo.R
 import io.muun.apollo.domain.model.BitcoinUnit
 import io.muun.apollo.presentation.ui.bundler.MonetaryAmountBundler
@@ -54,7 +55,7 @@ class EditAmountItem @JvmOverloads constructor(c: Context, a: AttributeSet? = nu
 
     // State:
 
-    
+    @State(MonetaryAmountBundler::class)
     @JvmField
     var amount: MonetaryAmount? = null
 

@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 
 interface InAppUpdateManager {
 
-    fun checkForUpdate()
-
     fun interface Factory {
-        operator fun invoke(
+        fun create(
             activity: AppCompatActivity,
-            updateLauncher: ActivityResultLauncher<IntentSenderRequest>
+            launcher: ActivityResultLauncher<IntentSenderRequest>,
         ): InAppUpdateManager
     }
+
+    /**
+     * Check for available updates and start the flexible update flow if one is found.
+     */
+    fun checkForUpdate()
 }

@@ -33,6 +33,7 @@ import androidx.lifecycle.LifecycleOwner;
 import butterknife.BindView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import icepick.State;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -117,16 +118,16 @@ public class MuunTextInput extends MuunView implements DefaultLifecycleObserver 
         viewProps = builder.build();
     }
 
-    
+    @State
     protected String fontFamily;
 
-    
+    @State
     protected int textStyle;
 
-    
+    @State
     protected boolean isEnabled;
 
-    
+    @State
     protected HelperTextVisibility helperTextVisibility;
 
     @BindView(R.id.muun_text_input_layout)

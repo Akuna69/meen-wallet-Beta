@@ -1,0 +1,47 @@
+package io.muun.apollo.domain.action.ek
+
+import io.muun.apollo.data.preferences.UserRepository
+import io.muun.apollo.domain.action.base.BaseAsyncAction2
+import io.muun.apollo.domain.errors.ek.EmergencyKitInvalidCodeError
+import io.muun.apollo.domain.errors.ek.EmergencyKitOldCodeError
+import io.muun.apollo.domain.model.EmergencyKitExport
+import io.muun.apollo.domain.model.GeneratedEmergencyKitInfo
+import rx.Observable
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class VerifyEmergencyKitAction @Inject constructor(
+    private val userRepository: UserRepository,
+    private val reportEmergencyKitExported: ReportEmergencyKitExportedAction,
+) : BaseAsyncAction2<String, GeneratedEmergencyKitInfo, Void>() {
+
+    /**
+     * Verify a given EK verification code matches expectations.
+     */
+    override fun action(providedCode: String, kitGen: GeneratedEmergencyKitInfo): Observable<Void> =
+        Observable.fromCallable {
+
+            val storedCodes = userRepository.fetchOne().emergencyKitVerificationCodes
+
+            val newestCode = storedCodes.getNewest()
+            checkNotNull(newestCode)
+
+            if (providedCode == newestCode) {
+                // Success! Nothing to do.
+                return@fromCallable null
+
+            } else if (storedCodes.containsOld(providedCode)) {
+                // It's an old code. Raise an error with a hint using the first 2 chars:
+                throw EmergencyKitOldCodeError(newestCode.take(2))
+
+            } else {
+                // Not even an old code, just plain invalid:
+                throw EmergencyKitInvalidCodeError(providedCode)
+            }
+        }.flatMap {
+            reportEmergencyKitExported.action(
+                EmergencyKitExport(kitGen, true, EmergencyKitExport.Method.MANUAL)
+            )
+        }
+}
