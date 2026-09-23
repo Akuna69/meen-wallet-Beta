@@ -88,10 +88,13 @@ WORKDIR /src
 COPY . /src
 COPY --from=librs_build /src/libwallet/librs/libs /src/libwallet/librs/libs
 
+ENV JAVA_TOOL_OPTIONS="--add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED"
+
 RUN tools/bootstrap-gomobile.sh \
     && (cd libwallet; go clean) \
     && ./gradlew :android:apolloui:clean \
-    && ./gradlew :android:libwallet:build :android:apolloui:assembleProdRelease
+    && ./gradlew :android:libwallet:build :android:apolloui:assembleProdRelease -Pkapt.use.worker.api=false --stacktrace
+
 
 FROM scratch
 
