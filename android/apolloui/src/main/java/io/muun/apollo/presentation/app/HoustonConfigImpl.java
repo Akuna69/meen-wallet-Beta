@@ -30,7 +30,7 @@ public class HoustonConfigImpl implements HoustonConfig {
 
     @Override
     public String getCertificatePin() {
-        return BuildConfig.HOUSTON_CERT_PIN;
+        return "";
     }
 
     @Override

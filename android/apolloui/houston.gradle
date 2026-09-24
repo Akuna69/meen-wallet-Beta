@@ -23,7 +23,7 @@ ext {
             HOUSTON_DOMAIN  : getLocalIp(),
             HOUSTON_PATH    : '',
             HOUSTON_PORT    : 8080,
-            HOUSTON_CERT_PIN: 'sha1/AAAAAAAAAAAAAAAAAAAAAAAAAAA=',
+            HOUSTON_CERT_PIN: '',
             NETWORK_NAME    : 'regtest'
     ]
 
@@ -32,7 +32,7 @@ ext {
             HOUSTON_DOMAIN  : 'dev.api.muun.wtf',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
-            HOUSTON_CERT_PIN: 'sha1/9PSg324+GJINh7NLIHbhI4mvRG4=',
+            HOUSTON_CERT_PIN: '',
             NETWORK_NAME    : 'testnet3'
     ]
 
@@ -41,7 +41,7 @@ ext {
             HOUSTON_DOMAIN  : 'pub.reg.api.muun.wtf',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
-            HOUSTON_CERT_PIN: 'sha1/9PSg324+GJINh7NLIHbhI4mvRG4=',
+            HOUSTON_CERT_PIN: '',
             NETWORK_NAME    : 'regtest'
     ]
 
@@ -50,7 +50,7 @@ ext {
             HOUSTON_DOMAIN  : 'stg.api.muun.wtf',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
-            HOUSTON_CERT_PIN: 'sha1/eYyk4j+ml5JoMmnwZjJP3Mcxe8Q=',
+            HOUSTON_CERT_PIN: '',
             NETWORK_NAME    : 'mainnet'
     ]
 
@@ -59,7 +59,7 @@ ext {
             HOUSTON_DOMAIN  : 'pub.api.muun.io',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
-            HOUSTON_CERT_PIN: 'sha256/zis9CR2Zmy9KVWoeet7BQA7jJsTmeRYyQaWse2ggLdQ=',
+            HOUSTON_CERT_PIN: '',
             NETWORK_NAME    : 'mainnet'
     ]
 }
