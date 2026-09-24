@@ -9,10 +9,8 @@ ENV NDK_VERSION=22.0.7026061 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
-# Configurar repositorios de archivo de Debian para evitar el error 100
-RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list 2>/dev/null || true \
-    && sed -i 's/security.debian.org\/debian-security/archive.debian.org\/debian-security/g' /etc/apt/sources.list 2>/dev/null || true \
-    && sed -i '/-updates/d' /etc/apt/sources.list 2>/dev/null || true \
+# Sobrescribir repositorios para usar unicamente el archivo funcional de Bullseye
+RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list \
     && apt-get update --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Retries=5 \
     && apt-get install --yes --no-install-recommends \
         unzip \
