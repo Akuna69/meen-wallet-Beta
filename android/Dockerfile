@@ -9,8 +9,11 @@ ENV NDK_VERSION=22.0.7026061 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
-# Instalar dependencias del sistema y compilador C/C++ (build-essential incluye gcc y make)
-RUN apt-get update && apt-get install --yes --no-install-recommends \
+# Apuntar a archive.debian.org para Debian Bullseye (evita errores 404 de paquetes retirados)
+RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list \
+    && echo "deb http://archive.debian.org/debian-security bullseye-security main" >> /etc/apt/sources.list \
+    && apt-get update --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Retries=5 \
+    && apt-get install --yes --no-install-recommends \
         build-essential \
         gcc \
         g++ \
