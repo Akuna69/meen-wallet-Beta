@@ -4,6 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV GO_VERSION=1.21.5
 ENV JAVA_VERSION=17
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
+ENV ANDROID_HOME=/opt/android-sdk
 ENV ANDROID_NDK_HOME=/opt/android-sdk/ndk/25.2.9519653
 
 # 1. Instalar dependencias del sistema
@@ -40,6 +41,9 @@ ENV PATH=${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platfo
 # Acepta licencias e instala NDK 25.2.9519653
 RUN yes | sdkmanager --licenses > /dev/null \
     && sdkmanager "ndk;25.2.9519653" "platforms;android-34" "build-tools;34.0.0"
+
+# Enlace simbólico para engañar la ruta por defecto de gomobile
+RUN mkdir -p /root/Android && ln -s /opt/android-sdk /root/Android/Sdk
 
 WORKDIR /src
 COPY . .
