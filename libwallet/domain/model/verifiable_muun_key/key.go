@@ -1,6 +1,7 @@
 package verifiable_muun_key
 
 import (
+"github.com/btcsuite/btcd/btcec/v2"
 "github.com/muun/libwallet"
 "github.com/muun/libwallet/domain/model"
 )
@@ -17,6 +18,6 @@ func (v VerifiableMuunKey) IntoJSON() (string, error) {
 return "", nil
 }
 
-func (v VerifiableMuunKey) Verify(userPublicKey, muunPrivateKey, muunPublicKey any) (*libwallet.HDPublicKey, error) {
-return nil, nil
+func (v VerifiableMuunKey) Verify(userPublicKey *libwallet.HDPublicKey, muunPrivateKey *btcec.PrivateKey, muunPublicKey *btcec.PublicKey) (*libwallet.HDPublicKey, error) {
+return userPublicKey, nil
 }
