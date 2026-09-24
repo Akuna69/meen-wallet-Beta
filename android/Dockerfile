@@ -1,8 +1,5 @@
 # VERY IMPORTANT!!!
-# This file is used by build-release.yml (https://github.com/muun/apollo/blob/eedb679b9a5b7af2c617cc794c8dcf53eb1b4321/.github/workflows/build-release.yml).
-# Any change made here will affect how the APK is built in the OSS repository (github action)
-# and will impact the reproducible build verification.
-
+# This file is used by build-release.yml
 FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774 AS muun_android_builder
 
 ENV NDK_VERSION=22.0.7026061 \
@@ -12,7 +9,11 @@ ENV NDK_VERSION=22.0.7026061 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
-RUN apt-get update -o Acquire::Retries=3 \
+# Configurar repositorios de archivo de Debian para evitar el error 100
+RUN sed -i 's/deb.debian.org/archive.debian.org/g' /etc/apt/sources.list 2>/dev/null || true \
+    && sed -i 's/security.debian.org\/debian-security/archive.debian.org\/debian-security/g' /etc/apt/sources.list 2>/dev/null || true \
+    && sed -i '/-updates/d' /etc/apt/sources.list 2>/dev/null || true \
+    && apt-get update --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Retries=5 \
     && apt-get install --yes --no-install-recommends \
         unzip \
         wget \
@@ -52,7 +53,6 @@ RUN sdkmanager "tools" "platform-tools"
 RUN yes | sdkmanager --update --channel=3
 
 # Please keep these in descending order!
-# The `yes` is for accepting all non-standard tool licenses.
 RUN yes | sdkmanager \
     "platforms;android-${ANDROID_PLATFORM_VERSION}" \
     "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
@@ -70,7 +70,7 @@ ARG TARGETS="aarch64-unknown-linux-musl x86_64-unknown-linux-musl aarch64-linux-
 
 RUN rustup toolchain install ${RUSTUP_TOOLCHAIN} \
     && rustup override set ${RUSTUP_TOOLCHAIN} \
-    && rustup target add --toolchain ${RUSTUP_TOOLCHAIN}$TARGETS \
+    && rustup target add --toolchain ${RUSTUP_TOOLCHAIN} $TARGETS \
     && rustup component add clippy \
     && rustup component add rustfmt
 
