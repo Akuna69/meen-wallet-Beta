@@ -101,11 +101,11 @@ android {
     }
 
     defaultConfig {
-        applicationId "io.muun.apollo"
+        applicationId "io.meen.apollo"
         minSdk 21
         targetSdk 35
         versionCode 1511
-        versionName "55.11"
+        versionName "63.9"
 
         // Use default Proguard file, bundled with Android Gradle Plugin
         // See: https://issuetracker.google.com/issues/126772206
@@ -171,6 +171,7 @@ android {
         }
 
         release {
+            signingConfig signingConfigs.release
             debuggable false
             minifyEnabled true
             shrinkResources true
