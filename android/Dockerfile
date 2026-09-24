@@ -6,6 +6,8 @@ ENV JAVA_VERSION=17
 ENV ANDROID_SDK_ROOT=/opt/android-sdk
 ENV ANDROID_HOME=/opt/android-sdk
 ENV ANDROID_NDK_HOME=/opt/android-sdk/ndk/25.2.9519653
+ENV GOTOOLCHAIN=local
+ENV CGO_ENABLED=1
 
 # 1. Instalar dependencias del sistema
 RUN apt-get update && apt-get install -y \
@@ -29,7 +31,7 @@ ENV PATH=/usr/local/go/bin:$PATH
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:$PATH
 
-# 3. Instalar Android Command Line Tools y el NDK requerido
+# 3. Instalar Android Command Line Tools y NDK
 RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools \
     && wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip \
     && unzip -q /tmp/cmdline-tools.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools \
@@ -38,11 +40,11 @@ RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools \
 
 ENV PATH=${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$PATH
 
-# Acepta licencias e instala NDK 25.2.9519653
+# Aceptar licencias e instalar NDK 25.2.9519653
 RUN yes | sdkmanager --licenses > /dev/null \
     && sdkmanager "ndk;25.2.9519653" "platforms;android-34" "build-tools;34.0.0"
 
-# Enlace simbólico para engañar la ruta por defecto de gomobile
+# Enlace simbólico para compatibilidad de rutas de gomobile
 RUN mkdir -p /root/Android && ln -s /opt/android-sdk /root/Android/Sdk
 
 WORKDIR /src
