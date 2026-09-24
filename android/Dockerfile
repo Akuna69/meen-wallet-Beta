@@ -5,8 +5,8 @@ FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863
 ENV NDK_VERSION=22.0.7026061 \
     ANDROID_PLATFORM_VERSION=28 \
     ANDROID_BUILD_TOOLS_VERSION=28.0.3 \
-    GO_VERSION=1.24.10 \
-    GOTOOLCHAIN=local \
+    GO_VERSION=1.26.0 \
+    GOTOOLCHAIN=auto \
     CGO_ENABLED=1
 
 # Usar únicamente el repositorio principal de archive.debian.org para Bullseye
