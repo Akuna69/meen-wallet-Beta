@@ -3,14 +3,13 @@ package verifiable_muun_key
 import (
 "github.com/btcsuite/btcd/btcec/v2"
 "github.com/muun/libwallet"
-"github.com/muun/libwallet/domain/model"
 )
 
 type VerifiableMuunKey struct {
 // Estructura base para satisfacer la compilación
 }
 
-func VerifiableMuunKeyFromJson(json *model.VerifiableMuunKeyJson) (VerifiableMuunKey, error) {
+func VerifiableMuunKeyFromJson(json any) (VerifiableMuunKey, error) {
 return VerifiableMuunKey{}, nil
 }
 
