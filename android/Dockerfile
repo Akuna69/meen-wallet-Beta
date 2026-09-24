@@ -9,9 +9,8 @@ ENV NDK_VERSION=22.0.7026061 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
-# Apuntar a archive.debian.org para Debian Bullseye (evita errores 404 de paquetes retirados)
+# Usar únicamente el repositorio principal de archive.debian.org para Bullseye
 RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list \
-    && echo "deb http://archive.debian.org/debian-security bullseye-security main" >> /etc/apt/sources.list \
     && apt-get update --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Retries=5 \
     && apt-get install --yes --no-install-recommends \
         build-essential \
