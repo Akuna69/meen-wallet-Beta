@@ -99,5 +99,4 @@ FROM scratch
 COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-arm64-v8a-release.apk apolloui-prod-arm64-v8a-release.apk
 COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-armeabi-v7a-release.apk apolloui-prod-armeabi-v7a-release.apk
 COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-x86-release.apk apolloui-prod-x86-release.apk
-COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-x86_64-release.apk apolloui-prod-x86_64-release.apk
 COPY --from=build /src/android/apolloui/build/outputs/mapping/prodRelease/mapping.txt mapping.txt
