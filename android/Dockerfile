@@ -1,55 +1,98 @@
-FROM --platform=linux/amd64 ubuntu:22.04
+# VERY IMPORTANT!!!
+# This file is used by build-release.yml
+FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863d0580c438ed55ecfa0bc126b41f68c3f62f9774 AS muun_android_builder
 
-ENV DEBIAN_FRONTEND=noninteractive
-ENV GO_VERSION=1.24.0
-ENV JAVA_VERSION=17
-ENV ANDROID_SDK_ROOT=/opt/android-sdk
-ENV ANDROID_HOME=/opt/android-sdk
-ENV ANDROID_NDK_HOME=/opt/android-sdk/ndk/25.2.9519653
+ENV NDK_VERSION 22.0.7026061
+ENV ANDROID_PLATFORM_VERSION 28
+ENV ANDROID_BUILD_TOOLS_VERSION 28.0.3
+ENV GO_VERSION 1.24.7
+ENV GOTOOLCHAIN local
+ENV CGO_ENABLED 1
 
-# 1. Instalar dependencias del sistema
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    git \
-    openjdk-17-jdk \
-    unzip \
-    wget \
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends \
+        unzip \
+        wget \
+        ca-certificates \
+        curl \
+        git \
+        zip \
     && rm -rf /var/lib/apt/lists/*
 
-ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-ENV PATH=$JAVA_HOME/bin:$PATH
+# Install Golang
+RUN curl -L "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
+-o go${GO_VERSION}.linux-amd64.tar.gz && \
+tar -xvf go${GO_VERSION}.linux-amd64.tar.gz -C /usr/local/  && \
+rm -rf go${GO_VERSION}.linux-amd64.tar.gz
 
-# 2. Instalar Go 1.24.0
-RUN wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz \
-    && tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz \
-    && rm go${GO_VERSION}.linux-amd64.tar.gz
+ENV GOPATH /go
+ENV PATH $GOPATH/bin:/usr/local/go/bin:$PATH
 
-ENV PATH=/usr/local/go/bin:$PATH
-ENV GOPATH=/go
-ENV PATH=$GOPATH/bin:$PATH
+# Install Android SDK
+ENV ANDROID_HOME /opt/android-sdk-linux
+ENV ANDROID_SDK_ROOT /opt/android-sdk-linux
 
-# 3. Instalar Android Command Line Tools y NDK
-RUN mkdir -p ${ANDROID_SDK_ROOT}/cmdline-tools \
-    && wget https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip \
-    && unzip -q /tmp/cmdline-tools.zip -d ${ANDROID_SDK_ROOT}/cmdline-tools \
-    && mv ${ANDROID_SDK_ROOT}/cmdline-tools/cmdline-tools ${ANDROID_SDK_ROOT}/cmdline-tools/latest \
-    && rm /tmp/cmdline-tools.zip
+RUN cd /opt \
+    && wget -q https://dl.google.com/android/repository/commandlinetools-linux-6609375_latest.zip -O android-sdk-tools.zip \
+    && mkdir -p ${ANDROID_HOME}/cmdline-tools \
+    && unzip -q android-sdk-tools.zip -d ${ANDROID_HOME}/cmdline-tools \
+    && rm android-sdk-tools.zip
 
-ENV PATH=${ANDROID_SDK_ROOT}/cmdline-tools/latest/bin:${ANDROID_SDK_ROOT}/platform-tools:$PATH
+ENV PATH ${PATH}:${ANDROID_HOME}/cmdline-tools/tools/bin:${ANDROID_HOME}/platform-tools
 
-# Aceptar licencias e instalar NDK 25.2.9519653
-RUN yes | sdkmanager --licenses > /dev/null \
-    && sdkmanager "ndk;25.2.9519653" "platforms;android-34" "build-tools;34.0.0"
+# Accept licenses before installing components
+RUN yes | sdkmanager --licenses
 
-# Enlace simbólico para compatibilidad de rutas de gomobile
-RUN mkdir -p /root/Android && ln -s /opt/android-sdk /root/Android/Sdk
+# Platform tools
+RUN sdkmanager "tools" "platform-tools"
+RUN yes | sdkmanager --update --channel=3
+
+# Install platforms and NDK
+RUN yes | sdkmanager \
+    "platforms;android-${ANDROID_PLATFORM_VERSION}" \
+    "build-tools;${ANDROID_BUILD_TOOLS_VERSION}"
+
+RUN sdkmanager --install "ndk;${NDK_VERSION}"
+
+ENV ANDROID_NDK_HOME ${ANDROID_HOME}/ndk/${NDK_VERSION}
+
+# Ajuste para gomobile
+RUN mkdir -p /root/Android && ln -s /opt/android-sdk-linux /root/Android/Sdk
+
+FROM --platform=linux/amd64 rust:1.84@sha256:738ae99a3d75623f41e6882566b4ef37e38a9840244a47efd4a0ca22e9628b88 AS rust_builder
+
+ARG RUSTUP_TOOLCHAIN=nightly-2024-12-16
+ARG TARGETS="aarch64-unknown-linux-musl x86_64-unknown-linux-musl aarch64-linux-android armv7-linux-androideabi i686-linux-android x86_64-linux-android"
+
+RUN rustup toolchain install ${RUSTUP_TOOLCHAIN} \
+    && rustup override set ${RUSTUP_TOOLCHAIN} \
+    && rustup target add --toolchain ${RUSTUP_TOOLCHAIN} $TARGETS \
+    && rustup component add clippy \
+    && rustup component add rustfmt
+
+FROM rust_builder AS librs_build
 
 WORKDIR /src
-COPY . .
+COPY . /src
 
+RUN TARGETS="$TARGETS" USE_HOST_CARGO=true libwallet/librs/makelibs.sh
+
+FROM muun_android_builder AS build
+
+WORKDIR /src
+COPY . /src
+COPY --from=librs_build /src/libwallet/librs/libs /src/libwallet/librs/libs
+
+# Habilitamos --info --stacktrace para obtener la salida del error real de gomobile
 RUN tools/bootstrap-gomobile.sh \
     && (cd libwallet; go clean) \
     && ./gradlew :android:apolloui:clean \
-    && ./gradlew :android:libwallet:build \
-    && ./gradlew :android:apolloui:assembleProdRelease
+    && ./gradlew :android:libwallet:build --info --stacktrace :android:apolloui:assembleProdRelease
+
+FROM scratch
+
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-arm64-v8a-release-unsigned.apk apolloui-prod-arm64-v8a-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-armeabi-v7a-release-unsigned.apk apolloui-prod-armeabi-v7a-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-x86-release-unsigned.apk apolloui-prod-x86-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-x86_64-release-unsigned.apk apolloui-prod-x86_64-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/mapping/prodRelease/mapping.txt mapping.txt
