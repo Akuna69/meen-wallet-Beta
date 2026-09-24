@@ -5,14 +5,15 @@ FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863
 ENV NDK_VERSION=22.0.7026061 \
     ANDROID_PLATFORM_VERSION=28 \
     ANDROID_BUILD_TOOLS_VERSION=28.0.3 \
-    GO_VERSION=1.26.0 \
+    GO_VERSION=1.22.10 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
-# Sobrescribir repositorios para usar unicamente el archivo funcional de Bullseye
-RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources.list \
-    && apt-get update --allow-releaseinfo-change -o Acquire::Check-Valid-Until=false -o Acquire::Retries=5 \
-    && apt-get install --yes --no-install-recommends \
+# Instalar dependencias del sistema y compilador C/C++ (build-essential incluye gcc y make)
+RUN apt-get update && apt-get install --yes --no-install-recommends \
+        build-essential \
+        gcc \
+        g++ \
         unzip \
         wget \
         ca-certificates \
@@ -21,17 +22,16 @@ RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-# install golang
+# Install golang
 RUN curl -L "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
 -o go${GO_VERSION}.linux-amd64.tar.gz && \
-tar -xvf go${GO_VERSION}.linux-amd64.tar.gz -C /usr/local/ && \
+tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
 rm -rf go${GO_VERSION}.linux-amd64.tar.gz
 
 ENV GOPATH=/go
 ENV PATH=$GOPATH/bin:/usr/local/go/bin:$PATH
-RUN go version
 
-# install android sdk
+# Install android sdk
 ENV ANDROID_HOME=/opt/android-sdk-linux
 ENV ANDROID_SDK_ROOT=/opt/android-sdk-linux
 
