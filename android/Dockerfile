@@ -5,7 +5,7 @@ FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863
 ENV NDK_VERSION=22.0.7026061 \
     ANDROID_PLATFORM_VERSION=28 \
     ANDROID_BUILD_TOOLS_VERSION=28.0.3 \
-    GO_VERSION=1.24.7 \
+    GO_VERSION=1.26.0 \
     GOTOOLCHAIN=local \
     CGO_ENABLED=1
 
@@ -45,7 +45,7 @@ ENV PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/tools/bin:${ANDROID_HOME}/platfor
 # Accept licenses before installing components
 RUN yes | sdkmanager --licenses
 
-# Platform tools (removido el paquete obsoleto "tools")
+# Platform tools
 RUN sdkmanager "platform-tools"
 
 RUN yes | sdkmanager --update --channel=3
