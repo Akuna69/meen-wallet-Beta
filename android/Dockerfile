@@ -45,8 +45,8 @@ ENV PATH=${PATH}:${ANDROID_HOME}/cmdline-tools/tools/bin:${ANDROID_HOME}/platfor
 # Accept licenses before installing components
 RUN yes | sdkmanager --licenses
 
-# Platform tools
-RUN sdkmanager "tools" "platform-tools"
+# Platform tools (removido el paquete obsoleto "tools")
+RUN sdkmanager "platform-tools"
 
 RUN yes | sdkmanager --update --channel=3
 
