@@ -108,6 +108,7 @@ android {
         }
     }
 
+
     namespace "io.muun.apollo"
 
     compileSdk 35
