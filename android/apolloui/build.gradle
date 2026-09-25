@@ -132,7 +132,6 @@ android {
             keyAlias dogfoodKeystoreProps['keyAlias'] ?: ""
             keyPassword dogfoodKeystoreProps['keyPassword'] ?: ""
         }
-    }
 
     defaultConfig {
         applicationId "io.muun.apollo"
