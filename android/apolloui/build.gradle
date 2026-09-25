@@ -107,6 +107,7 @@ android {
     }
 
         // Debug application class, which is interpolated into AndroidManifest.xml
+        defaultConfig {
         manifestPlaceholders = [mainApplicationClass: 'ApolloDebugApplication', usesCleartextTraffic: 'true']
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -115,5 +116,6 @@ android {
         buildConfigField("String", "BRANCH", quote(branchName()))
         buildConfigField("boolean", "PRODUCTION", "false")
         buildConfigField("boolean", "RELEASE", "false")
+    }
 
             
