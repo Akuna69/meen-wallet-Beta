@@ -91,6 +91,23 @@ static def configExternalLinks(productFlavor, String host) {
 }
 
 android {
+    signingConfigs {
+        release {
+            def kFile = file("../../../mi_clave.jks")
+            if (!kFile.exists()) { kFile = rootProject.file("mi_clave.jks") }
+            if (!kFile.exists()) { kFile = file("../../mi_clave.jks") }
+            if (!kFile.exists()) { kFile = file("../mi_clave.jks") }
+            if (!kFile.exists()) { kFile = file("mi_clave.jks") }
+
+            if (kFile.exists()) {
+                storeFile kFile
+                storePassword System.getenv("RELEASE_STORE_PASSWORD") ?: "android"
+                keyAlias System.getenv("RELEASE_KEY_ALIAS") ?: "androiddebugkey"
+                keyPassword System.getenv("RELEASE_KEY_PASSWORD") ?: "android"
+            }
+        }
+    }
+
     namespace "io.muun.apollo"
 
     compileSdk 35
@@ -100,20 +117,7 @@ android {
         buildConfig true
     }
 
-        signingConfigs {
-        release {
-            def keystoreFile = file("../../../mi_clave.jks")
-            if (!keystoreFile.exists()) { keystoreFile = rootProject.file("mi_clave.jks") }
-            if (!keystoreFile.exists()) { keystoreFile = file("../../mi_clave.jks") }
-            if (!keystoreFile.exists()) { keystoreFile = file("../mi_clave.jks") }
-            if (!keystoreFile.exists()) { keystoreFile = file("mi_clave.jks") }
-
-            if (keystoreFile.exists()) {
-                storeFile keystoreFile
-                storePassword System.getenv("RELEASE_STORE_PASSWORD") ?: "android"
-                keyAlias System.getenv("RELEASE_KEY_ALIAS") ?: "androiddebugkey"
-                keyPassword System.getenv("RELEASE_KEY_PASSWORD") ?: "android"
-            }
+        
         }
         dogfood {
             def dogfoodKeystoreProps = new Properties()
