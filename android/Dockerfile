@@ -92,7 +92,7 @@ RUN tools/bootstrap-gomobile.sh \
     && (cd libwallet; go clean) \
     && ./gradlew :android:apolloui:clean \
     && ./gradlew :android:libwallet:build \
-    && ./gradlew :android:apolloui:assembleProdRelease
+    && ./gradlew :android:apolloui:assembleProdDebug
 
 FROM scratch
 
