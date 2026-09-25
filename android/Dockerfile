@@ -5,7 +5,7 @@ FROM --platform=linux/amd64 openjdk:17-jdk-slim@sha256:aaa3b3cb27e3e520b8f116863
 ENV NDK_VERSION=22.0.7026061 \
     ANDROID_PLATFORM_VERSION=28 \
     ANDROID_BUILD_TOOLS_VERSION=28.0.3 \
-    GO_VERSION=1.26.0 \
+    GO_VERSION=1.24.10 \
     GOTOOLCHAIN=auto \
     CGO_ENABLED=1
 
@@ -24,7 +24,7 @@ RUN echo "deb http://archive.debian.org/debian bullseye main" > /etc/apt/sources
         zip \
     && rm -rf /var/lib/apt/lists/*
 
-# Install golang
+# Install golang base toolchain
 RUN curl -L "https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz" \
 -o go${GO_VERSION}.linux-amd64.tar.gz && \
 tar -C /usr/local -xzf go${GO_VERSION}.linux-amd64.tar.gz && \
@@ -88,13 +88,15 @@ WORKDIR /src
 COPY . /src
 COPY --from=librs_build /src/libwallet/librs/libs /src/libwallet/librs/libs
 
-RUN tools/bootstrap-gomobile.sh \
-    && (cd libwallet; go clean) \
-    && ./gradlew :android:apolloui:clean \
-    && ./gradlew :android:libwallet:build \
-    && ./gradlew :android:apolloui:assembleProdDebug
+# Pasos separados con --stacktrace para localizar la falla exacta
+RUN tools/bootstrap-gomobile.sh
+RUN (cd libwallet && go clean)
+RUN ./gradlew :android:libwallet:build --stacktrace
+RUN ./gradlew :android:apolloui:assembleProdRelease --stacktrace
 
 FROM scratch
 
-    COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/*.apk ./
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-arm64-v8a-release-unsigned.apk apolloui-prod-arm64-v8a-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-armeabi-v7a-release-unsigned.apk apolloui-prod-armeabi-v7a-release-unsigned.apk
+COPY --from=build /src/android/apolloui/build/outputs/apk/prod/release/apolloui-prod-x86-release-unsigned.apk apolloui-prod-x86-release-unsigned.apk
 COPY --from=build /src/android/apolloui/build/outputs/mapping/prodRelease/mapping.txt mapping.txt
