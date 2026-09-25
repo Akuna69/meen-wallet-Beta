@@ -120,7 +120,7 @@ android {
 
         
         }
-        dogfood {
+        dogfood prod {
             def dogfoodKeystoreProps = new Properties()
             def keystorePropsFile = file("./dogfood-keystore.properties")
             if (keystorePropsFile.exists()) {
