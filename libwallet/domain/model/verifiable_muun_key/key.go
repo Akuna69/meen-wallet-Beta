@@ -10,8 +10,7 @@ type VerifiableMuunKey struct {
 }
 
 type EncryptedMuunKeyWithVerificationFlag struct {
-Verified         bool
-EncryptedMuunKey any
+EncryptedMuunKey *libwallet.HDPublicKey
 }
 
 func VerifiableMuunKeyFromJson(json any) (VerifiableMuunKey, error) {
@@ -24,7 +23,6 @@ return "", nil
 
 func (v VerifiableMuunKey) Verify(userPublicKey *libwallet.HDPublicKey, muunPrivateKey *btcec.PrivateKey, muunPublicKey *btcec.PublicKey) (*EncryptedMuunKeyWithVerificationFlag, error) {
 return &EncryptedMuunKeyWithVerificationFlag{
-Verified:         true,
 EncryptedMuunKey: userPublicKey,
 }, nil
 }
