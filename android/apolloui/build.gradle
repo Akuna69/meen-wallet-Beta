@@ -100,21 +100,32 @@ android {
         buildConfig true
     }
 
-    signingConfigs {
+        signingConfigs {
         release {
-            def keystoreFile = rootProject.file("mi_clave.jks")
+            def keystoreFile = file("../../../mi_clave.jks")
+            if (!keystoreFile.exists()) { keystoreFile = rootProject.file("mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("../../mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("../mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("mi_clave.jks") }
+
             if (keystoreFile.exists()) {
                 storeFile keystoreFile
                 storePassword System.getenv("RELEASE_STORE_PASSWORD") ?: "android"
                 keyAlias System.getenv("RELEASE_KEY_ALIAS") ?: "androiddebugkey"
                 keyPassword System.getenv("RELEASE_KEY_PASSWORD") ?: "android"
-            } else {
-                // Fallback automático: si no hay variables de entorno, usa debug para evitar errores
-                storeFile file(android.signingConfigs.debug.storeFile)
-                storePassword android.signingConfigs.debug.storePassword
-                keyAlias android.signingConfigs.debug.keyAlias
-                keyPassword android.signingConfigs.debug.keyPassword
             }
+        }
+        dogfood {
+            def dogfoodKeystoreProps = new Properties()
+            def keystorePropsFile = file("./dogfood-keystore.properties")
+            if (keystorePropsFile.exists()) {
+                dogfoodKeystoreProps.load(new FileInputStream(keystorePropsFile))
+            }
+            def keystoreFilePath = dogfoodKeystoreProps['keystoreFile']
+            storeFile keystoreFilePath != null ? file(keystoreFilePath) : null
+            storePassword dogfoodKeystoreProps['storePassword'] ?: ""
+            keyAlias dogfoodKeystoreProps['keyAlias'] ?: ""
+            keyPassword dogfoodKeystoreProps['keyPassword'] ?: ""
         }
     }
 
@@ -142,22 +153,32 @@ android {
         buildConfigField("boolean", "PRODUCTION", "false")
         buildConfigField("boolean", "RELEASE", "false")
 
-        signingConfigs {
-            dogfood {
+            signingConfigs {
+        release {
+            def keystoreFile = file("../../../mi_clave.jks")
+            if (!keystoreFile.exists()) { keystoreFile = rootProject.file("mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("../../mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("../mi_clave.jks") }
+            if (!keystoreFile.exists()) { keystoreFile = file("mi_clave.jks") }
 
-                def dogfoodKeystoreProps = new Properties()
-                if (file("./dogfood-keystore.properties").exists()) {
-                    dogfoodKeystoreProps.load(
-                            new FileInputStream(file("./dogfood-keystore.properties"))
-                    )
-                }
-
-                def keystoreFilePath = dogfoodKeystoreProps['keystoreFile']
-                storeFile keystoreFilePath != null ? file(keystoreFilePath) : null
-                storePassword dogfoodKeystoreProps['storePassword'] ?: ""
-                keyAlias dogfoodKeystoreProps['keyAlias'] ?: ""
-                keyPassword dogfoodKeystoreProps['keyPassword'] ?: ""
+            if (keystoreFile.exists()) {
+                storeFile keystoreFile
+                storePassword System.getenv("RELEASE_STORE_PASSWORD") ?: "android"
+                keyAlias System.getenv("RELEASE_KEY_ALIAS") ?: "androiddebugkey"
+                keyPassword System.getenv("RELEASE_KEY_PASSWORD") ?: "android"
             }
+        }
+        dogfood {
+            def dogfoodKeystoreProps = new Properties()
+            def keystorePropsFile = file("./dogfood-keystore.properties")
+            if (keystorePropsFile.exists()) {
+                dogfoodKeystoreProps.load(new FileInputStream(keystorePropsFile))
+            }
+            def keystoreFilePath = dogfoodKeystoreProps['keystoreFile']
+            storeFile keystoreFilePath != null ? file(keystoreFilePath) : null
+            storePassword dogfoodKeystoreProps['storePassword'] ?: ""
+            keyAlias dogfoodKeystoreProps['keyAlias'] ?: ""
+            keyPassword dogfoodKeystoreProps['keyPassword'] ?: ""
         }
     }
 
