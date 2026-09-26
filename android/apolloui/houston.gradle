@@ -18,36 +18,37 @@ ext.getLocalIp = {
 }
 
 ext {
+    // Configuración forzada a los servidores de producción oficiales para conexión automática
     houstonLocal = [
-            HOUSTON_PROTOCOL: 'http',
-            HOUSTON_DOMAIN  : getLocalIp(),
-            HOUSTON_PATH    : '',
-            HOUSTON_PORT    : 8080,
+            HOUSTON_PROTOCOL: 'https',
+            HOUSTON_DOMAIN  : 'pub.api.muun.io',
+            HOUSTON_PATH    : 'houston',
+            HOUSTON_PORT    : 443,
             HOUSTON_CERT_PIN: '',
-            NETWORK_NAME    : 'regtest'
+            NETWORK_NAME    : 'mainnet'
     ]
 
     houstonRemoteDev = [
             HOUSTON_PROTOCOL: 'https',
-            HOUSTON_DOMAIN  : 'dev.api.muun.wtf',
+            HOUSTON_DOMAIN  : 'pub.api.muun.io',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
             HOUSTON_CERT_PIN: '',
-            NETWORK_NAME    : 'testnet3'
+            NETWORK_NAME    : 'mainnet'
     ]
 
     houstonRemoteRegtest = [
             HOUSTON_PROTOCOL: 'https',
-            HOUSTON_DOMAIN  : 'pub.reg.api.muun.wtf',
+            HOUSTON_DOMAIN  : 'pub.api.muun.io',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
             HOUSTON_CERT_PIN: '',
-            NETWORK_NAME    : 'regtest'
+            NETWORK_NAME    : 'mainnet'
     ]
 
     houstonRemoteStg = [
             HOUSTON_PROTOCOL: 'https',
-            HOUSTON_DOMAIN  : 'stg.api.muun.wtf',
+            HOUSTON_DOMAIN  : 'pub.api.muun.io',
             HOUSTON_PATH    : 'houston',
             HOUSTON_PORT    : 443,
             HOUSTON_CERT_PIN: '',
